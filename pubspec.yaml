@@ -44,14 +44,17 @@ dependencies:
   solid_lints: ^0.3.1
   uuid: ^4.5.1
   intl: ^0.20.2
-  stipop_sdk: ^0.2.3
+  google_fonts: ^6.3.2
+  lottie: ^3.3.2
+  easy_localization: ^3.0.8
+  
   
   
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
   
 
 
@@ -64,11 +67,12 @@ flutter:
 
   assets:
     - assets/
-
-  fonts:
-    - family: Schyler
-      fonts:
-        - asset: fonts/Schyler-Regular.ttf
-        - asset: fonts/Schyler-Italic.ttf
-          style: italic
+    - assets/lottie/
+    - assets/translations/
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
  
