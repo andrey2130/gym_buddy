@@ -87,12 +87,7 @@ class _RegisterScreenState extends State<RegisterScreen>
           failure: (message) {
             _showDelayedSnackBar(message, isError: true);
           },
-          authenticated: (userId) {
-            _showDelayedSnackBar(
-              'registration_successful'.tr(),
-              isError: false,
-            );
-          },
+          authenticated: (userId) {},
           orElse: () {},
         );
       },
@@ -121,7 +116,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                       Expanded(
                         child: Padding(
                           padding: EdgeInsets.symmetric(
-                            horizontal: 16.w, 
+                            horizontal: 16.w,
                             vertical: 24.h,
                           ),
                           child: SingleChildScrollView(

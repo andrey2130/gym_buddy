@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:gym_buddy/core/theme/app_themes.dart';
 import 'package:gym_buddy/core/utils/custom_app_bar.dart';
 import 'package:gym_buddy/core/utils/validators.dart';
+import 'package:gym_buddy/features/auth/domain/params/login_params.dart';
 import 'package:gym_buddy/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:gym_buddy/features/auth/presentation/widgets/animated_scale_button.dart';
 import 'package:gym_buddy/features/auth/presentation/widgets/animated_tex_field.dart';
@@ -59,28 +60,43 @@ class _LoginScreenState extends State<LoginScreen>
     super.dispose();
   }
 
+  bool _showLottie = false;
+  void _login() {
+    if (_formKey.currentState!.validate()) {
+      setState(() => _showLottie = true);
+
+      context.read<AuthBloc>().add(
+        AuthEvent.loginViaEmail(
+          LoginParams(
+            email: _emailController.text,
+            password: _passwordController.text,
+          ),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
-      listener: (context, state) {
-        state.maybeWhen(
-          failure: (message) {
-            _showDelayedSnackBar(message, isError: true);
-          },
-          authenticated: (userId) {
-            _showDelayedSnackBar(
-              'registration_successful'.tr(),
-              isError: false,
-            );
-          },
-          orElse: () {},
-        );
+      listener: (context, state) async {
+        if (state is Loading) {
+        } else {
+          await Future.delayed(const Duration(seconds: 2));
+
+          if (!mounted) return;
+
+          setState(() => _showLottie = false);
+
+          state.maybeWhen(
+            failure: (message) => _showDelayedSnackBar(message, isError: true),
+            authenticated: (userId) {},
+            orElse: () {},
+          );
+        }
       },
       builder: (context, state) {
-        final isLoading = state.maybeWhen(
-          loading: () => true,
-          orElse: () => false,
-        );
+        state.maybeWhen(loading: () => true, orElse: () => false);
 
         return Stack(
           children: [
@@ -143,15 +159,17 @@ class _LoginScreenState extends State<LoginScreen>
                 ),
               ),
             ),
-            if (isLoading)
+            if (_showLottie)
               ColoredBox(
                 color: Colors.black.withValues(alpha: 0.5),
                 child: Center(
                   child: SizedBox(
                     height: 150.h,
                     width: 150.w,
+
                     child: Lottie.asset(
                       'assets/lottie/successful_registration.json',
+                      repeat: false,
                     ),
                   ),
                 ),
@@ -232,8 +250,8 @@ class _LoginScreenState extends State<LoginScreen>
     return AnimatedScaleButton(
       height: 48.h,
       width: double.infinity,
-      onPressed: () {},
-      text: 'register'.tr(),
+      onPressed: _login,
+      text: 'log_in'.tr(),
     );
   }
 

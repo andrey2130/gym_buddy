@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gym_buddy/core/error/failure.dart';
 import 'package:gym_buddy/features/auth/data/datasource/user_datasource.dart';
+import 'package:gym_buddy/features/auth/domain/params/login_params.dart';
 import 'package:gym_buddy/features/auth/domain/params/register_params.dart';
 import 'package:gym_buddy/injections.dart';
 import 'package:injectable/injectable.dart';
@@ -11,6 +12,7 @@ abstract class AuthDatasource {
   Future<Either<Failure, String>> registerViaEmail({
     required RegisterParams params,
   });
+  Future<Either<Failure, String>> loginViaEmail({required LoginParams params});
 }
 
 @Injectable(as: AuthDatasource)
@@ -60,6 +62,45 @@ class AuthDatasourceImpl implements AuthDatasource {
           errorMessage = "Password is too weak.";
         default:
           errorMessage = e.message ?? "Authentication error";
+      }
+      return Left(Failure(message: errorMessage));
+    } catch (e) {
+      getIt<Talker>().handle(e);
+      return Left(Failure(message: "Unknown error: $e"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> loginViaEmail({
+    required LoginParams params,
+  }) async {
+    try {
+      final credential = await _firebaseAuth.signInWithEmailAndPassword(
+        email: params.email,
+        password: params.password,
+      );
+      final user = credential.user;
+      if (user != null) {
+        return Right(user.uid);
+      } else {
+        return Left(Failure(message: "User not found"));
+      }
+    } on FirebaseAuthException catch (e) {
+      getIt<Talker>().handle(e);
+      String errorMessage;
+      switch (e.code) {
+        case 'user-not-found':
+          errorMessage = 'No user found with this email address.';
+        case 'wrong-password':
+          errorMessage = 'Incorrect password.';
+        case 'invalid-email':
+          errorMessage = 'Invalid email address.';
+        case 'user-disabled':
+          errorMessage = 'This account has been disabled.';
+        case 'too-many-requests':
+          errorMessage = 'Too many failed attempts. Please try again later.';
+        default:
+          errorMessage = e.message ?? 'Login failed';
       }
       return Left(Failure(message: errorMessage));
     } catch (e) {

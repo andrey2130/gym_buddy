@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:gym_buddy/core/error/failure.dart';
 import 'package:gym_buddy/features/auth/data/datasource/auth_datasource.dart';
+import 'package:gym_buddy/features/auth/domain/params/login_params.dart';
 import 'package:gym_buddy/features/auth/domain/params/register_params.dart';
 import 'package:gym_buddy/features/auth/domain/repo/auth_repo.dart';
 import 'package:gym_buddy/injections.dart';
@@ -20,6 +21,16 @@ class AuthRepoImpl implements AuthRepo {
   }) {
     try {
       return _authDatasource.registerViaEmail(params: params);
+    } catch (e) {
+      getIt<Talker>().handle(e);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> loginViaEmail({required LoginParams params}) {
+    try {
+      return _authDatasource.loginViaEmail(params: params);
     } catch (e) {
       getIt<Talker>().handle(e);
       rethrow;

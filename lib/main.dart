@@ -44,11 +44,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (_) => AuthBloc(getIt()),
-        ),
-      ],
+      providers: [BlocProvider(create: (context) => getIt<AuthBloc>())],
       child: TalkerWrapper(
         talker: getIt<Talker>(),
         child: ScreenUtilInit(

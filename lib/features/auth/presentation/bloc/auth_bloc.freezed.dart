@@ -55,11 +55,12 @@ extension AuthEventPatterns on AuthEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( RegisterViaEmail value)?  registerViaEmail,TResult Function( Logout value)?  logout,TResult Function( CheckAuthStatus value)?  checkAuthStatus,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( RegisterViaEmail value)?  registerViaEmail,TResult Function( LoginViaEmail value)?  loginViaEmail,TResult Function( Logout value)?  logout,TResult Function( CheckAuthStatus value)?  checkAuthStatus,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case RegisterViaEmail() when registerViaEmail != null:
-return registerViaEmail(_that);case Logout() when logout != null:
+return registerViaEmail(_that);case LoginViaEmail() when loginViaEmail != null:
+return loginViaEmail(_that);case Logout() when logout != null:
 return logout(_that);case CheckAuthStatus() when checkAuthStatus != null:
 return checkAuthStatus(_that);case _:
   return orElse();
@@ -79,11 +80,12 @@ return checkAuthStatus(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( RegisterViaEmail value)  registerViaEmail,required TResult Function( Logout value)  logout,required TResult Function( CheckAuthStatus value)  checkAuthStatus,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( RegisterViaEmail value)  registerViaEmail,required TResult Function( LoginViaEmail value)  loginViaEmail,required TResult Function( Logout value)  logout,required TResult Function( CheckAuthStatus value)  checkAuthStatus,}){
 final _that = this;
 switch (_that) {
 case RegisterViaEmail():
-return registerViaEmail(_that);case Logout():
+return registerViaEmail(_that);case LoginViaEmail():
+return loginViaEmail(_that);case Logout():
 return logout(_that);case CheckAuthStatus():
 return checkAuthStatus(_that);case _:
   throw StateError('Unexpected subclass');
@@ -102,11 +104,12 @@ return checkAuthStatus(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( RegisterViaEmail value)?  registerViaEmail,TResult? Function( Logout value)?  logout,TResult? Function( CheckAuthStatus value)?  checkAuthStatus,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( RegisterViaEmail value)?  registerViaEmail,TResult? Function( LoginViaEmail value)?  loginViaEmail,TResult? Function( Logout value)?  logout,TResult? Function( CheckAuthStatus value)?  checkAuthStatus,}){
 final _that = this;
 switch (_that) {
 case RegisterViaEmail() when registerViaEmail != null:
-return registerViaEmail(_that);case Logout() when logout != null:
+return registerViaEmail(_that);case LoginViaEmail() when loginViaEmail != null:
+return loginViaEmail(_that);case Logout() when logout != null:
 return logout(_that);case CheckAuthStatus() when checkAuthStatus != null:
 return checkAuthStatus(_that);case _:
   return null;
@@ -125,10 +128,11 @@ return checkAuthStatus(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( RegisterParams params)?  registerViaEmail,TResult Function()?  logout,TResult Function()?  checkAuthStatus,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( RegisterParams params)?  registerViaEmail,TResult Function( LoginParams params)?  loginViaEmail,TResult Function()?  logout,TResult Function()?  checkAuthStatus,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case RegisterViaEmail() when registerViaEmail != null:
-return registerViaEmail(_that.params);case Logout() when logout != null:
+return registerViaEmail(_that.params);case LoginViaEmail() when loginViaEmail != null:
+return loginViaEmail(_that.params);case Logout() when logout != null:
 return logout();case CheckAuthStatus() when checkAuthStatus != null:
 return checkAuthStatus();case _:
   return orElse();
@@ -148,10 +152,11 @@ return checkAuthStatus();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( RegisterParams params)  registerViaEmail,required TResult Function()  logout,required TResult Function()  checkAuthStatus,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( RegisterParams params)  registerViaEmail,required TResult Function( LoginParams params)  loginViaEmail,required TResult Function()  logout,required TResult Function()  checkAuthStatus,}) {final _that = this;
 switch (_that) {
 case RegisterViaEmail():
-return registerViaEmail(_that.params);case Logout():
+return registerViaEmail(_that.params);case LoginViaEmail():
+return loginViaEmail(_that.params);case Logout():
 return logout();case CheckAuthStatus():
 return checkAuthStatus();case _:
   throw StateError('Unexpected subclass');
@@ -170,10 +175,11 @@ return checkAuthStatus();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( RegisterParams params)?  registerViaEmail,TResult? Function()?  logout,TResult? Function()?  checkAuthStatus,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( RegisterParams params)?  registerViaEmail,TResult? Function( LoginParams params)?  loginViaEmail,TResult? Function()?  logout,TResult? Function()?  checkAuthStatus,}) {final _that = this;
 switch (_that) {
 case RegisterViaEmail() when registerViaEmail != null:
-return registerViaEmail(_that.params);case Logout() when logout != null:
+return registerViaEmail(_that.params);case LoginViaEmail() when loginViaEmail != null:
+return loginViaEmail(_that.params);case Logout() when logout != null:
 return logout();case CheckAuthStatus() when checkAuthStatus != null:
 return checkAuthStatus();case _:
   return null;
@@ -253,6 +259,81 @@ as RegisterParams,
 $RegisterParamsCopyWith<$Res> get params {
   
   return $RegisterParamsCopyWith<$Res>(_self.params, (value) {
+    return _then(_self.copyWith(params: value));
+  });
+}
+}
+
+/// @nodoc
+
+
+class LoginViaEmail implements AuthEvent {
+  const LoginViaEmail(this.params);
+  
+
+ final  LoginParams params;
+
+/// Create a copy of AuthEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$LoginViaEmailCopyWith<LoginViaEmail> get copyWith => _$LoginViaEmailCopyWithImpl<LoginViaEmail>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoginViaEmail&&(identical(other.params, params) || other.params == params));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,params);
+
+@override
+String toString() {
+  return 'AuthEvent.loginViaEmail(params: $params)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $LoginViaEmailCopyWith<$Res> implements $AuthEventCopyWith<$Res> {
+  factory $LoginViaEmailCopyWith(LoginViaEmail value, $Res Function(LoginViaEmail) _then) = _$LoginViaEmailCopyWithImpl;
+@useResult
+$Res call({
+ LoginParams params
+});
+
+
+$LoginParamsCopyWith<$Res> get params;
+
+}
+/// @nodoc
+class _$LoginViaEmailCopyWithImpl<$Res>
+    implements $LoginViaEmailCopyWith<$Res> {
+  _$LoginViaEmailCopyWithImpl(this._self, this._then);
+
+  final LoginViaEmail _self;
+  final $Res Function(LoginViaEmail) _then;
+
+/// Create a copy of AuthEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? params = null,}) {
+  return _then(LoginViaEmail(
+null == params ? _self.params : params // ignore: cast_nullable_to_non_nullable
+as LoginParams,
+  ));
+}
+
+/// Create a copy of AuthEvent
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$LoginParamsCopyWith<$Res> get params {
+  
+  return $LoginParamsCopyWith<$Res>(_self.params, (value) {
     return _then(_self.copyWith(params: value));
   });
 }
