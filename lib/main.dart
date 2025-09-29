@@ -3,9 +3,11 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gym_buddy/core/app_route/app_route.dart';
 import 'package:gym_buddy/core/theme/app_themes.dart';
+import 'package:gym_buddy/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:gym_buddy/firebase_options.dart';
 import 'package:gym_buddy/injections.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -41,18 +43,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TalkerWrapper(
-      talker: getIt<Talker>(),
-      child: ScreenUtilInit(
-        designSize: const Size(375, 812),
-        minTextAdapt: true,
-        child: MaterialApp.router(
-          routerConfig: route,
-          theme: AppThemes.lightTheme(),
-          debugShowCheckedModeBanner: false,
-          locale: context.locale,
-          supportedLocales: context.supportedLocales,
-          localizationsDelegates: context.localizationDelegates,
+    return MultiBlocProvider(
+      providers: [BlocProvider(create: (context) => getIt<AuthBloc>())],
+      child: TalkerWrapper(
+        talker: getIt<Talker>(),
+        child: ScreenUtilInit(
+          designSize: const Size(375, 812),
+          minTextAdapt: true,
+          child: MaterialApp.router(
+            routerConfig: route,
+            theme: AppThemes.darkTheme(),
+            debugShowCheckedModeBanner: false,
+            locale: context.locale,
+            supportedLocales: context.supportedLocales,
+            localizationsDelegates: context.localizationDelegates,
+          ),
         ),
       ),
     );

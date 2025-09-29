@@ -12,6 +12,7 @@ analyzer:
     public_member_api_docs: ignore
     lines_longer_than_80_chars: ignore
     eol_at_end_of_file: ignore
+    avoid_redundant_argument_values: ignore
 include: package:solid_lints/analysis_options.yaml
 
 linter:
