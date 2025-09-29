@@ -2,6 +2,14 @@
   "welcome_to_gym_buddy": "Вітаємо в Gym Buddy",
     "find_a_partner_be_your_best": "Хочеш знайти партнера по тренуванням? Станьте найкращі разом.",
     "get_started": "Почати", 
-    "already_have_an_account_log_in": "Вже маєте акаунт? Увійти"
-    
+    "already_have_an_account_log_in": "Вже маєте акаунт? Увійти",
+    "we_are_glad_to_see_you_here": "Ми раді бачити вас тут!",
+"create_an_account_to_get_started": "Створіть акаунт, щоб почати",
+"username": "Ім'я користувача",
+"email": "Пошта",
+"password": "Пароль",
+"confirm_password": "Підтвердити пароль",
+"register":  "Зареєструватися",
+"welcome_back": "З поверненням!",
+"login_to_continue": "Увійдіть щоб продовжити"
     }

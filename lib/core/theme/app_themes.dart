@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppThemes {
@@ -27,6 +28,7 @@ class AppThemes {
 
         error: error,
       ),
+
       scaffoldBackgroundColor: background,
       textTheme: GoogleFonts.interTextTheme(
         const TextTheme(
@@ -56,6 +58,22 @@ class AppThemes {
             color: textPrimary,
           ),
         ),
+      ),
+      //AppBar
+      appBarTheme: AppBarTheme(
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
+        backgroundColor: Colors.transparent,
+        foregroundColor: Colors.white,
+        elevation: 2,
+        shadowColor: Colors.black.withValues(alpha: 0.1),
+        centerTitle: true,
+        titleTextStyle: GoogleFonts.inter(
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
+          color: Colors.white,
+        ),
+        iconTheme: const IconThemeData(color: Colors.black, size: 24),
+        toolbarHeight: 56,
       ),
       // Card styling
       cardTheme: CardThemeData(
@@ -182,6 +200,22 @@ class AppThemes {
             color: darkTextPrimary,
           ),
         ),
+      ),
+      appBarTheme: AppBarTheme(
+        systemOverlayStyle: SystemUiOverlayStyle.light,
+
+        backgroundColor: darkBackground,
+        foregroundColor: Colors.white,
+        elevation: 2,
+        shadowColor: Colors.black.withValues(alpha: 0.1),
+        centerTitle: true,
+        titleTextStyle: GoogleFonts.inter(
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
+          color: Colors.white,
+        ),
+        iconTheme: const IconThemeData(color: Colors.white, size: 24),
+        toolbarHeight: 56,
       ),
       cardTheme: CardThemeData(
         color: const Color(0xFF1E2A44),

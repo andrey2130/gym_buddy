@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
@@ -51,7 +52,7 @@ class _SplashScreenState extends State<SplashScreen>
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-
+    
             children: [
               Lottie.asset(
                 'assets/lottie/splash_animation.json',
@@ -61,11 +62,11 @@ class _SplashScreenState extends State<SplashScreen>
               ),
               _buildHeader(context, _animationController),
               SizedBox(height: 24.h),
-
+    
               const Spacer(),
               _buildGetStartedButton(context),
               SizedBox(height: 12.h),
-              _buildLoginLink(context),
+
             ],
           ),
         ),
@@ -113,13 +114,5 @@ class _SplashScreenState extends State<SplashScreen>
     );
   }
 
-  Widget _buildLoginLink(BuildContext context) {
-    return TextButton(
-      onPressed: () => context.push('/login'),
-      child: Text(
-        'already_have_an_account_log_in'.tr(),
-        style: Theme.of(context).textTheme.bodyMedium, // 14px, secondary
-      ),
-    );
-  }
+  
 }

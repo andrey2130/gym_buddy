@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
         minTextAdapt: true,
         child: MaterialApp.router(
           routerConfig: route,
-          theme: AppThemes.lightTheme(),
+          theme: AppThemes.darkTheme(),
           debugShowCheckedModeBanner: false,
           locale: context.locale,
           supportedLocales: context.supportedLocales,
