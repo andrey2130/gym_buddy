@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1013240209923",
+    "project_id": "flashchat-f282f",
+    "storage_bucket": "flashchat-f282f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1013240209923:android:ec9bb4208e6d54001e6436",
+        "android_client_info": {
+          "package_name": "com.example.gym_buddy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDv4IbKjpHtU_e87LeBnKeljhXCo4amZZg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
