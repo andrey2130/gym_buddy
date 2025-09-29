@@ -11,5 +11,6 @@
 "confirm_password": "Підтвердити пароль",
 "register":  "Зареєструватися",
 "welcome_back": "З поверненням!",
-"login_to_continue": "Увійдіть щоб продовжити"
+"login_to_continue": "Увійдіть щоб продовжити",
+"log_in": "Увійти"
     }
