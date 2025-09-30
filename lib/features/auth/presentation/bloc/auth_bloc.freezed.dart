@@ -447,12 +447,13 @@ extension AuthStatePatterns on AuthState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Initial value)?  initial,TResult Function( Loading value)?  loading,TResult Function( Authenticated value)?  authenticated,TResult Function( Unauthenticated value)?  unauthenticated,TResult Function( Failure value)?  failure,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Initial value)?  initial,TResult Function( Loading value)?  loading,TResult Function( Logined value)?  logined,TResult Function( Authenticated value)?  authenticated,TResult Function( Unauthenticated value)?  unauthenticated,TResult Function( Failure value)?  failure,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case Initial() when initial != null:
 return initial(_that);case Loading() when loading != null:
-return loading(_that);case Authenticated() when authenticated != null:
+return loading(_that);case Logined() when logined != null:
+return logined(_that);case Authenticated() when authenticated != null:
 return authenticated(_that);case Unauthenticated() when unauthenticated != null:
 return unauthenticated(_that);case Failure() when failure != null:
 return failure(_that);case _:
@@ -473,12 +474,13 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Initial value)  initial,required TResult Function( Loading value)  loading,required TResult Function( Authenticated value)  authenticated,required TResult Function( Unauthenticated value)  unauthenticated,required TResult Function( Failure value)  failure,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Initial value)  initial,required TResult Function( Loading value)  loading,required TResult Function( Logined value)  logined,required TResult Function( Authenticated value)  authenticated,required TResult Function( Unauthenticated value)  unauthenticated,required TResult Function( Failure value)  failure,}){
 final _that = this;
 switch (_that) {
 case Initial():
 return initial(_that);case Loading():
-return loading(_that);case Authenticated():
+return loading(_that);case Logined():
+return logined(_that);case Authenticated():
 return authenticated(_that);case Unauthenticated():
 return unauthenticated(_that);case Failure():
 return failure(_that);case _:
@@ -498,12 +500,13 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Initial value)?  initial,TResult? Function( Loading value)?  loading,TResult? Function( Authenticated value)?  authenticated,TResult? Function( Unauthenticated value)?  unauthenticated,TResult? Function( Failure value)?  failure,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Initial value)?  initial,TResult? Function( Loading value)?  loading,TResult? Function( Logined value)?  logined,TResult? Function( Authenticated value)?  authenticated,TResult? Function( Unauthenticated value)?  unauthenticated,TResult? Function( Failure value)?  failure,}){
 final _that = this;
 switch (_that) {
 case Initial() when initial != null:
 return initial(_that);case Loading() when loading != null:
-return loading(_that);case Authenticated() when authenticated != null:
+return loading(_that);case Logined() when logined != null:
+return logined(_that);case Authenticated() when authenticated != null:
 return authenticated(_that);case Unauthenticated() when unauthenticated != null:
 return unauthenticated(_that);case Failure() when failure != null:
 return failure(_that);case _:
@@ -523,11 +526,12 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( String userId)?  authenticated,TResult Function()?  unauthenticated,TResult Function( String message)?  failure,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( String userId)?  logined,TResult Function( String userId)?  authenticated,TResult Function()?  unauthenticated,TResult Function( String message)?  failure,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case Initial() when initial != null:
 return initial();case Loading() when loading != null:
-return loading();case Authenticated() when authenticated != null:
+return loading();case Logined() when logined != null:
+return logined(_that.userId);case Authenticated() when authenticated != null:
 return authenticated(_that.userId);case Unauthenticated() when unauthenticated != null:
 return unauthenticated();case Failure() when failure != null:
 return failure(_that.message);case _:
@@ -548,11 +552,12 @@ return failure(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( String userId)  authenticated,required TResult Function()  unauthenticated,required TResult Function( String message)  failure,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( String userId)  logined,required TResult Function( String userId)  authenticated,required TResult Function()  unauthenticated,required TResult Function( String message)  failure,}) {final _that = this;
 switch (_that) {
 case Initial():
 return initial();case Loading():
-return loading();case Authenticated():
+return loading();case Logined():
+return logined(_that.userId);case Authenticated():
 return authenticated(_that.userId);case Unauthenticated():
 return unauthenticated();case Failure():
 return failure(_that.message);case _:
@@ -572,11 +577,12 @@ return failure(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( String userId)?  authenticated,TResult? Function()?  unauthenticated,TResult? Function( String message)?  failure,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( String userId)?  logined,TResult? Function( String userId)?  authenticated,TResult? Function()?  unauthenticated,TResult? Function( String message)?  failure,}) {final _that = this;
 switch (_that) {
 case Initial() when initial != null:
 return initial();case Loading() when loading != null:
-return loading();case Authenticated() when authenticated != null:
+return loading();case Logined() when logined != null:
+return logined(_that.userId);case Authenticated() when authenticated != null:
 return authenticated(_that.userId);case Unauthenticated() when unauthenticated != null:
 return unauthenticated();case Failure() when failure != null:
 return failure(_that.message);case _:
@@ -650,6 +656,72 @@ String toString() {
 
 
 
+
+/// @nodoc
+
+
+class Logined implements AuthState {
+  const Logined({required this.userId});
+  
+
+ final  String userId;
+
+/// Create a copy of AuthState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$LoginedCopyWith<Logined> get copyWith => _$LoginedCopyWithImpl<Logined>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Logined&&(identical(other.userId, userId) || other.userId == userId));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,userId);
+
+@override
+String toString() {
+  return 'AuthState.logined(userId: $userId)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $LoginedCopyWith<$Res> implements $AuthStateCopyWith<$Res> {
+  factory $LoginedCopyWith(Logined value, $Res Function(Logined) _then) = _$LoginedCopyWithImpl;
+@useResult
+$Res call({
+ String userId
+});
+
+
+
+
+}
+/// @nodoc
+class _$LoginedCopyWithImpl<$Res>
+    implements $LoginedCopyWith<$Res> {
+  _$LoginedCopyWithImpl(this._self, this._then);
+
+  final Logined _self;
+  final $Res Function(Logined) _then;
+
+/// Create a copy of AuthState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? userId = null,}) {
+  return _then(Logined(
+userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
 
 /// @nodoc
 

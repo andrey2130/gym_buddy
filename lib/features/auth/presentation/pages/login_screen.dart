@@ -82,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen>
       listener: (context, state) async {
         if (state is Loading) {
         } else {
-          await Future.delayed(const Duration(seconds: 2));
+          await Future.delayed(const Duration(milliseconds: 2500));
 
           if (!mounted) return;
 
@@ -90,7 +90,10 @@ class _LoginScreenState extends State<LoginScreen>
 
           state.maybeWhen(
             failure: (message) => _showDelayedSnackBar(message, isError: true),
-            authenticated: (userId) {},
+            logined: (userId) {
+              context.push('/home');
+            },
+
             orElse: () {},
           );
         }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gym_buddy/features/auth/presentation/pages/login_screen.dart';
 import 'package:gym_buddy/features/auth/presentation/pages/register_screen.dart';
+import 'package:gym_buddy/features/onboarding/presentation%20/pages/onboarding_screen.dart';
 import 'package:gym_buddy/features/splash_screen/presentation/splash_screen.dart';
 
 // ignore: strict_raw_type
@@ -68,6 +69,23 @@ final route = GoRouter(
       pageBuilder: (context, state) => buildTransitionPage(
         key: state.pageKey,
         child: const RegisterScreen(),
+      ),
+    ),
+    GoRoute(
+      path: '/onboarding',
+      builder: (context, state) => const OnboardingScreen(),
+      pageBuilder: (context, state) => buildTransitionPage(
+        key: state.pageKey,
+        child: const OnboardingScreen(),
+      ),
+    ),
+    GoRoute(
+      path: '/home',
+      builder: (context, state) =>
+          const Scaffold(body: Center(child: Text('HOME'))),
+      pageBuilder: (context, state) => buildTransitionPage(
+        key: state.pageKey,
+        child: const Scaffold(body: Center(child: Text('HOME'))),
       ),
     ),
   ],

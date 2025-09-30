@@ -87,7 +87,9 @@ class _RegisterScreenState extends State<RegisterScreen>
           failure: (message) {
             _showDelayedSnackBar(message, isError: true);
           },
-          authenticated: (userId) {},
+          authenticated: (userId) {
+            context.push('/onboarding');
+          },
           orElse: () {},
         );
       },

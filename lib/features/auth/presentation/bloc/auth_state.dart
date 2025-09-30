@@ -4,6 +4,7 @@ part of 'auth_bloc.dart';
 class AuthState with _$AuthState {
   const factory AuthState.initial() = Initial;
   const factory AuthState.loading() = Loading;
+  const factory AuthState.logined({required String userId}) = Logined;
   const factory AuthState.authenticated({required String userId}) =
       Authenticated;
   const factory AuthState.unauthenticated() = Unauthenticated;

@@ -47,6 +47,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     result.fold((failure) {
       emit(AuthState.failure(message: failure.message));
       getIt<Talker>().handle(failure.message);
-    }, (userId) => emit(AuthState.authenticated(userId: userId)));
+    }, (userId) => emit(AuthState.logined(userId: userId)));
   }
 }
