@@ -68,8 +68,9 @@ class _PlanScreenState extends State<PlanScreen> {
                         ? theme.colorScheme.onPrimary
                         : theme.colorScheme.onSurface;
                     final subColor = isSelected
-                        ? theme.colorScheme.onPrimary.withOpacity(0.8)
+                        ? theme.colorScheme.onPrimary.withValues(alpha: 0.8)
                         : theme.colorScheme.onSurfaceVariant;
+
                     return InkWell(
                       borderRadius: BorderRadius.circular(16.r),
                       onTap: () => _onPlanSelected(index, plans[index].$1),
@@ -80,6 +81,17 @@ class _PlanScreenState extends State<PlanScreen> {
                         decoration: BoxDecoration(
                           color: bg,
                           borderRadius: BorderRadius.circular(16.r),
+                          boxShadow: [
+                            if (isSelected)
+                              BoxShadow(
+                                color: const Color(
+                                  0xFFFFFFFF,
+                                ).withValues(alpha: 0.3),
+                                offset: const Offset(0, 4),
+                                blurRadius: 12,
+                                spreadRadius: 0,
+                              ),
+                          ],
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

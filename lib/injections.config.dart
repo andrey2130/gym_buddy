@@ -58,6 +58,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i206.LoginUsecase>(
       () => _i206.LoginUsecase(authRepo: gh<_i442.AuthRepo>()),
     );
+    gh.factory<_i355.NavigationService>(
+      () => _i355.NavigationService(authRepo: gh<_i442.AuthRepo>()),
+    );
     gh.factory<_i800.AuthDatasource>(
       () => _i800.AuthDatasourceImpl(
         firebaseAuth: gh<_i59.FirebaseAuth>(),
@@ -73,12 +76,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i363.AuthBloc>(
       () =>
           _i363.AuthBloc(gh<_i693.RegisterUsecase>(), gh<_i206.LoginUsecase>()),
-    );
-    gh.factory<_i355.NavigationService>(
-      () => _i355.NavigationService(
-        authRepo: gh<_i442.AuthRepo>(),
-        onboardingRepo: gh<_i721.OnboardingRepo>(),
-      ),
     );
     gh.factory<_i312.GetOnboardingUsecase>(
       () => _i312.GetOnboardingUsecase(

@@ -55,7 +55,11 @@ final route = GoRouter(
   initialLocation: '/',
   redirect: (context, state) async {
     // Don't redirect these paths
-    if (['/login', '/register'].contains(state.matchedLocation)) {
+    if ([
+      '/login',
+      '/register',
+      '/onboarding',
+    ].contains(state.matchedLocation)) {
       return null;
     }
 
@@ -75,7 +79,7 @@ final route = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const SplashScreen(),
+      builder: (context, state) => const OnboardingScreen(),
       pageBuilder: (context, state) =>
           buildTransitionPage(key: state.pageKey, child: const SplashScreen()),
     ),

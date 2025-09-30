@@ -31,6 +31,15 @@ class SwitchPill extends StatelessWidget {
         curve: Curves.easeOut,
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
         decoration: BoxDecoration(
+          boxShadow: [
+            if (selected)
+              BoxShadow(
+                color: const Color(0xFFFFFFFF).withValues(alpha: 0.3),
+                offset: const Offset(0, 4),
+                blurRadius: 12,
+                spreadRadius: 0,
+              ),
+          ],
           color: bg,
           borderRadius: BorderRadius.circular(16.r),
         ),

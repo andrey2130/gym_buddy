@@ -53,6 +53,15 @@ class _DaysSelectorState extends State<DaysSelector>
           decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.circular(16.r),
+            boxShadow: [
+              if (isSelected)
+                BoxShadow(
+                  color: const Color(0xFFFFFFFF).withValues(alpha: 0.3),
+                  offset: const Offset(0, 4),
+                  blurRadius: 12,
+                  spreadRadius: 0,
+                ),
+            ],
           ),
           child: InkWell(
             borderRadius: BorderRadius.circular(16.r),

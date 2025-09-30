@@ -26,6 +26,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
 
+  int _currentPage = 0; // додано для відстеження поточної сторінки
+
   @override
   void initState() {
     super.initState();
@@ -42,6 +44,15 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       end: Offset.zero,
     ).animate(CurvedAnimation(parent: _introController, curve: Curves.easeOut));
     _introController.forward();
+
+    _pageController.addListener(() {
+      final page = _pageController.page?.round() ?? 0;
+      if (page != _currentPage) {
+        setState(() {
+          _currentPage = page;
+        });
+      }
+    });
   }
 
   @override
@@ -52,7 +63,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   }
 
   void _next() {
-    final currentPage = _pageController.page!.round();
+    final currentPage = _currentPage;
     final state = context.read<OnboardingBloc>().state;
 
     if (currentPage == 0) {
@@ -105,6 +116,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   @override
   Widget build(BuildContext context) {
+    final isLastPage = _currentPage == 2; // остання сторінка
+
     return BlocListener<OnboardingBloc, OnboardingState>(
       listener: (context, state) {
         state.maybeWhen(
@@ -139,7 +152,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                     Expanded(
                       child: PageView(
                         controller: _pageController,
-                        physics: const NeverScrollableScrollPhysics(),
                         children: [
                           DayScreen(onNext: _next),
                           PlanScreen(onNext: _next),
@@ -172,7 +184,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                           width: 140.w,
                           height: 50.h,
                           child: CustomButton(
-                            text: 'next'.tr(),
+                            text: isLastPage ? 'finish'.tr() : 'next'.tr(),
                             onPressed: _next,
                             showAnimation: true,
                           ),

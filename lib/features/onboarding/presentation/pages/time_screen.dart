@@ -122,6 +122,7 @@ class TimeScreenState extends State<TimeScreen> {
                         child: SwitchPill(
                           title: 'morning'.tr(),
                           selected: _isMorning,
+                          
                           onTap: () => setState(() => _isMorning = true),
                         ),
                       ),

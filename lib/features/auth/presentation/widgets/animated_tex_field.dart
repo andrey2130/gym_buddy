@@ -69,6 +69,7 @@ class _AnimatedTextFieldState extends State<AnimatedTextField>
       child: ScaleTransition(
         scale: _scaleAnimation,
         child: CustomTextField(
+          
           controller: widget.controller,
           labelText: widget.labelText,
           radius: widget.radius,

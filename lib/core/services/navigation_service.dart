@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:gym_buddy/core/error/failure.dart';
 import 'package:gym_buddy/features/auth/domain/repo/auth_repo.dart';
-import 'package:gym_buddy/features/onboarding/domain/repo/onboarding_repo.dart';
 import 'package:injectable/injectable.dart';
 
 enum NavigationState { authenticated, unauthenticated }
@@ -9,13 +8,8 @@ enum NavigationState { authenticated, unauthenticated }
 @injectable
 class NavigationService {
   final AuthRepo _authRepo;
-  final OnboardingRepo _onboardingRepo;
 
-  NavigationService({
-    required AuthRepo authRepo,
-    required OnboardingRepo onboardingRepo,
-  }) : _authRepo = authRepo,
-       _onboardingRepo = onboardingRepo;
+  NavigationService({required AuthRepo authRepo}) : _authRepo = authRepo;
 
   Future<Either<Failure, NavigationState>> getNavigationState() async {
     try {
@@ -26,13 +20,7 @@ class NavigationService {
         (user) async {
           if (user == null) return const Right(NavigationState.unauthenticated);
 
-          final onboardingResult = await _onboardingRepo.getOnboardingData(
-            userId: user.uid,
-          );
-
-          return onboardingResult.fold(Left.new, (onboardingData) {
-            return const Right(NavigationState.authenticated);
-          });
+          return const Right(NavigationState.authenticated);
         },
       );
     } catch (e) {

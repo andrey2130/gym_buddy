@@ -65,8 +65,10 @@ class _RegisterScreenState extends State<RegisterScreen>
     super.dispose();
   }
 
+  bool _showLottie = false;
   void _register() {
     if (_formKey.currentState!.validate()) {
+      setState(() => _showLottie = true);
       context.read<AuthBloc>().add(
         AuthEvent.registerViaEmail(
           RegisterParams(
@@ -82,22 +84,27 @@ class _RegisterScreenState extends State<RegisterScreen>
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
-      listener: (context, state) {
-        state.maybeWhen(
-          failure: (message) {
-            _showDelayedSnackBar(message, isError: true);
-          },
-          authenticated: (userId) {
-            context.push('/onboarding');
-          },
-          orElse: () {},
-        );
+      listener: (context, state) async {
+        if (state is Loading) {
+        } else {
+          await Future.delayed(const Duration(milliseconds: 2000));
+
+          if (!mounted) return;
+
+          setState(() => _showLottie = false);
+
+          state.maybeWhen(
+            failure: (message) => _showDelayedSnackBar(message, isError: true),
+            authenticated: (userId) {
+              context.replace('/onboarding');
+            },
+
+            orElse: () {},
+          );
+        }
       },
       builder: (context, state) {
-        final isLoading = state.maybeWhen(
-          loading: () => true,
-          orElse: () => false,
-        );
+        state.maybeWhen(loading: () => true, orElse: () => false);
 
         return Stack(
           children: [
@@ -161,7 +168,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                 ),
               ),
             ),
-            if (isLoading)
+            if (_showLottie)
               ColoredBox(
                 color: Colors.black.withValues(alpha: 0.5),
                 child: Center(
@@ -202,7 +209,6 @@ class _RegisterScreenState extends State<RegisterScreen>
     String message, {
     required bool isError,
   }) async {
-    await Future.delayed(const Duration(seconds: 2));
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
