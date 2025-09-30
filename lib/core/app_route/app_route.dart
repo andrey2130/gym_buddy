@@ -1,29 +1,12 @@
-import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-  import 'package:go_router/go_router.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gym_buddy/features/auth/presentation/pages/login_screen.dart';
 import 'package:gym_buddy/features/auth/presentation/pages/register_screen.dart';
 import 'package:gym_buddy/features/home/home_screen.dart';
 import 'package:gym_buddy/features/onboarding/presentation/pages/onboarding_screen.dart';
 import 'package:gym_buddy/features/splash_screen/presentation/splash_screen.dart';
 import 'package:gym_buddy/injections.dart';
-
-class GoRouterRefreshStream extends ChangeNotifier {
-  GoRouterRefreshStream(Stream<dynamic> stream) {
-    notifyListeners();
-    _subscription = stream.asBroadcastStream().listen((_) => notifyListeners());
-  }
-
-  late final StreamSubscription<dynamic> _subscription;
-
-  @override
-  void dispose() {
-    _subscription.cancel();
-    super.dispose();
-  }
-}
 
 // ignore: strict_raw_type
 CustomTransitionPage buildTransitionPage({
@@ -69,65 +52,58 @@ CustomTransitionPage buildTransitionPage({
   );
 }
 
-final route = GoRouter(
-  initialLocation: '/',
-  refreshListenable: GoRouterRefreshStream(
-    getIt<FirebaseAuth>().authStateChanges(),
-  ),
-  redirect: (context, state) {
-    final user = getIt<FirebaseAuth>().currentUser;
-    final isAuthenticated = user != null;
+GoRouter createRouter({String? initialLocation}) {
+  return GoRouter(
+    initialLocation: initialLocation ?? '/',
+    redirect: (context, state) {
+      final user = getIt<FirebaseAuth>().currentUser;
+      final isAuthenticated = user != null;
+      final path = state.matchedLocation;
 
-    final publicRoutes = ['/', '/login', '/register'];
-    final isPublicRoute = publicRoutes.contains(state.matchedLocation);
+      if (!isAuthenticated &&
+          path != '/' &&
+          path != '/login' &&
+          path != '/register') {
+        return '/';
+      }
 
-    if (isAuthenticated && isPublicRoute) {
-      return '/home';
-    }
-
-    if (!isAuthenticated &&
-        !isPublicRoute &&
-        state.matchedLocation != '/onboarding') {
-      return '/';
-    }
-
-    return null;
-  },
-  routes: [
-    GoRoute(
-      path: '/',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(key: state.pageKey, child: const SplashScreen()),
-    ),
-    GoRoute(
-      path: '/login',
-      builder: (context, state) => const LoginScreen(),
-      pageBuilder: (context, state) =>
-          buildTransitionPage(key: state.pageKey, child: const LoginScreen()),
-    ),
-    GoRoute(
-      path: '/register',
-      builder: (context, state) => const RegisterScreen(),
-      pageBuilder: (context, state) => buildTransitionPage(
-        key: state.pageKey,
-        child: const RegisterScreen(),
+      return null;
+    },
+    routes: [
+      GoRoute(
+        path: '/',
+        pageBuilder: (context, state) => buildTransitionPage(
+          key: state.pageKey,
+          child: const SplashScreen(),
+        ),
       ),
-    ),
-    GoRoute(
-      path: '/onboarding',
-      builder: (context, state) => const OnboardingScreen(),
-      pageBuilder: (context, state) => buildTransitionPage(
-        key: state.pageKey,
-        child: const OnboardingScreen(),
+      GoRoute(
+        path: '/login',
+        builder: (context, state) => const LoginScreen(),
+        pageBuilder: (context, state) =>
+            buildTransitionPage(key: state.pageKey, child: const LoginScreen()),
       ),
-    ),
-    GoRoute(
-      path: '/home',
-      pageBuilder: (context, state) => buildTransitionPage(
-        key: state.pageKey,
-        child: const HomeScreen(),
+      GoRoute(
+        path: '/register',
+        builder: (context, state) => const RegisterScreen(),
+        pageBuilder: (context, state) => buildTransitionPage(
+          key: state.pageKey,
+          child: const RegisterScreen(),
+        ),
       ),
-    ),
-  ],
-);
-
+      GoRoute(
+        path: '/onboarding',
+        builder: (context, state) => const OnboardingScreen(),
+        pageBuilder: (context, state) => buildTransitionPage(
+          key: state.pageKey,
+          child: const OnboardingScreen(),
+        ),
+      ),
+      GoRoute(
+        path: '/home',
+        pageBuilder: (context, state) =>
+            buildTransitionPage(key: state.pageKey, child: const HomeScreen()),
+      ),
+    ],
+  );
+}
