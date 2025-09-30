@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:gym_buddy/core/services/navigation_service.dart';
 import 'package:gym_buddy/features/auth/presentation/pages/login_screen.dart';
 import 'package:gym_buddy/features/auth/presentation/pages/register_screen.dart';
 import 'package:gym_buddy/features/onboarding/presentation/pages/onboarding_screen.dart';
 import 'package:gym_buddy/features/splash_screen/presentation/splash_screen.dart';
+import 'package:gym_buddy/injections.dart';
 
 // ignore: strict_raw_type
 CustomTransitionPage buildTransitionPage({
@@ -50,6 +52,26 @@ CustomTransitionPage buildTransitionPage({
 }
 
 final route = GoRouter(
+  initialLocation: '/',
+  redirect: (context, state) async {
+    // Don't redirect these paths
+    if (['/login', '/register'].contains(state.matchedLocation)) {
+      return null;
+    }
+
+    final navigationService = getIt<NavigationService>();
+    final result = await navigationService.getNavigationState();
+
+    return result.fold((failure) => '/', (navigationState) {
+      switch (navigationState) {
+        case NavigationState.authenticated:
+          return '/home';
+
+        case NavigationState.unauthenticated:
+          return '/';
+      }
+    });
+  },
   routes: [
     GoRoute(
       path: '/',

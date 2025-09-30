@@ -91,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen>
           state.maybeWhen(
             failure: (message) => _showDelayedSnackBar(message, isError: true),
             logined: (userId) {
-              context.push('/home');
+              context.replace('/home');
             },
 
             orElse: () {},

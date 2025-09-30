@@ -54,13 +54,18 @@ class MyApp extends StatelessWidget {
         child: ScreenUtilInit(
           designSize: const Size(375, 812),
           minTextAdapt: true,
-          child: MaterialApp.router(
-            routerConfig: route,
-            theme: AppThemes.lightTheme(),
-            debugShowCheckedModeBanner: false,
-            locale: context.locale,
-            supportedLocales: context.supportedLocales,
-            localizationsDelegates: context.localizationDelegates,
+          child: GestureDetector(
+            onTap: () {
+              FocusManager.instance.primaryFocus?.unfocus();
+            },
+            child: MaterialApp.router(
+              routerConfig: route,
+              theme: AppThemes.darkTheme(),
+              debugShowCheckedModeBanner: false,
+              locale: context.locale,
+              supportedLocales: context.supportedLocales,
+              localizationsDelegates: context.localizationDelegates,
+            ),
           ),
         ),
       ),
