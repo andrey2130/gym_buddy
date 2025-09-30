@@ -46,7 +46,7 @@ class _DayScreenState extends State<DayScreen> {
         );
 
         final selectedIndices = _selectedDays
-            ?.map((day) => days.indexOf(day))
+            ?.map(days.indexOf)
             .where((i) => i != -1)
             .toSet();
 

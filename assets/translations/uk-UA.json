@@ -49,8 +49,9 @@
   "city": "Місто",
   "enter_city": "Введіть місто",
   "country_required": "Оберіть країну",
-  "city_required": "Вкажіть місто"
-,
+  "city_required": "Вкажіть місто",
   "cancel": "Скасувати",
-  "done": "Готово"
+  "done": "Готово",
+  "select_training_days": "Оберіть дні тренувань",
+  "select_training_plan": "Оберіть план тренувань"
     }

@@ -26,7 +26,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
 
-  int _currentPage = 0; // додано для відстеження поточної сторінки
+  int _currentPage = 0;
 
   @override
   void initState() {
@@ -116,8 +116,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   @override
   Widget build(BuildContext context) {
-    final isLastPage = _currentPage == 2; // остання сторінка
-
+    final isLastPage = _currentPage == 2; 
     return BlocListener<OnboardingBloc, OnboardingState>(
       listener: (context, state) {
         state.maybeWhen(
@@ -225,14 +224,14 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
-                    theme.colorScheme.primary.withOpacity(
-                      isLight ? 0.14 : 0.08,
+                    theme.colorScheme.primary.withValues(
+                      alpha: isLight ? 0.14 : 0.08,
                     ),
-                    theme.colorScheme.secondary.withOpacity(
-                      isLight ? 0.12 : 0.06,
+                    theme.colorScheme.secondary.withValues(
+                      alpha: isLight ? 0.12 : 0.06,
                     ),
-                    theme.colorScheme.surface.withOpacity(
-                      isLight ? 0.10 : 0.04,
+                    theme.colorScheme.surface.withValues(
+                      alpha: isLight ? 0.10 : 0.04,
                     ),
                   ],
                 ),
@@ -245,7 +244,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
           right: -40.w,
           child: _decorativeBlob(
             160.w,
-            theme.colorScheme.primary.withOpacity(isLight ? 0.22 : 0.15),
+            theme.colorScheme.primary.withValues(alpha: isLight ? 0.22 : 0.15),
           ),
         ),
         Positioned(
@@ -253,7 +252,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
           left: -60.w,
           child: _decorativeBlob(
             200.w,
-            theme.colorScheme.secondary.withOpacity(isLight ? 0.18 : 0.12),
+            theme.colorScheme.secondary.withValues(
+              alpha: isLight ? 0.18 : 0.12,
+            ),
           ),
         ),
       ],

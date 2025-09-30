@@ -18,6 +18,8 @@
 "next": "Next",
 "finish": "Finish",
 "choose_training_days": "Choose your training days",
+"select_training_plan": "Select your training plan",
+"select_training_days": "Select your training days",
 "choose_training_days_sub": "Pick the days you usually go to the gym.",
 "mon": "Mon",
 "tue": "Tue",
