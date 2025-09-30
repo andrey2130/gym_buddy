@@ -22,6 +22,15 @@ import 'features/auth/domain/repo/auth_repo.dart' as _i442;
 import 'features/auth/domain/usecases/login_usecase.dart' as _i206;
 import 'features/auth/domain/usecases/register_usecase.dart' as _i693;
 import 'features/auth/presentation/bloc/auth_bloc.dart' as _i363;
+import 'features/onboarding/data/datasource/onboarding_datasource.dart'
+    as _i691;
+import 'features/onboarding/data/repo/onboarding_repo_impl.dart' as _i139;
+import 'features/onboarding/domain/repo/onboarding_repo.dart' as _i721;
+import 'features/onboarding/domain/usecases/get_onboarding_usecase.dart'
+    as _i312;
+import 'features/onboarding/domain/usecases/save_onboarding_usecase.dart'
+    as _i226;
+import 'features/onboarding/presentation/bloc/onboarding_bloc.dart' as _i100;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -32,6 +41,9 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     gh.factory<_i937.UserDataSource>(
       () => _i937.UserDataSourceImpl(gh<_i974.FirebaseFirestore>()),
+    );
+    gh.factory<_i691.OnboardingDataSource>(
+      () => _i691.OnboardingDataSourceImpl(gh<_i974.FirebaseFirestore>()),
     );
     gh.factory<_i337.AuthDatasource>(
       () => _i337.AuthDatasourceImpl(
@@ -48,11 +60,33 @@ extension GetItInjectableX on _i174.GetIt {
         userDataSource: gh<_i937.UserDataSource>(),
       ),
     );
+    gh.factory<_i721.OnboardingRepo>(
+      () => _i139.OnboardingRepoImpl(
+        dataSource: gh<_i691.OnboardingDataSource>(),
+        auth: gh<_i59.FirebaseAuth>(),
+      ),
+    );
+    gh.factory<_i312.GetOnboardingUsecase>(
+      () => _i312.GetOnboardingUsecase(
+        onboardingRepo: gh<_i721.OnboardingRepo>(),
+      ),
+    );
+    gh.factory<_i226.SaveOnboardingUsecase>(
+      () => _i226.SaveOnboardingUsecase(
+        onboardingRepo: gh<_i721.OnboardingRepo>(),
+      ),
+    );
     gh.factory<_i693.RegisterUsecase>(
       () => _i693.RegisterUsecase(authRepo: gh<_i442.AuthRepo>()),
     );
     gh.factory<_i206.LoginUsecase>(
       () => _i206.LoginUsecase(authRepo: gh<_i442.AuthRepo>()),
+    );
+    gh.factory<_i100.OnboardingBloc>(
+      () => _i100.OnboardingBloc(
+        gh<_i226.SaveOnboardingUsecase>(),
+        gh<_i312.GetOnboardingUsecase>(),
+      ),
     );
     gh.factory<_i363.AuthBloc>(
       () =>

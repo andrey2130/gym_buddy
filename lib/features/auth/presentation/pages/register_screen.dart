@@ -192,7 +192,7 @@ class _RegisterScreenState extends State<RegisterScreen>
         Text(
           'create_an_account_to_get_started'.tr(),
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.bodyMedium, // 14px, secondary
+          style: Theme.of(context).textTheme.bodyLarge, // 14px, secondary
         ),
       ],
     );
@@ -291,7 +291,7 @@ class _RegisterScreenState extends State<RegisterScreen>
       onPressed: () => context.push('/login'),
       child: Text(
         'already_have_an_account_log_in'.tr(),
-        style: Theme.of(context).textTheme.bodyMedium,
+        style: Theme.of(context).textTheme.bodyLarge,
       ),
     );
   }

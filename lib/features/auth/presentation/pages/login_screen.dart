@@ -196,7 +196,7 @@ class _LoginScreenState extends State<LoginScreen>
         Text(
           "login_to_continue".tr(),
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.bodyMedium,
+          style: Theme.of(context).textTheme.bodyLarge,
         ),
       ],
     );
@@ -263,7 +263,7 @@ class _LoginScreenState extends State<LoginScreen>
       onPressed: () => context.push('/register'),
       child: Text(
         "don't_have_an_account_regiser".tr(),
-        style: Theme.of(context).textTheme.bodyMedium,
+        style: Theme.of(context).textTheme.bodyLarge,
       ),
     );
   }
