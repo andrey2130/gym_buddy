@@ -8,6 +8,7 @@ import 'package:gym_buddy/core/utils/custom_text_field.dart';
 import 'package:gym_buddy/features/onboarding/domain/params/onboarding_params.dart';
 import 'package:gym_buddy/features/onboarding/presentation/bloc/onboarding_bloc.dart';
 import 'package:gym_buddy/features/onboarding/presentation/widgets/switch_pill.dart';
+import 'package:gym_buddy/features/onboarding/presentation/widgets/time_range_picker.dart';
 
 class TimeScreen extends StatefulWidget {
   final VoidCallback? onFinish;
@@ -82,23 +83,7 @@ class TimeScreenState extends State<TimeScreen> {
     if (!timeRegex.hasMatch(start) || !timeRegex.hasMatch(end)) {
       return 'invalid_time_format'.tr();
     }
-    int parseToMinutes(String hhmm) {
-      final hh = int.parse(hhmm.substring(0, 2));
-      final mm = int.parse(hhmm.substring(3, 5));
-      return hh * 60 + mm;
-    }
 
-    final startMin = parseToMinutes(start);
-    final endMin = parseToMinutes(end);
-    if (endMin <= startMin) {
-      return 'time_end_after_start'.tr();
-    }
-    if (_isMorning && endMin > 12 * 60) {
-      return 'time_not_match_period'.tr();
-    }
-    if (!_isMorning && startMin < 12 * 60) {
-      return 'time_not_match_period'.tr();
-    }
     return null;
   }
 
@@ -151,12 +136,12 @@ class TimeScreenState extends State<TimeScreen> {
                     ],
                   ),
                   SizedBox(height: 16.h),
-                  CustomTextField(
-                    controller: _timeController,
+                  TimeRangePicker(
                     labelText: 'preferred_time_label'.tr(),
                     hintText: 'preferred_time_hint'.tr(),
-                    keyboardType: TextInputType.datetime,
-                    height: 56.h,
+                    value: _timeController.text,
+                    onChanged: (value) =>
+                        setState(() => _timeController.text = value),
                     validator: _validateTime,
                   ),
                   SizedBox(height: 16.h),
@@ -165,11 +150,6 @@ class TimeScreenState extends State<TimeScreen> {
                     controller: _countryController,
                     decoration: InputDecoration(
                       labelText: 'country'.tr(),
-                      suffixIcon: Icon(
-                        Platform.isIOS
-                            ? CupertinoIcons.chevron_down
-                            : Icons.arrow_drop_down,
-                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.r),
                       ),
@@ -209,7 +189,7 @@ class TimeScreenState extends State<TimeScreen> {
 
   Future<void> _openCountryPicker() async {
     if (Platform.isIOS) {
-      int initialIndex = _selectedCountry != null
+      final int initialIndex = _selectedCountry != null
           ? TimeScreenState._countries.indexOf(_selectedCountry!)
           : 0;
       int tempIndex = initialIndex < 0 ? 0 : initialIndex;
