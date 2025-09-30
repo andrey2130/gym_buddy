@@ -13,6 +13,6 @@ class RegisterUsecase
 
   @override
   Future<Either<Failure, String>> call(RegisterParams params) {
-    return _authRepo.registerViaEmail(params: params);
+    return _authRepo.registerViaEmail(params);
   }
 }

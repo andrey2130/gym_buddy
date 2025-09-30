@@ -65,8 +65,15 @@ class _RegisterScreenState extends State<RegisterScreen>
     super.dispose();
   }
 
+  bool _showLottie = false;
+  bool _isRegistering = false;
+
   void _register() {
     if (_formKey.currentState!.validate()) {
+      setState(() {
+        _showLottie = true;
+        _isRegistering = true;
+      });
       context.read<AuthBloc>().add(
         AuthEvent.registerViaEmail(
           RegisterParams(
@@ -82,20 +89,32 @@ class _RegisterScreenState extends State<RegisterScreen>
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
-      listener: (context, state) {
+      listener: (context, state) async {
+        if (!_isRegistering) return;
+
+        if (state is Loading) {
+          return;
+        }
+
+        await Future.delayed(const Duration(milliseconds: 2000));
+
+        if (!mounted) return;
+
+        setState(() {
+          _showLottie = false;
+          _isRegistering = false;
+        });
+
         state.maybeWhen(
-          failure: (message) {
-            _showDelayedSnackBar(message, isError: true);
+          failure: (message) => _showDelayedSnackBar(message, isError: true),
+          authenticated: (userId) {
+            context.replace('/onboarding');
           },
-          authenticated: (userId) {},
           orElse: () {},
         );
       },
       builder: (context, state) {
-        final isLoading = state.maybeWhen(
-          loading: () => true,
-          orElse: () => false,
-        );
+        state.maybeWhen(loading: () => true, orElse: () => false);
 
         return Stack(
           children: [
@@ -159,7 +178,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                 ),
               ),
             ),
-            if (isLoading)
+            if (_showLottie)
               ColoredBox(
                 color: Colors.black.withValues(alpha: 0.5),
                 child: Center(
@@ -190,7 +209,7 @@ class _RegisterScreenState extends State<RegisterScreen>
         Text(
           'create_an_account_to_get_started'.tr(),
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.bodyMedium, // 14px, secondary
+          style: Theme.of(context).textTheme.bodyLarge, // 14px, secondary
         ),
       ],
     );
@@ -200,7 +219,6 @@ class _RegisterScreenState extends State<RegisterScreen>
     String message, {
     required bool isError,
   }) async {
-    await Future.delayed(const Duration(seconds: 2));
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -289,7 +307,7 @@ class _RegisterScreenState extends State<RegisterScreen>
       onPressed: () => context.push('/login'),
       child: Text(
         'already_have_an_account_log_in'.tr(),
-        style: Theme.of(context).textTheme.bodyMedium,
+        style: Theme.of(context).textTheme.bodyLarge,
       ),
     );
   }

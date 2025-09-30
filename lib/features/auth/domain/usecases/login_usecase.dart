@@ -12,6 +12,6 @@ class LoginUsecase implements UseCase<Either<Failure, String>, LoginParams> {
 
   @override
   Future<Either<Failure, String>> call(LoginParams params) {
-    return _authRepo.loginViaEmail(params: params);
+    return _authRepo.loginViaEmail(params);
   }
 }

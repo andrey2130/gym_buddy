@@ -10,6 +10,7 @@ class AnimatedTextField extends StatefulWidget {
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
   final bool isPassword;
+  final bool isPasswordVisible;
 
   const AnimatedTextField({
     required this.controller,
@@ -19,6 +20,7 @@ class AnimatedTextField extends StatefulWidget {
     this.validator,
     this.keyboardType,
     this.isPassword = false,
+    this.isPasswordVisible = false,
   });
 
   @override
@@ -29,6 +31,7 @@ class _AnimatedTextFieldState extends State<AnimatedTextField>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
+  bool _isPasswordVisible = false;
 
   @override
   void initState() {
@@ -42,12 +45,19 @@ class _AnimatedTextFieldState extends State<AnimatedTextField>
       end: 1.0,
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
     _controller.forward();
+    _isPasswordVisible = widget.isPasswordVisible;
   }
 
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  void _togglePasswordVisibility() {
+    setState(() {
+      _isPasswordVisible = !_isPasswordVisible;
+    });
   }
 
   @override
@@ -59,13 +69,18 @@ class _AnimatedTextFieldState extends State<AnimatedTextField>
       child: ScaleTransition(
         scale: _scaleAnimation,
         child: CustomTextField(
+          
           controller: widget.controller,
           labelText: widget.labelText,
           radius: widget.radius,
           height: widget.height,
           validator: widget.validator,
-
+          keyboardType: widget.keyboardType ?? TextInputType.text,
           isPassword: widget.isPassword,
+          isPasswordVisible: _isPasswordVisible,
+          onTogglePasswordVisibility: widget.isPassword
+              ? _togglePasswordVisibility
+              : null,
         ),
       ),
     );

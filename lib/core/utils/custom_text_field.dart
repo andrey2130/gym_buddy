@@ -50,6 +50,7 @@ class CustomTextField extends StatelessWidget {
     return SizedBox(
       height: height ?? 56.h,
       child: TextFormField(
+        autocorrect: false,
         controller: controller,
         focusNode: focusNode,
         maxLength: maxLength,

@@ -1,8 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:gym_buddy/core/usecases/usecase.dart';
 import 'package:gym_buddy/features/auth/domain/params/login_params.dart';
 import 'package:gym_buddy/features/auth/domain/params/register_params.dart';
+import 'package:gym_buddy/features/auth/domain/usecases/get_current_user_usecase.dart';
 import 'package:gym_buddy/features/auth/domain/usecases/login_usecase.dart';
+import 'package:gym_buddy/features/auth/domain/usecases/logout_usecase.dart';
 import 'package:gym_buddy/features/auth/domain/usecases/register_usecase.dart';
 import 'package:gym_buddy/injections.dart';
 import 'package:injectable/injectable.dart';
@@ -16,10 +19,19 @@ part 'auth_bloc.freezed.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final RegisterUsecase _registerUsecase;
   final LoginUsecase _loginUsecase;
-  AuthBloc(this._registerUsecase, this._loginUsecase)
-    : super(const AuthState.initial()) {
+  final GetCurrentUserUsecase _getCurrentUserUsecase;
+  final LogoutUsecase _logoutUsecase;
+
+  AuthBloc(
+    this._registerUsecase,
+    this._loginUsecase,
+    this._getCurrentUserUsecase,
+    this._logoutUsecase,
+  ) : super(const AuthState.initial()) {
     on<RegisterViaEmail>(_onRegisterViaEmail);
     on<LoginViaEmail>(_onLoginViaEmail);
+    on<CheckAuthStatus>(_onCheckAuthStatus);
+    on<Logout>(_onLogout);
   }
 
   Future<void> _onRegisterViaEmail(
@@ -47,6 +59,32 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     result.fold((failure) {
       emit(AuthState.failure(message: failure.message));
       getIt<Talker>().handle(failure.message);
-    }, (userId) => emit(AuthState.authenticated(userId: userId)));
+    }, (userId) => emit(AuthState.logined(userId: userId)));
+  }
+
+  Future<void> _onCheckAuthStatus(
+    CheckAuthStatus event,
+    Emitter<AuthState> emit,
+  ) async {
+    final result = await _getCurrentUserUsecase(NoParams());
+
+    result.fold((failure) => emit(const AuthState.unauthenticated()), (user) {
+      if (user != null) {
+        emit(AuthState.authenticated(userId: user.uid));
+      } else {
+        emit(const AuthState.unauthenticated());
+      }
+    });
+  }
+
+  Future<void> _onLogout(Logout event, Emitter<AuthState> emit) async {
+    emit(const AuthState.loading());
+
+    final result = await _logoutUsecase(NoParams());
+
+    result.fold((failure) {
+      emit(AuthState.failure(message: failure.message));
+      getIt<Talker>().handle(failure.message);
+    }, (_) => emit(const AuthState.unauthenticated()));
   }
 }

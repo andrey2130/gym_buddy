@@ -61,9 +61,14 @@ class _LoginScreenState extends State<LoginScreen>
   }
 
   bool _showLottie = false;
+  bool _isLoggingIn = false;
+
   void _login() {
     if (_formKey.currentState!.validate()) {
-      setState(() => _showLottie = true);
+      setState(() {
+        _showLottie = true;
+        _isLoggingIn = true;
+      });
 
       context.read<AuthBloc>().add(
         AuthEvent.loginViaEmail(
@@ -80,20 +85,28 @@ class _LoginScreenState extends State<LoginScreen>
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) async {
+        if (!_isLoggingIn) return;
+
         if (state is Loading) {
-        } else {
-          await Future.delayed(const Duration(seconds: 2));
-
-          if (!mounted) return;
-
-          setState(() => _showLottie = false);
-
-          state.maybeWhen(
-            failure: (message) => _showDelayedSnackBar(message, isError: true),
-            authenticated: (userId) {},
-            orElse: () {},
-          );
+          return;
         }
+
+        await Future.delayed(const Duration(milliseconds: 2500));
+
+        if (!mounted) return;
+
+        setState(() {
+          _showLottie = false;
+          _isLoggingIn = false;
+        });
+
+        state.maybeWhen(
+          failure: (message) => _showDelayedSnackBar(message, isError: true),
+          logined: (userId) {
+            context.replace('/home');
+          },
+          orElse: () {},
+        );
       },
       builder: (context, state) {
         state.maybeWhen(loading: () => true, orElse: () => false);
@@ -193,7 +206,7 @@ class _LoginScreenState extends State<LoginScreen>
         Text(
           "login_to_continue".tr(),
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.bodyMedium,
+          style: Theme.of(context).textTheme.bodyLarge,
         ),
       ],
     );
@@ -260,7 +273,7 @@ class _LoginScreenState extends State<LoginScreen>
       onPressed: () => context.push('/register'),
       child: Text(
         "don't_have_an_account_regiser".tr(),
-        style: Theme.of(context).textTheme.bodyMedium,
+        style: Theme.of(context).textTheme.bodyLarge,
       ),
     );
   }

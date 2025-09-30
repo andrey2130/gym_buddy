@@ -95,7 +95,7 @@ class _SplashScreenState extends State<SplashScreen>
           SizedBox(height: 12.h),
           Text(
             'find_a_partner_be_your_best'.tr(),
-            style: Theme.of(context).textTheme.bodyMedium,
+            style: Theme.of(context).textTheme.bodyLarge,
             textAlign: TextAlign.center,
           ),
         ],

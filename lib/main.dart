@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gym_buddy/core/app_route/app_route.dart';
 import 'package:gym_buddy/core/theme/app_themes.dart';
 import 'package:gym_buddy/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:gym_buddy/features/onboarding/presentation/bloc/onboarding_bloc.dart';
 import 'package:gym_buddy/firebase_options.dart';
 import 'package:gym_buddy/injections.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -44,19 +45,30 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => getIt<AuthBloc>())],
+      providers: [
+        BlocProvider(
+          create: (context) =>
+              getIt<AuthBloc>()..add(const AuthEvent.checkAuthStatus()),
+        ),
+        BlocProvider(create: (context) => getIt<OnboardingBloc>()),
+      ],
       child: TalkerWrapper(
         talker: getIt<Talker>(),
         child: ScreenUtilInit(
           designSize: const Size(375, 812),
           minTextAdapt: true,
-          child: MaterialApp.router(
-            routerConfig: route,
-            theme: AppThemes.darkTheme(),
-            debugShowCheckedModeBanner: false,
-            locale: context.locale,
-            supportedLocales: context.supportedLocales,
-            localizationsDelegates: context.localizationDelegates,
+          child: GestureDetector(
+            onTap: () {
+              FocusManager.instance.primaryFocus?.unfocus();
+            },
+            child: MaterialApp.router(
+              routerConfig: route,
+              theme: AppThemes.darkTheme(),
+              debugShowCheckedModeBanner: false,
+              locale: context.locale,
+              supportedLocales: context.supportedLocales,
+              localizationsDelegates: context.localizationDelegates,
+            ),
           ),
         ),
       ),

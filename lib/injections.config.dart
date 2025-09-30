@@ -19,9 +19,20 @@ import 'features/auth/data/datasource/auth_datasource.dart' as _i337;
 import 'features/auth/data/datasource/user_datasource.dart' as _i937;
 import 'features/auth/data/repo/auth_repo_impl.dart' as _i186;
 import 'features/auth/domain/repo/auth_repo.dart' as _i442;
+import 'features/auth/domain/usecases/get_current_user_usecase.dart' as _i630;
 import 'features/auth/domain/usecases/login_usecase.dart' as _i206;
+import 'features/auth/domain/usecases/logout_usecase.dart' as _i824;
 import 'features/auth/domain/usecases/register_usecase.dart' as _i693;
 import 'features/auth/presentation/bloc/auth_bloc.dart' as _i363;
+import 'features/onboarding/data/datasource/onboarding_datasource.dart'
+    as _i691;
+import 'features/onboarding/data/repo/onboarding_repo_impl.dart' as _i139;
+import 'features/onboarding/domain/repo/onboarding_repo.dart' as _i721;
+import 'features/onboarding/domain/usecases/get_onboarding_usecase.dart'
+    as _i312;
+import 'features/onboarding/domain/usecases/save_onboarding_usecase.dart'
+    as _i226;
+import 'features/onboarding/presentation/bloc/onboarding_bloc.dart' as _i100;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -33,20 +44,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i937.UserDataSource>(
       () => _i937.UserDataSourceImpl(gh<_i974.FirebaseFirestore>()),
     );
-    gh.factory<_i337.AuthDatasource>(
-      () => _i337.AuthDatasourceImpl(
-        firebaseAuth: gh<_i59.FirebaseAuth>(),
-        userDataSource: gh<_i937.UserDataSource>(),
-      ),
+    gh.factory<_i337.AuthDataSource>(
+      () => _i337.AuthDataSourceImpl(gh<_i59.FirebaseAuth>()),
+    );
+    gh.factory<_i691.OnboardingDataSource>(
+      () => _i691.OnboardingDataSourceImpl(gh<_i974.FirebaseFirestore>()),
     );
     gh.factory<_i442.AuthRepo>(
-      () => _i186.AuthRepoImpl(authDatasource: gh<_i337.AuthDatasource>()),
-    );
-    gh.factory<_i800.AuthDatasource>(
-      () => _i800.AuthDatasourceImpl(
-        firebaseAuth: gh<_i59.FirebaseAuth>(),
-        userDataSource: gh<_i937.UserDataSource>(),
-      ),
+      () => _i186.AuthRepoImpl(gh<_i337.AuthDataSource>()),
     );
     gh.factory<_i693.RegisterUsecase>(
       () => _i693.RegisterUsecase(authRepo: gh<_i442.AuthRepo>()),
@@ -54,9 +59,47 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i206.LoginUsecase>(
       () => _i206.LoginUsecase(authRepo: gh<_i442.AuthRepo>()),
     );
+    gh.factory<_i630.GetCurrentUserUsecase>(
+      () => _i630.GetCurrentUserUsecase(authRepo: gh<_i442.AuthRepo>()),
+    );
+    gh.factory<_i824.LogoutUsecase>(
+      () => _i824.LogoutUsecase(authRepo: gh<_i442.AuthRepo>()),
+    );
+    gh.factory<_i800.AuthDatasource>(
+      () => _i800.AuthDatasourceImpl(
+        firebaseAuth: gh<_i59.FirebaseAuth>(),
+        userDataSource: gh<_i937.UserDataSource>(),
+      ),
+    );
+    gh.factory<_i721.OnboardingRepo>(
+      () => _i139.OnboardingRepoImpl(
+        dataSource: gh<_i691.OnboardingDataSource>(),
+        auth: gh<_i59.FirebaseAuth>(),
+      ),
+    );
     gh.factory<_i363.AuthBloc>(
-      () =>
-          _i363.AuthBloc(gh<_i693.RegisterUsecase>(), gh<_i206.LoginUsecase>()),
+      () => _i363.AuthBloc(
+        gh<_i693.RegisterUsecase>(),
+        gh<_i206.LoginUsecase>(),
+        gh<_i630.GetCurrentUserUsecase>(),
+        gh<_i824.LogoutUsecase>(),
+      ),
+    );
+    gh.factory<_i312.GetOnboardingUsecase>(
+      () => _i312.GetOnboardingUsecase(
+        onboardingRepo: gh<_i721.OnboardingRepo>(),
+      ),
+    );
+    gh.factory<_i226.SaveOnboardingUsecase>(
+      () => _i226.SaveOnboardingUsecase(
+        onboardingRepo: gh<_i721.OnboardingRepo>(),
+      ),
+    );
+    gh.factory<_i100.OnboardingBloc>(
+      () => _i100.OnboardingBloc(
+        gh<_i226.SaveOnboardingUsecase>(),
+        gh<_i312.GetOnboardingUsecase>(),
+      ),
     );
     return this;
   }

@@ -1,0 +1,29 @@
+---
+alwaysApply: true
+description: GymBuddy app overview and scope for Cursor rules
+---
+
+GymBuddy – a mobile app for people who train at the gym and want to track their progress.
+Users can register, select training days, customize their plan, log exercises with sets/reps, and monitor their statistics. Additionally, there is a chat for user communication.
+
+✨ Key Features:
+
+🔐 Authentication (registration and login via Firebase)
+
+💬 Chat with messages, photos, and replies
+
+📅 Onboarding: choose training days, plan, and time
+
+🏋️ Workout Tracker: exercises, sets, reps, save progress
+
+📊 Progress Tracking: total number of workouts, total reps
+
+🎨 Dark/Light Theme with native elements for Android and iOS
+
+🛠️ Technologies:
+	•	Flutter (UI + cross-platform)
+	•	Firebase (Auth, Firestore, Storage)
+	•	Easy Localization (multilingual support)
+	•	Material + Cupertino (native design for Android/iOS)
+
+---
