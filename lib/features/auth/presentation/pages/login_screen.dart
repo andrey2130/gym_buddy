@@ -100,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen>
           _isLoggingIn = false;
         });
 
-        state.maybeWhen(
+        await state.maybeWhen(
           failure: (message) => _showDelayedSnackBar(message, isError: true),
           logined: (userId) {
             context.replace('/home');

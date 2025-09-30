@@ -43,7 +43,7 @@ class _DaysSelectorState extends State<DaysSelector>
         final isSelected = _selected.contains(index);
         final color = isSelected
             ? theme.colorScheme.primary
-            : theme.colorScheme.surfaceVariant;
+            : theme.colorScheme.surfaceContainerHighest;
         final textColor = isSelected
             ? theme.colorScheme.onPrimary
             : theme.colorScheme.onSurface;

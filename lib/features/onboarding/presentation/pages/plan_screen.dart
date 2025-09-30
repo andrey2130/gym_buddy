@@ -63,7 +63,7 @@ class _PlanScreenState extends State<PlanScreen> {
                     final isSelected = _selectedIndex == index;
                     final bg = isSelected
                         ? theme.colorScheme.primary
-                        : theme.colorScheme.surfaceVariant;
+                        : theme.colorScheme.surfaceContainerHighest;
                     final titleColor = isSelected
                         ? theme.colorScheme.onPrimary
                         : theme.colorScheme.onSurface;

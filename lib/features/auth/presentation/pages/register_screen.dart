@@ -105,7 +105,7 @@ class _RegisterScreenState extends State<RegisterScreen>
           _isRegistering = false;
         });
 
-        state.maybeWhen(
+        await state.maybeWhen(
           failure: (message) => _showDelayedSnackBar(message, isError: true),
           authenticated: (userId) {
             context.replace('/onboarding');
