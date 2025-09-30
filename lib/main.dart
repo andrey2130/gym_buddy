@@ -46,7 +46,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => getIt<AuthBloc>()),
+        BlocProvider(
+          create: (context) =>
+              getIt<AuthBloc>()..add(const AuthEvent.checkAuthStatus()),
+        ),
         BlocProvider(create: (context) => getIt<OnboardingBloc>()),
       ],
       child: TalkerWrapper(

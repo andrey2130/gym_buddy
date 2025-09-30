@@ -8,4 +8,5 @@ abstract class AuthRepo {
   Future<Either<Failure, String>> registerViaEmail(RegisterParams params);
   Future<Either<Failure, String>> loginViaEmail(LoginParams params);
   Future<Either<Failure, User?>> getCurrentUser();
+  Future<Either<Failure, void>> logout();
 }

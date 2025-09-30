@@ -1,11 +1,29 @@
+import 'dart:async';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:gym_buddy/core/services/navigation_service.dart';
+  import 'package:go_router/go_router.dart';
 import 'package:gym_buddy/features/auth/presentation/pages/login_screen.dart';
 import 'package:gym_buddy/features/auth/presentation/pages/register_screen.dart';
+import 'package:gym_buddy/features/home/home_screen.dart';
 import 'package:gym_buddy/features/onboarding/presentation/pages/onboarding_screen.dart';
 import 'package:gym_buddy/features/splash_screen/presentation/splash_screen.dart';
 import 'package:gym_buddy/injections.dart';
+
+class GoRouterRefreshStream extends ChangeNotifier {
+  GoRouterRefreshStream(Stream<dynamic> stream) {
+    notifyListeners();
+    _subscription = stream.asBroadcastStream().listen((_) => notifyListeners());
+  }
+
+  late final StreamSubscription<dynamic> _subscription;
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
+  }
+}
 
 // ignore: strict_raw_type
 CustomTransitionPage buildTransitionPage({
@@ -53,33 +71,31 @@ CustomTransitionPage buildTransitionPage({
 
 final route = GoRouter(
   initialLocation: '/',
-  redirect: (context, state) async {
-    // Don't redirect these paths
-    if ([
-      '/login',
-      '/register',
-      '/onboarding',
-    ].contains(state.matchedLocation)) {
-      return null;
+  refreshListenable: GoRouterRefreshStream(
+    getIt<FirebaseAuth>().authStateChanges(),
+  ),
+  redirect: (context, state) {
+    final user = getIt<FirebaseAuth>().currentUser;
+    final isAuthenticated = user != null;
+
+    final publicRoutes = ['/', '/login', '/register'];
+    final isPublicRoute = publicRoutes.contains(state.matchedLocation);
+
+    if (isAuthenticated && isPublicRoute) {
+      return '/home';
     }
 
-    final navigationService = getIt<NavigationService>();
-    final result = await navigationService.getNavigationState();
+    if (!isAuthenticated &&
+        !isPublicRoute &&
+        state.matchedLocation != '/onboarding') {
+      return '/';
+    }
 
-    return result.fold((failure) => '/', (navigationState) {
-      switch (navigationState) {
-        case NavigationState.authenticated:
-          return '/home';
-
-        case NavigationState.unauthenticated:
-          return '/';
-      }
-    });
+    return null;
   },
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const OnboardingScreen(),
       pageBuilder: (context, state) =>
           buildTransitionPage(key: state.pageKey, child: const SplashScreen()),
     ),
@@ -107,12 +123,11 @@ final route = GoRouter(
     ),
     GoRoute(
       path: '/home',
-      builder: (context, state) =>
-          const Scaffold(body: Center(child: Text('HOME'))),
       pageBuilder: (context, state) => buildTransitionPage(
         key: state.pageKey,
-        child: const Scaffold(body: Center(child: Text('HOME'))),
+        child: const HomeScreen(),
       ),
     ),
   ],
 );
+

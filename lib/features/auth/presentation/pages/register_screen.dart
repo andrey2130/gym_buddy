@@ -66,9 +66,14 @@ class _RegisterScreenState extends State<RegisterScreen>
   }
 
   bool _showLottie = false;
+  bool _isRegistering = false;
+
   void _register() {
     if (_formKey.currentState!.validate()) {
-      setState(() => _showLottie = true);
+      setState(() {
+        _showLottie = true;
+        _isRegistering = true;
+      });
       context.read<AuthBloc>().add(
         AuthEvent.registerViaEmail(
           RegisterParams(
@@ -85,23 +90,28 @@ class _RegisterScreenState extends State<RegisterScreen>
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) async {
+        if (!_isRegistering) return;
+
         if (state is Loading) {
-        } else {
-          await Future.delayed(const Duration(milliseconds: 2000));
-
-          if (!mounted) return;
-
-          setState(() => _showLottie = false);
-
-          state.maybeWhen(
-            failure: (message) => _showDelayedSnackBar(message, isError: true),
-            authenticated: (userId) {
-              context.replace('/onboarding');
-            },
-
-            orElse: () {},
-          );
+          return;
         }
+
+        await Future.delayed(const Duration(milliseconds: 2000));
+
+        if (!mounted) return;
+
+        setState(() {
+          _showLottie = false;
+          _isRegistering = false;
+        });
+
+        state.maybeWhen(
+          failure: (message) => _showDelayedSnackBar(message, isError: true),
+          authenticated: (userId) {
+            context.replace('/onboarding');
+          },
+          orElse: () {},
+        );
       },
       builder: (context, state) {
         state.maybeWhen(loading: () => true, orElse: () => false);

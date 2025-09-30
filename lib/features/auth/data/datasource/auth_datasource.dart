@@ -13,18 +13,14 @@ abstract class AuthDataSource {
   });
   Future<Either<Failure, String>> loginViaEmail({required LoginParams params});
   Future<User?> getCurrentUser();
+  Future<void> logout();
 }
 
 @Injectable(as: AuthDataSource)
 class AuthDataSourceImpl implements AuthDataSource {
   final FirebaseAuth _firebaseAuth;
-  User? _currentUser;
 
-  AuthDataSourceImpl(this._firebaseAuth) {
-    _firebaseAuth.authStateChanges().listen((User? user) {
-      _currentUser = user;
-    });
-  }
+  AuthDataSourceImpl(this._firebaseAuth);
 
   @override
   Future<Either<Failure, String>> registerViaEmail({
@@ -102,6 +98,11 @@ class AuthDataSourceImpl implements AuthDataSource {
 
   @override
   Future<User?> getCurrentUser() async {
-    return _currentUser;
+    return _firebaseAuth.currentUser;
+  }
+
+  @override
+  Future<void> logout() async {
+    await _firebaseAuth.signOut();
   }
 }
