@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gym_buddy/features/auth/presentation/pages/login_screen.dart';
 import 'package:gym_buddy/features/auth/presentation/pages/register_screen.dart';
-import 'package:gym_buddy/features/home/home_screen.dart';
+import 'package:gym_buddy/features/home/presentation/pages/main_screen.dart';
 import 'package:gym_buddy/features/onboarding/presentation/pages/onboarding_screen.dart';
 import 'package:gym_buddy/features/splash_screen/presentation/splash_screen.dart';
 import 'package:gym_buddy/injections.dart';
@@ -102,7 +102,7 @@ GoRouter createRouter({String? initialLocation}) {
       GoRoute(
         path: '/home',
         pageBuilder: (context, state) =>
-            buildTransitionPage(key: state.pageKey, child: const HomeScreen()),
+            buildTransitionPage(key: state.pageKey, child: const MainScreen()),
       ),
     ],
   );

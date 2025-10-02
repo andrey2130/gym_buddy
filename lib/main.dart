@@ -29,7 +29,7 @@ void main() async {
         EasyLocalization(
           supportedLocales: const [Locale('en', 'US'), Locale('uk', 'UA')],
           path: 'assets/translations',
-          fallbackLocale: const Locale('en'),
+          fallbackLocale: const Locale('uk'),
           child: const MyApp(),
         ),
       );
@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
             },
             child: MaterialApp.router(
               routerConfig: createRouter(initialLocation: initialLocation),
-              theme: AppThemes.darkTheme(),
+              theme: AppThemes.lightTheme(),
               debugShowCheckedModeBanner: false,
               locale: context.locale,
               supportedLocales: context.supportedLocales,
