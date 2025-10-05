@@ -1,15 +1,16 @@
 import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gym_buddy/core/app_route/app_route.dart';
 import 'package:gym_buddy/core/theme/app_themes.dart';
+import 'package:gym_buddy/features/auth/domain/repo/auth_repo.dart';
 import 'package:gym_buddy/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:gym_buddy/features/onboarding/presentation/bloc/onboarding_bloc.dart';
+import 'package:gym_buddy/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:gym_buddy/firebase_options.dart';
 import 'package:gym_buddy/injections.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -45,13 +46,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = getIt<FirebaseAuth>().currentUser;
-    final initialLocation = user != null ? '/home' : '/';
+    final userId = getIt<AuthRepo>().getCurrentUserId();
+    final initialLocation = userId != null ? '/home' : '/';
 
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => getIt<AuthBloc>()),
         BlocProvider(create: (context) => getIt<OnboardingBloc>()),
+        BlocProvider(create: (context) => getIt<ProfileBloc>()),
       ],
       child: TalkerWrapper(
         talker: getIt<Talker>(),

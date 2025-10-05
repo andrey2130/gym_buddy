@@ -19,13 +19,13 @@ part 'auth_bloc.freezed.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final RegisterUsecase _registerUsecase;
   final LoginUsecase _loginUsecase;
-  final GetCurrentUserUsecase _getCurrentUserUsecase;
+  final GetCurrentUserIdUsecase _getCurrentUserIdUsecase;
   final LogoutUsecase _logoutUsecase;
 
   AuthBloc(
     this._registerUsecase,
     this._loginUsecase,
-    this._getCurrentUserUsecase,
+    this._getCurrentUserIdUsecase,
     this._logoutUsecase,
   ) : super(const AuthState.initial()) {
     on<RegisterViaEmail>(_onRegisterViaEmail);
@@ -66,15 +66,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     CheckAuthStatus event,
     Emitter<AuthState> emit,
   ) async {
-    final result = await _getCurrentUserUsecase(const NoParams());
+    final userId = await _getCurrentUserIdUsecase(const NoParams());
 
-    result.fold((failure) => emit(const AuthState.unauthenticated()), (user) {
-      if (user != null) {
-        emit(AuthState.authenticated(userId: user.uid));
-      } else {
-        emit(const AuthState.unauthenticated());
-      }
-    });
+    if (userId != null) {
+      emit(AuthState.authenticated(userId: userId));
+    } else {
+      emit(const AuthState.unauthenticated());
+    }
   }
 
   Future<void> _onLogout(Logout event, Emitter<AuthState> emit) async {

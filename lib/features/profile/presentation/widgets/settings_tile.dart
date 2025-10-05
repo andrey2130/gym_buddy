@@ -13,12 +13,12 @@ class SettingsTile extends StatelessWidget {
   final Color? iconColor;
 
   const SettingsTile({
-    super.key,
     required this.icon,
-    this.iosIcon,
     required this.title,
-    this.subtitle,
     required this.onTap,
+    super.key,
+    this.iosIcon,
+    this.subtitle,
     this.showTrailing = true,
     this.trailing,
     this.iconColor,

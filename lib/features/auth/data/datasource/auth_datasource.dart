@@ -1,6 +1,5 @@
-import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:gym_buddy/core/error/failure.dart';
+import 'package:gym_buddy/features/auth/data/datasource/user_datasource.dart';
 import 'package:gym_buddy/features/auth/domain/params/login_params.dart';
 import 'package:gym_buddy/features/auth/domain/params/register_params.dart';
 import 'package:gym_buddy/injections.dart';
@@ -8,24 +7,21 @@ import 'package:injectable/injectable.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 abstract class AuthDataSource {
-  Future<Either<Failure, String>> registerViaEmail({
-    required RegisterParams params,
-  });
-  Future<Either<Failure, String>> loginViaEmail({required LoginParams params});
-  Future<User?> getCurrentUser();
+  Future<String> registerViaEmail(RegisterParams params);
+  Future<String> loginViaEmail(LoginParams params);
   Future<void> logout();
+  String? getCurrentUserId();
 }
 
 @Injectable(as: AuthDataSource)
 class AuthDataSourceImpl implements AuthDataSource {
   final FirebaseAuth _firebaseAuth;
+  final UserDataSource _userDataSource;
 
-  AuthDataSourceImpl(this._firebaseAuth);
+  AuthDataSourceImpl(this._firebaseAuth, this._userDataSource);
 
   @override
-  Future<Either<Failure, String>> registerViaEmail({
-    required RegisterParams params,
-  }) async {
+  Future<String> registerViaEmail(RegisterParams params) async {
     try {
       final credential = await _firebaseAuth.createUserWithEmailAndPassword(
         email: params.email,
@@ -33,9 +29,10 @@ class AuthDataSourceImpl implements AuthDataSource {
       );
       final user = credential.user;
       if (user != null) {
-        return Right(user.uid);
+        await _userDataSource.saveUserDataEmail(user, params);
+        return user.uid;
       } else {
-        return Left(Failure(message: "Failed to create user"));
+        throw Exception("Failed to create user");
       }
     } on FirebaseAuthException catch (e) {
       getIt<Talker>().handle(e);
@@ -50,17 +47,15 @@ class AuthDataSourceImpl implements AuthDataSource {
         default:
           errorMessage = e.message ?? 'Registration failed';
       }
-      return Left(Failure(message: errorMessage));
+      throw Exception(errorMessage);
     } catch (e) {
       getIt<Talker>().handle(e);
-      return Left(Failure(message: "Unknown error: $e"));
+      rethrow;
     }
   }
 
   @override
-  Future<Either<Failure, String>> loginViaEmail({
-    required LoginParams params,
-  }) async {
+  Future<String> loginViaEmail(LoginParams params) async {
     try {
       final credential = await _firebaseAuth.signInWithEmailAndPassword(
         email: params.email,
@@ -68,9 +63,9 @@ class AuthDataSourceImpl implements AuthDataSource {
       );
       final user = credential.user;
       if (user != null) {
-        return Right(user.uid);
+        return user.uid;
       } else {
-        return Left(Failure(message: "User not found"));
+        throw Exception("User not found");
       }
     } on FirebaseAuthException catch (e) {
       getIt<Talker>().handle(e);
@@ -89,20 +84,25 @@ class AuthDataSourceImpl implements AuthDataSource {
         default:
           errorMessage = e.message ?? 'Login failed';
       }
-      return Left(Failure(message: errorMessage));
+      throw Exception(errorMessage);
     } catch (e) {
       getIt<Talker>().handle(e);
-      return Left(Failure(message: "Unknown error: $e"));
+      rethrow;
     }
   }
 
   @override
-  Future<User?> getCurrentUser() async {
-    return _firebaseAuth.currentUser;
+  Future<void> logout() async {
+    try {
+      await _firebaseAuth.signOut();
+    } catch (e) {
+      getIt<Talker>().handle(e);
+      rethrow;
+    }
   }
 
   @override
-  Future<void> logout() async {
-    await _firebaseAuth.signOut();
+  String? getCurrentUserId() {
+    return _firebaseAuth.currentUser?.uid;
   }
 }

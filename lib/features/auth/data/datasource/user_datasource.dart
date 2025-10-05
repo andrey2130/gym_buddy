@@ -7,7 +7,6 @@ import 'package:talker_flutter/talker_flutter.dart';
 
 abstract class UserDataSource {
   Future<void> saveUserDataEmail(User user, RegisterParams params);
-  Future<Map<String, dynamic>?> getUserData(String userId);
 }
 
 @Injectable(as: UserDataSource)
@@ -25,19 +24,6 @@ class UserDataSourceImpl implements UserDataSource {
         'name': params.username,
         'createdAt': FieldValue.serverTimestamp(),
       });
-    } catch (e) {
-      getIt<Talker>().handle(e);
-    }
-  }
-
-  @override
-  Future<Map<String, dynamic>?> getUserData(String userId) async {
-    try {
-      final docSnapshot = await _firestore
-          .collection('users')
-          .doc(userId)
-          .get();
-      return docSnapshot.data();
     } catch (e) {
       getIt<Talker>().handle(e);
       rethrow;

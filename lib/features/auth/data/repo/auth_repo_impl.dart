@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gym_buddy/core/error/failure.dart';
 import 'package:gym_buddy/features/auth/data/datasource/auth_datasource.dart';
 import 'package:gym_buddy/features/auth/domain/params/login_params.dart';
@@ -18,8 +17,8 @@ class AuthRepoImpl implements AuthRepo {
     RegisterParams params,
   ) async {
     try {
-      final result = await _dataSource.registerViaEmail(params: params);
-      return result;
+      final uid = await _dataSource.registerViaEmail(params);
+      return Right(uid);
     } catch (e) {
       return Left(Failure(message: e.toString()));
     }
@@ -28,18 +27,8 @@ class AuthRepoImpl implements AuthRepo {
   @override
   Future<Either<Failure, String>> loginViaEmail(LoginParams params) async {
     try {
-      final result = await _dataSource.loginViaEmail(params: params);
-      return result;
-    } catch (e) {
-      return Left(Failure(message: e.toString()));
-    }
-  }
-
-  @override
-  Future<Either<Failure, User?>> getCurrentUser() async {
-    try {
-      final user = await _dataSource.getCurrentUser();
-      return Right(user);
+      final uid = await _dataSource.loginViaEmail(params);
+      return Right(uid);
     } catch (e) {
       return Left(Failure(message: e.toString()));
     }
@@ -53,5 +42,10 @@ class AuthRepoImpl implements AuthRepo {
     } catch (e) {
       return Left(Failure(message: e.toString()));
     }
+  }
+
+  @override
+  String? getCurrentUserId() {
+    return _dataSource.getCurrentUserId();
   }
 }
