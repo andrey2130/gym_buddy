@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
             },
             child: MaterialApp.router(
               routerConfig: createRouter(initialLocation: initialLocation),
-              theme: AppThemes.lightTheme(),
+              theme: AppThemes.darkTheme(),
               debugShowCheckedModeBanner: false,
               locale: context.locale,
               supportedLocales: context.supportedLocales,

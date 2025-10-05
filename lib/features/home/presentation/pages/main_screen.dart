@@ -1,8 +1,10 @@
 import 'dart:io';
+
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gym_buddy/features/home/presentation/pages/home_screen.dart';
-import 'package:gym_buddy/profile/profile_screen.dart';
+import 'package:gym_buddy/features/profile/presentation/pages/profile_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -37,9 +39,15 @@ class _MainScreenState extends State<MainScreen> {
           _currentIndex = index;
         });
       },
-      items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+      items: [
+        BottomNavigationBarItem(
+          icon: const Icon(Icons.home),
+          label: 'home'.tr(),
+        ),
+        BottomNavigationBarItem(
+          icon: const Icon(Icons.person),
+          label: 'profile'.tr(),
+        ),
       ],
     );
   }
@@ -52,12 +60,15 @@ class _MainScreenState extends State<MainScreen> {
           _currentIndex = index;
         });
       },
-      items: const [
-        BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), label: 'Home'),
+      items: [
+        BottomNavigationBarItem(
+          icon: const Icon(CupertinoIcons.home),
+          label: 'home'.tr(),
+        ),
 
         BottomNavigationBarItem(
-          icon: Icon(CupertinoIcons.person_solid),
-          label: 'Profile',
+          icon: const Icon(CupertinoIcons.person_solid),
+          label: 'profile'.tr(),
         ),
       ],
     );
