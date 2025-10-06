@@ -78,5 +78,6 @@
   "system_default": "Системна",
   "logout_confirmation": "Ви впевнені, що хочете вийти?",
   "don't_have_an_account_register": "Немає акаунту? Зареєструватися",
-  "home": "Головна"
-    }
+  "home": "Головна",
+  "retry": "Спробувати знову"
+}

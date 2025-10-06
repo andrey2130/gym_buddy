@@ -79,5 +79,6 @@
   "light_mode": "Light Mode",
   "system_default": "System Default",
   "logout_confirmation": "Are you sure you want to logout?",
-  "home": "Home"
+  "home": "Home",
+  "retry": "Retry"
 }

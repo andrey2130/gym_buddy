@@ -1,14 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ProfileHeader extends StatelessWidget {
   final String userName;
   final String userEmail;
   final String? avatarUrl;
-
+  final VoidCallback onTap;
   const ProfileHeader({
-    super.key,
     required this.userName,
     required this.userEmail,
+    required this.onTap,
+    super.key,
     this.avatarUrl,
   });
 
@@ -20,19 +22,31 @@ class ProfileHeader extends StatelessWidget {
         children: [
           Stack(
             children: [
-              CircleAvatar(
-                radius: 50,
-                backgroundColor: Theme.of(context).colorScheme.primary,
-                backgroundImage: avatarUrl != null
-                    ? NetworkImage(avatarUrl!)
-                    : null,
-                child: avatarUrl == null
-                    ? Text(
-                        _getInitials(userName),
-                        style: Theme.of(context).textTheme.displayLarge
-                            ?.copyWith(color: Colors.white, fontSize: 32),
+              GestureDetector(
+                onTap: onTap,
+                child: avatarUrl != null && avatarUrl!.isNotEmpty
+                    ? Container(
+                        width: 80,
+                        height: 80,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Theme.of(context).colorScheme.primary,
+                            width: 2,
+                          ),
+                          shape: BoxShape.circle,
+                        ),
+                        child: ClipOval(
+                          child: CachedNetworkImage(
+                            imageUrl: avatarUrl!,
+                            fit: BoxFit.cover,
+                            placeholder: (context, url) =>
+                                _buildPlaceholder(context),
+                            errorWidget: (context, url, error) =>
+                                _buildPlaceholder(context),
+                          ),
+                        ),
                       )
-                    : null,
+                    : _buildPlaceholder(context),
               ),
               Positioned(
                 bottom: 0,
@@ -44,10 +58,14 @@ class ProfileHeader extends StatelessWidget {
                     shape: BoxShape.circle,
                     border: Border.all(
                       color: Theme.of(context).scaffoldBackgroundColor,
-                      width: 3,
+                      width: 2,
                     ),
                   ),
-                  child: const Icon(Icons.edit, color: Colors.white, size: 16),
+                  child: Icon(
+                    Icons.camera_alt,
+                    size: 16,
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
                 ),
               ),
             ],
@@ -57,6 +75,19 @@ class ProfileHeader extends StatelessWidget {
           const SizedBox(height: 4),
           Text(userEmail, style: Theme.of(context).textTheme.bodyMedium),
         ],
+      ),
+    );
+  }
+
+  Widget _buildPlaceholder(BuildContext context) {
+    return CircleAvatar(
+      radius: 40,
+      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+      child: Text(
+        _getInitials(userName),
+        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+          color: Theme.of(context).colorScheme.onPrimaryContainer,
+        ),
       ),
     );
   }

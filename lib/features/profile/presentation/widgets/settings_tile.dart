@@ -38,7 +38,7 @@ class SettingsTile extends StatelessWidget {
               height: 40,
               decoration: BoxDecoration(
                 color: (iconColor ?? Theme.of(context).colorScheme.primary)
-                    .withOpacity(0.1),
+                    .withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Icon(
@@ -70,7 +70,9 @@ class SettingsTile extends StatelessWidget {
                 Platform.isIOS
                     ? CupertinoIcons.chevron_forward
                     : Icons.chevron_right,
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.3),
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSurface.withValues(alpha: 0.3),
               ),
           ],
         ),

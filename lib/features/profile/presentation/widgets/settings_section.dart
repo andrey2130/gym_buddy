@@ -5,9 +5,9 @@ class SettingsSection extends StatelessWidget {
   final List<Widget> children;
 
   const SettingsSection({
-    super.key,
     required this.title,
     required this.children,
+    super.key,
   });
 
   @override
@@ -20,7 +20,9 @@ class SettingsSection extends StatelessWidget {
           child: Text(
             title,
             style: Theme.of(context).textTheme.labelLarge?.copyWith(
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.6),
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -32,7 +34,7 @@ class SettingsSection extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.03),
+                color: Colors.black.withValues(alpha: 0.03),
                 blurRadius: 8,
                 offset: const Offset(0, 2),
               ),
@@ -55,7 +57,9 @@ class SettingsSection extends StatelessWidget {
             child: Divider(
               height: 1,
               thickness: 1,
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.05),
             ),
           ),
         );

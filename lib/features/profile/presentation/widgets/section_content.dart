@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class SectionContent extends StatelessWidget {
   final List<Widget> children;
 
-  const SectionContent({super.key, required this.children});
+  const SectionContent({required this.children, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class SectionContent extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.03),
+            color: Colors.black.withValues(alpha: 0.03),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -35,7 +35,9 @@ class SectionContent extends StatelessWidget {
             child: Divider(
               height: 1,
               thickness: 1,
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.05),
             ),
           ),
         );

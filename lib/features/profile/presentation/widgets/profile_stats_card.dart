@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 
 class ProfileStatsCard extends StatelessWidget {
   final int totalWorkouts;
@@ -7,10 +7,10 @@ class ProfileStatsCard extends StatelessWidget {
   final int currentStreak;
 
   const ProfileStatsCard({
-    super.key,
     required this.totalWorkouts,
     required this.totalReps,
     required this.currentStreak,
+    super.key,
   });
 
   @override
@@ -23,7 +23,7 @@ class ProfileStatsCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -70,8 +70,7 @@ class _StatItem extends StatelessWidget {
   const _StatItem({
     required this.value,
     required this.label,
-    this.subtitle,
-    required this.icon,
+    required this.icon, this.subtitle,
   });
 
   @override
@@ -105,7 +104,7 @@ class _VerticalDivider extends StatelessWidget {
     return Container(
       height: 60,
       width: 1,
-      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
+      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.1),
     );
   }
 }

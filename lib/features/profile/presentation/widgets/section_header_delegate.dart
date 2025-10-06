@@ -4,7 +4,7 @@ class SectionHeaderDelegate extends SliverPersistentHeaderDelegate {
   final String title;
   final double height;
 
-  SectionHeaderDelegate({required this.title, this.height = 40.0});
+  SectionHeaderDelegate({required this.title, required this.height});
 
   @override
   Widget build(
@@ -19,7 +19,7 @@ class SectionHeaderDelegate extends SliverPersistentHeaderDelegate {
       child: Text(
         title,
         style: Theme.of(context).textTheme.labelLarge?.copyWith(
-          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+          color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
           fontWeight: FontWeight.w600,
         ),
       ),
