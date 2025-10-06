@@ -1,6 +1,15 @@
+export 'account_section.dart';
+export 'avatar_picker_dialog.dart';
+export 'general_section.dart';
+export 'language_bottom_sheet.dart';
+export 'logout_dialog.dart';
+export 'logout_section.dart';
+export 'preferences_section.dart';
+export 'profile_app_bar.dart';
 export 'profile_header.dart';
 export 'profile_stats_card.dart';
 export 'section_content.dart';
 export 'section_header_delegate.dart';
 export 'settings_section.dart';
 export 'settings_tile.dart';
+export 'training_settings_section.dart';
