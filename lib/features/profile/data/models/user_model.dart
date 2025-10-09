@@ -58,13 +58,13 @@ abstract class UserModel with _$UserModel {
     updatedAt: updatedAt,
     totalWorkouts: totalWorkouts,
     totalReps: totalReps,
-    currentStreak: currentStreak, 
+    currentStreak: currentStreak,
   );
 
   factory UserModel.fromEntity(UserEntity entity) => UserModel(
     uid: entity.uid,
     email: entity.email,
-    name: entity.name,  
+    name: entity.name,
     password: entity.password,
     avatarUrl: entity.avatarUrl,
     backgroundUrl: entity.backgroundUrl,

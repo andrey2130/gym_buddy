@@ -6,10 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:gym_buddy/core/contstant/app_constant.dart';
 import 'package:gym_buddy/core/utils/custom_app_bar.dart';
 import 'package:gym_buddy/core/utils/errors_overlay.dart';
 import 'package:gym_buddy/features/profile/domain/params/change_user_training_plan_params.dart';
 import 'package:gym_buddy/features/profile/presentation/bloc/profile_bloc.dart';
+import 'package:gym_buddy/features/profile/presentation/widgets/plan_card.dart';
 
 class SelectTrainingDaysScreen extends StatefulWidget {
   const SelectTrainingDaysScreen({super.key});
@@ -22,15 +24,6 @@ class SelectTrainingDaysScreen extends StatefulWidget {
 class _SelectTrainingDaysScreenState extends State<SelectTrainingDaysScreen> {
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    final plans = [
-      ('plan_split_full_body'.tr(), 'plan_split_full_body_sub'.tr()),
-      ('plan_split_upper_lower'.tr(), 'plan_split_upper_lower_sub'.tr()),
-      ('plan_split_push_pull_legs'.tr(), 'plan_split_push_pull_legs_sub'.tr()),
-      ('plan_split_bro'.tr(), 'plan_split_bro_sub'.tr()),
-    ];
-
     return Scaffold(
       body: SafeArea(
         child: BlocBuilder<ProfileBloc, ProfileState>(
@@ -62,89 +55,38 @@ class _SelectTrainingDaysScreenState extends State<SelectTrainingDaysScreen> {
                         ),
                       ),
                       Text(
-                        'Here you can change your training days',
+                        'change_training_plan_description'.tr(),
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.displayLarge,
                       ),
                       SizedBox(height: 16.h),
-
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16.w),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            ListView.separated(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: plans.length,
-                              separatorBuilder: (_, __) =>
-                                  SizedBox(height: 12.h),
-                              itemBuilder: (context, index) {
-                                final isSelected =
-                                    user.trainingPlan == plans[index].$1;
-                                final bg = isSelected
-                                    ? theme.colorScheme.primary
-                                    : theme.colorScheme.surfaceContainerHighest;
-                                final titleColor = isSelected
-                                    ? theme.colorScheme.onPrimary
-                                    : theme.colorScheme.onSurface;
-                                final subColor = isSelected
-                                    ? theme.colorScheme.onPrimary.withValues(
-                                        alpha: 0.8,
-                                      )
-                                    : theme.colorScheme.onSurfaceVariant;
+                        child: ListView.separated(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: AppConstant.trainingPlanKeys.length,
+                          separatorBuilder: (_, __) => SizedBox(height: 12.h),
+                          itemBuilder: (context, index) {
+                            final planKey = AppConstant.trainingPlanKeys[index];
+                            final planTitle = planKey.tr();
+                            final planSubtitle = '${planKey}_sub'.tr();
+                            final isSelected = user.trainingPlan == planKey;
 
-                                return InkWell(
-                                  borderRadius: BorderRadius.circular(16.r),
-                                  onTap: () => context.read<ProfileBloc>().add(
-                                    ProfileEvent.changeUserTrainingPlan(
-                                      ChangeUserTrainingPlanParams(
-                                        uid: user.uid,
-                                        trainingPlan: plans[index].$1,
-                                      ),
-                                    ),
+                            return PlanCard(
+                              title: planTitle,
+                              subtitle: planSubtitle,
+                              isSelected: isSelected,
+                              onTap: () => context.read<ProfileBloc>().add(
+                                ProfileEvent.changeUserTrainingPlan(
+                                  ChangeUserTrainingPlanParams(
+                                    uid: user.uid,
+                                    trainingPlan: planKey,
                                   ),
-                                  child: AnimatedContainer(
-                                    duration: const Duration(milliseconds: 250),
-                                    curve: Curves.easeOut,
-                                    padding: EdgeInsets.all(16.r),
-                                    decoration: BoxDecoration(
-                                      color: bg,
-                                      borderRadius: BorderRadius.circular(16.r),
-                                      boxShadow: [
-                                        if (isSelected)
-                                          BoxShadow(
-                                            color: const Color(
-                                              0xFFFFFFFF,
-                                            ).withValues(alpha: 0.3),
-                                            offset: const Offset(0, 4),
-                                            blurRadius: 12,
-                                            spreadRadius: 0,
-                                          ),
-                                      ],
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          plans[index].$1,
-                                          style: theme.textTheme.titleLarge
-                                              ?.copyWith(color: titleColor),
-                                        ),
-                                        SizedBox(height: 6.h),
-                                        Text(
-                                          plans[index].$2,
-                                          style: theme.textTheme.bodyLarge
-                                              ?.copyWith(color: subColor),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ],
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ],
