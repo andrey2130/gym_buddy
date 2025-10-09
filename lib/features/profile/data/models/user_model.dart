@@ -22,6 +22,9 @@ abstract class UserModel with _$UserModel {
     required String uid,
     required String email,
     required String name,
+    @Default(0) int totalWorkouts,
+    @Default(0) int totalReps,
+    @Default(0) int currentStreak,
     String? password,
     @Default(null) String? avatarUrl,
     @Default(null) String? backgroundUrl,
@@ -53,12 +56,15 @@ abstract class UserModel with _$UserModel {
     emailVerificationSentAt: emailVerificationSentAt,
     createdAt: createdAt,
     updatedAt: updatedAt,
+    totalWorkouts: totalWorkouts,
+    totalReps: totalReps,
+    currentStreak: currentStreak, 
   );
 
   factory UserModel.fromEntity(UserEntity entity) => UserModel(
     uid: entity.uid,
     email: entity.email,
-    name: entity.name,
+    name: entity.name,  
     password: entity.password,
     avatarUrl: entity.avatarUrl,
     backgroundUrl: entity.backgroundUrl,
@@ -68,5 +74,8 @@ abstract class UserModel with _$UserModel {
     emailVerificationSentAt: entity.emailVerificationSentAt,
     createdAt: entity.createdAt,
     updatedAt: entity.updatedAt,
+    totalWorkouts: entity.totalWorkouts,
+    totalReps: entity.totalReps,
+    currentStreak: entity.currentStreak,
   );
 }

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UserModel {
 
- String get uid; String get email; String get name; String? get password; String? get avatarUrl; String? get backgroundUrl; List<String>? get trainingDays; String? get trainingPlan; String? get pendingEmail;@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime? get emailVerificationSentAt;@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime? get createdAt;@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime? get updatedAt;
+ String get uid; String get email; String get name; int get totalWorkouts; int get totalReps; int get currentStreak; String? get password; String? get avatarUrl; String? get backgroundUrl; List<String>? get trainingDays; String? get trainingPlan; String? get pendingEmail;@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime? get emailVerificationSentAt;@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime? get createdAt;@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime? get updatedAt;
 /// Create a copy of UserModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $UserModelCopyWith<UserModel> get copyWith => _$UserModelCopyWithImpl<UserModel>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserModel&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.email, email) || other.email == email)&&(identical(other.name, name) || other.name == name)&&(identical(other.password, password) || other.password == password)&&(identical(other.avatarUrl, avatarUrl) || other.avatarUrl == avatarUrl)&&(identical(other.backgroundUrl, backgroundUrl) || other.backgroundUrl == backgroundUrl)&&const DeepCollectionEquality().equals(other.trainingDays, trainingDays)&&(identical(other.trainingPlan, trainingPlan) || other.trainingPlan == trainingPlan)&&(identical(other.pendingEmail, pendingEmail) || other.pendingEmail == pendingEmail)&&(identical(other.emailVerificationSentAt, emailVerificationSentAt) || other.emailVerificationSentAt == emailVerificationSentAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserModel&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.email, email) || other.email == email)&&(identical(other.name, name) || other.name == name)&&(identical(other.totalWorkouts, totalWorkouts) || other.totalWorkouts == totalWorkouts)&&(identical(other.totalReps, totalReps) || other.totalReps == totalReps)&&(identical(other.currentStreak, currentStreak) || other.currentStreak == currentStreak)&&(identical(other.password, password) || other.password == password)&&(identical(other.avatarUrl, avatarUrl) || other.avatarUrl == avatarUrl)&&(identical(other.backgroundUrl, backgroundUrl) || other.backgroundUrl == backgroundUrl)&&const DeepCollectionEquality().equals(other.trainingDays, trainingDays)&&(identical(other.trainingPlan, trainingPlan) || other.trainingPlan == trainingPlan)&&(identical(other.pendingEmail, pendingEmail) || other.pendingEmail == pendingEmail)&&(identical(other.emailVerificationSentAt, emailVerificationSentAt) || other.emailVerificationSentAt == emailVerificationSentAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,uid,email,name,password,avatarUrl,backgroundUrl,const DeepCollectionEquality().hash(trainingDays),trainingPlan,pendingEmail,emailVerificationSentAt,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,uid,email,name,totalWorkouts,totalReps,currentStreak,password,avatarUrl,backgroundUrl,const DeepCollectionEquality().hash(trainingDays),trainingPlan,pendingEmail,emailVerificationSentAt,createdAt,updatedAt);
 
 @override
 String toString() {
-  return 'UserModel(uid: $uid, email: $email, name: $name, password: $password, avatarUrl: $avatarUrl, backgroundUrl: $backgroundUrl, trainingDays: $trainingDays, trainingPlan: $trainingPlan, pendingEmail: $pendingEmail, emailVerificationSentAt: $emailVerificationSentAt, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'UserModel(uid: $uid, email: $email, name: $name, totalWorkouts: $totalWorkouts, totalReps: $totalReps, currentStreak: $currentStreak, password: $password, avatarUrl: $avatarUrl, backgroundUrl: $backgroundUrl, trainingDays: $trainingDays, trainingPlan: $trainingPlan, pendingEmail: $pendingEmail, emailVerificationSentAt: $emailVerificationSentAt, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $UserModelCopyWith<$Res>  {
   factory $UserModelCopyWith(UserModel value, $Res Function(UserModel) _then) = _$UserModelCopyWithImpl;
 @useResult
 $Res call({
- String uid, String email, String name, String? password, String? avatarUrl, String? backgroundUrl, List<String>? trainingDays, String? trainingPlan, String? pendingEmail,@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime? emailVerificationSentAt,@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime? createdAt,@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime? updatedAt
+ String uid, String email, String name, int totalWorkouts, int totalReps, int currentStreak, String? password, String? avatarUrl, String? backgroundUrl, List<String>? trainingDays, String? trainingPlan, String? pendingEmail,@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime? emailVerificationSentAt,@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime? createdAt,@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime? updatedAt
 });
 
 
@@ -65,12 +65,15 @@ class _$UserModelCopyWithImpl<$Res>
 
 /// Create a copy of UserModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? uid = null,Object? email = null,Object? name = null,Object? password = freezed,Object? avatarUrl = freezed,Object? backgroundUrl = freezed,Object? trainingDays = freezed,Object? trainingPlan = freezed,Object? pendingEmail = freezed,Object? emailVerificationSentAt = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? uid = null,Object? email = null,Object? name = null,Object? totalWorkouts = null,Object? totalReps = null,Object? currentStreak = null,Object? password = freezed,Object? avatarUrl = freezed,Object? backgroundUrl = freezed,Object? trainingDays = freezed,Object? trainingPlan = freezed,Object? pendingEmail = freezed,Object? emailVerificationSentAt = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
   return _then(_self.copyWith(
 uid: null == uid ? _self.uid : uid // ignore: cast_nullable_to_non_nullable
 as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,password: freezed == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
+as String,totalWorkouts: null == totalWorkouts ? _self.totalWorkouts : totalWorkouts // ignore: cast_nullable_to_non_nullable
+as int,totalReps: null == totalReps ? _self.totalReps : totalReps // ignore: cast_nullable_to_non_nullable
+as int,currentStreak: null == currentStreak ? _self.currentStreak : currentStreak // ignore: cast_nullable_to_non_nullable
+as int,password: freezed == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
 as String?,avatarUrl: freezed == avatarUrl ? _self.avatarUrl : avatarUrl // ignore: cast_nullable_to_non_nullable
 as String?,backgroundUrl: freezed == backgroundUrl ? _self.backgroundUrl : backgroundUrl // ignore: cast_nullable_to_non_nullable
 as String?,trainingDays: freezed == trainingDays ? _self.trainingDays : trainingDays // ignore: cast_nullable_to_non_nullable
@@ -164,10 +167,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String uid,  String email,  String name,  String? password,  String? avatarUrl,  String? backgroundUrl,  List<String>? trainingDays,  String? trainingPlan,  String? pendingEmail, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime? emailVerificationSentAt, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime? createdAt, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime? updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String uid,  String email,  String name,  int totalWorkouts,  int totalReps,  int currentStreak,  String? password,  String? avatarUrl,  String? backgroundUrl,  List<String>? trainingDays,  String? trainingPlan,  String? pendingEmail, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime? emailVerificationSentAt, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime? createdAt, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime? updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _UserModel() when $default != null:
-return $default(_that.uid,_that.email,_that.name,_that.password,_that.avatarUrl,_that.backgroundUrl,_that.trainingDays,_that.trainingPlan,_that.pendingEmail,_that.emailVerificationSentAt,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.uid,_that.email,_that.name,_that.totalWorkouts,_that.totalReps,_that.currentStreak,_that.password,_that.avatarUrl,_that.backgroundUrl,_that.trainingDays,_that.trainingPlan,_that.pendingEmail,_that.emailVerificationSentAt,_that.createdAt,_that.updatedAt);case _:
   return orElse();
 
 }
@@ -185,10 +188,10 @@ return $default(_that.uid,_that.email,_that.name,_that.password,_that.avatarUrl,
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String uid,  String email,  String name,  String? password,  String? avatarUrl,  String? backgroundUrl,  List<String>? trainingDays,  String? trainingPlan,  String? pendingEmail, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime? emailVerificationSentAt, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime? createdAt, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime? updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String uid,  String email,  String name,  int totalWorkouts,  int totalReps,  int currentStreak,  String? password,  String? avatarUrl,  String? backgroundUrl,  List<String>? trainingDays,  String? trainingPlan,  String? pendingEmail, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime? emailVerificationSentAt, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime? createdAt, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime? updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _UserModel():
-return $default(_that.uid,_that.email,_that.name,_that.password,_that.avatarUrl,_that.backgroundUrl,_that.trainingDays,_that.trainingPlan,_that.pendingEmail,_that.emailVerificationSentAt,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.uid,_that.email,_that.name,_that.totalWorkouts,_that.totalReps,_that.currentStreak,_that.password,_that.avatarUrl,_that.backgroundUrl,_that.trainingDays,_that.trainingPlan,_that.pendingEmail,_that.emailVerificationSentAt,_that.createdAt,_that.updatedAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -205,10 +208,10 @@ return $default(_that.uid,_that.email,_that.name,_that.password,_that.avatarUrl,
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String uid,  String email,  String name,  String? password,  String? avatarUrl,  String? backgroundUrl,  List<String>? trainingDays,  String? trainingPlan,  String? pendingEmail, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime? emailVerificationSentAt, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime? createdAt, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime? updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String uid,  String email,  String name,  int totalWorkouts,  int totalReps,  int currentStreak,  String? password,  String? avatarUrl,  String? backgroundUrl,  List<String>? trainingDays,  String? trainingPlan,  String? pendingEmail, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime? emailVerificationSentAt, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime? createdAt, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime? updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _UserModel() when $default != null:
-return $default(_that.uid,_that.email,_that.name,_that.password,_that.avatarUrl,_that.backgroundUrl,_that.trainingDays,_that.trainingPlan,_that.pendingEmail,_that.emailVerificationSentAt,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.uid,_that.email,_that.name,_that.totalWorkouts,_that.totalReps,_that.currentStreak,_that.password,_that.avatarUrl,_that.backgroundUrl,_that.trainingDays,_that.trainingPlan,_that.pendingEmail,_that.emailVerificationSentAt,_that.createdAt,_that.updatedAt);case _:
   return null;
 
 }
@@ -220,12 +223,15 @@ return $default(_that.uid,_that.email,_that.name,_that.password,_that.avatarUrl,
 @JsonSerializable()
 
 class _UserModel extends UserModel {
-  const _UserModel({required this.uid, required this.email, required this.name, this.password, this.avatarUrl = null, this.backgroundUrl = null, final  List<String>? trainingDays = null, this.trainingPlan = null, this.pendingEmail = null, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) this.emailVerificationSentAt, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) this.createdAt, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) this.updatedAt}): _trainingDays = trainingDays,super._();
+  const _UserModel({required this.uid, required this.email, required this.name, this.totalWorkouts = 0, this.totalReps = 0, this.currentStreak = 0, this.password, this.avatarUrl = null, this.backgroundUrl = null, final  List<String>? trainingDays = null, this.trainingPlan = null, this.pendingEmail = null, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) this.emailVerificationSentAt, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) this.createdAt, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) this.updatedAt}): _trainingDays = trainingDays,super._();
   factory _UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
 
 @override final  String uid;
 @override final  String email;
 @override final  String name;
+@override@JsonKey() final  int totalWorkouts;
+@override@JsonKey() final  int totalReps;
+@override@JsonKey() final  int currentStreak;
 @override final  String? password;
 @override@JsonKey() final  String? avatarUrl;
 @override@JsonKey() final  String? backgroundUrl;
@@ -257,16 +263,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserModel&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.email, email) || other.email == email)&&(identical(other.name, name) || other.name == name)&&(identical(other.password, password) || other.password == password)&&(identical(other.avatarUrl, avatarUrl) || other.avatarUrl == avatarUrl)&&(identical(other.backgroundUrl, backgroundUrl) || other.backgroundUrl == backgroundUrl)&&const DeepCollectionEquality().equals(other._trainingDays, _trainingDays)&&(identical(other.trainingPlan, trainingPlan) || other.trainingPlan == trainingPlan)&&(identical(other.pendingEmail, pendingEmail) || other.pendingEmail == pendingEmail)&&(identical(other.emailVerificationSentAt, emailVerificationSentAt) || other.emailVerificationSentAt == emailVerificationSentAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserModel&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.email, email) || other.email == email)&&(identical(other.name, name) || other.name == name)&&(identical(other.totalWorkouts, totalWorkouts) || other.totalWorkouts == totalWorkouts)&&(identical(other.totalReps, totalReps) || other.totalReps == totalReps)&&(identical(other.currentStreak, currentStreak) || other.currentStreak == currentStreak)&&(identical(other.password, password) || other.password == password)&&(identical(other.avatarUrl, avatarUrl) || other.avatarUrl == avatarUrl)&&(identical(other.backgroundUrl, backgroundUrl) || other.backgroundUrl == backgroundUrl)&&const DeepCollectionEquality().equals(other._trainingDays, _trainingDays)&&(identical(other.trainingPlan, trainingPlan) || other.trainingPlan == trainingPlan)&&(identical(other.pendingEmail, pendingEmail) || other.pendingEmail == pendingEmail)&&(identical(other.emailVerificationSentAt, emailVerificationSentAt) || other.emailVerificationSentAt == emailVerificationSentAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,uid,email,name,password,avatarUrl,backgroundUrl,const DeepCollectionEquality().hash(_trainingDays),trainingPlan,pendingEmail,emailVerificationSentAt,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,uid,email,name,totalWorkouts,totalReps,currentStreak,password,avatarUrl,backgroundUrl,const DeepCollectionEquality().hash(_trainingDays),trainingPlan,pendingEmail,emailVerificationSentAt,createdAt,updatedAt);
 
 @override
 String toString() {
-  return 'UserModel(uid: $uid, email: $email, name: $name, password: $password, avatarUrl: $avatarUrl, backgroundUrl: $backgroundUrl, trainingDays: $trainingDays, trainingPlan: $trainingPlan, pendingEmail: $pendingEmail, emailVerificationSentAt: $emailVerificationSentAt, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'UserModel(uid: $uid, email: $email, name: $name, totalWorkouts: $totalWorkouts, totalReps: $totalReps, currentStreak: $currentStreak, password: $password, avatarUrl: $avatarUrl, backgroundUrl: $backgroundUrl, trainingDays: $trainingDays, trainingPlan: $trainingPlan, pendingEmail: $pendingEmail, emailVerificationSentAt: $emailVerificationSentAt, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
@@ -277,7 +283,7 @@ abstract mixin class _$UserModelCopyWith<$Res> implements $UserModelCopyWith<$Re
   factory _$UserModelCopyWith(_UserModel value, $Res Function(_UserModel) _then) = __$UserModelCopyWithImpl;
 @override @useResult
 $Res call({
- String uid, String email, String name, String? password, String? avatarUrl, String? backgroundUrl, List<String>? trainingDays, String? trainingPlan, String? pendingEmail,@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime? emailVerificationSentAt,@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime? createdAt,@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime? updatedAt
+ String uid, String email, String name, int totalWorkouts, int totalReps, int currentStreak, String? password, String? avatarUrl, String? backgroundUrl, List<String>? trainingDays, String? trainingPlan, String? pendingEmail,@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime? emailVerificationSentAt,@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime? createdAt,@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime? updatedAt
 });
 
 
@@ -294,12 +300,15 @@ class __$UserModelCopyWithImpl<$Res>
 
 /// Create a copy of UserModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? uid = null,Object? email = null,Object? name = null,Object? password = freezed,Object? avatarUrl = freezed,Object? backgroundUrl = freezed,Object? trainingDays = freezed,Object? trainingPlan = freezed,Object? pendingEmail = freezed,Object? emailVerificationSentAt = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? uid = null,Object? email = null,Object? name = null,Object? totalWorkouts = null,Object? totalReps = null,Object? currentStreak = null,Object? password = freezed,Object? avatarUrl = freezed,Object? backgroundUrl = freezed,Object? trainingDays = freezed,Object? trainingPlan = freezed,Object? pendingEmail = freezed,Object? emailVerificationSentAt = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
   return _then(_UserModel(
 uid: null == uid ? _self.uid : uid // ignore: cast_nullable_to_non_nullable
 as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,password: freezed == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
+as String,totalWorkouts: null == totalWorkouts ? _self.totalWorkouts : totalWorkouts // ignore: cast_nullable_to_non_nullable
+as int,totalReps: null == totalReps ? _self.totalReps : totalReps // ignore: cast_nullable_to_non_nullable
+as int,currentStreak: null == currentStreak ? _self.currentStreak : currentStreak // ignore: cast_nullable_to_non_nullable
+as int,password: freezed == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
 as String?,avatarUrl: freezed == avatarUrl ? _self.avatarUrl : avatarUrl // ignore: cast_nullable_to_non_nullable
 as String?,backgroundUrl: freezed == backgroundUrl ? _self.backgroundUrl : backgroundUrl // ignore: cast_nullable_to_non_nullable
 as String?,trainingDays: freezed == trainingDays ? _self._trainingDays : trainingDays // ignore: cast_nullable_to_non_nullable

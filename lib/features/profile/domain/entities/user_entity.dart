@@ -18,6 +18,9 @@ abstract class UserEntity with _$UserEntity {
     DateTime? emailVerificationSentAt,
     DateTime? createdAt,
     DateTime? updatedAt,
+    @Default(0) int totalWorkouts,
+    @Default(0) int totalReps,
+    @Default(0) int currentStreak,
   }) = _UserEntity;
 
   factory UserEntity.fromJson(Map<String, dynamic> json) =>

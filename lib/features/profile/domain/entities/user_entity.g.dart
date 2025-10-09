@@ -27,6 +27,9 @@ _UserEntity _$UserEntityFromJson(Map<String, dynamic> json) => _UserEntity(
   updatedAt: json['updatedAt'] == null
       ? null
       : DateTime.parse(json['updatedAt'] as String),
+  totalWorkouts: (json['totalWorkouts'] as num?)?.toInt() ?? 0,
+  totalReps: (json['totalReps'] as num?)?.toInt() ?? 0,
+  currentStreak: (json['currentStreak'] as num?)?.toInt() ?? 0,
 );
 
 Map<String, dynamic> _$UserEntityToJson(_UserEntity instance) =>
@@ -44,4 +47,7 @@ Map<String, dynamic> _$UserEntityToJson(_UserEntity instance) =>
           ?.toIso8601String(),
       'createdAt': instance.createdAt?.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),
+      'totalWorkouts': instance.totalWorkouts,
+      'totalReps': instance.totalReps,
+      'currentStreak': instance.currentStreak,
     };

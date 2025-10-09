@@ -82,11 +82,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                   const SliverToBoxAdapter(child: SizedBox(height: 16)),
-                  const SliverToBoxAdapter(
+                   SliverToBoxAdapter(
                     child: ProfileStatsCard(
-                      totalWorkouts: 42,
-                      totalReps: 1250,
-                      currentStreak: 7,
+                      totalWorkouts: user.totalWorkouts,
+                      totalReps: user.totalReps,
+                      currentStreak: user.currentStreak,
                     ),
                   ),
                   const SliverToBoxAdapter(child: SizedBox(height: 24)),

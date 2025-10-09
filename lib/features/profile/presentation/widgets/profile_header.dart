@@ -8,10 +8,12 @@ class ProfileHeader extends StatelessWidget {
   final String? avatarUrl;
   final String? pendingEmail;
   final VoidCallback onTap;
+
   const ProfileHeader({
     required this.userName,
     required this.userEmail,
     required this.onTap,
+
     super.key,
     this.avatarUrl,
     this.pendingEmail,
