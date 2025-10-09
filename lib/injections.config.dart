@@ -13,10 +13,12 @@ import 'package:cloud_firestore/cloud_firestore.dart' as _i974;
 import 'package:firebase_auth/firebase_auth.dart' as _i59;
 import 'package:firebase_storage/firebase_storage.dart' as _i457;
 import 'package:get_it/get_it.dart' as _i174;
+import 'package:go_router/go_router.dart' as _i583;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 import 'package:talker_flutter/talker_flutter.dart' as _i207;
 
+import 'core/app_route/navigation_module.dart' as _i241;
 import 'core/service/shared_preferences.dart' as _i732;
 import 'core/theme/cubit/theme_cubit.dart' as _i577;
 import 'features/auth/data/datasource/auth_datasource.dart' as _i337;
@@ -55,6 +57,8 @@ extension GetItInjectableX on _i174.GetIt {
     _i526.EnvironmentFilter? environmentFilter,
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
+    final navigationModule = _$NavigationModule();
+    gh.singleton<_i583.GoRouter>(() => navigationModule.router);
     gh.factory<_i326.ProfileDataSource>(
       () => _i326.ProfileDataSourceImpl(
         gh<_i974.FirebaseFirestore>(),
@@ -145,3 +149,5 @@ extension GetItInjectableX on _i174.GetIt {
     return this;
   }
 }
+
+class _$NavigationModule extends _i241.NavigationModule {}
