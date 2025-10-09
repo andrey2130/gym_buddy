@@ -22,10 +22,14 @@ abstract class UserModel with _$UserModel {
     required String uid,
     required String email,
     required String name,
+    String? password,
     @Default(null) String? avatarUrl,
     @Default(null) String? backgroundUrl,
     @Default(null) List<String>? trainingDays,
     @Default(null) String? trainingPlan,
+    @Default(null) String? pendingEmail,
+    @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)
+    DateTime? emailVerificationSentAt,
     @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)
     DateTime? createdAt,
     @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)
@@ -40,10 +44,13 @@ abstract class UserModel with _$UserModel {
     uid: uid,
     email: email,
     name: name,
+    password: password,
     avatarUrl: avatarUrl,
     backgroundUrl: backgroundUrl,
     trainingDays: trainingDays,
     trainingPlan: trainingPlan,
+    pendingEmail: pendingEmail,
+    emailVerificationSentAt: emailVerificationSentAt,
     createdAt: createdAt,
     updatedAt: updatedAt,
   );
@@ -52,10 +59,13 @@ abstract class UserModel with _$UserModel {
     uid: entity.uid,
     email: entity.email,
     name: entity.name,
+    password: entity.password,
     avatarUrl: entity.avatarUrl,
     backgroundUrl: entity.backgroundUrl,
     trainingDays: entity.trainingDays,
     trainingPlan: entity.trainingPlan,
+    pendingEmail: entity.pendingEmail,
+    emailVerificationSentAt: entity.emailVerificationSentAt,
     createdAt: entity.createdAt,
     updatedAt: entity.updatedAt,
   );

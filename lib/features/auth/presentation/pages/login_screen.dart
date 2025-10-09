@@ -216,7 +216,6 @@ class _LoginScreenState extends State<LoginScreen>
     String message, {
     required bool isError,
   }) async {
-    await Future.delayed(const Duration(seconds: 2));
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(

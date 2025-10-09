@@ -8,7 +8,10 @@ abstract class UpdateProfileParams with _$UpdateProfileParams {
   const factory UpdateProfileParams({
     required String uid,
     String? name,
+    String? email,
     String? avatarUrl,
+    String? password,
+    String? currentPassword,
     String? backgroundUrl,
   }) = _UpdateProfileParams;
 

@@ -9,10 +9,13 @@ abstract class UserEntity with _$UserEntity {
     required String uid,
     required String email,
     required String name,
+    String? password,
     String? avatarUrl,
     String? backgroundUrl,
     List<String>? trainingDays,
     String? trainingPlan,
+    String? pendingEmail,
+    DateTime? emailVerificationSentAt,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) = _UserEntity;

@@ -10,6 +10,7 @@ _UserModel _$UserModelFromJson(Map<String, dynamic> json) => _UserModel(
   uid: json['uid'] as String,
   email: json['email'] as String,
   name: json['name'] as String,
+  password: json['password'] as String?,
   avatarUrl: json['avatarUrl'] as String? ?? null,
   backgroundUrl: json['backgroundUrl'] as String? ?? null,
   trainingDays:
@@ -18,6 +19,8 @@ _UserModel _$UserModelFromJson(Map<String, dynamic> json) => _UserModel(
           .toList() ??
       null,
   trainingPlan: json['trainingPlan'] as String? ?? null,
+  pendingEmail: json['pendingEmail'] as String? ?? null,
+  emailVerificationSentAt: _fromTimestamp(json['emailVerificationSentAt']),
   createdAt: _fromTimestamp(json['createdAt']),
   updatedAt: _fromTimestamp(json['updatedAt']),
 );
@@ -27,10 +30,13 @@ Map<String, dynamic> _$UserModelToJson(_UserModel instance) =>
       'uid': instance.uid,
       'email': instance.email,
       'name': instance.name,
+      'password': instance.password,
       'avatarUrl': instance.avatarUrl,
       'backgroundUrl': instance.backgroundUrl,
       'trainingDays': instance.trainingDays,
       'trainingPlan': instance.trainingPlan,
+      'pendingEmail': instance.pendingEmail,
+      'emailVerificationSentAt': _toTimestamp(instance.emailVerificationSentAt),
       'createdAt': _toTimestamp(instance.createdAt),
       'updatedAt': _toTimestamp(instance.updatedAt),
     };

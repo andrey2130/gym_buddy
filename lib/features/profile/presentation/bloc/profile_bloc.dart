@@ -49,7 +49,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     result.fold(
       (failure) {
         getIt<Talker>().error(failure.message);
-        emit(ProfileState.failure(failure.message));
+        if (failure.message.contains('SESSION_EXPIRED')) {
+          emit(const ProfileState.sessionExpired());
+        } else {
+          emit(ProfileState.failure(failure.message));
+        }
       },
       (user) {
         if (user != null) {
@@ -74,13 +78,21 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     await result.fold(
       (failure) {
         getIt<Talker>().error(failure.message);
-        emit(ProfileState.failure(failure.message));
+        if (failure.message.contains('SESSION_EXPIRED')) {
+          emit(const ProfileState.sessionExpired());
+        } else {
+          emit(ProfileState.failure(failure.message));
+        }
       },
       (_) async {
         final userResult = await _getUserProfileUsecase(event.params.uid);
         userResult.fold(
           (failure) {
-            emit(ProfileState.failure(failure.message));
+            if (failure.message.contains('SESSION_EXPIRED')) {
+              emit(const ProfileState.sessionExpired());
+            } else {
+              emit(ProfileState.failure(failure.message));
+            }
             getIt<Talker>().handle(failure.message);
           },
           (user) {

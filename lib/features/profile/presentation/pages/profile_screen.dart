@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gym_buddy/core/utils/errors_overlay.dart';
 import 'package:gym_buddy/core/utils/image_picker.dart';
 import 'package:gym_buddy/features/profile/domain/params/update_user_params.dart';
@@ -25,7 +26,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ProfileBloc, ProfileState>(
+    return BlocConsumer<ProfileBloc, ProfileState>(
       listener: (context, state) {
         state.maybeWhen(
           failure: (message) {
@@ -33,26 +34,42 @@ class _ProfileScreenState extends State<ProfileScreen> {
               SnackBar(content: Text(message), backgroundColor: Colors.red),
             );
           },
+          sessionExpired: () {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('session_expired_login_again'.tr()),
+                backgroundColor: Colors.orange,
+              ),
+            );
+            context.go('/login');
+          },
           orElse: () {},
         );
       },
-      child: BlocBuilder<ProfileBloc, ProfileState>(
-        builder: (context, state) {
-          return state.when(
-            initial: () =>
-                const Center(child: CircularProgressIndicator.adaptive()),
-            loading: () =>
-                const Center(child: CircularProgressIndicator.adaptive()),
-            failure: (message) => Scaffold(
-              body: ErrorsOverlay(
-                message: message,
-                onRetry: () => context.read<ProfileBloc>().add(
-                  const ProfileEvent.loadUserProfile(),
-                ),
+      builder: (context, state) {
+        return state.when(
+          initial: () =>
+              const Center(child: CircularProgressIndicator.adaptive()),
+          loading: () =>
+              const Center(child: CircularProgressIndicator.adaptive()),
+          sessionExpired: () =>
+              const Center(child: CircularProgressIndicator.adaptive()),
+          failure: (message) => Scaffold(
+            body: ErrorsOverlay(
+              message: message,
+              onRetry: () => context.read<ProfileBloc>().add(
+                const ProfileEvent.loadUserProfile(),
               ),
             ),
-            loaded: (user) => Scaffold(
-              body: CustomScrollView(
+          ),
+          loaded: (user) => Scaffold(
+            body: RefreshIndicator.adaptive(
+              onRefresh: () async {
+                context.read<ProfileBloc>().add(
+                  const ProfileEvent.loadUserProfile(),
+                );
+              },
+              child: CustomScrollView(
                 slivers: [
                   ProfileAppBar(backgroundUrl: user.backgroundUrl),
                   SliverToBoxAdapter(
@@ -60,6 +77,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       userName: user.name,
                       userEmail: user.email,
                       avatarUrl: user.avatarUrl,
+                      pendingEmail: user.pendingEmail,
                       onTap: _showAvatarPicker,
                     ),
                   ),
@@ -133,9 +151,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ],
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 
@@ -189,7 +207,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
-  void _onEditProfile() {}
+  void _onEditProfile() {
+    context.push('/edit-profile');
+  }
 
   void _onTrainingDays() {}
 

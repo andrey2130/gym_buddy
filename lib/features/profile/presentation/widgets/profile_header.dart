@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class ProfileHeader extends StatelessWidget {
   final String userName;
   final String userEmail;
   final String? avatarUrl;
+  final String? pendingEmail;
   final VoidCallback onTap;
   const ProfileHeader({
     required this.userName,
@@ -12,6 +14,7 @@ class ProfileHeader extends StatelessWidget {
     required this.onTap,
     super.key,
     this.avatarUrl,
+    this.pendingEmail,
   });
 
   @override
@@ -74,6 +77,33 @@ class ProfileHeader extends StatelessWidget {
           Text(userName, style: Theme.of(context).textTheme.displayMedium),
           const SizedBox(height: 4),
           Text(userEmail, style: Theme.of(context).textTheme.bodyMedium),
+          if (pendingEmail != null) ...[
+            const SizedBox(height: 8),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: Colors.orange.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.orange, width: 1),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.pending, size: 16, color: Colors.orange),
+                  const SizedBox(width: 6),
+                  Flexible(
+                    child: Text(
+                      'pending_email_verification'.tr(),
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodySmall?.copyWith(color: Colors.orange),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ],
       ),
     );
