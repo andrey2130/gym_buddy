@@ -35,7 +35,7 @@ class _LanguageTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: const Icon(Icons.check),
+      leading: locale == context.locale ? const Icon(Icons.check) : null,
       title: Text(language),
       onTap: () {
         context.setLocale(locale);
