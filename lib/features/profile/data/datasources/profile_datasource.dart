@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:gym_buddy/features/profile/data/models/user_model.dart';
+import 'package:gym_buddy/features/profile/domain/params/change_user_training_plan_params.dart';
 import 'package:gym_buddy/features/profile/domain/params/update_user_params.dart';
 import 'package:injectable/injectable.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -13,6 +14,9 @@ abstract class ProfileDataSource {
   Future<void> updateUserProfile(String uid, UpdateProfileParams params);
   Future<String> uploadImage(String filePath, String uid, String type);
   Future<void> syncEmailAfterVerification(String uid);
+  Future<UserModel?> changeUserTrainingPlan(
+    ChangeUserTrainingPlanParams params,
+  );
 }
 
 @Injectable(as: ProfileDataSource)
@@ -159,6 +163,32 @@ class ProfileDataSourceImpl implements ProfileDataSource {
           'updatedAt': FieldValue.serverTimestamp(),
         });
       }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-token-expired') {
+        _talker.error('Token expired, signing out user');
+        await _firebaseAuth.signOut();
+        throw Exception('SESSION_EXPIRED');
+      }
+      _talker.handle(e);
+      rethrow;
+    } catch (e) {
+      _talker.handle(e);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<UserModel?> changeUserTrainingPlan(
+    ChangeUserTrainingPlanParams params,
+  ) async {
+    try {
+      await _firestore.collection('users').doc(params.uid).update({
+        'trainingPlan': params.trainingPlan,
+        'updatedAt': FieldValue.serverTimestamp(),
+      });
+      final doc = await _firestore.collection('users').doc(params.uid).get();
+      if (!doc.exists || doc.data() == null) return null;
+      return UserModel.fromJson(doc.data()!);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-token-expired') {
         _talker.error('Token expired, signing out user');

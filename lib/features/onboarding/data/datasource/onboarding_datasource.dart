@@ -21,12 +21,7 @@ class OnboardingDataSourceImpl implements OnboardingDataSource {
     OnboardingParams params,
   ) async {
     try {
-      await _firestore
-          .collection('users')
-          .doc(userId)
-          .collection('onboarding')
-          .doc('data')
-          .set(params.toJson());
+      await _firestore.collection('users').doc(userId).update(params.toJson());
     } catch (e) {
       getIt<Talker>().handle(e);
       rethrow;
@@ -39,13 +34,11 @@ class OnboardingDataSourceImpl implements OnboardingDataSource {
       final docSnapshot = await _firestore
           .collection('users')
           .doc(userId)
-          .collection('onboarding')
-          .doc('data')
           .get();
 
       if (!docSnapshot.exists) return null;
 
-      return OnboardingParams.fromJson(docSnapshot.data()!);
+      return OnboardingParams.fromJson(docSnapshot.data() ?? {});
     } catch (e) {
       getIt<Talker>().handle(e);
       rethrow;

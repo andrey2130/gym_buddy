@@ -53,8 +53,8 @@ class TimeScreenState extends State<TimeScreen> {
       context.read<OnboardingBloc>().add(
         OnboardingEvent.saveOnboarding(
           OnboardingParams(
-            selectedDays: selectedDays.toList(),
-            selectedPlan: selectedPlan,
+            trainingDays: selectedDays.toList(),
+            trainingPlan: selectedPlan,
             trainingTime: _timeController.text,
             country: _selectedCountry ?? '',
             city: _cityController.text,

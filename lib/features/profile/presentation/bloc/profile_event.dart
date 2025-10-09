@@ -5,4 +5,7 @@ class ProfileEvent with _$ProfileEvent {
   const factory ProfileEvent.loadUserProfile() = LoadUserProfile;
   const factory ProfileEvent.updateUserProfile(UpdateProfileParams params) =
       UpdateUserProfile;
+  const factory ProfileEvent.changeUserTrainingPlan(
+    ChangeUserTrainingPlanParams params,
+  ) = ChangeUserTrainingPlan;
 }

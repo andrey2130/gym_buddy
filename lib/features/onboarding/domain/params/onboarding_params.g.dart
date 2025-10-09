@@ -8,10 +8,10 @@ part of 'onboarding_params.dart';
 
 _OnboardingParams _$OnboardingParamsFromJson(Map<String, dynamic> json) =>
     _OnboardingParams(
-      selectedDays: (json['selectedDays'] as List<dynamic>)
+      trainingDays: (json['trainingDays'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
-      selectedPlan: json['selectedPlan'] as String,
+      trainingPlan: json['trainingPlan'] as String,
       trainingTime: json['trainingTime'] as String,
       country: json['country'] as String,
       city: json['city'] as String,
@@ -20,8 +20,8 @@ _OnboardingParams _$OnboardingParamsFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$OnboardingParamsToJson(_OnboardingParams instance) =>
     <String, dynamic>{
-      'selectedDays': instance.selectedDays,
-      'selectedPlan': instance.selectedPlan,
+      'trainingDays': instance.trainingDays,
+      'trainingPlan': instance.trainingPlan,
       'trainingTime': instance.trainingTime,
       'country': instance.country,
       'city': instance.city,

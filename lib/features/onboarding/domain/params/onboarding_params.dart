@@ -6,8 +6,8 @@ part 'onboarding_params.g.dart';
 @freezed
 abstract class OnboardingParams with _$OnboardingParams {
   const factory OnboardingParams({
-    required List<String> selectedDays,
-    required String selectedPlan,
+    required List<String> trainingDays,
+    required String trainingPlan,
     required String trainingTime,
     required String country,
     required String city,

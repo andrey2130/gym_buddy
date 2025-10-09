@@ -217,7 +217,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     context.push('/edit-profile');
   }
 
-  void _onTrainingDays() {}
+  void _onTrainingDays() {
+    context.push('/select-training-days');
+  }
 
   void _onTrainingPlan() {}
   void _onLanguage() {
