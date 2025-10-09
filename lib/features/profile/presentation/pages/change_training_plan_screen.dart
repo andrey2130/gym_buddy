@@ -13,15 +13,15 @@ import 'package:gym_buddy/features/profile/domain/params/change_user_training_pl
 import 'package:gym_buddy/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:gym_buddy/features/profile/presentation/widgets/plan_card.dart';
 
-class SelectTrainingDaysScreen extends StatefulWidget {
-  const SelectTrainingDaysScreen({super.key});
+class ChangeTrainingPlanScreen extends StatefulWidget {
+  const ChangeTrainingPlanScreen({super.key});
 
   @override
-  State<SelectTrainingDaysScreen> createState() =>
-      _SelectTrainingDaysScreenState();
+  State<ChangeTrainingPlanScreen> createState() =>
+      _ChangeTrainingPlanScreenState();
 }
 
-class _SelectTrainingDaysScreenState extends State<SelectTrainingDaysScreen> {
+class _ChangeTrainingPlanScreenState extends State<ChangeTrainingPlanScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

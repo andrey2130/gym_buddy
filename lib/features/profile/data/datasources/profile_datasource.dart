@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:gym_buddy/features/profile/data/models/user_model.dart';
+import 'package:gym_buddy/features/profile/domain/params/change_user_training_days_params.dart';
 import 'package:gym_buddy/features/profile/domain/params/change_user_training_plan_params.dart';
 import 'package:gym_buddy/features/profile/domain/params/update_user_params.dart';
 import 'package:injectable/injectable.dart';
@@ -16,6 +17,9 @@ abstract class ProfileDataSource {
   Future<void> syncEmailAfterVerification(String uid);
   Future<UserModel?> changeUserTrainingPlan(
     ChangeUserTrainingPlanParams params,
+  );
+  Future<UserModel?> changeUserTrainingDays(
+    ChangeUserTrainingDaysParams params,
   );
 }
 
@@ -197,6 +201,24 @@ class ProfileDataSourceImpl implements ProfileDataSource {
       }
       _talker.handle(e);
       rethrow;
+    } catch (e) {
+      _talker.handle(e);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<UserModel?> changeUserTrainingDays(
+    ChangeUserTrainingDaysParams params,
+  ) async {
+    try {
+      await _firestore.collection('users').doc(params.uid).update({
+        'trainingDays': params.trainingDays,
+        'updatedAt': FieldValue.serverTimestamp(),
+      });
+      final doc = await _firestore.collection('users').doc(params.uid).get();
+      if (!doc.exists || doc.data() == null) return null;
+      return UserModel.fromJson(doc.data()!);
     } catch (e) {
       _talker.handle(e);
       rethrow;

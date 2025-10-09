@@ -8,4 +8,7 @@ class ProfileEvent with _$ProfileEvent {
   const factory ProfileEvent.changeUserTrainingPlan(
     ChangeUserTrainingPlanParams params,
   ) = ChangeUserTrainingPlan;
+  const factory ProfileEvent.changeUserTrainingDays(
+    ChangeUserTrainingDaysParams params,
+  ) = ChangeUserTrainingDays;
 }

@@ -4,8 +4,9 @@ import 'package:gym_buddy/features/auth/presentation/pages/login_screen.dart';
 import 'package:gym_buddy/features/auth/presentation/pages/register_screen.dart';
 import 'package:gym_buddy/features/home/presentation/pages/main_screen.dart';
 import 'package:gym_buddy/features/onboarding/presentation/pages/onboarding_screen.dart';
+import 'package:gym_buddy/features/profile/presentation/pages/change_training_days_screen.dart';
 import 'package:gym_buddy/features/profile/presentation/pages/edit_profile_screen.dart';
-import 'package:gym_buddy/features/profile/presentation/pages/select_training_days_screen.dart';
+import 'package:gym_buddy/features/profile/presentation/pages/change_training_plan_screen.dart';
 import 'package:gym_buddy/features/splash_screen/presentation/splash_screen.dart';
 
 // ignore: strict_raw_type
@@ -88,10 +89,17 @@ final appRoutes = [
     ),
   ),
   GoRoute(
-    path: '/select-training-days',
+    path: '/change-training-plan',
     pageBuilder: (context, state) => buildTransitionPage(
       key: state.pageKey,
-      child: const SelectTrainingDaysScreen(),
+      child: const ChangeTrainingPlanScreen(),
+    ),
+  ),
+  GoRoute(
+    path: '/change-training-days',
+    pageBuilder: (context, state) => buildTransitionPage(
+      key: state.pageKey,
+      child: const ChangeTrainingDaysScreen(),
     ),
   ),
 ];

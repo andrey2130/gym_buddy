@@ -6,5 +6,14 @@ class AppConstant {
     'plan_split_bro',
   ];
 
+  static const List<String> trainingDays = [
+    'mon',
+    'tue',
+    'wed',
+    'thu',
+    'fri',
+    'sat',
+    'sun',
+  ];
   static const List<String> countries = ['Ukraine', 'Poland'];
 }

@@ -44,6 +44,8 @@ import 'features/profile/data/repositories/profile_repository_impl.dart'
     as _i277;
 import 'features/profile/domain/repositories/profile_repositories.dart'
     as _i1015;
+import 'features/profile/domain/usecases/change_user_training_days_usecase.dart'
+    as _i1014;
 import 'features/profile/domain/usecases/change_user_training_plan_usecase.dart'
     as _i1046;
 import 'features/profile/domain/usecases/get_user_profile_usecase.dart'
@@ -85,6 +87,10 @@ extension GetItInjectableX on _i174.GetIt {
       () =>
           _i1046.ChangeUserTrainingPlanUsecase(gh<_i1015.ProfileRepository>()),
     );
+    gh.factory<_i1014.ChangeUserTrainingDaysUsecase>(
+      () =>
+          _i1014.ChangeUserTrainingDaysUsecase(gh<_i1015.ProfileRepository>()),
+    );
     gh.factory<_i337.AuthDataSource>(
       () => _i337.AuthDataSourceImpl(
         gh<_i59.FirebaseAuth>(),
@@ -121,6 +127,15 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i630.GetCurrentUserIdUsecase>(
       () => _i630.GetCurrentUserIdUsecase(gh<_i442.AuthRepo>()),
     );
+    gh.factory<_i284.ProfileBloc>(
+      () => _i284.ProfileBloc(
+        gh<_i630.GetCurrentUserIdUsecase>(),
+        gh<_i160.GetUserProfileUsecase>(),
+        gh<_i140.UpdateUserProfileUsecase>(),
+        gh<_i1046.ChangeUserTrainingPlanUsecase>(),
+        gh<_i1014.ChangeUserTrainingDaysUsecase>(),
+      ),
+    );
     gh.factory<_i312.GetOnboardingUsecase>(
       () => _i312.GetOnboardingUsecase(
         onboardingRepo: gh<_i721.OnboardingRepo>(),
@@ -137,14 +152,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i206.LoginUsecase>(),
         gh<_i630.GetCurrentUserIdUsecase>(),
         gh<_i824.LogoutUsecase>(),
-      ),
-    );
-    gh.factory<_i284.ProfileBloc>(
-      () => _i284.ProfileBloc(
-        gh<_i630.GetCurrentUserIdUsecase>(),
-        gh<_i160.GetUserProfileUsecase>(),
-        gh<_i140.UpdateUserProfileUsecase>(),
-        gh<_i1046.ChangeUserTrainingPlanUsecase>(),
       ),
     );
     gh.factory<_i100.OnboardingBloc>(

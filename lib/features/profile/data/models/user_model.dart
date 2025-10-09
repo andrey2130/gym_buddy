@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:gym_buddy/core/utils/training_helper.dart';
 import 'package:gym_buddy/features/profile/domain/entities/user_entity.dart';
 
 part 'user_model.freezed.dart';
@@ -50,8 +51,8 @@ abstract class UserModel with _$UserModel {
     password: password,
     avatarUrl: avatarUrl,
     backgroundUrl: backgroundUrl,
-    trainingDays: trainingDays,
-    trainingPlan: trainingPlan,
+    trainingDays: TrainingHelper.normalizeDays(trainingDays),
+    trainingPlan: TrainingHelper.normalizePlan(trainingPlan),
     pendingEmail: pendingEmail,
     emailVerificationSentAt: emailVerificationSentAt,
     createdAt: createdAt,

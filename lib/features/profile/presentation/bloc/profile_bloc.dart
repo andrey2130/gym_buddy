@@ -3,8 +3,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:gym_buddy/core/usecases/usecase.dart';
 import 'package:gym_buddy/features/auth/domain/usecases/get_current_user_usecase.dart';
 import 'package:gym_buddy/features/profile/domain/entities/user_entity.dart';
+import 'package:gym_buddy/features/profile/domain/params/change_user_training_days_params.dart';
 import 'package:gym_buddy/features/profile/domain/params/change_user_training_plan_params.dart';
 import 'package:gym_buddy/features/profile/domain/params/update_user_params.dart';
+import 'package:gym_buddy/features/profile/domain/usecases/change_user_training_days_usecase.dart';
 import 'package:gym_buddy/features/profile/domain/usecases/change_user_training_plan_usecase.dart';
 import 'package:gym_buddy/features/profile/domain/usecases/get_user_profile_usecase.dart';
 import 'package:gym_buddy/features/profile/domain/usecases/update_user_profile_usecase.dart';
@@ -22,16 +24,19 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final GetUserProfileUsecase _getUserProfileUsecase;
   final UpdateUserProfileUsecase _updateUserProfileUsecase;
   final ChangeUserTrainingPlanUsecase _changeUserTrainingPlanUsecase;
+  final ChangeUserTrainingDaysUsecase _changeUserTrainingDaysUsecase;
 
   ProfileBloc(
     this._getCurrentUserIdUsecase,
     this._getUserProfileUsecase,
     this._updateUserProfileUsecase,
     this._changeUserTrainingPlanUsecase,
+    this._changeUserTrainingDaysUsecase,
   ) : super(const ProfileState.initial()) {
     on<LoadUserProfile>(_onLoadUserProfile);
     on<UpdateUserProfile>(_onUpdateUserProfile);
     on<ChangeUserTrainingPlan>(_onChangeUserTrainingPlan);
+    on<ChangeUserTrainingDays>(_onChangeUserTrainingDays);
   }
 
   Future<void> _onLoadUserProfile(
@@ -119,6 +124,23 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     emit(const ProfileState.loading());
 
     final result = await _changeUserTrainingPlanUsecase(event.params);
+
+    result.fold((failure) {
+      getIt<Talker>().error(failure.message);
+      if (failure.message.contains('SESSION_EXPIRED')) {
+        emit(const ProfileState.sessionExpired());
+      } else {
+        emit(ProfileState.failure(failure.message));
+      }
+    }, (user) => emit(ProfileState.loaded(user)));
+  }
+
+  Future<void> _onChangeUserTrainingDays(
+    ChangeUserTrainingDays event,
+    Emitter<ProfileState> emit,
+  ) async {
+    emit(const ProfileState.loading());
+    final result = await _changeUserTrainingDaysUsecase(event.params);
 
     result.fold((failure) {
       getIt<Talker>().error(failure.message);

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:gym_buddy/core/utils/training_helper.dart';
 import 'package:gym_buddy/features/onboarding/domain/params/onboarding_params.dart';
 import 'package:gym_buddy/injections.dart';
 import 'package:injectable/injectable.dart';
@@ -38,7 +39,21 @@ class OnboardingDataSourceImpl implements OnboardingDataSource {
 
       if (!docSnapshot.exists) return null;
 
-      return OnboardingParams.fromJson(docSnapshot.data() ?? {});
+      final data = docSnapshot.data() ?? {};
+      final rawDays = data['trainingDays'] as List<dynamic>?;
+      final rawPlan = data['trainingPlan'] as String?;
+
+      final normalizedData = {
+        ...data,
+        if (rawDays != null)
+          'trainingDays': TrainingHelper.normalizeDays(
+            rawDays.map((e) => e.toString()).toList(),
+          ),
+        if (rawPlan != null)
+          'trainingPlan': TrainingHelper.normalizePlan(rawPlan),
+      };
+
+      return OnboardingParams.fromJson(normalizedData);
     } catch (e) {
       getIt<Talker>().handle(e);
       rethrow;

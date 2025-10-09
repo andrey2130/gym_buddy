@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gym_buddy/core/contstant/app_constant.dart';
 import 'package:gym_buddy/features/onboarding/presentation/bloc/onboarding_bloc.dart';
 import 'package:gym_buddy/features/onboarding/presentation/widgets/days_selector.dart';
 
@@ -16,26 +17,22 @@ class DayScreen extends StatefulWidget {
 class _DayScreenState extends State<DayScreen> {
   Set<String>? _selectedDays;
 
-  void _onDaysSelected(Set<int> indices, List<String> days) {
-    final selectedDays = indices.map((i) => days[i]).toSet();
-    setState(() => _selectedDays = selectedDays);
+  void _onDaysSelected(Set<int> indices) {
+    final selectedDayKeys = indices
+        .map((i) => AppConstant.trainingDays[i])
+        .toSet();
+    setState(() => _selectedDays = selectedDayKeys);
     context.read<OnboardingBloc>().add(
-      OnboardingEvent.selectDays(selectedDays),
+      OnboardingEvent.selectDays(selectedDayKeys),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final days = <String>[
-      'mon'.tr(),
-      'tue'.tr(),
-      'wed'.tr(),
-      'thu'.tr(),
-      'fri'.tr(),
-      'sat'.tr(),
-      'sun'.tr(),
-    ];
+    final translatedDays = AppConstant.trainingDays
+        .map((key) => key.tr())
+        .toList();
 
     return BlocBuilder<OnboardingBloc, OnboardingState>(
       builder: (context, state) {
@@ -46,7 +43,7 @@ class _DayScreenState extends State<DayScreen> {
         );
 
         final selectedIndices = _selectedDays
-            ?.map(days.indexOf)
+            ?.map((dayKey) => AppConstant.trainingDays.indexOf(dayKey))
             .where((i) => i != -1)
             .toSet();
 
@@ -69,9 +66,9 @@ class _DayScreenState extends State<DayScreen> {
               SizedBox(height: 24.h),
               Expanded(
                 child: DaysSelector(
-                  days: days,
+                  days: translatedDays,
                   initialSelection: selectedIndices,
-                  onDaysSelected: (indices) => _onDaysSelected(indices, days),
+                  onDaysSelected: _onDaysSelected,
                 ),
               ),
             ],
