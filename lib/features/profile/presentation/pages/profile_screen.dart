@@ -7,6 +7,7 @@ import 'package:gym_buddy/core/utils/errors_overlay.dart';
 import 'package:gym_buddy/core/utils/image_picker.dart';
 import 'package:gym_buddy/features/profile/domain/params/update_user_params.dart';
 import 'package:gym_buddy/features/profile/presentation/bloc/profile_bloc.dart';
+import 'package:gym_buddy/features/profile/presentation/widgets/preferences/language_bottom_sheet.dart';
 import 'package:gym_buddy/features/profile/presentation/widgets/widgets.dart';
 
 class ProfileScreen extends StatefulWidget {

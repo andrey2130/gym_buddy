@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gym_buddy/core/contstant/app_constant.dart';
 import 'package:gym_buddy/features/onboarding/presentation/bloc/onboarding_bloc.dart';
-import 'package:gym_buddy/features/profile/presentation/widgets/plan_card.dart';
+import 'package:gym_buddy/features/profile/presentation/widgets/training_sections/plan_card.dart';
 
 class PlanScreen extends StatefulWidget {
   final VoidCallback? onNext;

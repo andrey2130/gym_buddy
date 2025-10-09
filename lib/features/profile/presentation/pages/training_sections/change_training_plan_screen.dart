@@ -11,7 +11,7 @@ import 'package:gym_buddy/core/utils/custom_app_bar.dart';
 import 'package:gym_buddy/core/utils/errors_overlay.dart';
 import 'package:gym_buddy/features/profile/domain/params/change_user_training_plan_params.dart';
 import 'package:gym_buddy/features/profile/presentation/bloc/profile_bloc.dart';
-import 'package:gym_buddy/features/profile/presentation/widgets/plan_card.dart';
+import 'package:gym_buddy/features/profile/presentation/widgets/training_sections/plan_card.dart';
 
 class ChangeTrainingPlanScreen extends StatefulWidget {
   const ChangeTrainingPlanScreen({super.key});
