@@ -102,6 +102,7 @@
   "email_changed_login_again": "Email changed successfully! Please log in again with your new email.",
   "don't_have_an_account_regiser": "Don't have an account? Register",
   "change_training_days_description": "Here you can change your training days",
-  "change_training_plan_description": "Here you can change your training plan"
+  "change_training_plan_description": "Here you can change your training plan",
+  "workout": "Workout"
 
 }

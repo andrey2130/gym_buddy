@@ -53,6 +53,14 @@ import 'features/profile/domain/usecases/get_user_profile_usecase.dart'
 import 'features/profile/domain/usecases/update_user_profile_usecase.dart'
     as _i140;
 import 'features/profile/presentation/bloc/profile_bloc.dart' as _i284;
+import 'features/workout/data/datasource/workout_datasource.dart' as _i482;
+import 'features/workout/data/repository/workout_repository_impl.dart' as _i596;
+import 'features/workout/domain/repository/workout_repository.dart' as _i494;
+import 'features/workout/domain/usecase/create_workout_usecase.dart' as _i1046;
+import 'features/workout/domain/usecase/delete_workout_usecase.dart' as _i407;
+import 'features/workout/domain/usecase/get_workouts_usecase.dart' as _i948;
+import 'features/workout/domain/usecase/update_workout_usecase.dart' as _i540;
+import 'features/workout/presentation/bloc/workout_bloc.dart' as _i959;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -83,6 +91,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i691.OnboardingDataSource>(
       () => _i691.OnboardingDataSourceImpl(gh<_i974.FirebaseFirestore>()),
     );
+    gh.lazySingleton<_i482.WorkoutDatasource>(
+      () => _i482.WorkoutDatasourceImpl(gh<_i974.FirebaseFirestore>()),
+    );
+    gh.factory<_i494.WorkoutRepository>(
+      () => _i596.WorkoutRepositoryImpl(gh<_i482.WorkoutDatasource>()),
+    );
     gh.factory<_i1046.ChangeUserTrainingPlanUsecase>(
       () =>
           _i1046.ChangeUserTrainingPlanUsecase(gh<_i1015.ProfileRepository>()),
@@ -90,6 +104,18 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i1014.ChangeUserTrainingDaysUsecase>(
       () =>
           _i1014.ChangeUserTrainingDaysUsecase(gh<_i1015.ProfileRepository>()),
+    );
+    gh.factory<_i540.UpdateWorkoutUsecase>(
+      () => _i540.UpdateWorkoutUsecase(gh<_i494.WorkoutRepository>()),
+    );
+    gh.factory<_i1046.CreateWorkoutUsecase>(
+      () => _i1046.CreateWorkoutUsecase(gh<_i494.WorkoutRepository>()),
+    );
+    gh.factory<_i948.GetWorkoutsUsecase>(
+      () => _i948.GetWorkoutsUsecase(gh<_i494.WorkoutRepository>()),
+    );
+    gh.factory<_i407.DeleteWorkoutUsecase>(
+      () => _i407.DeleteWorkoutUsecase(gh<_i494.WorkoutRepository>()),
     );
     gh.factory<_i337.AuthDataSource>(
       () => _i337.AuthDataSourceImpl(
@@ -117,6 +143,14 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i577.ThemeCubit>(
       () => _i577.ThemeCubit(gh<_i732.SharedPreferencesService>()),
+    );
+    gh.factory<_i959.WorkoutBloc>(
+      () => _i959.WorkoutBloc(
+        gh<_i948.GetWorkoutsUsecase>(),
+        gh<_i1046.CreateWorkoutUsecase>(),
+        gh<_i540.UpdateWorkoutUsecase>(),
+        gh<_i407.DeleteWorkoutUsecase>(),
+      ),
     );
     gh.factory<_i721.OnboardingRepo>(
       () => _i139.OnboardingRepoImpl(

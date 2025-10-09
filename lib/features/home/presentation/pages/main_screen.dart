@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gym_buddy/features/home/presentation/pages/home_screen.dart';
 import 'package:gym_buddy/features/profile/presentation/pages/profile_screen.dart';
+import 'package:gym_buddy/features/workout/presentation/pages/workout_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -21,7 +22,7 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       body: IndexedStack(
         index: _currentIndex,
-        children: const [HomeScreen(), ProfileScreen()],
+        children: const [HomeScreen(), WorkoutScreen(), ProfileScreen()],
       ),
       bottomNavigationBar: Platform.isAndroid
           ? _buildBottomNavBar()
@@ -45,6 +46,10 @@ class _MainScreenState extends State<MainScreen> {
           label: 'home'.tr(),
         ),
         BottomNavigationBarItem(
+          icon: const Icon(Icons.fitness_center),
+          label: 'workout'.tr(),
+        ),
+        BottomNavigationBarItem(
           icon: const Icon(Icons.person),
           label: 'profile'.tr(),
         ),
@@ -64,6 +69,10 @@ class _MainScreenState extends State<MainScreen> {
         BottomNavigationBarItem(
           icon: const Icon(CupertinoIcons.home),
           label: 'home'.tr(),
+        ),
+        BottomNavigationBarItem(
+          icon: const Icon(Icons.fitness_center),
+          label: 'workout'.tr(),
         ),
 
         BottomNavigationBarItem(

@@ -101,5 +101,6 @@
   "email_changed_login_again": "Email успішно змінено! Будь ласка, увійдіть знову з новим email.",
   "don't_have_an_account_regiser": "Немає акаунту? Зареєструватися",
   "change_training_days_description": "Тут ви можете змінити дні тренувань",
-  "change_training_plan_description": "Тут ви можете змінити план тренувань"
+  "change_training_plan_description": "Тут ви можете змінити план тренувань",
+  "workout": "Тренування"
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gym_buddy/core/utils/custom_button.dart';
+import 'package:gym_buddy/core/widgets/custom_button.dart';
 
 class AnimatedScaleButton extends StatefulWidget {
   final double height;

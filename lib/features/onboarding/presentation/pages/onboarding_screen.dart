@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:gym_buddy/core/utils/custom_button.dart';
+import 'package:gym_buddy/core/widgets/custom_button.dart';
 import 'package:gym_buddy/features/onboarding/presentation/bloc/onboarding_bloc.dart';
 import 'package:gym_buddy/features/onboarding/presentation/pages/day_screen.dart';
 import 'package:gym_buddy/features/onboarding/presentation/pages/plan_screen.dart';

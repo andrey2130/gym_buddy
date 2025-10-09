@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gym_buddy/core/contstant/app_constant.dart';
-import 'package:gym_buddy/core/utils/custom_text_field.dart';
+import 'package:gym_buddy/core/widgets/custom_text_field.dart';
 import 'package:gym_buddy/features/onboarding/domain/params/onboarding_params.dart';
 import 'package:gym_buddy/features/onboarding/presentation/bloc/onboarding_bloc.dart';
 import 'package:gym_buddy/features/onboarding/presentation/widgets/switch_pill.dart';
