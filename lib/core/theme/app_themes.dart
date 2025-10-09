@@ -93,8 +93,8 @@ class AppThemes {
       //AppBar
       appBarTheme: AppBarTheme(
         systemOverlayStyle: SystemUiOverlayStyle.dark,
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.white,
+        backgroundColor: background,
+        foregroundColor: background,
         elevation: 2,
         shadowColor: Colors.black.withValues(alpha: 0.1),
         centerTitle: true,

@@ -14,8 +14,11 @@ import 'package:firebase_auth/firebase_auth.dart' as _i59;
 import 'package:firebase_storage/firebase_storage.dart' as _i457;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:shared_preferences/shared_preferences.dart' as _i460;
 import 'package:talker_flutter/talker_flutter.dart' as _i207;
 
+import 'core/service/shared_preferences.dart' as _i732;
+import 'core/theme/cubit/theme_cubit.dart' as _i577;
 import 'features/auth/data/datasource/auth_datasource.dart' as _i337;
 import 'features/auth/data/datasource/user_datasource.dart' as _i937;
 import 'features/auth/data/repo/auth_repo_impl.dart' as _i186;
@@ -60,6 +63,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i207.Talker>(),
       ),
     );
+    gh.lazySingleton<_i732.SharedPreferencesService>(
+      () => _i732.SharedPreferencesService(gh<_i460.SharedPreferences>()),
+    );
     gh.factory<_i937.UserDataSource>(
       () => _i937.UserDataSourceImpl(gh<_i974.FirebaseFirestore>()),
     );
@@ -92,6 +98,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i140.UpdateUserProfileUsecase>(
       () => _i140.UpdateUserProfileUsecase(gh<_i1015.ProfileRepository>()),
+    );
+    gh.lazySingleton<_i577.ThemeCubit>(
+      () => _i577.ThemeCubit(gh<_i732.SharedPreferencesService>()),
     );
     gh.factory<_i721.OnboardingRepo>(
       () => _i139.OnboardingRepoImpl(

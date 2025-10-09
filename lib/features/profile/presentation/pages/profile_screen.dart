@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:gym_buddy/core/theme/cubit/theme_cubit.dart';
 import 'package:gym_buddy/core/utils/errors_overlay.dart';
 import 'package:gym_buddy/core/utils/image_picker.dart';
 import 'package:gym_buddy/features/profile/domain/params/update_user_params.dart';
@@ -16,8 +17,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  bool _isDarkMode = false;
-
   @override
   void initState() {
     super.initState();
@@ -82,7 +81,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                   const SliverToBoxAdapter(child: SizedBox(height: 16)),
-                   SliverToBoxAdapter(
+                  SliverToBoxAdapter(
                     child: ProfileStatsCard(
                       totalWorkouts: user.totalWorkouts,
                       totalReps: user.totalReps,
@@ -123,11 +122,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                   SliverToBoxAdapter(
-                    child: PreferencesSection(
-                      isDarkMode: _isDarkMode,
-                      onTheme: _onTheme,
-                      onLanguage: _onLanguage,
-                      onNotifications: _onNotifications,
+                    child: BlocBuilder<ThemeCubit, ThemeState>(
+                      builder: (context, themeState) {
+                        final isDarkMode = themeState.maybeWhen(
+                          dark: () => true,
+                          orElse: () => false,
+                        );
+
+                        return PreferencesSection(
+                          isDarkMode: isDarkMode,
+                          onTheme: _onTheme,
+                          onLanguage: _onLanguage,
+                          onNotifications: _onNotifications,
+                        );
+                      },
                     ),
                   ),
                   const SliverToBoxAdapter(child: SizedBox(height: 16)),
@@ -166,9 +174,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   void _onTheme() {
-    setState(() {
-      _isDarkMode = !_isDarkMode;
-    });
+    context.read<ThemeCubit>().toggleTheme();
   }
 
   Future<void> _uploadAvatar() async {

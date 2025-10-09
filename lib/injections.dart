@@ -6,7 +6,6 @@ import 'package:gym_buddy/injections.config.dart';
 import 'package:injectable/injectable.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
-
 final getIt = GetIt.instance;
 
 @InjectableInit(
