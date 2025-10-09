@@ -55,12 +55,14 @@ extension ProfileEventPatterns on ProfileEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( LoadUserProfile value)?  loadUserProfile,TResult Function( UpdateUserProfile value)?  updateUserProfile,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( LoadUserProfile value)?  loadUserProfile,TResult Function( UpdateUserProfile value)?  updateUserProfile,TResult Function( ChangeUserTrainingPlan value)?  changeUserTrainingPlan,TResult Function( ChangeUserTrainingDays value)?  changeUserTrainingDays,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case LoadUserProfile() when loadUserProfile != null:
 return loadUserProfile(_that);case UpdateUserProfile() when updateUserProfile != null:
-return updateUserProfile(_that);case _:
+return updateUserProfile(_that);case ChangeUserTrainingPlan() when changeUserTrainingPlan != null:
+return changeUserTrainingPlan(_that);case ChangeUserTrainingDays() when changeUserTrainingDays != null:
+return changeUserTrainingDays(_that);case _:
   return orElse();
 
 }
@@ -78,12 +80,14 @@ return updateUserProfile(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( LoadUserProfile value)  loadUserProfile,required TResult Function( UpdateUserProfile value)  updateUserProfile,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( LoadUserProfile value)  loadUserProfile,required TResult Function( UpdateUserProfile value)  updateUserProfile,required TResult Function( ChangeUserTrainingPlan value)  changeUserTrainingPlan,required TResult Function( ChangeUserTrainingDays value)  changeUserTrainingDays,}){
 final _that = this;
 switch (_that) {
 case LoadUserProfile():
 return loadUserProfile(_that);case UpdateUserProfile():
-return updateUserProfile(_that);case _:
+return updateUserProfile(_that);case ChangeUserTrainingPlan():
+return changeUserTrainingPlan(_that);case ChangeUserTrainingDays():
+return changeUserTrainingDays(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -100,12 +104,14 @@ return updateUserProfile(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( LoadUserProfile value)?  loadUserProfile,TResult? Function( UpdateUserProfile value)?  updateUserProfile,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( LoadUserProfile value)?  loadUserProfile,TResult? Function( UpdateUserProfile value)?  updateUserProfile,TResult? Function( ChangeUserTrainingPlan value)?  changeUserTrainingPlan,TResult? Function( ChangeUserTrainingDays value)?  changeUserTrainingDays,}){
 final _that = this;
 switch (_that) {
 case LoadUserProfile() when loadUserProfile != null:
 return loadUserProfile(_that);case UpdateUserProfile() when updateUserProfile != null:
-return updateUserProfile(_that);case _:
+return updateUserProfile(_that);case ChangeUserTrainingPlan() when changeUserTrainingPlan != null:
+return changeUserTrainingPlan(_that);case ChangeUserTrainingDays() when changeUserTrainingDays != null:
+return changeUserTrainingDays(_that);case _:
   return null;
 
 }
@@ -122,11 +128,13 @@ return updateUserProfile(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  loadUserProfile,TResult Function( UpdateProfileParams params)?  updateUserProfile,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  loadUserProfile,TResult Function( UpdateProfileParams params)?  updateUserProfile,TResult Function( ChangeUserTrainingPlanParams params)?  changeUserTrainingPlan,TResult Function( ChangeUserTrainingDaysParams params)?  changeUserTrainingDays,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case LoadUserProfile() when loadUserProfile != null:
 return loadUserProfile();case UpdateUserProfile() when updateUserProfile != null:
-return updateUserProfile(_that.params);case _:
+return updateUserProfile(_that.params);case ChangeUserTrainingPlan() when changeUserTrainingPlan != null:
+return changeUserTrainingPlan(_that.params);case ChangeUserTrainingDays() when changeUserTrainingDays != null:
+return changeUserTrainingDays(_that.params);case _:
   return orElse();
 
 }
@@ -144,11 +152,13 @@ return updateUserProfile(_that.params);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  loadUserProfile,required TResult Function( UpdateProfileParams params)  updateUserProfile,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  loadUserProfile,required TResult Function( UpdateProfileParams params)  updateUserProfile,required TResult Function( ChangeUserTrainingPlanParams params)  changeUserTrainingPlan,required TResult Function( ChangeUserTrainingDaysParams params)  changeUserTrainingDays,}) {final _that = this;
 switch (_that) {
 case LoadUserProfile():
 return loadUserProfile();case UpdateUserProfile():
-return updateUserProfile(_that.params);case _:
+return updateUserProfile(_that.params);case ChangeUserTrainingPlan():
+return changeUserTrainingPlan(_that.params);case ChangeUserTrainingDays():
+return changeUserTrainingDays(_that.params);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -165,11 +175,13 @@ return updateUserProfile(_that.params);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  loadUserProfile,TResult? Function( UpdateProfileParams params)?  updateUserProfile,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  loadUserProfile,TResult? Function( UpdateProfileParams params)?  updateUserProfile,TResult? Function( ChangeUserTrainingPlanParams params)?  changeUserTrainingPlan,TResult? Function( ChangeUserTrainingDaysParams params)?  changeUserTrainingDays,}) {final _that = this;
 switch (_that) {
 case LoadUserProfile() when loadUserProfile != null:
 return loadUserProfile();case UpdateUserProfile() when updateUserProfile != null:
-return updateUserProfile(_that.params);case _:
+return updateUserProfile(_that.params);case ChangeUserTrainingPlan() when changeUserTrainingPlan != null:
+return changeUserTrainingPlan(_that.params);case ChangeUserTrainingDays() when changeUserTrainingDays != null:
+return changeUserTrainingDays(_that.params);case _:
   return null;
 
 }
@@ -279,6 +291,156 @@ as UpdateProfileParams,
 $UpdateProfileParamsCopyWith<$Res> get params {
   
   return $UpdateProfileParamsCopyWith<$Res>(_self.params, (value) {
+    return _then(_self.copyWith(params: value));
+  });
+}
+}
+
+/// @nodoc
+
+
+class ChangeUserTrainingPlan implements ProfileEvent {
+  const ChangeUserTrainingPlan(this.params);
+  
+
+ final  ChangeUserTrainingPlanParams params;
+
+/// Create a copy of ProfileEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ChangeUserTrainingPlanCopyWith<ChangeUserTrainingPlan> get copyWith => _$ChangeUserTrainingPlanCopyWithImpl<ChangeUserTrainingPlan>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChangeUserTrainingPlan&&(identical(other.params, params) || other.params == params));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,params);
+
+@override
+String toString() {
+  return 'ProfileEvent.changeUserTrainingPlan(params: $params)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ChangeUserTrainingPlanCopyWith<$Res> implements $ProfileEventCopyWith<$Res> {
+  factory $ChangeUserTrainingPlanCopyWith(ChangeUserTrainingPlan value, $Res Function(ChangeUserTrainingPlan) _then) = _$ChangeUserTrainingPlanCopyWithImpl;
+@useResult
+$Res call({
+ ChangeUserTrainingPlanParams params
+});
+
+
+$ChangeUserTrainingPlanParamsCopyWith<$Res> get params;
+
+}
+/// @nodoc
+class _$ChangeUserTrainingPlanCopyWithImpl<$Res>
+    implements $ChangeUserTrainingPlanCopyWith<$Res> {
+  _$ChangeUserTrainingPlanCopyWithImpl(this._self, this._then);
+
+  final ChangeUserTrainingPlan _self;
+  final $Res Function(ChangeUserTrainingPlan) _then;
+
+/// Create a copy of ProfileEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? params = null,}) {
+  return _then(ChangeUserTrainingPlan(
+null == params ? _self.params : params // ignore: cast_nullable_to_non_nullable
+as ChangeUserTrainingPlanParams,
+  ));
+}
+
+/// Create a copy of ProfileEvent
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ChangeUserTrainingPlanParamsCopyWith<$Res> get params {
+  
+  return $ChangeUserTrainingPlanParamsCopyWith<$Res>(_self.params, (value) {
+    return _then(_self.copyWith(params: value));
+  });
+}
+}
+
+/// @nodoc
+
+
+class ChangeUserTrainingDays implements ProfileEvent {
+  const ChangeUserTrainingDays(this.params);
+  
+
+ final  ChangeUserTrainingDaysParams params;
+
+/// Create a copy of ProfileEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ChangeUserTrainingDaysCopyWith<ChangeUserTrainingDays> get copyWith => _$ChangeUserTrainingDaysCopyWithImpl<ChangeUserTrainingDays>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChangeUserTrainingDays&&(identical(other.params, params) || other.params == params));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,params);
+
+@override
+String toString() {
+  return 'ProfileEvent.changeUserTrainingDays(params: $params)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ChangeUserTrainingDaysCopyWith<$Res> implements $ProfileEventCopyWith<$Res> {
+  factory $ChangeUserTrainingDaysCopyWith(ChangeUserTrainingDays value, $Res Function(ChangeUserTrainingDays) _then) = _$ChangeUserTrainingDaysCopyWithImpl;
+@useResult
+$Res call({
+ ChangeUserTrainingDaysParams params
+});
+
+
+$ChangeUserTrainingDaysParamsCopyWith<$Res> get params;
+
+}
+/// @nodoc
+class _$ChangeUserTrainingDaysCopyWithImpl<$Res>
+    implements $ChangeUserTrainingDaysCopyWith<$Res> {
+  _$ChangeUserTrainingDaysCopyWithImpl(this._self, this._then);
+
+  final ChangeUserTrainingDays _self;
+  final $Res Function(ChangeUserTrainingDays) _then;
+
+/// Create a copy of ProfileEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? params = null,}) {
+  return _then(ChangeUserTrainingDays(
+null == params ? _self.params : params // ignore: cast_nullable_to_non_nullable
+as ChangeUserTrainingDaysParams,
+  ));
+}
+
+/// Create a copy of ProfileEvent
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ChangeUserTrainingDaysParamsCopyWith<$Res> get params {
+  
+  return $ChangeUserTrainingDaysParamsCopyWith<$Res>(_self.params, (value) {
     return _then(_self.copyWith(params: value));
   });
 }

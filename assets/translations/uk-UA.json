@@ -31,9 +31,11 @@
 "plan_split_full_body_sub": "3 дні · Усе тіло",
 "plan_split_upper_lower": "Верх/Низ",
 "plan_split_upper_lower_sub": "4 дні · Збалансований обсяг",
-"plan_split_push_pull_legs": "Push / Pull / Legs",
+"plan_split_push_pull_legs": "Жим / Тяга / Ноги",
 "plan_split_push_pull_legs_sub": "5–6 днів · Класичний спліт",
-"plan_split_bro": "Bro Split",
+"plan_split_bro": "Бро-спліт",
+"bro_split": "Бро-спліт",
+"push_pull_legs": "Жим / Тяга / Ноги",
 "plan_split_bro_sub": "3 днів · По групах м'язів",
 "choose_training_time": "Бажаний час тренувань",
 "choose_training_time_sub": "Коли зазвичай тренуєшся?",
@@ -97,5 +99,7 @@
   "profile_updated_successfully": "Профіль успішно оновлено",
   "session_expired_login_again": "Ваша сесія закінчилася. Будь ласка, увійдіть знову.",
   "email_changed_login_again": "Email успішно змінено! Будь ласка, увійдіть знову з новим email.",
-  "don't_have_an_account_regiser": "Немає акаунту? Зареєструватися"
+  "don't_have_an_account_regiser": "Немає акаунту? Зареєструватися",
+  "change_training_days_description": "Тут ви можете змінити дні тренувань",
+  "change_training_plan_description": "Тут ви можете змінити план тренувань"
 }

@@ -33,8 +33,8 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
     emit(const OnboardingState.loading());
 
     final params = event.params.copyWith(
-      selectedDays: _selectedDays.toList(),
-      selectedPlan: _selectedPlan,
+      trainingDays: _selectedDays.toList(),
+      trainingPlan: _selectedPlan,
     );
 
     final result = await _saveOnboardingUsecase(params);
@@ -60,8 +60,8 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
       },
       (params) {
         if (params != null) {
-          _selectedDays = params.selectedDays.toSet();
-          _selectedPlan = params.selectedPlan;
+          _selectedDays = params.trainingDays.toSet();
+          _selectedPlan = params.trainingPlan;
           emit(OnboardingState.loaded(params));
         } else {
           emit(const OnboardingState.initial());

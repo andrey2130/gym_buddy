@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gym_buddy/core/contstant/app_constant.dart';
 import 'package:gym_buddy/core/utils/custom_text_field.dart';
 import 'package:gym_buddy/features/onboarding/domain/params/onboarding_params.dart';
 import 'package:gym_buddy/features/onboarding/presentation/bloc/onboarding_bloc.dart';
@@ -25,8 +26,6 @@ class TimeScreenState extends State<TimeScreen> {
   final _formKey = GlobalKey<FormState>();
   bool _isMorning = true;
   String? _selectedCountry;
-
-  static final List<String> _countries = <String>['Ukraine', 'Poland'];
 
   @override
   void dispose() {
@@ -53,8 +52,8 @@ class TimeScreenState extends State<TimeScreen> {
       context.read<OnboardingBloc>().add(
         OnboardingEvent.saveOnboarding(
           OnboardingParams(
-            selectedDays: selectedDays.toList(),
-            selectedPlan: selectedPlan,
+            trainingDays: selectedDays.toList(),
+            trainingPlan: selectedPlan,
             trainingTime: _timeController.text,
             country: _selectedCountry ?? '',
             city: _cityController.text,
@@ -122,7 +121,7 @@ class TimeScreenState extends State<TimeScreen> {
                         child: SwitchPill(
                           title: 'morning'.tr(),
                           selected: _isMorning,
-                          
+
                           onTap: () => setState(() => _isMorning = true),
                         ),
                       ),
@@ -191,7 +190,7 @@ class TimeScreenState extends State<TimeScreen> {
   Future<void> _openCountryPicker() async {
     if (Platform.isIOS) {
       final int initialIndex = _selectedCountry != null
-          ? TimeScreenState._countries.indexOf(_selectedCountry!)
+          ? AppConstant.countries.indexOf(_selectedCountry!)
           : 0;
       int tempIndex = initialIndex < 0 ? 0 : initialIndex;
       await showCupertinoModalPopup<void>(
@@ -218,9 +217,7 @@ class TimeScreenState extends State<TimeScreen> {
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: Text('done'.tr()),
                           onPressed: () {
-                            _selectCountry(
-                              TimeScreenState._countries[tempIndex],
-                            );
+                            _selectCountry(AppConstant.countries[tempIndex]);
                             Navigator.of(ctx).pop();
                           },
                         ),
@@ -234,7 +231,7 @@ class TimeScreenState extends State<TimeScreen> {
                       ),
                       itemExtent: 40,
                       onSelectedItemChanged: (i) => tempIndex = i,
-                      children: TimeScreenState._countries
+                      children: AppConstant.countries
                           .map((c) => Center(child: Text(c)))
                           .toList(),
                     ),
@@ -252,10 +249,10 @@ class TimeScreenState extends State<TimeScreen> {
           return SafeArea(
             child: ListView.separated(
               shrinkWrap: true,
-              itemCount: TimeScreenState._countries.length,
+              itemCount: AppConstant.countries.length,
               separatorBuilder: (_, __) => const Divider(height: 1),
               itemBuilder: (_, i) {
-                final c = TimeScreenState._countries[i];
+                final c = AppConstant.countries[i];
                 return ListTile(
                   title: Text(c),
                   onTap: () {

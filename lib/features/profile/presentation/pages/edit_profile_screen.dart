@@ -13,7 +13,7 @@ import 'package:gym_buddy/core/utils/custom_text_field.dart';
 import 'package:gym_buddy/core/utils/validators.dart';
 import 'package:gym_buddy/features/profile/domain/params/update_user_params.dart';
 import 'package:gym_buddy/features/profile/presentation/bloc/profile_bloc.dart';
-import 'package:gym_buddy/features/profile/presentation/widgets/expansion_tile.dart';
+import 'package:gym_buddy/features/profile/presentation/widgets/common/expansion_tile.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -196,7 +196,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             CustomTextField(
               controller: nameController,
               labelText: 'name'.tr(),
-                validator:Validators.validateName,
+              validator: Validators.validateName,
             ),
           ],
         ),

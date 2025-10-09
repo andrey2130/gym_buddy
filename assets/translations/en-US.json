@@ -37,6 +37,8 @@
 "plan_split_push_pull_legs": "Push / Pull / Legs",
 "plan_split_push_pull_legs_sub": "5–6 days · Classic split",
 "plan_split_bro": "Bro Split",
+"bro_split": "Bro Split",
+"push_pull_legs": "Push / Pull / Legs",
 "plan_split_bro_sub": "3 days · Body-part focus",
 "choose_training_time": "Preferred training time",
 "choose_training_time_sub": "When do you usually train?",
@@ -98,5 +100,8 @@
   "profile_updated_successfully": "Profile updated successfully",
   "session_expired_login_again": "Your session has expired. Please log in again.",
   "email_changed_login_again": "Email changed successfully! Please log in again with your new email.",
-  "don't_have_an_account_regiser": "Don't have an account? Register"
+  "don't_have_an_account_regiser": "Don't have an account? Register",
+  "change_training_days_description": "Here you can change your training days",
+  "change_training_plan_description": "Here you can change your training plan"
+
 }

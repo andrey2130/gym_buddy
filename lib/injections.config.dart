@@ -44,6 +44,10 @@ import 'features/profile/data/repositories/profile_repository_impl.dart'
     as _i277;
 import 'features/profile/domain/repositories/profile_repositories.dart'
     as _i1015;
+import 'features/profile/domain/usecases/change_user_training_days_usecase.dart'
+    as _i1014;
+import 'features/profile/domain/usecases/change_user_training_plan_usecase.dart'
+    as _i1046;
 import 'features/profile/domain/usecases/get_user_profile_usecase.dart'
     as _i160;
 import 'features/profile/domain/usecases/update_user_profile_usecase.dart'
@@ -78,6 +82,14 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i691.OnboardingDataSource>(
       () => _i691.OnboardingDataSourceImpl(gh<_i974.FirebaseFirestore>()),
+    );
+    gh.factory<_i1046.ChangeUserTrainingPlanUsecase>(
+      () =>
+          _i1046.ChangeUserTrainingPlanUsecase(gh<_i1015.ProfileRepository>()),
+    );
+    gh.factory<_i1014.ChangeUserTrainingDaysUsecase>(
+      () =>
+          _i1014.ChangeUserTrainingDaysUsecase(gh<_i1015.ProfileRepository>()),
     );
     gh.factory<_i337.AuthDataSource>(
       () => _i337.AuthDataSourceImpl(
@@ -120,6 +132,8 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i630.GetCurrentUserIdUsecase>(),
         gh<_i160.GetUserProfileUsecase>(),
         gh<_i140.UpdateUserProfileUsecase>(),
+        gh<_i1046.ChangeUserTrainingPlanUsecase>(),
+        gh<_i1014.ChangeUserTrainingDaysUsecase>(),
       ),
     );
     gh.factory<_i312.GetOnboardingUsecase>(

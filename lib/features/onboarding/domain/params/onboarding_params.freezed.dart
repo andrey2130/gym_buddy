@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$OnboardingParams {
 
- List<String> get selectedDays; String get selectedPlan; String get trainingTime; String get country; String get city; bool get isMorning;
+ List<String> get trainingDays; String get trainingPlan; String get trainingTime; String get country; String get city; bool get isMorning;
 /// Create a copy of OnboardingParams
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $OnboardingParamsCopyWith<OnboardingParams> get copyWith => _$OnboardingParamsCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OnboardingParams&&const DeepCollectionEquality().equals(other.selectedDays, selectedDays)&&(identical(other.selectedPlan, selectedPlan) || other.selectedPlan == selectedPlan)&&(identical(other.trainingTime, trainingTime) || other.trainingTime == trainingTime)&&(identical(other.country, country) || other.country == country)&&(identical(other.city, city) || other.city == city)&&(identical(other.isMorning, isMorning) || other.isMorning == isMorning));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OnboardingParams&&const DeepCollectionEquality().equals(other.trainingDays, trainingDays)&&(identical(other.trainingPlan, trainingPlan) || other.trainingPlan == trainingPlan)&&(identical(other.trainingTime, trainingTime) || other.trainingTime == trainingTime)&&(identical(other.country, country) || other.country == country)&&(identical(other.city, city) || other.city == city)&&(identical(other.isMorning, isMorning) || other.isMorning == isMorning));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(selectedDays),selectedPlan,trainingTime,country,city,isMorning);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(trainingDays),trainingPlan,trainingTime,country,city,isMorning);
 
 @override
 String toString() {
-  return 'OnboardingParams(selectedDays: $selectedDays, selectedPlan: $selectedPlan, trainingTime: $trainingTime, country: $country, city: $city, isMorning: $isMorning)';
+  return 'OnboardingParams(trainingDays: $trainingDays, trainingPlan: $trainingPlan, trainingTime: $trainingTime, country: $country, city: $city, isMorning: $isMorning)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $OnboardingParamsCopyWith<$Res>  {
   factory $OnboardingParamsCopyWith(OnboardingParams value, $Res Function(OnboardingParams) _then) = _$OnboardingParamsCopyWithImpl;
 @useResult
 $Res call({
- List<String> selectedDays, String selectedPlan, String trainingTime, String country, String city, bool isMorning
+ List<String> trainingDays, String trainingPlan, String trainingTime, String country, String city, bool isMorning
 });
 
 
@@ -65,10 +65,10 @@ class _$OnboardingParamsCopyWithImpl<$Res>
 
 /// Create a copy of OnboardingParams
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? selectedDays = null,Object? selectedPlan = null,Object? trainingTime = null,Object? country = null,Object? city = null,Object? isMorning = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? trainingDays = null,Object? trainingPlan = null,Object? trainingTime = null,Object? country = null,Object? city = null,Object? isMorning = null,}) {
   return _then(_self.copyWith(
-selectedDays: null == selectedDays ? _self.selectedDays : selectedDays // ignore: cast_nullable_to_non_nullable
-as List<String>,selectedPlan: null == selectedPlan ? _self.selectedPlan : selectedPlan // ignore: cast_nullable_to_non_nullable
+trainingDays: null == trainingDays ? _self.trainingDays : trainingDays // ignore: cast_nullable_to_non_nullable
+as List<String>,trainingPlan: null == trainingPlan ? _self.trainingPlan : trainingPlan // ignore: cast_nullable_to_non_nullable
 as String,trainingTime: null == trainingTime ? _self.trainingTime : trainingTime // ignore: cast_nullable_to_non_nullable
 as String,country: null == country ? _self.country : country // ignore: cast_nullable_to_non_nullable
 as String,city: null == city ? _self.city : city // ignore: cast_nullable_to_non_nullable
@@ -158,10 +158,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<String> selectedDays,  String selectedPlan,  String trainingTime,  String country,  String city,  bool isMorning)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<String> trainingDays,  String trainingPlan,  String trainingTime,  String country,  String city,  bool isMorning)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _OnboardingParams() when $default != null:
-return $default(_that.selectedDays,_that.selectedPlan,_that.trainingTime,_that.country,_that.city,_that.isMorning);case _:
+return $default(_that.trainingDays,_that.trainingPlan,_that.trainingTime,_that.country,_that.city,_that.isMorning);case _:
   return orElse();
 
 }
@@ -179,10 +179,10 @@ return $default(_that.selectedDays,_that.selectedPlan,_that.trainingTime,_that.c
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<String> selectedDays,  String selectedPlan,  String trainingTime,  String country,  String city,  bool isMorning)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<String> trainingDays,  String trainingPlan,  String trainingTime,  String country,  String city,  bool isMorning)  $default,) {final _that = this;
 switch (_that) {
 case _OnboardingParams():
-return $default(_that.selectedDays,_that.selectedPlan,_that.trainingTime,_that.country,_that.city,_that.isMorning);case _:
+return $default(_that.trainingDays,_that.trainingPlan,_that.trainingTime,_that.country,_that.city,_that.isMorning);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -199,10 +199,10 @@ return $default(_that.selectedDays,_that.selectedPlan,_that.trainingTime,_that.c
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<String> selectedDays,  String selectedPlan,  String trainingTime,  String country,  String city,  bool isMorning)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<String> trainingDays,  String trainingPlan,  String trainingTime,  String country,  String city,  bool isMorning)?  $default,) {final _that = this;
 switch (_that) {
 case _OnboardingParams() when $default != null:
-return $default(_that.selectedDays,_that.selectedPlan,_that.trainingTime,_that.country,_that.city,_that.isMorning);case _:
+return $default(_that.trainingDays,_that.trainingPlan,_that.trainingTime,_that.country,_that.city,_that.isMorning);case _:
   return null;
 
 }
@@ -214,17 +214,17 @@ return $default(_that.selectedDays,_that.selectedPlan,_that.trainingTime,_that.c
 @JsonSerializable()
 
 class _OnboardingParams implements OnboardingParams {
-  const _OnboardingParams({required final  List<String> selectedDays, required this.selectedPlan, required this.trainingTime, required this.country, required this.city, required this.isMorning}): _selectedDays = selectedDays;
+  const _OnboardingParams({required final  List<String> trainingDays, required this.trainingPlan, required this.trainingTime, required this.country, required this.city, required this.isMorning}): _trainingDays = trainingDays;
   factory _OnboardingParams.fromJson(Map<String, dynamic> json) => _$OnboardingParamsFromJson(json);
 
- final  List<String> _selectedDays;
-@override List<String> get selectedDays {
-  if (_selectedDays is EqualUnmodifiableListView) return _selectedDays;
+ final  List<String> _trainingDays;
+@override List<String> get trainingDays {
+  if (_trainingDays is EqualUnmodifiableListView) return _trainingDays;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_selectedDays);
+  return EqualUnmodifiableListView(_trainingDays);
 }
 
-@override final  String selectedPlan;
+@override final  String trainingPlan;
 @override final  String trainingTime;
 @override final  String country;
 @override final  String city;
@@ -243,16 +243,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OnboardingParams&&const DeepCollectionEquality().equals(other._selectedDays, _selectedDays)&&(identical(other.selectedPlan, selectedPlan) || other.selectedPlan == selectedPlan)&&(identical(other.trainingTime, trainingTime) || other.trainingTime == trainingTime)&&(identical(other.country, country) || other.country == country)&&(identical(other.city, city) || other.city == city)&&(identical(other.isMorning, isMorning) || other.isMorning == isMorning));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OnboardingParams&&const DeepCollectionEquality().equals(other._trainingDays, _trainingDays)&&(identical(other.trainingPlan, trainingPlan) || other.trainingPlan == trainingPlan)&&(identical(other.trainingTime, trainingTime) || other.trainingTime == trainingTime)&&(identical(other.country, country) || other.country == country)&&(identical(other.city, city) || other.city == city)&&(identical(other.isMorning, isMorning) || other.isMorning == isMorning));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_selectedDays),selectedPlan,trainingTime,country,city,isMorning);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_trainingDays),trainingPlan,trainingTime,country,city,isMorning);
 
 @override
 String toString() {
-  return 'OnboardingParams(selectedDays: $selectedDays, selectedPlan: $selectedPlan, trainingTime: $trainingTime, country: $country, city: $city, isMorning: $isMorning)';
+  return 'OnboardingParams(trainingDays: $trainingDays, trainingPlan: $trainingPlan, trainingTime: $trainingTime, country: $country, city: $city, isMorning: $isMorning)';
 }
 
 
@@ -263,7 +263,7 @@ abstract mixin class _$OnboardingParamsCopyWith<$Res> implements $OnboardingPara
   factory _$OnboardingParamsCopyWith(_OnboardingParams value, $Res Function(_OnboardingParams) _then) = __$OnboardingParamsCopyWithImpl;
 @override @useResult
 $Res call({
- List<String> selectedDays, String selectedPlan, String trainingTime, String country, String city, bool isMorning
+ List<String> trainingDays, String trainingPlan, String trainingTime, String country, String city, bool isMorning
 });
 
 
@@ -280,10 +280,10 @@ class __$OnboardingParamsCopyWithImpl<$Res>
 
 /// Create a copy of OnboardingParams
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? selectedDays = null,Object? selectedPlan = null,Object? trainingTime = null,Object? country = null,Object? city = null,Object? isMorning = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? trainingDays = null,Object? trainingPlan = null,Object? trainingTime = null,Object? country = null,Object? city = null,Object? isMorning = null,}) {
   return _then(_OnboardingParams(
-selectedDays: null == selectedDays ? _self._selectedDays : selectedDays // ignore: cast_nullable_to_non_nullable
-as List<String>,selectedPlan: null == selectedPlan ? _self.selectedPlan : selectedPlan // ignore: cast_nullable_to_non_nullable
+trainingDays: null == trainingDays ? _self._trainingDays : trainingDays // ignore: cast_nullable_to_non_nullable
+as List<String>,trainingPlan: null == trainingPlan ? _self.trainingPlan : trainingPlan // ignore: cast_nullable_to_non_nullable
 as String,trainingTime: null == trainingTime ? _self.trainingTime : trainingTime // ignore: cast_nullable_to_non_nullable
 as String,country: null == country ? _self.country : country // ignore: cast_nullable_to_non_nullable
 as String,city: null == city ? _self.city : city // ignore: cast_nullable_to_non_nullable
