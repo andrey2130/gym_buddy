@@ -154,22 +154,24 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             if (state is Loading) {
               return const Center(child: CircularProgressIndicator.adaptive());
             }
-            return Form(
-              key: _formKey,
-              child: Center(
-                child: Column(
-                  children: [
-                    CustomAppBar(
-                      leftWidget: IconButton(
-                        onPressed: () => context.pop(),
-                        icon: Platform.isAndroid
-                            ? const Icon(Icons.arrow_back)
-                            : const Icon(CupertinoIcons.back),
+            return SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+                child: Center(
+                  child: Column(
+                    children: [
+                      CustomAppBar(
+                        leftWidget: IconButton(
+                          onPressed: () => context.pop(),
+                          icon: Platform.isAndroid
+                              ? const Icon(Icons.arrow_back)
+                              : const Icon(CupertinoIcons.back),
+                        ),
                       ),
-                    ),
-                    _builTextFieldSection(),
-                    _buildButtonSection(),
-                  ],
+                      _builTextFieldSection(),
+                      _buildButtonSection(),
+                    ],
+                  ),
                 ),
               ),
             );
@@ -194,12 +196,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             CustomTextField(
               controller: nameController,
               labelText: 'name'.tr(),
-              validator: (value) {
-                if (value == null || value.trim().isEmpty) {
-                  return 'name_required'.tr();
-                }
-                return null;
-              },
+                validator:Validators.validateName,
             ),
           ],
         ),
@@ -230,14 +227,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   isPasswordVisible = !isPasswordVisible;
                 });
               },
-              validator: (value) {
-                if (value != null &&
-                    value.isNotEmpty &&
-                    value.trim().length < 6) {
-                  return 'password_min_length'.tr();
-                }
-                return null;
-              },
+              validator: Validators.validatePassword,
             ),
           ],
         ),
