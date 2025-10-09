@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gym_buddy/features/auth/presentation/pages/login_screen.dart';
@@ -7,7 +6,6 @@ import 'package:gym_buddy/features/home/presentation/pages/main_screen.dart';
 import 'package:gym_buddy/features/onboarding/presentation/pages/onboarding_screen.dart';
 import 'package:gym_buddy/features/profile/presentation/pages/edit_profile_screen.dart';
 import 'package:gym_buddy/features/splash_screen/presentation/splash_screen.dart';
-import 'package:gym_buddy/injections.dart';
 
 // ignore: strict_raw_type
 CustomTransitionPage buildTransitionPage({
@@ -53,66 +51,39 @@ CustomTransitionPage buildTransitionPage({
   );
 }
 
-GoRouter createRouter({String? initialLocation}) {
-  return GoRouter(
-    initialLocation: initialLocation ?? '/',
-    redirect: (context, state) {
-      final user = getIt<FirebaseAuth>().currentUser;
-      final isAuthenticated = user != null;
-      final path = state.matchedLocation;
-
-      if (!isAuthenticated &&
-          path != '/' &&
-          path != '/login' &&
-          path != '/register') {
-        return '/';
-      }
-
-      return null;
-    },
-    routes: [
-      GoRoute(
-        path: '/',
-        pageBuilder: (context, state) => buildTransitionPage(
-          key: state.pageKey,
-          child: const SplashScreen(),
-        ),
-      ),
-      GoRoute(
-        path: '/login',
-        builder: (context, state) => const LoginScreen(),
-        pageBuilder: (context, state) =>
-            buildTransitionPage(key: state.pageKey, child: const LoginScreen()),
-      ),
-      GoRoute(
-        path: '/register',
-        builder: (context, state) => const RegisterScreen(),
-        pageBuilder: (context, state) => buildTransitionPage(
-          key: state.pageKey,
-          child: const RegisterScreen(),
-        ),
-      ),
-      GoRoute(
-        path: '/onboarding',
-        builder: (context, state) => const OnboardingScreen(),
-        pageBuilder: (context, state) => buildTransitionPage(
-          key: state.pageKey,
-          child: const OnboardingScreen(),
-        ),
-      ),
-      GoRoute(
-        path: '/home',
-        pageBuilder: (context, state) =>
-            buildTransitionPage(key: state.pageKey, child: const MainScreen()),
-      ),
-      GoRoute(
-        path: '/edit-profile',
-        builder: (context, state) => const EditProfileScreen(),
-        pageBuilder: (context, state) => buildTransitionPage(
-          key: state.pageKey,
-          child: const EditProfileScreen(),
-        ),
-      ),
-    ],
-  );
-}
+final appRoutes = [
+  GoRoute(
+    path: '/',
+    pageBuilder: (context, state) =>
+        buildTransitionPage(key: state.pageKey, child: const SplashScreen()),
+  ),
+  GoRoute(
+    path: '/login',
+    pageBuilder: (context, state) =>
+        buildTransitionPage(key: state.pageKey, child: const LoginScreen()),
+  ),
+  GoRoute(
+    path: '/register',
+    pageBuilder: (context, state) =>
+        buildTransitionPage(key: state.pageKey, child: const RegisterScreen()),
+  ),
+  GoRoute(
+    path: '/onboarding',
+    pageBuilder: (context, state) => buildTransitionPage(
+      key: state.pageKey,
+      child: const OnboardingScreen(),
+    ),
+  ),
+  GoRoute(
+    path: '/home',
+    pageBuilder: (context, state) =>
+        buildTransitionPage(key: state.pageKey, child: const MainScreen()),
+  ),
+  GoRoute(
+    path: '/edit-profile',
+    pageBuilder: (context, state) => buildTransitionPage(
+      key: state.pageKey,
+      child: const EditProfileScreen(),
+    ),
+  ),
+];

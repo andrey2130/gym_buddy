@@ -5,10 +5,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gym_buddy/core/app_route/app_route.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gym_buddy/core/theme/app_themes.dart';
 import 'package:gym_buddy/core/theme/cubit/theme_cubit.dart';
-import 'package:gym_buddy/features/auth/domain/repo/auth_repo.dart';
 import 'package:gym_buddy/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:gym_buddy/features/onboarding/presentation/bloc/onboarding_bloc.dart';
 import 'package:gym_buddy/features/profile/presentation/bloc/profile_bloc.dart';
@@ -52,9 +51,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userId = getIt<AuthRepo>().getCurrentUserId();
-    final initialLocation = userId != null ? '/home' : '/';
-
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => getIt<AuthBloc>()),
@@ -79,7 +75,7 @@ class MyApp extends StatelessWidget {
                 );
 
                 return MaterialApp.router(
-                  routerConfig: createRouter(initialLocation: initialLocation),
+                  routerConfig: getIt<GoRouter>(),
                   theme: theme,
                   debugShowCheckedModeBanner: false,
                   locale: context.locale,
