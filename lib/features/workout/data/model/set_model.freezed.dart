@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SetModel {
 
- int get reps; double get weight; bool get isCompleted; bool get isWarmup; String? get notes;
+ int get reps; double get weight; bool get isCompleted;
 /// Create a copy of SetModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $SetModelCopyWith<SetModel> get copyWith => _$SetModelCopyWithImpl<SetModel>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SetModel&&(identical(other.reps, reps) || other.reps == reps)&&(identical(other.weight, weight) || other.weight == weight)&&(identical(other.isCompleted, isCompleted) || other.isCompleted == isCompleted)&&(identical(other.isWarmup, isWarmup) || other.isWarmup == isWarmup)&&(identical(other.notes, notes) || other.notes == notes));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SetModel&&(identical(other.reps, reps) || other.reps == reps)&&(identical(other.weight, weight) || other.weight == weight)&&(identical(other.isCompleted, isCompleted) || other.isCompleted == isCompleted));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,reps,weight,isCompleted,isWarmup,notes);
+int get hashCode => Object.hash(runtimeType,reps,weight,isCompleted);
 
 @override
 String toString() {
-  return 'SetModel(reps: $reps, weight: $weight, isCompleted: $isCompleted, isWarmup: $isWarmup, notes: $notes)';
+  return 'SetModel(reps: $reps, weight: $weight, isCompleted: $isCompleted)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $SetModelCopyWith<$Res>  {
   factory $SetModelCopyWith(SetModel value, $Res Function(SetModel) _then) = _$SetModelCopyWithImpl;
 @useResult
 $Res call({
- int reps, double weight, bool isCompleted, bool isWarmup, String? notes
+ int reps, double weight, bool isCompleted
 });
 
 
@@ -65,14 +65,12 @@ class _$SetModelCopyWithImpl<$Res>
 
 /// Create a copy of SetModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? reps = null,Object? weight = null,Object? isCompleted = null,Object? isWarmup = null,Object? notes = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? reps = null,Object? weight = null,Object? isCompleted = null,}) {
   return _then(_self.copyWith(
 reps: null == reps ? _self.reps : reps // ignore: cast_nullable_to_non_nullable
 as int,weight: null == weight ? _self.weight : weight // ignore: cast_nullable_to_non_nullable
 as double,isCompleted: null == isCompleted ? _self.isCompleted : isCompleted // ignore: cast_nullable_to_non_nullable
-as bool,isWarmup: null == isWarmup ? _self.isWarmup : isWarmup // ignore: cast_nullable_to_non_nullable
-as bool,notes: freezed == notes ? _self.notes : notes // ignore: cast_nullable_to_non_nullable
-as String?,
+as bool,
   ));
 }
 
@@ -157,10 +155,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int reps,  double weight,  bool isCompleted,  bool isWarmup,  String? notes)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int reps,  double weight,  bool isCompleted)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SetModel() when $default != null:
-return $default(_that.reps,_that.weight,_that.isCompleted,_that.isWarmup,_that.notes);case _:
+return $default(_that.reps,_that.weight,_that.isCompleted);case _:
   return orElse();
 
 }
@@ -178,10 +176,10 @@ return $default(_that.reps,_that.weight,_that.isCompleted,_that.isWarmup,_that.n
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int reps,  double weight,  bool isCompleted,  bool isWarmup,  String? notes)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int reps,  double weight,  bool isCompleted)  $default,) {final _that = this;
 switch (_that) {
 case _SetModel():
-return $default(_that.reps,_that.weight,_that.isCompleted,_that.isWarmup,_that.notes);case _:
+return $default(_that.reps,_that.weight,_that.isCompleted);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -198,10 +196,10 @@ return $default(_that.reps,_that.weight,_that.isCompleted,_that.isWarmup,_that.n
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int reps,  double weight,  bool isCompleted,  bool isWarmup,  String? notes)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int reps,  double weight,  bool isCompleted)?  $default,) {final _that = this;
 switch (_that) {
 case _SetModel() when $default != null:
-return $default(_that.reps,_that.weight,_that.isCompleted,_that.isWarmup,_that.notes);case _:
+return $default(_that.reps,_that.weight,_that.isCompleted);case _:
   return null;
 
 }
@@ -213,14 +211,12 @@ return $default(_that.reps,_that.weight,_that.isCompleted,_that.isWarmup,_that.n
 @JsonSerializable()
 
 class _SetModel extends SetModel {
-  const _SetModel({required this.reps, required this.weight, this.isCompleted = false, this.isWarmup = false, this.notes}): super._();
+  const _SetModel({required this.reps, required this.weight, this.isCompleted = false}): super._();
   factory _SetModel.fromJson(Map<String, dynamic> json) => _$SetModelFromJson(json);
 
 @override final  int reps;
 @override final  double weight;
 @override@JsonKey() final  bool isCompleted;
-@override@JsonKey() final  bool isWarmup;
-@override final  String? notes;
 
 /// Create a copy of SetModel
 /// with the given fields replaced by the non-null parameter values.
@@ -235,16 +231,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SetModel&&(identical(other.reps, reps) || other.reps == reps)&&(identical(other.weight, weight) || other.weight == weight)&&(identical(other.isCompleted, isCompleted) || other.isCompleted == isCompleted)&&(identical(other.isWarmup, isWarmup) || other.isWarmup == isWarmup)&&(identical(other.notes, notes) || other.notes == notes));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SetModel&&(identical(other.reps, reps) || other.reps == reps)&&(identical(other.weight, weight) || other.weight == weight)&&(identical(other.isCompleted, isCompleted) || other.isCompleted == isCompleted));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,reps,weight,isCompleted,isWarmup,notes);
+int get hashCode => Object.hash(runtimeType,reps,weight,isCompleted);
 
 @override
 String toString() {
-  return 'SetModel(reps: $reps, weight: $weight, isCompleted: $isCompleted, isWarmup: $isWarmup, notes: $notes)';
+  return 'SetModel(reps: $reps, weight: $weight, isCompleted: $isCompleted)';
 }
 
 
@@ -255,7 +251,7 @@ abstract mixin class _$SetModelCopyWith<$Res> implements $SetModelCopyWith<$Res>
   factory _$SetModelCopyWith(_SetModel value, $Res Function(_SetModel) _then) = __$SetModelCopyWithImpl;
 @override @useResult
 $Res call({
- int reps, double weight, bool isCompleted, bool isWarmup, String? notes
+ int reps, double weight, bool isCompleted
 });
 
 
@@ -272,14 +268,12 @@ class __$SetModelCopyWithImpl<$Res>
 
 /// Create a copy of SetModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? reps = null,Object? weight = null,Object? isCompleted = null,Object? isWarmup = null,Object? notes = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? reps = null,Object? weight = null,Object? isCompleted = null,}) {
   return _then(_SetModel(
 reps: null == reps ? _self.reps : reps // ignore: cast_nullable_to_non_nullable
 as int,weight: null == weight ? _self.weight : weight // ignore: cast_nullable_to_non_nullable
 as double,isCompleted: null == isCompleted ? _self.isCompleted : isCompleted // ignore: cast_nullable_to_non_nullable
-as bool,isWarmup: null == isWarmup ? _self.isWarmup : isWarmup // ignore: cast_nullable_to_non_nullable
-as bool,notes: freezed == notes ? _self.notes : notes // ignore: cast_nullable_to_non_nullable
-as String?,
+as bool,
   ));
 }
 

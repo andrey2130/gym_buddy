@@ -11,8 +11,7 @@ abstract class ExerciseModel with _$ExerciseModel {
     required String exerciseId,
     required String name,
     required List<SetModel> sets,
-    String? notes,
-    String? muscleGroup,
+
     DateTime? createdAt,
   }) = _ExerciseModel;
 
@@ -25,8 +24,7 @@ abstract class ExerciseModel with _$ExerciseModel {
     exerciseId: exerciseId,
     name: name,
     sets: sets.map((set) => set.toEntity()).toList(),
-    notes: notes,
-    muscleGroup: muscleGroup,
+
     createdAt: createdAt,
   );
 
@@ -34,8 +32,7 @@ abstract class ExerciseModel with _$ExerciseModel {
     exerciseId: entity.exerciseId,
     name: entity.name,
     sets: entity.sets.map(SetModel.fromEntity).toList(),
-    notes: entity.notes,
-    muscleGroup: entity.muscleGroup,
+
     createdAt: entity.createdAt,
   );
 }

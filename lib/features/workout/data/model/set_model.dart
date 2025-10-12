@@ -10,8 +10,6 @@ abstract class SetModel with _$SetModel {
     required int reps,
     required double weight,
     @Default(false) bool isCompleted,
-    @Default(false) bool isWarmup,
-    String? notes,
   }) = _SetModel;
 
   const SetModel._();
@@ -19,19 +17,12 @@ abstract class SetModel with _$SetModel {
   factory SetModel.fromJson(Map<String, dynamic> json) =>
       _$SetModelFromJson(json);
 
-  SetEntity toEntity() => SetEntity(
-    reps: reps,
-    weight: weight,
-    isCompleted: isCompleted,
-    isWarmup: isWarmup,
-    notes: notes,
-  );
+  SetEntity toEntity() =>
+      SetEntity(reps: reps, weight: weight, isCompleted: isCompleted);
 
   factory SetModel.fromEntity(SetEntity entity) => SetModel(
     reps: entity.reps,
     weight: entity.weight,
     isCompleted: entity.isCompleted,
-    isWarmup: entity.isWarmup,
-    notes: entity.notes,
   );
 }
