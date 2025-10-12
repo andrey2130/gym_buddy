@@ -34,7 +34,7 @@ class ValidateWorkoutCreationUsecase
         );
       }
 
-      return Future.value(Right(true));
+      return Future.value(const Right(true));
     } catch (e) {
       return Future.value(Left(Failure(message: 'Validation failed: $e')));
     }

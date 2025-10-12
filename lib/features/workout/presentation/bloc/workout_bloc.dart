@@ -6,13 +6,13 @@ import 'package:gym_buddy/features/workout/domain/entity/workout_entity.dart';
 import 'package:gym_buddy/features/workout/domain/params/add_exercise_params.dart';
 import 'package:gym_buddy/features/workout/domain/params/delete_workout_params.dart';
 import 'package:gym_buddy/features/workout/domain/params/end_workout_session_params.dart';
-import 'package:gym_buddy/features/workout/domain/params/remove_exercise_params.dart';
-import 'package:gym_buddy/features/workout/domain/params/update_exercise_params.dart';
-import 'package:gym_buddy/features/workout/domain/params/workout_stats_params.dart';
 import 'package:gym_buddy/features/workout/domain/params/filter_workouts_params.dart';
 import 'package:gym_buddy/features/workout/domain/params/format_time_params.dart';
 import 'package:gym_buddy/features/workout/domain/params/group_workouts_by_day_params.dart';
+import 'package:gym_buddy/features/workout/domain/params/remove_exercise_params.dart';
+import 'package:gym_buddy/features/workout/domain/params/update_exercise_params.dart';
 import 'package:gym_buddy/features/workout/domain/params/validate_workout_creation_params.dart';
+import 'package:gym_buddy/features/workout/domain/params/workout_stats_params.dart';
 import 'package:gym_buddy/features/workout/domain/usecase/add_exercise_to_workout_usecase.dart';
 import 'package:gym_buddy/features/workout/domain/usecase/calculate_workout_stats_usecase.dart';
 import 'package:gym_buddy/features/workout/domain/usecase/create_workout_usecase.dart';
@@ -30,9 +30,9 @@ import 'package:gym_buddy/injections.dart';
 import 'package:injectable/injectable.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
+part 'workout_bloc.freezed.dart';
 part 'workout_event.dart';
 part 'workout_state.dart';
-part 'workout_bloc.freezed.dart';
 
 @injectable
 class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {

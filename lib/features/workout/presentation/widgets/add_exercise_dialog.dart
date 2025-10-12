@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 class AddExerciseDialog extends StatefulWidget {
   final Function(String name, int sets, int reps, double weight) onAddExercise;
 
-  const AddExerciseDialog({super.key, required this.onAddExercise});
+  const AddExerciseDialog({required this.onAddExercise, super.key});
 
   @override
   State<AddExerciseDialog> createState() => _AddExerciseDialogState();

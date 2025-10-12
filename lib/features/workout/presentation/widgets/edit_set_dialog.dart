@@ -8,10 +8,10 @@ class EditSetDialog extends StatefulWidget {
   final Function(int reps, double weight) onSave;
 
   const EditSetDialog({
-    super.key,
     required this.set,
     required this.setIndex,
     required this.onSave,
+    super.key,
   });
 
   @override

@@ -12,13 +12,13 @@ import 'package:gym_buddy/core/widgets/custom_time_picker.dart';
 import 'package:gym_buddy/features/auth/domain/usecases/get_current_user_usecase.dart';
 import 'package:gym_buddy/features/profile/presentation/widgets/common/expansion_tile.dart';
 import 'package:gym_buddy/features/workout/domain/entity/workout_entity.dart';
-import 'package:gym_buddy/features/workout/presentation/bloc/workout_bloc.dart';
 import 'package:gym_buddy/features/workout/domain/params/validate_workout_creation_params.dart';
+import 'package:gym_buddy/features/workout/presentation/bloc/workout_bloc.dart';
 import 'package:uuid/uuid.dart';
 
 class WorkoutCreateScreen extends StatefulWidget {
   final GetCurrentUserIdUsecase getCurrentUserIdUsecase;
-  const WorkoutCreateScreen({super.key, required this.getCurrentUserIdUsecase});
+  const WorkoutCreateScreen({required this.getCurrentUserIdUsecase, super.key});
 
   @override
   State<WorkoutCreateScreen> createState() => _WorkoutCreateScreenState();
@@ -288,9 +288,11 @@ class _WorkoutCreateScreenState extends State<WorkoutCreateScreen> {
 
     final userId = await widget.getCurrentUserIdUsecase(const NoParams());
     if (userId == null) {
+      if (mounted) {
       ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('User not authenticated')));
+          context,
+        ).showSnackBar(const SnackBar(content: Text('User not authenticated')));
+      }
       return;
     }
 
