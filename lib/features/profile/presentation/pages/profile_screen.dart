@@ -3,16 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gym_buddy/core/theme/cubit/theme_cubit.dart';
+import 'package:gym_buddy/core/usecases/usecase.dart';
 import 'package:gym_buddy/core/utils/errors_overlay.dart';
 import 'package:gym_buddy/core/utils/image_picker.dart';
+import 'package:gym_buddy/features/auth/domain/usecases/get_current_user_usecase.dart';
 import 'package:gym_buddy/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:gym_buddy/features/profile/domain/params/update_user_params.dart';
+import 'package:gym_buddy/features/profile/domain/usecases/sync_user_stats_from_workouts_usecase.dart';
 import 'package:gym_buddy/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:gym_buddy/features/profile/presentation/widgets/widgets.dart';
+import 'package:gym_buddy/features/workout/domain/usecase/get_workouts_usecase.dart';
+import 'package:gym_buddy/injections.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
-
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
@@ -22,6 +26,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void initState() {
     super.initState();
     context.read<ProfileBloc>().add(const ProfileEvent.loadUserProfile());
+    _syncUserStats();
+  }
+
+  Future<void> _syncUserStats() async {
+    try {
+      final getCurrentUserIdUsecase = getIt<GetCurrentUserIdUsecase>();
+      final getWorkoutsUsecase = getIt<GetWorkoutsUsecase>();
+      final syncUserStatsUsecase = getIt<SyncUserStatsFromWorkoutsUsecase>();
+
+      final uid = await getCurrentUserIdUsecase(const NoParams());
+      if (uid != null) {
+        final workoutsResult = await getWorkoutsUsecase(uid);
+        await workoutsResult.fold((failure) => null, (workouts) async {
+          final syncParams = SyncUserStatsParams(uid: uid, workouts: workouts);
+          await syncUserStatsUsecase(syncParams);
+        });
+      }
+    } catch (e) {
+
+      // Handle error silently
+    }
   }
 
   @override
@@ -68,6 +93,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 context.read<ProfileBloc>().add(
                   const ProfileEvent.loadUserProfile(),
                 );
+                await _syncUserStats();
               },
               child: CustomScrollView(
                 slivers: [
@@ -86,7 +112,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: ProfileStatsCard(
                       totalWorkouts: user.totalWorkouts,
                       totalReps: user.totalReps,
-                      currentStreak: user.currentStreak,
                     ),
                   ),
                   const SliverToBoxAdapter(child: SizedBox(height: 24)),

@@ -1,6 +1,6 @@
 // Кастомний віджет для анімованих текстових полів
 import 'package:flutter/material.dart';
-import 'package:gym_buddy/core/utils/custom_text_field.dart';
+import 'package:gym_buddy/core/widgets/custom_text_field.dart';
 
 class AnimatedTextField extends StatefulWidget {
   final TextEditingController controller;
