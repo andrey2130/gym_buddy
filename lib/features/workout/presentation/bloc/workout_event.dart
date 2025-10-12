@@ -24,10 +24,6 @@ class WorkoutEvent with _$WorkoutEvent {
       EndWorkoutSession;
   const factory WorkoutEvent.calculateStats(List<WorkoutEntity> workouts) =
       CalculateStats;
-  const factory WorkoutEvent.filterWorkouts(
-    List<WorkoutEntity> workouts,
-    WorkoutFilterType filterType,
-  ) = FilterWorkouts;
   const factory WorkoutEvent.groupWorkoutsByDay(List<WorkoutEntity> workouts) =
       GroupWorkoutsByDay;
   const factory WorkoutEvent.formatTime(

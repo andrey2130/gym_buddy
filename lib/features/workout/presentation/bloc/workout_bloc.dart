@@ -6,7 +6,6 @@ import 'package:gym_buddy/features/workout/domain/entity/workout_entity.dart';
 import 'package:gym_buddy/features/workout/domain/params/add_exercise_params.dart';
 import 'package:gym_buddy/features/workout/domain/params/delete_workout_params.dart';
 import 'package:gym_buddy/features/workout/domain/params/end_workout_session_params.dart';
-import 'package:gym_buddy/features/workout/domain/params/filter_workouts_params.dart';
 import 'package:gym_buddy/features/workout/domain/params/format_time_params.dart';
 import 'package:gym_buddy/features/workout/domain/params/group_workouts_by_day_params.dart';
 import 'package:gym_buddy/features/workout/domain/params/remove_exercise_params.dart';
@@ -18,7 +17,7 @@ import 'package:gym_buddy/features/workout/domain/usecase/calculate_workout_stat
 import 'package:gym_buddy/features/workout/domain/usecase/create_workout_usecase.dart';
 import 'package:gym_buddy/features/workout/domain/usecase/delete_workout_usecase.dart';
 import 'package:gym_buddy/features/workout/domain/usecase/end_workout_session_usecase.dart';
-import 'package:gym_buddy/features/workout/domain/usecase/filter_workouts_usecase.dart';
+
 import 'package:gym_buddy/features/workout/domain/usecase/format_workout_time_usecase.dart';
 import 'package:gym_buddy/features/workout/domain/usecase/get_workouts_usecase.dart';
 import 'package:gym_buddy/features/workout/domain/usecase/group_workouts_by_day_usecase.dart';
@@ -45,7 +44,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
   final RemoveExerciseFromWorkoutUsecase _removeExerciseFromWorkoutUsecase;
   final EndWorkoutSessionUsecase _endWorkoutSessionUsecase;
   final CalculateWorkoutStatsUsecase _calculateWorkoutStatsUsecase;
-  final FilterWorkoutsUsecase _filterWorkoutsUsecase;
+
   final GroupWorkoutsByDayUsecase _groupWorkoutsByDayUsecase;
   final FormatWorkoutTimeUsecase _formatWorkoutTimeUsecase;
   final ValidateWorkoutCreationUsecase _validateWorkoutCreationUsecase;
@@ -61,7 +60,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     this._removeExerciseFromWorkoutUsecase,
     this._endWorkoutSessionUsecase,
     this._calculateWorkoutStatsUsecase,
-    this._filterWorkoutsUsecase,
+
     this._groupWorkoutsByDayUsecase,
     this._formatWorkoutTimeUsecase,
     this._validateWorkoutCreationUsecase,
@@ -77,7 +76,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     on<RemoveExerciseFromWorkout>(_onRemoveExerciseFromWorkout);
     on<EndWorkoutSession>(_onEndWorkoutSession);
     on<CalculateStats>(_onCalculateStats);
-    on<FilterWorkouts>(_onFilterWorkouts);
+
     on<GroupWorkoutsByDay>(_onGroupWorkoutsByDay);
     on<FormatTime>(_onFormatTime);
     on<FormatDuration>(_onFormatDuration);
@@ -127,14 +126,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
       },
       (workouts) {
         getIt<Talker>().info('Workouts loaded: ${workouts.length}');
-        // Initialize loaded state with all workouts and default filter
-        emit(
-          WorkoutState.loaded(
-            workouts,
-            filteredWorkouts: workouts,
-            selectedFilter: WorkoutFilterType.all,
-          ),
-        );
+        emit(WorkoutState.loaded(workouts));
 
         // Calculate stats and group workouts by day after loading workouts
         add(CalculateStats(workouts));
@@ -300,53 +292,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
           emit(currentState.copyWith(stats: stats));
         } else {
           // If not in loaded state, create a new loaded state with stats
-          emit(
-            WorkoutState.loaded(
-              event.workouts,
-              stats: stats,
-              filteredWorkouts: event.workouts,
-            ),
-          );
-        }
-      },
-    );
-  }
-
-  Future<void> _onFilterWorkouts(
-    FilterWorkouts event,
-    Emitter<WorkoutState> emit,
-  ) async {
-    final params = FilterWorkoutsParams(
-      workouts: event.workouts,
-      filterType: event.filterType,
-    );
-    final result = await _filterWorkoutsUsecase(params);
-
-    result.fold(
-      (failure) {
-        getIt<Talker>().error('Filter workouts failed: ${failure.message}');
-        emit(WorkoutState.failure(failure.message));
-      },
-      (filteredWorkouts) {
-        getIt<Talker>().info('Workouts filtered successfully');
-        // Update the current loaded state with filtered workouts
-        final currentState = state;
-        if (currentState is Loaded) {
-          emit(
-            currentState.copyWith(
-              filteredWorkouts: filteredWorkouts,
-              selectedFilter: event.filterType,
-            ),
-          );
-        } else {
-          // If not in loaded state, create a new loaded state with filtered workouts
-          emit(
-            WorkoutState.loaded(
-              event.workouts,
-              filteredWorkouts: filteredWorkouts,
-              selectedFilter: event.filterType,
-            ),
-          );
+          emit(WorkoutState.loaded(event.workouts, stats: stats));
         }
       },
     );

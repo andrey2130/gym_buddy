@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ExerciseModel {
 
- String get exerciseId; String get name; List<SetModel> get sets; DateTime? get createdAt;
+ String get exerciseId; String get name;@JsonKey(toJson: _setsToJson, fromJson: _setsFromJson) List<SetModel> get sets; DateTime? get createdAt;
 /// Create a copy of ExerciseModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $ExerciseModelCopyWith<$Res>  {
   factory $ExerciseModelCopyWith(ExerciseModel value, $Res Function(ExerciseModel) _then) = _$ExerciseModelCopyWithImpl;
 @useResult
 $Res call({
- String exerciseId, String name, List<SetModel> sets, DateTime? createdAt
+ String exerciseId, String name,@JsonKey(toJson: _setsToJson, fromJson: _setsFromJson) List<SetModel> sets, DateTime? createdAt
 });
 
 
@@ -156,7 +156,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String exerciseId,  String name,  List<SetModel> sets,  DateTime? createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String exerciseId,  String name, @JsonKey(toJson: _setsToJson, fromJson: _setsFromJson)  List<SetModel> sets,  DateTime? createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ExerciseModel() when $default != null:
 return $default(_that.exerciseId,_that.name,_that.sets,_that.createdAt);case _:
@@ -177,7 +177,7 @@ return $default(_that.exerciseId,_that.name,_that.sets,_that.createdAt);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String exerciseId,  String name,  List<SetModel> sets,  DateTime? createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String exerciseId,  String name, @JsonKey(toJson: _setsToJson, fromJson: _setsFromJson)  List<SetModel> sets,  DateTime? createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _ExerciseModel():
 return $default(_that.exerciseId,_that.name,_that.sets,_that.createdAt);case _:
@@ -197,7 +197,7 @@ return $default(_that.exerciseId,_that.name,_that.sets,_that.createdAt);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String exerciseId,  String name,  List<SetModel> sets,  DateTime? createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String exerciseId,  String name, @JsonKey(toJson: _setsToJson, fromJson: _setsFromJson)  List<SetModel> sets,  DateTime? createdAt)?  $default,) {final _that = this;
 switch (_that) {
 case _ExerciseModel() when $default != null:
 return $default(_that.exerciseId,_that.name,_that.sets,_that.createdAt);case _:
@@ -212,13 +212,13 @@ return $default(_that.exerciseId,_that.name,_that.sets,_that.createdAt);case _:
 @JsonSerializable()
 
 class _ExerciseModel extends ExerciseModel {
-  const _ExerciseModel({required this.exerciseId, required this.name, required final  List<SetModel> sets, this.createdAt}): _sets = sets,super._();
+  const _ExerciseModel({required this.exerciseId, required this.name, @JsonKey(toJson: _setsToJson, fromJson: _setsFromJson) required final  List<SetModel> sets, this.createdAt}): _sets = sets,super._();
   factory _ExerciseModel.fromJson(Map<String, dynamic> json) => _$ExerciseModelFromJson(json);
 
 @override final  String exerciseId;
 @override final  String name;
  final  List<SetModel> _sets;
-@override List<SetModel> get sets {
+@override@JsonKey(toJson: _setsToJson, fromJson: _setsFromJson) List<SetModel> get sets {
   if (_sets is EqualUnmodifiableListView) return _sets;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_sets);
@@ -259,7 +259,7 @@ abstract mixin class _$ExerciseModelCopyWith<$Res> implements $ExerciseModelCopy
   factory _$ExerciseModelCopyWith(_ExerciseModel value, $Res Function(_ExerciseModel) _then) = __$ExerciseModelCopyWithImpl;
 @override @useResult
 $Res call({
- String exerciseId, String name, List<SetModel> sets, DateTime? createdAt
+ String exerciseId, String name,@JsonKey(toJson: _setsToJson, fromJson: _setsFromJson) List<SetModel> sets, DateTime? createdAt
 });
 
 

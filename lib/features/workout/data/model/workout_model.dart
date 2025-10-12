@@ -35,6 +35,7 @@ abstract class WorkoutModel with _$WorkoutModel {
     required DateTime date,
     @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)
     required DateTime startTime,
+    @JsonKey(toJson: _exercisesToJson, fromJson: _exercisesFromJson)
     required List<ExerciseModel> exercises,
     int? duration,
 
@@ -77,4 +78,14 @@ abstract class WorkoutModel with _$WorkoutModel {
     updatedAt: entity.updatedAt,
     isCompleted: entity.isCompleted,
   );
+}
+
+List<Map<String, dynamic>> _exercisesToJson(List<ExerciseModel> exercises) {
+  return exercises.map((exercise) => exercise.toJson()).toList();
+}
+
+List<ExerciseModel> _exercisesFromJson(List<dynamic> json) {
+  return json
+      .map((e) => ExerciseModel.fromJson(e as Map<String, dynamic>))
+      .toList();
 }

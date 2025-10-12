@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$WorkoutModel {
 
- String get workoutId; String get userId; String get name;@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime get date;@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime get startTime; List<ExerciseModel> get exercises; int? get duration;@JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) DateTime? get createdAt;@JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) DateTime? get updatedAt; bool get isCompleted;
+ String get workoutId; String get userId; String get name;@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime get date;@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime get startTime;@JsonKey(toJson: _exercisesToJson, fromJson: _exercisesFromJson) List<ExerciseModel> get exercises; int? get duration;@JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) DateTime? get createdAt;@JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) DateTime? get updatedAt; bool get isCompleted;
 /// Create a copy of WorkoutModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $WorkoutModelCopyWith<$Res>  {
   factory $WorkoutModelCopyWith(WorkoutModel value, $Res Function(WorkoutModel) _then) = _$WorkoutModelCopyWithImpl;
 @useResult
 $Res call({
- String workoutId, String userId, String name,@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime date,@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime startTime, List<ExerciseModel> exercises, int? duration,@JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) DateTime? createdAt,@JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) DateTime? updatedAt, bool isCompleted
+ String workoutId, String userId, String name,@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime date,@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime startTime,@JsonKey(toJson: _exercisesToJson, fromJson: _exercisesFromJson) List<ExerciseModel> exercises, int? duration,@JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) DateTime? createdAt,@JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) DateTime? updatedAt, bool isCompleted
 });
 
 
@@ -162,7 +162,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String workoutId,  String userId,  String name, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime date, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime startTime,  List<ExerciseModel> exercises,  int? duration, @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp)  DateTime? createdAt, @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp)  DateTime? updatedAt,  bool isCompleted)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String workoutId,  String userId,  String name, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime date, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime startTime, @JsonKey(toJson: _exercisesToJson, fromJson: _exercisesFromJson)  List<ExerciseModel> exercises,  int? duration, @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp)  DateTime? createdAt, @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp)  DateTime? updatedAt,  bool isCompleted)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _WorkoutModel() when $default != null:
 return $default(_that.workoutId,_that.userId,_that.name,_that.date,_that.startTime,_that.exercises,_that.duration,_that.createdAt,_that.updatedAt,_that.isCompleted);case _:
@@ -183,7 +183,7 @@ return $default(_that.workoutId,_that.userId,_that.name,_that.date,_that.startTi
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String workoutId,  String userId,  String name, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime date, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime startTime,  List<ExerciseModel> exercises,  int? duration, @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp)  DateTime? createdAt, @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp)  DateTime? updatedAt,  bool isCompleted)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String workoutId,  String userId,  String name, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime date, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime startTime, @JsonKey(toJson: _exercisesToJson, fromJson: _exercisesFromJson)  List<ExerciseModel> exercises,  int? duration, @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp)  DateTime? createdAt, @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp)  DateTime? updatedAt,  bool isCompleted)  $default,) {final _that = this;
 switch (_that) {
 case _WorkoutModel():
 return $default(_that.workoutId,_that.userId,_that.name,_that.date,_that.startTime,_that.exercises,_that.duration,_that.createdAt,_that.updatedAt,_that.isCompleted);case _:
@@ -203,7 +203,7 @@ return $default(_that.workoutId,_that.userId,_that.name,_that.date,_that.startTi
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String workoutId,  String userId,  String name, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime date, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime startTime,  List<ExerciseModel> exercises,  int? duration, @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp)  DateTime? createdAt, @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp)  DateTime? updatedAt,  bool isCompleted)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String workoutId,  String userId,  String name, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime date, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime startTime, @JsonKey(toJson: _exercisesToJson, fromJson: _exercisesFromJson)  List<ExerciseModel> exercises,  int? duration, @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp)  DateTime? createdAt, @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp)  DateTime? updatedAt,  bool isCompleted)?  $default,) {final _that = this;
 switch (_that) {
 case _WorkoutModel() when $default != null:
 return $default(_that.workoutId,_that.userId,_that.name,_that.date,_that.startTime,_that.exercises,_that.duration,_that.createdAt,_that.updatedAt,_that.isCompleted);case _:
@@ -218,7 +218,7 @@ return $default(_that.workoutId,_that.userId,_that.name,_that.date,_that.startTi
 @JsonSerializable()
 
 class _WorkoutModel extends WorkoutModel {
-  const _WorkoutModel({required this.workoutId, required this.userId, required this.name, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) required this.date, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) required this.startTime, required final  List<ExerciseModel> exercises, this.duration, @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) this.createdAt, @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) this.updatedAt, this.isCompleted = false}): _exercises = exercises,super._();
+  const _WorkoutModel({required this.workoutId, required this.userId, required this.name, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) required this.date, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) required this.startTime, @JsonKey(toJson: _exercisesToJson, fromJson: _exercisesFromJson) required final  List<ExerciseModel> exercises, this.duration, @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) this.createdAt, @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) this.updatedAt, this.isCompleted = false}): _exercises = exercises,super._();
   factory _WorkoutModel.fromJson(Map<String, dynamic> json) => _$WorkoutModelFromJson(json);
 
 @override final  String workoutId;
@@ -227,7 +227,7 @@ class _WorkoutModel extends WorkoutModel {
 @override@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) final  DateTime date;
 @override@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) final  DateTime startTime;
  final  List<ExerciseModel> _exercises;
-@override List<ExerciseModel> get exercises {
+@override@JsonKey(toJson: _exercisesToJson, fromJson: _exercisesFromJson) List<ExerciseModel> get exercises {
   if (_exercises is EqualUnmodifiableListView) return _exercises;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_exercises);
@@ -271,7 +271,7 @@ abstract mixin class _$WorkoutModelCopyWith<$Res> implements $WorkoutModelCopyWi
   factory _$WorkoutModelCopyWith(_WorkoutModel value, $Res Function(_WorkoutModel) _then) = __$WorkoutModelCopyWithImpl;
 @override @useResult
 $Res call({
- String workoutId, String userId, String name,@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime date,@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime startTime, List<ExerciseModel> exercises, int? duration,@JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) DateTime? createdAt,@JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) DateTime? updatedAt, bool isCompleted
+ String workoutId, String userId, String name,@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime date,@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime startTime,@JsonKey(toJson: _exercisesToJson, fromJson: _exercisesFromJson) List<ExerciseModel> exercises, int? duration,@JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) DateTime? createdAt,@JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) DateTime? updatedAt, bool isCompleted
 });
 
 

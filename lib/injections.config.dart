@@ -64,12 +64,10 @@ import 'features/workout/domain/usecase/add_exercise_to_workout_usecase.dart'
     as _i0;
 import 'features/workout/domain/usecase/calculate_workout_stats_usecase.dart'
     as _i108;
-import 'features/workout/domain/usecase/create_exercise_usecase.dart' as _i422;
 import 'features/workout/domain/usecase/create_workout_usecase.dart' as _i1046;
 import 'features/workout/domain/usecase/delete_workout_usecase.dart' as _i407;
 import 'features/workout/domain/usecase/end_workout_session_usecase.dart'
     as _i903;
-import 'features/workout/domain/usecase/filter_workouts_usecase.dart' as _i341;
 import 'features/workout/domain/usecase/format_workout_time_usecase.dart'
     as _i588;
 import 'features/workout/domain/usecase/get_workouts_usecase.dart' as _i948;
@@ -95,14 +93,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i588.FormatWorkoutTimeUsecase>(
       () => _i588.FormatWorkoutTimeUsecase(),
     );
-    gh.factory<_i341.FilterWorkoutsUsecase>(
-      () => _i341.FilterWorkoutsUsecase(),
-    );
     gh.factory<_i703.GroupWorkoutsByDayUsecase>(
       () => _i703.GroupWorkoutsByDayUsecase(),
-    );
-    gh.factory<_i422.CreateExerciseUsecase>(
-      () => _i422.CreateExerciseUsecase(),
     );
     gh.factory<_i589.ValidateWorkoutCreationUsecase>(
       () => _i589.ValidateWorkoutCreationUsecase(),
@@ -261,7 +253,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i971.RemoveExerciseFromWorkoutUsecase>(),
         gh<_i903.EndWorkoutSessionUsecase>(),
         gh<_i108.CalculateWorkoutStatsUsecase>(),
-        gh<_i341.FilterWorkoutsUsecase>(),
         gh<_i703.GroupWorkoutsByDayUsecase>(),
         gh<_i588.FormatWorkoutTimeUsecase>(),
         gh<_i589.ValidateWorkoutCreationUsecase>(),

@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:gym_buddy/features/workout/domain/entity/workout_entity.dart';
 import 'package:gym_buddy/features/workout/domain/usecase/calculate_workout_stats_usecase.dart';
-import 'package:gym_buddy/features/workout/domain/usecase/filter_workouts_usecase.dart';
+
 import 'package:gym_buddy/features/workout/presentation/widgets/workout_day_filter.dart';
 import 'package:gym_buddy/features/workout/presentation/widgets/workout_empty_state.dart';
 import 'package:gym_buddy/features/workout/presentation/widgets/workout_stats_card.dart';
@@ -10,15 +10,12 @@ import 'package:gym_buddy/features/workout/presentation/widgets/workout_stats_ca
 class WorkoutContentBuilder extends StatelessWidget {
   final List<WorkoutEntity> workouts;
   final WorkoutStats? stats;
-  final List<WorkoutEntity> filteredWorkouts;
-  final WorkoutFilterType selectedFilter;
   final Map<String, List<WorkoutEntity>> groupedWorkouts;
 
   const WorkoutContentBuilder({
     required this.workouts,
     required this.stats,
-    required this.filteredWorkouts,
-    required this.selectedFilter,
+
     required this.groupedWorkouts,
     super.key,
   });

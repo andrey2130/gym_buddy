@@ -56,8 +56,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                   return WorkoutContentBuilder(
                     workouts: state.workouts,
                     stats: state.stats,
-                    filteredWorkouts: state.filteredWorkouts,
-                    selectedFilter: state.selectedFilter,
+
                     groupedWorkouts: state.groupedWorkouts,
                   );
                 }
