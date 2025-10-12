@@ -8,8 +8,14 @@ import 'package:gym_buddy/features/workout/domain/entity/workout_entity.dart';
 class WorkoutCard extends StatefulWidget {
   final WorkoutEntity workout;
   final VoidCallback? onTap;
+  final VoidCallback? onLongPress;
 
-  const WorkoutCard({required this.workout, super.key, this.onTap});
+  const WorkoutCard({
+    required this.workout,
+    super.key,
+    this.onTap,
+    this.onLongPress,
+  });
 
   @override
   State<WorkoutCard> createState() => _WorkoutCardState();
@@ -45,6 +51,7 @@ class _WorkoutCardState extends State<WorkoutCard>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onLongPress: widget.onLongPress,
       onTapDown: (_) => _animationController.forward(),
       onTapUp: (_) => _animationController.reverse(),
       onTapCancel: () => _animationController.reverse(),

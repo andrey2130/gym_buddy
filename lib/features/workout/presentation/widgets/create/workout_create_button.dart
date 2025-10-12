@@ -28,7 +28,7 @@ class WorkoutCreateButton extends StatelessWidget {
             child: ElevatedButton(
               onPressed: isValid && !isLoading ? onCreateWorkout : null,
               child: isLoading
-                  ? const CircularProgressIndicator()
+                  ? const CircularProgressIndicator.adaptive()
                   : const Text('Create Workout'),
             ),
           ),

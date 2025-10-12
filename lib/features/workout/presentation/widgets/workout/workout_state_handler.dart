@@ -36,14 +36,14 @@ class WorkoutStateHandler extends StatelessWidget {
         if (state is Updated) {
           _reloadWorkouts(context);
           return const SliverToBoxAdapter(
-            child: Center(child: CircularProgressIndicator()),
+            child: Center(child: CircularProgressIndicator.adaptive()),
           );
         }
 
         if (state is Deleted) {
           _reloadWorkouts(context);
           return const SliverToBoxAdapter(
-            child: Center(child: CircularProgressIndicator()),
+            child: Center(child: CircularProgressIndicator.adaptive()),
           );
         }
 
@@ -54,7 +54,7 @@ class WorkoutStateHandler extends StatelessWidget {
         }
 
         return const SliverToBoxAdapter(
-          child: Center(child: CircularProgressIndicator()),
+          child: Center(child: CircularProgressIndicator.adaptive()),
         );
       },
     );

@@ -41,7 +41,7 @@ class CustomButton extends StatelessWidget {
             ? SizedBox(
                 height: 20.w,
                 width: 20.w,
-                child: CircularProgressIndicator(
+                child: CircularProgressIndicator.adaptive(
                   strokeWidth: 2,
                   valueColor: AlwaysStoppedAnimation<Color>(
                     theme.colorScheme.onPrimary,
