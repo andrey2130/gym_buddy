@@ -8,6 +8,8 @@ import 'package:gym_buddy/features/profile/presentation/pages/edit_profile_scree
 import 'package:gym_buddy/features/profile/presentation/pages/training_sections/change_training_days_screen.dart';
 import 'package:gym_buddy/features/profile/presentation/pages/training_sections/change_training_plan_screen.dart';
 import 'package:gym_buddy/features/splash_screen/presentation/splash_screen.dart';
+import 'package:gym_buddy/features/workout/domain/entity/workout_entity.dart';
+import 'package:gym_buddy/features/workout/presentation/pages/session_screen.dart';
 import 'package:gym_buddy/features/workout/presentation/pages/workout_create_screen.dart';
 import 'package:gym_buddy/features/workout/presentation/pages/workout_screen.dart';
 
@@ -114,6 +116,16 @@ final appRoutes = [
     pageBuilder: (context, state) => buildTransitionPage(
       key: state.pageKey,
       child: const WorkoutCreateScreen(),
+    ),
+  ),
+  GoRoute(
+    path: '/workout/session/:workoutId',
+    pageBuilder: (context, state) => buildTransitionPage(
+      key: state.pageKey,
+      child: SessionScreen(
+        workoutId: state.pathParameters['workoutId']!,
+        workout: state.extra as WorkoutEntity?,
+      ),
     ),
   ),
 ];

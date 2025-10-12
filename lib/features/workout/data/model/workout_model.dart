@@ -30,8 +30,11 @@ abstract class WorkoutModel with _$WorkoutModel {
   const factory WorkoutModel({
     required String workoutId,
     required String userId,
+    required String name,
     @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)
     required DateTime date,
+    @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)
+    required DateTime startTime,
     required List<ExerciseModel> exercises,
     int? duration,
     String? notes,
@@ -50,7 +53,9 @@ abstract class WorkoutModel with _$WorkoutModel {
   WorkoutEntity toEntity() => WorkoutEntity(
     workoutId: workoutId,
     userId: userId,
+    name: name,
     date: date,
+    startTime: startTime,
     exercises: exercises.map((e) => e.toEntity()).toList(),
     duration: duration,
     notes: notes,
@@ -62,7 +67,9 @@ abstract class WorkoutModel with _$WorkoutModel {
   factory WorkoutModel.fromEntity(WorkoutEntity entity) => WorkoutModel(
     workoutId: entity.workoutId,
     userId: entity.userId,
+    name: entity.name,
     date: entity.date,
+    startTime: entity.startTime,
     exercises: entity.exercises.map(ExerciseModel.fromEntity).toList(),
     duration: entity.duration,
     notes: entity.notes,

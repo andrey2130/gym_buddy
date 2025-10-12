@@ -15,6 +15,57 @@ Users can register, select training days, customize their plan, log exercises wi
 📅 Onboarding: choose training days, plan, and time
 
 🏋️ Workout Tracker: exercises, sets, reps, save progress
+Here’s your updated and expanded plan in English 👇
+
+**FIRST SCREEN – WorkoutScreen**
+
+1. Display all user workout sessions (with state: *active* or *completed*).
+2. Tap on a session → Navigate to **SessionScreen**.
+3. Add filters to view either *active* or *completed* sessions.
+4. Show summary stats at the top:
+
+   * **Total Hours Trained** (sum of all completed sessions).
+   * **Total Reps** (sum of all exercises across all sessions).
+5. Floating Action Button (FAB) to create a new workout session → navigates to **WorkoutCreateScreen**.
+
+
+
+**SECOND SCREEN – WorkoutCreateScreen**
+
+1. Input fields:
+
+   * Workout session name.
+   * Workout session date.
+   * Start time (no end time yet).
+2. When the user fills out all fields and taps **Create Workout**, show an adaptive dialog confirming that the workout has been created successfully.
+3. After confirming, redirect the user back to the **WorkoutScreen**.
+
+
+
+**THIRD SCREEN – SessionScreen**
+
+1. Display:
+
+   * Workout session name.
+   * Start time (as plain text, not a timer).
+2. Button **Add Exercise** → allows user to input:
+
+   * Exercise name.
+   * Number of sets.
+   * Number of reps per set.
+   * Weight used (kg).
+3. Show a list of all exercises added to this session in a clean list view.
+4. Button **End Session**:
+
+   * When tapped, the workout session is marked as *completed*.
+   * The app automatically records the **end time**.
+   * Calculate and display the **total duration** (e.g., started at 11:00, ended at 13:40 → *Total Time: 2h 40m*).
+   * Optionally, show a dialog or toast confirming that the session has been completed.
+5. After completion, this session moves from *active* to *completed* state and appears in the completed sessions list on the main screen.
+
+
+
+Add a small statistics card at the top of the main screen to summarize progress over time.
 
 📊 Progress Tracking: total number of workouts, total reps
 

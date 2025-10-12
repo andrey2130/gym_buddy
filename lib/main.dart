@@ -11,6 +11,7 @@ import 'package:gym_buddy/core/theme/cubit/theme_cubit.dart';
 import 'package:gym_buddy/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:gym_buddy/features/onboarding/presentation/bloc/onboarding_bloc.dart';
 import 'package:gym_buddy/features/profile/presentation/bloc/profile_bloc.dart';
+import 'package:gym_buddy/features/workout/presentation/bloc/workout_bloc.dart';
 import 'package:gym_buddy/firebase_options.dart';
 import 'package:gym_buddy/injections.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -56,6 +57,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => getIt<AuthBloc>()),
         BlocProvider(create: (context) => getIt<OnboardingBloc>()),
         BlocProvider(create: (context) => getIt<ProfileBloc>()),
+        BlocProvider(create: (context) => getIt<WorkoutBloc>()),
         BlocProvider(create: (context) => getIt<ThemeCubit>()),
       ],
       child: TalkerWrapper(

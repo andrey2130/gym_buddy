@@ -24,7 +24,7 @@ Map<String, dynamic> _$ExerciseModelToJson(_ExerciseModel instance) =>
     <String, dynamic>{
       'exerciseId': instance.exerciseId,
       'name': instance.name,
-      'sets': instance.sets,
+      'sets': instance.sets.map((e) => e.toJson()).toList(),
       'notes': instance.notes,
       'muscleGroup': instance.muscleGroup,
       'createdAt': instance.createdAt?.toIso8601String(),

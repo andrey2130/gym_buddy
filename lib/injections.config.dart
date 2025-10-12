@@ -144,14 +144,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i577.ThemeCubit>(
       () => _i577.ThemeCubit(gh<_i732.SharedPreferencesService>()),
     );
-    gh.factory<_i959.WorkoutBloc>(
-      () => _i959.WorkoutBloc(
-        gh<_i948.GetWorkoutsUsecase>(),
-        gh<_i1046.CreateWorkoutUsecase>(),
-        gh<_i540.UpdateWorkoutUsecase>(),
-        gh<_i407.DeleteWorkoutUsecase>(),
-      ),
-    );
     gh.factory<_i721.OnboardingRepo>(
       () => _i139.OnboardingRepoImpl(
         dataSource: gh<_i691.OnboardingDataSource>(),
@@ -160,6 +152,15 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i630.GetCurrentUserIdUsecase>(
       () => _i630.GetCurrentUserIdUsecase(gh<_i442.AuthRepo>()),
+    );
+    gh.factory<_i959.WorkoutBloc>(
+      () => _i959.WorkoutBloc(
+        gh<_i948.GetWorkoutsUsecase>(),
+        gh<_i1046.CreateWorkoutUsecase>(),
+        gh<_i540.UpdateWorkoutUsecase>(),
+        gh<_i407.DeleteWorkoutUsecase>(),
+        gh<_i630.GetCurrentUserIdUsecase>(),
+      ),
     );
     gh.factory<_i284.ProfileBloc>(
       () => _i284.ProfileBloc(

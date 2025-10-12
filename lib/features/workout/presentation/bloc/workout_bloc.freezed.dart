@@ -55,14 +55,15 @@ extension WorkoutEventPatterns on WorkoutEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Started value)?  started,TResult Function( CreateWorkout value)?  createWorkout,TResult Function( LoadWorkouts value)?  loadWorkouts,TResult Function( UpdateWorkout value)?  updateWorkout,TResult Function( DeleteWorkout value)?  deleteWorkout,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Started value)?  started,TResult Function( CreateWorkout value)?  createWorkout,TResult Function( LoadWorkouts value)?  loadWorkouts,TResult Function( UpdateWorkout value)?  updateWorkout,TResult Function( UpdateWorkoutExercises value)?  updateWorkoutExercises,TResult Function( DeleteWorkout value)?  deleteWorkout,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case Started() when started != null:
 return started(_that);case CreateWorkout() when createWorkout != null:
 return createWorkout(_that);case LoadWorkouts() when loadWorkouts != null:
 return loadWorkouts(_that);case UpdateWorkout() when updateWorkout != null:
-return updateWorkout(_that);case DeleteWorkout() when deleteWorkout != null:
+return updateWorkout(_that);case UpdateWorkoutExercises() when updateWorkoutExercises != null:
+return updateWorkoutExercises(_that);case DeleteWorkout() when deleteWorkout != null:
 return deleteWorkout(_that);case _:
   return orElse();
 
@@ -81,14 +82,15 @@ return deleteWorkout(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Started value)  started,required TResult Function( CreateWorkout value)  createWorkout,required TResult Function( LoadWorkouts value)  loadWorkouts,required TResult Function( UpdateWorkout value)  updateWorkout,required TResult Function( DeleteWorkout value)  deleteWorkout,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Started value)  started,required TResult Function( CreateWorkout value)  createWorkout,required TResult Function( LoadWorkouts value)  loadWorkouts,required TResult Function( UpdateWorkout value)  updateWorkout,required TResult Function( UpdateWorkoutExercises value)  updateWorkoutExercises,required TResult Function( DeleteWorkout value)  deleteWorkout,}){
 final _that = this;
 switch (_that) {
 case Started():
 return started(_that);case CreateWorkout():
 return createWorkout(_that);case LoadWorkouts():
 return loadWorkouts(_that);case UpdateWorkout():
-return updateWorkout(_that);case DeleteWorkout():
+return updateWorkout(_that);case UpdateWorkoutExercises():
+return updateWorkoutExercises(_that);case DeleteWorkout():
 return deleteWorkout(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -106,14 +108,15 @@ return deleteWorkout(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Started value)?  started,TResult? Function( CreateWorkout value)?  createWorkout,TResult? Function( LoadWorkouts value)?  loadWorkouts,TResult? Function( UpdateWorkout value)?  updateWorkout,TResult? Function( DeleteWorkout value)?  deleteWorkout,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Started value)?  started,TResult? Function( CreateWorkout value)?  createWorkout,TResult? Function( LoadWorkouts value)?  loadWorkouts,TResult? Function( UpdateWorkout value)?  updateWorkout,TResult? Function( UpdateWorkoutExercises value)?  updateWorkoutExercises,TResult? Function( DeleteWorkout value)?  deleteWorkout,}){
 final _that = this;
 switch (_that) {
 case Started() when started != null:
 return started(_that);case CreateWorkout() when createWorkout != null:
 return createWorkout(_that);case LoadWorkouts() when loadWorkouts != null:
 return loadWorkouts(_that);case UpdateWorkout() when updateWorkout != null:
-return updateWorkout(_that);case DeleteWorkout() when deleteWorkout != null:
+return updateWorkout(_that);case UpdateWorkoutExercises() when updateWorkoutExercises != null:
+return updateWorkoutExercises(_that);case DeleteWorkout() when deleteWorkout != null:
 return deleteWorkout(_that);case _:
   return null;
 
@@ -131,13 +134,14 @@ return deleteWorkout(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  started,TResult Function( WorkoutEntity workout)?  createWorkout,TResult Function( String userId)?  loadWorkouts,TResult Function( WorkoutEntity workout)?  updateWorkout,TResult Function( DeleteWorkoutParams params)?  deleteWorkout,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  started,TResult Function( WorkoutEntity workout)?  createWorkout,TResult Function()?  loadWorkouts,TResult Function( WorkoutEntity workout)?  updateWorkout,TResult Function( WorkoutEntity workout)?  updateWorkoutExercises,TResult Function( DeleteWorkoutParams params)?  deleteWorkout,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case Started() when started != null:
 return started();case CreateWorkout() when createWorkout != null:
 return createWorkout(_that.workout);case LoadWorkouts() when loadWorkouts != null:
-return loadWorkouts(_that.userId);case UpdateWorkout() when updateWorkout != null:
-return updateWorkout(_that.workout);case DeleteWorkout() when deleteWorkout != null:
+return loadWorkouts();case UpdateWorkout() when updateWorkout != null:
+return updateWorkout(_that.workout);case UpdateWorkoutExercises() when updateWorkoutExercises != null:
+return updateWorkoutExercises(_that.workout);case DeleteWorkout() when deleteWorkout != null:
 return deleteWorkout(_that.params);case _:
   return orElse();
 
@@ -156,13 +160,14 @@ return deleteWorkout(_that.params);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  started,required TResult Function( WorkoutEntity workout)  createWorkout,required TResult Function( String userId)  loadWorkouts,required TResult Function( WorkoutEntity workout)  updateWorkout,required TResult Function( DeleteWorkoutParams params)  deleteWorkout,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  started,required TResult Function( WorkoutEntity workout)  createWorkout,required TResult Function()  loadWorkouts,required TResult Function( WorkoutEntity workout)  updateWorkout,required TResult Function( WorkoutEntity workout)  updateWorkoutExercises,required TResult Function( DeleteWorkoutParams params)  deleteWorkout,}) {final _that = this;
 switch (_that) {
 case Started():
 return started();case CreateWorkout():
 return createWorkout(_that.workout);case LoadWorkouts():
-return loadWorkouts(_that.userId);case UpdateWorkout():
-return updateWorkout(_that.workout);case DeleteWorkout():
+return loadWorkouts();case UpdateWorkout():
+return updateWorkout(_that.workout);case UpdateWorkoutExercises():
+return updateWorkoutExercises(_that.workout);case DeleteWorkout():
 return deleteWorkout(_that.params);case _:
   throw StateError('Unexpected subclass');
 
@@ -180,13 +185,14 @@ return deleteWorkout(_that.params);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  started,TResult? Function( WorkoutEntity workout)?  createWorkout,TResult? Function( String userId)?  loadWorkouts,TResult? Function( WorkoutEntity workout)?  updateWorkout,TResult? Function( DeleteWorkoutParams params)?  deleteWorkout,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  started,TResult? Function( WorkoutEntity workout)?  createWorkout,TResult? Function()?  loadWorkouts,TResult? Function( WorkoutEntity workout)?  updateWorkout,TResult? Function( WorkoutEntity workout)?  updateWorkoutExercises,TResult? Function( DeleteWorkoutParams params)?  deleteWorkout,}) {final _that = this;
 switch (_that) {
 case Started() when started != null:
 return started();case CreateWorkout() when createWorkout != null:
 return createWorkout(_that.workout);case LoadWorkouts() when loadWorkouts != null:
-return loadWorkouts(_that.userId);case UpdateWorkout() when updateWorkout != null:
-return updateWorkout(_that.workout);case DeleteWorkout() when deleteWorkout != null:
+return loadWorkouts();case UpdateWorkout() when updateWorkout != null:
+return updateWorkout(_that.workout);case UpdateWorkoutExercises() when updateWorkoutExercises != null:
+return updateWorkoutExercises(_that.workout);case DeleteWorkout() when deleteWorkout != null:
 return deleteWorkout(_that.params);case _:
   return null;
 
@@ -306,67 +312,33 @@ $WorkoutEntityCopyWith<$Res> get workout {
 
 
 class LoadWorkouts implements WorkoutEvent {
-  const LoadWorkouts(this.userId);
+  const LoadWorkouts();
   
 
- final  String userId;
 
-/// Create a copy of WorkoutEvent
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$LoadWorkoutsCopyWith<LoadWorkouts> get copyWith => _$LoadWorkoutsCopyWithImpl<LoadWorkouts>(this, _$identity);
+
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoadWorkouts&&(identical(other.userId, userId) || other.userId == userId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoadWorkouts);
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,userId);
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'WorkoutEvent.loadWorkouts(userId: $userId)';
+  return 'WorkoutEvent.loadWorkouts()';
 }
 
 
 }
 
-/// @nodoc
-abstract mixin class $LoadWorkoutsCopyWith<$Res> implements $WorkoutEventCopyWith<$Res> {
-  factory $LoadWorkoutsCopyWith(LoadWorkouts value, $Res Function(LoadWorkouts) _then) = _$LoadWorkoutsCopyWithImpl;
-@useResult
-$Res call({
- String userId
-});
 
 
-
-
-}
-/// @nodoc
-class _$LoadWorkoutsCopyWithImpl<$Res>
-    implements $LoadWorkoutsCopyWith<$Res> {
-  _$LoadWorkoutsCopyWithImpl(this._self, this._then);
-
-  final LoadWorkouts _self;
-  final $Res Function(LoadWorkouts) _then;
-
-/// Create a copy of WorkoutEvent
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? userId = null,}) {
-  return _then(LoadWorkouts(
-null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
-as String,
-  ));
-}
-
-
-}
 
 /// @nodoc
 
@@ -426,6 +398,81 @@ class _$UpdateWorkoutCopyWithImpl<$Res>
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? workout = null,}) {
   return _then(UpdateWorkout(
+null == workout ? _self.workout : workout // ignore: cast_nullable_to_non_nullable
+as WorkoutEntity,
+  ));
+}
+
+/// Create a copy of WorkoutEvent
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$WorkoutEntityCopyWith<$Res> get workout {
+  
+  return $WorkoutEntityCopyWith<$Res>(_self.workout, (value) {
+    return _then(_self.copyWith(workout: value));
+  });
+}
+}
+
+/// @nodoc
+
+
+class UpdateWorkoutExercises implements WorkoutEvent {
+  const UpdateWorkoutExercises(this.workout);
+  
+
+ final  WorkoutEntity workout;
+
+/// Create a copy of WorkoutEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$UpdateWorkoutExercisesCopyWith<UpdateWorkoutExercises> get copyWith => _$UpdateWorkoutExercisesCopyWithImpl<UpdateWorkoutExercises>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UpdateWorkoutExercises&&(identical(other.workout, workout) || other.workout == workout));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,workout);
+
+@override
+String toString() {
+  return 'WorkoutEvent.updateWorkoutExercises(workout: $workout)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $UpdateWorkoutExercisesCopyWith<$Res> implements $WorkoutEventCopyWith<$Res> {
+  factory $UpdateWorkoutExercisesCopyWith(UpdateWorkoutExercises value, $Res Function(UpdateWorkoutExercises) _then) = _$UpdateWorkoutExercisesCopyWithImpl;
+@useResult
+$Res call({
+ WorkoutEntity workout
+});
+
+
+$WorkoutEntityCopyWith<$Res> get workout;
+
+}
+/// @nodoc
+class _$UpdateWorkoutExercisesCopyWithImpl<$Res>
+    implements $UpdateWorkoutExercisesCopyWith<$Res> {
+  _$UpdateWorkoutExercisesCopyWithImpl(this._self, this._then);
+
+  final UpdateWorkoutExercises _self;
+  final $Res Function(UpdateWorkoutExercises) _then;
+
+/// Create a copy of WorkoutEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? workout = null,}) {
+  return _then(UpdateWorkoutExercises(
 null == workout ? _self.workout : workout // ignore: cast_nullable_to_non_nullable
 as WorkoutEntity,
   ));

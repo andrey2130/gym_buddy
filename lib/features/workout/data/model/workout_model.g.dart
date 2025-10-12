@@ -10,7 +10,9 @@ _WorkoutModel _$WorkoutModelFromJson(Map<String, dynamic> json) =>
     _WorkoutModel(
       workoutId: json['workoutId'] as String,
       userId: json['userId'] as String,
+      name: json['name'] as String,
       date: _fromTimestamp(json['date']),
+      startTime: _fromTimestamp(json['startTime']),
       exercises: (json['exercises'] as List<dynamic>)
           .map((e) => ExerciseModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -25,8 +27,10 @@ Map<String, dynamic> _$WorkoutModelToJson(_WorkoutModel instance) =>
     <String, dynamic>{
       'workoutId': instance.workoutId,
       'userId': instance.userId,
+      'name': instance.name,
       'date': _toTimestamp(instance.date),
-      'exercises': instance.exercises,
+      'startTime': _toTimestamp(instance.startTime),
+      'exercises': instance.exercises.map((e) => e.toJson()).toList(),
       'duration': instance.duration,
       'notes': instance.notes,
       'createdAt': _toTimestamp(instance.createdAt),

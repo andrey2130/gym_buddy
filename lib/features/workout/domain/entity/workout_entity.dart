@@ -9,7 +9,9 @@ abstract class WorkoutEntity with _$WorkoutEntity {
   const factory WorkoutEntity({
     required String workoutId,
     required String userId,
+    required String name,
     required DateTime date,
+    required DateTime startTime,
     required List<ExerciseEntity> exercises,
     int? duration,
     String? notes,

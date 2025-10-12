@@ -10,7 +10,9 @@ _WorkoutEntity _$WorkoutEntityFromJson(Map<String, dynamic> json) =>
     _WorkoutEntity(
       workoutId: json['workoutId'] as String,
       userId: json['userId'] as String,
+      name: json['name'] as String,
       date: DateTime.parse(json['date'] as String),
+      startTime: DateTime.parse(json['startTime'] as String),
       exercises: (json['exercises'] as List<dynamic>)
           .map((e) => ExerciseEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -29,7 +31,9 @@ Map<String, dynamic> _$WorkoutEntityToJson(_WorkoutEntity instance) =>
     <String, dynamic>{
       'workoutId': instance.workoutId,
       'userId': instance.userId,
+      'name': instance.name,
       'date': instance.date.toIso8601String(),
+      'startTime': instance.startTime.toIso8601String(),
       'exercises': instance.exercises,
       'duration': instance.duration,
       'notes': instance.notes,
