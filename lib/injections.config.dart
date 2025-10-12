@@ -73,6 +73,8 @@ import 'features/workout/domain/usecase/filter_workouts_usecase.dart' as _i341;
 import 'features/workout/domain/usecase/format_workout_time_usecase.dart'
     as _i588;
 import 'features/workout/domain/usecase/get_workouts_usecase.dart' as _i948;
+import 'features/workout/domain/usecase/group_workouts_by_day_usecase.dart'
+    as _i703;
 import 'features/workout/domain/usecase/remove_exercise_from_workout_usecase.dart'
     as _i971;
 import 'features/workout/domain/usecase/update_exercise_in_workout_usecase.dart'
@@ -104,6 +106,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i108.CalculateWorkoutStatsUsecase>(
       () => _i108.CalculateWorkoutStatsUsecase(),
+    );
+    gh.factory<_i703.GroupWorkoutsByDayUsecase>(
+      () => _i703.GroupWorkoutsByDayUsecase(),
     );
     gh.singleton<_i583.GoRouter>(() => navigationModule.router);
     gh.factory<_i326.ProfileDataSource>(
@@ -257,6 +262,7 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i903.EndWorkoutSessionUsecase>(),
         gh<_i108.CalculateWorkoutStatsUsecase>(),
         gh<_i341.FilterWorkoutsUsecase>(),
+        gh<_i703.GroupWorkoutsByDayUsecase>(),
         gh<_i588.FormatWorkoutTimeUsecase>(),
         gh<_i589.ValidateWorkoutCreationUsecase>(),
         gh<_i630.GetCurrentUserIdUsecase>(),

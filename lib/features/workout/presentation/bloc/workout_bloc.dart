@@ -11,6 +11,7 @@ import 'package:gym_buddy/features/workout/domain/params/update_exercise_params.
 import 'package:gym_buddy/features/workout/domain/params/workout_stats_params.dart';
 import 'package:gym_buddy/features/workout/domain/params/filter_workouts_params.dart';
 import 'package:gym_buddy/features/workout/domain/params/format_time_params.dart';
+import 'package:gym_buddy/features/workout/domain/params/group_workouts_by_day_params.dart';
 import 'package:gym_buddy/features/workout/domain/params/validate_workout_creation_params.dart';
 import 'package:gym_buddy/features/workout/domain/usecase/add_exercise_to_workout_usecase.dart';
 import 'package:gym_buddy/features/workout/domain/usecase/calculate_workout_stats_usecase.dart';
@@ -20,6 +21,7 @@ import 'package:gym_buddy/features/workout/domain/usecase/end_workout_session_us
 import 'package:gym_buddy/features/workout/domain/usecase/filter_workouts_usecase.dart';
 import 'package:gym_buddy/features/workout/domain/usecase/format_workout_time_usecase.dart';
 import 'package:gym_buddy/features/workout/domain/usecase/get_workouts_usecase.dart';
+import 'package:gym_buddy/features/workout/domain/usecase/group_workouts_by_day_usecase.dart';
 import 'package:gym_buddy/features/workout/domain/usecase/remove_exercise_from_workout_usecase.dart';
 import 'package:gym_buddy/features/workout/domain/usecase/update_exercise_in_workout_usecase.dart';
 import 'package:gym_buddy/features/workout/domain/usecase/update_workout_usecase.dart';
@@ -44,6 +46,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
   final EndWorkoutSessionUsecase _endWorkoutSessionUsecase;
   final CalculateWorkoutStatsUsecase _calculateWorkoutStatsUsecase;
   final FilterWorkoutsUsecase _filterWorkoutsUsecase;
+  final GroupWorkoutsByDayUsecase _groupWorkoutsByDayUsecase;
   final FormatWorkoutTimeUsecase _formatWorkoutTimeUsecase;
   final ValidateWorkoutCreationUsecase _validateWorkoutCreationUsecase;
   final GetCurrentUserIdUsecase _getCurrentUserIdUsecase;
@@ -59,6 +62,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     this._endWorkoutSessionUsecase,
     this._calculateWorkoutStatsUsecase,
     this._filterWorkoutsUsecase,
+    this._groupWorkoutsByDayUsecase,
     this._formatWorkoutTimeUsecase,
     this._validateWorkoutCreationUsecase,
     this._getCurrentUserIdUsecase,
@@ -74,6 +78,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     on<EndWorkoutSession>(_onEndWorkoutSession);
     on<CalculateStats>(_onCalculateStats);
     on<FilterWorkouts>(_onFilterWorkouts);
+    on<GroupWorkoutsByDay>(_onGroupWorkoutsByDay);
     on<FormatTime>(_onFormatTime);
     on<FormatDuration>(_onFormatDuration);
     on<ValidateWorkoutCreation>(_onValidateWorkoutCreation);
@@ -131,8 +136,9 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
           ),
         );
 
-        // Calculate stats after loading workouts
+        // Calculate stats and group workouts by day after loading workouts
         add(CalculateStats(workouts));
+        add(GroupWorkoutsByDay(workouts));
       },
     );
   }
@@ -339,6 +345,39 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
               event.workouts,
               filteredWorkouts: filteredWorkouts,
               selectedFilter: event.filterType,
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  Future<void> _onGroupWorkoutsByDay(
+    GroupWorkoutsByDay event,
+    Emitter<WorkoutState> emit,
+  ) async {
+    final params = GroupWorkoutsByDayParams(workouts: event.workouts);
+    final result = await _groupWorkoutsByDayUsecase(params);
+
+    result.fold(
+      (failure) {
+        getIt<Talker>().error(
+          'Group workouts by day failed: ${failure.message}',
+        );
+        emit(WorkoutState.failure(failure.message));
+      },
+      (groupedWorkouts) {
+        getIt<Talker>().info('Workouts grouped by day successfully');
+        // Update the current loaded state with grouped workouts
+        final currentState = state;
+        if (currentState is Loaded) {
+          emit(currentState.copyWith(groupedWorkouts: groupedWorkouts));
+        } else {
+          // If not in loaded state, create a new loaded state with grouped workouts
+          emit(
+            WorkoutState.loaded(
+              event.workouts,
+              groupedWorkouts: groupedWorkouts,
             ),
           );
         }

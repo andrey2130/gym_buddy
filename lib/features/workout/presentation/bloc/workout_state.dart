@@ -9,6 +9,7 @@ class WorkoutState with _$WorkoutState {
     @Default(null) WorkoutStats? stats,
     @Default([]) List<WorkoutEntity> filteredWorkouts,
     @Default(WorkoutFilterType.all) WorkoutFilterType selectedFilter,
+    @Default({}) Map<String, List<WorkoutEntity>> groupedWorkouts,
   }) = Loaded;
   const factory WorkoutState.created(WorkoutEntity workout) = Created;
   const factory WorkoutState.updated(WorkoutEntity workout) = Updated;

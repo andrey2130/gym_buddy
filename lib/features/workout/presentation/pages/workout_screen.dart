@@ -6,9 +6,8 @@ import 'package:gym_buddy/features/workout/domain/entity/workout_entity.dart';
 import 'package:gym_buddy/features/workout/domain/usecase/calculate_workout_stats_usecase.dart';
 import 'package:gym_buddy/features/workout/domain/usecase/filter_workouts_usecase.dart';
 import 'package:gym_buddy/features/workout/presentation/bloc/workout_bloc.dart';
-import 'package:gym_buddy/features/workout/presentation/widgets/workout_card.dart';
+import 'package:gym_buddy/features/workout/presentation/widgets/workout_day_filter.dart';
 import 'package:gym_buddy/features/workout/presentation/widgets/workout_empty_state.dart';
-import 'package:gym_buddy/features/workout/presentation/widgets/workout_filter_chips.dart';
 import 'package:gym_buddy/features/workout/presentation/widgets/workout_stats_card.dart';
 
 class WorkoutScreen extends StatefulWidget {
@@ -65,6 +64,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                     state.stats,
                     state.filteredWorkouts,
                     state.selectedFilter,
+                    state.groupedWorkouts,
                   );
                 }
 
@@ -133,45 +133,20 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
     WorkoutStats? stats,
     List<WorkoutEntity> filteredWorkouts,
     WorkoutFilterType selectedFilter,
+    Map<String, List<WorkoutEntity>> groupedWorkouts,
   ) {
     return SliverList(
       delegate: SliverChildListDelegate([
         WorkoutStatsCard(stats: stats),
         const SizedBox(height: 16),
 
-        WorkoutFilterChips(
-          selectedFilter: selectedFilter.name,
-          onFilterChanged: (filter) {
-            final filterType = WorkoutFilterType.values.firstWhere(
-              (e) => e.name == filter,
-              orElse: () => WorkoutFilterType.all,
-            );
-            // Use the workouts from the loaded state for filtering
-            if (mounted) {
-              context.read<WorkoutBloc>().add(
-                WorkoutEvent.filterWorkouts(workouts, filterType),
-              );
-            }
-          },
-        ),
-        const SizedBox(height: 16),
-        if (filteredWorkouts.isEmpty)
+        if (groupedWorkouts.isEmpty)
           const WorkoutEmptyState(
             title: 'No workouts found',
             subtitle: 'Create your first workout to get started!',
           )
         else
-          ...filteredWorkouts.map(
-            (workout) => WorkoutCard(
-              workout: workout,
-              onTap: () {
-                context.push(
-                  '/workout/session/${workout.workoutId}',
-                  extra: workout,
-                );
-              },
-            ),
-          ),
+          WorkoutDayFilter(groupedWorkouts: groupedWorkouts),
         const SizedBox(height: 80), // Space for FAB
       ]),
     );
