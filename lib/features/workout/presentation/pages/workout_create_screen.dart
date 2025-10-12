@@ -13,11 +13,12 @@ import 'package:gym_buddy/features/auth/domain/usecases/get_current_user_usecase
 import 'package:gym_buddy/features/profile/presentation/widgets/common/expansion_tile.dart';
 import 'package:gym_buddy/features/workout/domain/entity/workout_entity.dart';
 import 'package:gym_buddy/features/workout/presentation/bloc/workout_bloc.dart';
-import 'package:gym_buddy/injections.dart';
+import 'package:gym_buddy/features/workout/domain/params/validate_workout_creation_params.dart';
 import 'package:uuid/uuid.dart';
 
 class WorkoutCreateScreen extends StatefulWidget {
-  const WorkoutCreateScreen({super.key});
+  final GetCurrentUserIdUsecase getCurrentUserIdUsecase;
+  const WorkoutCreateScreen({super.key, required this.getCurrentUserIdUsecase});
 
   @override
   State<WorkoutCreateScreen> createState() => _WorkoutCreateScreenState();
@@ -25,14 +26,14 @@ class WorkoutCreateScreen extends StatefulWidget {
 
 class _WorkoutCreateScreenState extends State<WorkoutCreateScreen> {
   final _nameController = TextEditingController();
-  final _getCurrentUserIdUsecase = getIt<GetCurrentUserIdUsecase>();
+
   DateTime? _selectedDate;
   TimeOfDay? _startTime;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<WorkoutBloc>(),
+      create: (context) => context.read<WorkoutBloc>(),
       child: Scaffold(
         body: SafeArea(
           child: Column(
@@ -58,6 +59,7 @@ class _WorkoutCreateScreenState extends State<WorkoutCreateScreen> {
                     controller: _nameController,
                     labelText: 'Workout name',
                     hintText: 'Example: Push, Pull, Legs',
+                    onChanged: (_) => _validateFormIfReady(),
                   ),
                 ],
               ),
@@ -217,13 +219,18 @@ class _WorkoutCreateScreenState extends State<WorkoutCreateScreen> {
                   );
                 },
                 builder: (context, state) {
+                  final isValid = state.maybeWhen(
+                    workoutValidated: (isValid) => isValid,
+                    orElse: () => false,
+                  );
+
                   return Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed:
-                            _canCreateWorkout() &&
+                            isValid &&
                                 !state.maybeWhen(
                                   loading: () => true,
                                   orElse: () => false,
@@ -252,16 +259,38 @@ class _WorkoutCreateScreenState extends State<WorkoutCreateScreen> {
     super.dispose();
   }
 
-  bool _canCreateWorkout() {
-    return _nameController.text.isNotEmpty &&
+  void _validateFormIfReady() {
+    if (_nameController.text.trim().isNotEmpty &&
         _selectedDate != null &&
-        _startTime != null;
+        _startTime != null) {
+      _validateForm();
+    }
+  }
+
+  void _validateForm() {
+    final params = ValidateWorkoutCreationParams(
+      name: _nameController.text,
+      selectedDate: _selectedDate,
+      startTime: _startTime != null
+          ? DateTime(
+              _selectedDate?.year ?? DateTime.now().year,
+              _selectedDate?.month ?? DateTime.now().month,
+              _selectedDate?.day ?? DateTime.now().day,
+              _startTime!.hour,
+              _startTime!.minute,
+            )
+          : null,
+    );
+
+    context.read<WorkoutBloc>().add(
+      WorkoutEvent.validateWorkoutCreation(params),
+    );
   }
 
   Future<void> _createWorkout() async {
-    if (!_canCreateWorkout()) return;
+    _validateForm();
 
-    final userId = await _getCurrentUserIdUsecase(const NoParams());
+    final userId = await widget.getCurrentUserIdUsecase(const NoParams());
     if (userId == null) {
       ScaffoldMessenger.of(
         context,
@@ -318,6 +347,7 @@ class _WorkoutCreateScreenState extends State<WorkoutCreateScreen> {
       setState(() {
         _selectedDate = date;
       });
+      _validateFormIfReady();
     }
   }
 
@@ -330,6 +360,7 @@ class _WorkoutCreateScreenState extends State<WorkoutCreateScreen> {
       setState(() {
         _startTime = time;
       });
+      _validateFormIfReady();
     }
   }
 

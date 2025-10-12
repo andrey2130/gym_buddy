@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:gym_buddy/features/auth/domain/usecases/get_current_user_usecase.dart';
 import 'package:gym_buddy/features/auth/presentation/pages/login_screen.dart';
 import 'package:gym_buddy/features/auth/presentation/pages/register_screen.dart';
 import 'package:gym_buddy/features/home/presentation/pages/main_screen.dart';
@@ -12,6 +13,7 @@ import 'package:gym_buddy/features/workout/domain/entity/workout_entity.dart';
 import 'package:gym_buddy/features/workout/presentation/pages/session_screen.dart';
 import 'package:gym_buddy/features/workout/presentation/pages/workout_create_screen.dart';
 import 'package:gym_buddy/features/workout/presentation/pages/workout_screen.dart';
+import 'package:gym_buddy/injections.dart';
 
 // ignore: strict_raw_type
 CustomTransitionPage buildTransitionPage({
@@ -115,7 +117,9 @@ final appRoutes = [
     path: '/workout/create',
     pageBuilder: (context, state) => buildTransitionPage(
       key: state.pageKey,
-      child: const WorkoutCreateScreen(),
+      child: WorkoutCreateScreen(
+        getCurrentUserIdUsecase: getIt<GetCurrentUserIdUsecase>(),
+      ),
     ),
   ),
   GoRoute(

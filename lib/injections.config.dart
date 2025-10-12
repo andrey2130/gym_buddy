@@ -56,10 +56,26 @@ import 'features/profile/presentation/bloc/profile_bloc.dart' as _i284;
 import 'features/workout/data/datasource/workout_datasource.dart' as _i482;
 import 'features/workout/data/repository/workout_repository_impl.dart' as _i596;
 import 'features/workout/domain/repository/workout_repository.dart' as _i494;
+import 'features/workout/domain/usecase/add_exercise_to_workout_usecase.dart'
+    as _i0;
+import 'features/workout/domain/usecase/calculate_workout_stats_usecase.dart'
+    as _i108;
+import 'features/workout/domain/usecase/create_exercise_usecase.dart' as _i422;
 import 'features/workout/domain/usecase/create_workout_usecase.dart' as _i1046;
 import 'features/workout/domain/usecase/delete_workout_usecase.dart' as _i407;
+import 'features/workout/domain/usecase/end_workout_session_usecase.dart'
+    as _i903;
+import 'features/workout/domain/usecase/filter_workouts_usecase.dart' as _i341;
+import 'features/workout/domain/usecase/format_workout_time_usecase.dart'
+    as _i588;
 import 'features/workout/domain/usecase/get_workouts_usecase.dart' as _i948;
+import 'features/workout/domain/usecase/remove_exercise_from_workout_usecase.dart'
+    as _i971;
+import 'features/workout/domain/usecase/update_exercise_in_workout_usecase.dart'
+    as _i880;
 import 'features/workout/domain/usecase/update_workout_usecase.dart' as _i540;
+import 'features/workout/domain/usecase/validate_workout_creation_usecase.dart'
+    as _i589;
 import 'features/workout/presentation/bloc/workout_bloc.dart' as _i959;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -70,6 +86,21 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final navigationModule = _$NavigationModule();
+    gh.factory<_i588.FormatWorkoutTimeUsecase>(
+      () => _i588.FormatWorkoutTimeUsecase(),
+    );
+    gh.factory<_i341.FilterWorkoutsUsecase>(
+      () => _i341.FilterWorkoutsUsecase(),
+    );
+    gh.factory<_i422.CreateExerciseUsecase>(
+      () => _i422.CreateExerciseUsecase(),
+    );
+    gh.factory<_i589.ValidateWorkoutCreationUsecase>(
+      () => _i589.ValidateWorkoutCreationUsecase(),
+    );
+    gh.factory<_i108.CalculateWorkoutStatsUsecase>(
+      () => _i108.CalculateWorkoutStatsUsecase(),
+    );
     gh.singleton<_i583.GoRouter>(() => navigationModule.router);
     gh.factory<_i326.ProfileDataSource>(
       () => _i326.ProfileDataSourceImpl(
@@ -117,6 +148,19 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i407.DeleteWorkoutUsecase>(
       () => _i407.DeleteWorkoutUsecase(gh<_i494.WorkoutRepository>()),
     );
+    gh.factory<_i971.RemoveExerciseFromWorkoutUsecase>(
+      () =>
+          _i971.RemoveExerciseFromWorkoutUsecase(gh<_i494.WorkoutRepository>()),
+    );
+    gh.factory<_i880.UpdateExerciseInWorkoutUsecase>(
+      () => _i880.UpdateExerciseInWorkoutUsecase(gh<_i494.WorkoutRepository>()),
+    );
+    gh.factory<_i903.EndWorkoutSessionUsecase>(
+      () => _i903.EndWorkoutSessionUsecase(gh<_i494.WorkoutRepository>()),
+    );
+    gh.factory<_i0.AddExerciseToWorkoutUsecase>(
+      () => _i0.AddExerciseToWorkoutUsecase(gh<_i494.WorkoutRepository>()),
+    );
     gh.factory<_i337.AuthDataSource>(
       () => _i337.AuthDataSourceImpl(
         gh<_i59.FirebaseAuth>(),
@@ -153,15 +197,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i630.GetCurrentUserIdUsecase>(
       () => _i630.GetCurrentUserIdUsecase(gh<_i442.AuthRepo>()),
     );
-    gh.factory<_i959.WorkoutBloc>(
-      () => _i959.WorkoutBloc(
-        gh<_i948.GetWorkoutsUsecase>(),
-        gh<_i1046.CreateWorkoutUsecase>(),
-        gh<_i540.UpdateWorkoutUsecase>(),
-        gh<_i407.DeleteWorkoutUsecase>(),
-        gh<_i630.GetCurrentUserIdUsecase>(),
-      ),
-    );
     gh.factory<_i284.ProfileBloc>(
       () => _i284.ProfileBloc(
         gh<_i630.GetCurrentUserIdUsecase>(),
@@ -169,6 +204,23 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i140.UpdateUserProfileUsecase>(),
         gh<_i1046.ChangeUserTrainingPlanUsecase>(),
         gh<_i1014.ChangeUserTrainingDaysUsecase>(),
+      ),
+    );
+    gh.factory<_i959.WorkoutBloc>(
+      () => _i959.WorkoutBloc(
+        gh<_i948.GetWorkoutsUsecase>(),
+        gh<_i1046.CreateWorkoutUsecase>(),
+        gh<_i540.UpdateWorkoutUsecase>(),
+        gh<_i407.DeleteWorkoutUsecase>(),
+        gh<_i0.AddExerciseToWorkoutUsecase>(),
+        gh<_i880.UpdateExerciseInWorkoutUsecase>(),
+        gh<_i971.RemoveExerciseFromWorkoutUsecase>(),
+        gh<_i903.EndWorkoutSessionUsecase>(),
+        gh<_i108.CalculateWorkoutStatsUsecase>(),
+        gh<_i341.FilterWorkoutsUsecase>(),
+        gh<_i588.FormatWorkoutTimeUsecase>(),
+        gh<_i589.ValidateWorkoutCreationUsecase>(),
+        gh<_i630.GetCurrentUserIdUsecase>(),
       ),
     );
     gh.factory<_i312.GetOnboardingUsecase>(

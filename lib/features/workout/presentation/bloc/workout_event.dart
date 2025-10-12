@@ -12,4 +12,28 @@ class WorkoutEvent with _$WorkoutEvent {
       UpdateWorkoutExercises;
   const factory WorkoutEvent.deleteWorkout(DeleteWorkoutParams params) =
       DeleteWorkout;
+  const factory WorkoutEvent.addExerciseToWorkout(AddExerciseParams params) =
+      AddExerciseToWorkout;
+  const factory WorkoutEvent.updateExerciseInWorkout(
+    UpdateExerciseParams params,
+  ) = UpdateExerciseInWorkout;
+  const factory WorkoutEvent.removeExerciseFromWorkout(
+    RemoveExerciseParams params,
+  ) = RemoveExerciseFromWorkout;
+  const factory WorkoutEvent.endWorkoutSession(EndWorkoutSessionParams params) =
+      EndWorkoutSession;
+  const factory WorkoutEvent.calculateStats(List<WorkoutEntity> workouts) =
+      CalculateStats;
+  const factory WorkoutEvent.filterWorkouts(
+    List<WorkoutEntity> workouts,
+    WorkoutFilterType filterType,
+  ) = FilterWorkouts;
+  const factory WorkoutEvent.formatTime(
+    DateTime dateTime,
+    TimeFormatType formatType,
+  ) = FormatTime;
+  const factory WorkoutEvent.formatDuration(int minutes) = FormatDuration;
+  const factory WorkoutEvent.validateWorkoutCreation(
+    ValidateWorkoutCreationParams params,
+  ) = ValidateWorkoutCreation;
 }
