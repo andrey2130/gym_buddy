@@ -5,6 +5,7 @@ import 'package:gym_buddy/features/profile/domain/entities/user_entity.dart';
 import 'package:gym_buddy/features/profile/domain/params/change_user_training_days_params.dart';
 import 'package:gym_buddy/features/profile/domain/params/change_user_training_plan_params.dart';
 import 'package:gym_buddy/features/profile/domain/params/update_user_params.dart';
+import 'package:gym_buddy/features/profile/domain/params/update_user_stats_params.dart';
 import 'package:gym_buddy/features/profile/domain/repositories/profile_repositories.dart';
 import 'package:injectable/injectable.dart';
 
@@ -58,6 +59,21 @@ class ProfileRepositoryImpl implements ProfileRepository {
   ) async {
     try {
       final model = await _dataSource.changeUserTrainingDays(params);
+      if (model == null) {
+        return Left(Failure(message: 'User not found'));
+      }
+      return Right(model.toEntity());
+    } catch (e) {
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserEntity>> updateUserStats(
+    UpdateUserStatsParams params,
+  ) async {
+    try {
+      final model = await _dataSource.updateUserStats(params);
       if (model == null) {
         return Left(Failure(message: 'User not found'));
       }

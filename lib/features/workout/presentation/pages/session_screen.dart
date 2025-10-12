@@ -23,7 +23,7 @@ class SessionScreen extends StatefulWidget {
   final String workoutId;
   final WorkoutEntity? workout;
 
-  const SessionScreen({super.key, required this.workoutId, this.workout});
+  const SessionScreen({required this.workoutId, super.key, this.workout});
 
   @override
   State<SessionScreen> createState() => _SessionScreenState();
@@ -132,6 +132,7 @@ class _SessionScreenState extends State<SessionScreen> {
 
   Widget _buildSessionContent(WorkoutEntity workout) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildSessionHeader(workout),
         const Divider(),

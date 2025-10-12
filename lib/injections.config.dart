@@ -50,8 +50,12 @@ import 'features/profile/domain/usecases/change_user_training_plan_usecase.dart'
     as _i1046;
 import 'features/profile/domain/usecases/get_user_profile_usecase.dart'
     as _i160;
+import 'features/profile/domain/usecases/sync_user_stats_from_workouts_usecase.dart'
+    as _i959;
 import 'features/profile/domain/usecases/update_user_profile_usecase.dart'
     as _i140;
+import 'features/profile/domain/usecases/update_user_stats_usecase.dart'
+    as _i982;
 import 'features/profile/presentation/bloc/profile_bloc.dart' as _i284;
 import 'features/workout/data/datasource/workout_datasource.dart' as _i482;
 import 'features/workout/data/repository/workout_repository_impl.dart' as _i596;
@@ -136,6 +140,9 @@ extension GetItInjectableX on _i174.GetIt {
       () =>
           _i1014.ChangeUserTrainingDaysUsecase(gh<_i1015.ProfileRepository>()),
     );
+    gh.factory<_i982.UpdateUserStatsUsecase>(
+      () => _i982.UpdateUserStatsUsecase(gh<_i1015.ProfileRepository>()),
+    );
     gh.factory<_i540.UpdateWorkoutUsecase>(
       () => _i540.UpdateWorkoutUsecase(gh<_i494.WorkoutRepository>()),
     );
@@ -154,9 +161,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i880.UpdateExerciseInWorkoutUsecase>(
       () => _i880.UpdateExerciseInWorkoutUsecase(gh<_i494.WorkoutRepository>()),
-    );
-    gh.factory<_i903.EndWorkoutSessionUsecase>(
-      () => _i903.EndWorkoutSessionUsecase(gh<_i494.WorkoutRepository>()),
     );
     gh.factory<_i0.AddExerciseToWorkoutUsecase>(
       () => _i0.AddExerciseToWorkoutUsecase(gh<_i494.WorkoutRepository>()),
@@ -197,6 +201,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i630.GetCurrentUserIdUsecase>(
       () => _i630.GetCurrentUserIdUsecase(gh<_i442.AuthRepo>()),
     );
+    gh.factory<_i959.SyncUserStatsFromWorkoutsUsecase>(
+      () => _i959.SyncUserStatsFromWorkoutsUsecase(
+        gh<_i982.UpdateUserStatsUsecase>(),
+      ),
+    );
     gh.factory<_i284.ProfileBloc>(
       () => _i284.ProfileBloc(
         gh<_i630.GetCurrentUserIdUsecase>(),
@@ -204,23 +213,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i140.UpdateUserProfileUsecase>(),
         gh<_i1046.ChangeUserTrainingPlanUsecase>(),
         gh<_i1014.ChangeUserTrainingDaysUsecase>(),
-      ),
-    );
-    gh.factory<_i959.WorkoutBloc>(
-      () => _i959.WorkoutBloc(
-        gh<_i948.GetWorkoutsUsecase>(),
-        gh<_i1046.CreateWorkoutUsecase>(),
-        gh<_i540.UpdateWorkoutUsecase>(),
-        gh<_i407.DeleteWorkoutUsecase>(),
-        gh<_i0.AddExerciseToWorkoutUsecase>(),
-        gh<_i880.UpdateExerciseInWorkoutUsecase>(),
-        gh<_i971.RemoveExerciseFromWorkoutUsecase>(),
-        gh<_i903.EndWorkoutSessionUsecase>(),
-        gh<_i108.CalculateWorkoutStatsUsecase>(),
-        gh<_i341.FilterWorkoutsUsecase>(),
-        gh<_i588.FormatWorkoutTimeUsecase>(),
-        gh<_i589.ValidateWorkoutCreationUsecase>(),
-        gh<_i630.GetCurrentUserIdUsecase>(),
       ),
     );
     gh.factory<_i312.GetOnboardingUsecase>(
@@ -245,6 +237,29 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i100.OnboardingBloc(
         gh<_i226.SaveOnboardingUsecase>(),
         gh<_i312.GetOnboardingUsecase>(),
+      ),
+    );
+    gh.factory<_i903.EndWorkoutSessionUsecase>(
+      () => _i903.EndWorkoutSessionUsecase(
+        gh<_i494.WorkoutRepository>(),
+        gh<_i959.SyncUserStatsFromWorkoutsUsecase>(),
+      ),
+    );
+    gh.factory<_i959.WorkoutBloc>(
+      () => _i959.WorkoutBloc(
+        gh<_i948.GetWorkoutsUsecase>(),
+        gh<_i1046.CreateWorkoutUsecase>(),
+        gh<_i540.UpdateWorkoutUsecase>(),
+        gh<_i407.DeleteWorkoutUsecase>(),
+        gh<_i0.AddExerciseToWorkoutUsecase>(),
+        gh<_i880.UpdateExerciseInWorkoutUsecase>(),
+        gh<_i971.RemoveExerciseFromWorkoutUsecase>(),
+        gh<_i903.EndWorkoutSessionUsecase>(),
+        gh<_i108.CalculateWorkoutStatsUsecase>(),
+        gh<_i341.FilterWorkoutsUsecase>(),
+        gh<_i588.FormatWorkoutTimeUsecase>(),
+        gh<_i589.ValidateWorkoutCreationUsecase>(),
+        gh<_i630.GetCurrentUserIdUsecase>(),
       ),
     );
     return this;

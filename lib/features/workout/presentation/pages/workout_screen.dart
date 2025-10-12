@@ -136,7 +136,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
   ) {
     return SliverList(
       delegate: SliverChildListDelegate([
-        WorkoutStatsCard(stats: stats?.toMap() ?? {}),
+        WorkoutStatsCard(stats: stats),
         const SizedBox(height: 16),
 
         WorkoutFilterChips(

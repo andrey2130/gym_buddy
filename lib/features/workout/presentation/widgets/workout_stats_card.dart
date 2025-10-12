@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:gym_buddy/features/workout/domain/usecase/calculate_workout_stats_usecase.dart';
 
 class WorkoutStatsCard extends StatelessWidget {
-  final Map<String, dynamic> stats;
+  final WorkoutStats? stats;
 
-  const WorkoutStatsCard({super.key, required this.stats});
+  const WorkoutStatsCard({this.stats, super.key});
 
   @override
   Widget build(BuildContext context) {
+    if (stats == null) {
+      return const SizedBox.shrink();
+    }
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
       padding: const EdgeInsets.all(16),
@@ -20,19 +25,19 @@ class WorkoutStatsCard extends StatelessWidget {
           _buildStatItem(
             context,
             'Total Hours',
-            '${stats['totalHours']}h',
+            '${stats!.totalHours}h',
             Icons.timer,
           ),
           _buildStatItem(
             context,
             'Total Reps',
-            '${stats['totalReps']}',
+            '${stats!.totalReps}',
             Icons.fitness_center,
           ),
           _buildStatItem(
             context,
             'Workouts',
-            '${stats['totalWorkouts']}',
+            '${stats!.totalWorkouts}',
             Icons.sports_gymnastics,
           ),
         ],

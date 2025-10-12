@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 class ProfileStatsCard extends StatelessWidget {
   final int totalWorkouts;
   final int totalReps;
-  final int currentStreak;
 
   const ProfileStatsCard({
     required this.totalWorkouts,
     required this.totalReps,
-    required this.currentStreak,
     super.key,
   });
 
@@ -36,6 +34,7 @@ class ProfileStatsCard extends StatelessWidget {
               value: totalWorkouts.toString(),
               label: 'total_workouts'.tr(),
               icon: Icons.fitness_center,
+              subtitle: 'total_workouts'.tr(),
             ),
           ),
           _VerticalDivider(),
@@ -44,15 +43,7 @@ class ProfileStatsCard extends StatelessWidget {
               value: totalReps.toString(),
               label: 'total_reps'.tr(),
               icon: Icons.repeat,
-            ),
-          ),
-          _VerticalDivider(),
-          Expanded(
-            child: _StatItem(
-              value: currentStreak.toString(),
-              label: 'days'.tr(),
-              subtitle: 'current_streak'.tr(),
-              icon: Icons.local_fire_department,
+              subtitle: 'total_reps'.tr(),
             ),
           ),
         ],
@@ -64,13 +55,14 @@ class ProfileStatsCard extends StatelessWidget {
 class _StatItem extends StatelessWidget {
   final String value;
   final String label;
-  final String? subtitle;
+  final String subtitle;
   final IconData icon;
 
   const _StatItem({
     required this.value,
     required this.label,
-    required this.icon, this.subtitle,
+    required this.icon,
+    required this.subtitle,
   });
 
   @override
@@ -87,7 +79,7 @@ class _StatItem extends StatelessWidget {
         ),
         const SizedBox(height: 4),
         Text(
-          subtitle ?? label,
+          subtitle,
           style: Theme.of(context).textTheme.bodyMedium,
           textAlign: TextAlign.center,
           maxLines: 2,
