@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -28,49 +29,49 @@ class _AddExerciseDialogState extends State<AddExerciseDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Add Exercise'),
+      title: Text('add_exercise'.tr()),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           TextField(
             controller: _exerciseNameController,
-            decoration: const InputDecoration(
-              labelText: 'Exercise Name',
-              hintText: 'e.g., Bench Press',
+            decoration: InputDecoration(
+              labelText: 'exercise_name'.tr(),
+              hintText: 'exercise_name_hint'.tr(),
             ),
           ),
           const SizedBox(height: 16),
           TextField(
             controller: _setsController,
-            decoration: const InputDecoration(
-              labelText: 'Number of Sets',
-              hintText: '3',
+            decoration: InputDecoration(
+              labelText: 'number_of_sets'.tr(),
+              hintText: 'sets_hint'.tr(),
             ),
             keyboardType: TextInputType.number,
           ),
           const SizedBox(height: 16),
           TextField(
             controller: _repsController,
-            decoration: const InputDecoration(
-              labelText: 'Reps per Set',
-              hintText: '10',
+            decoration: InputDecoration(
+              labelText: 'reps_per_set'.tr(),
+              hintText: 'reps_per_set_hint'.tr(),
             ),
             keyboardType: TextInputType.number,
           ),
           const SizedBox(height: 16),
           TextField(
             controller: _weightController,
-            decoration: const InputDecoration(
-              labelText: 'Weight (kg)',
-              hintText: '50',
+            decoration: InputDecoration(
+              labelText: 'weight_kg'.tr(),
+              hintText: 'weight_hint_kg'.tr(),
             ),
             keyboardType: TextInputType.number,
           ),
         ],
       ),
       actions: [
-        TextButton(onPressed: () => context.pop(), child: const Text('Cancel')),
-        ElevatedButton(onPressed: _addExercise, child: const Text('Add')),
+        TextButton(onPressed: () => context.pop(), child: Text('cancel'.tr())),
+        ElevatedButton(onPressed: _addExercise, child: Text('add'.tr())),
       ],
     );
   }
@@ -83,7 +84,7 @@ class _AddExerciseDialogState extends State<AddExerciseDialog> {
 
     if (name.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter exercise name')),
+        SnackBar(content: Text('please_enter_exercise_name'.tr())),
       );
       return;
     }

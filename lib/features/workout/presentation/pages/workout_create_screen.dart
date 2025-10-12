@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,7 +41,7 @@ class _WorkoutCreateScreenState extends State<WorkoutCreateScreen> {
               ),
             ),
             Text(
-              'Create your workout',
+              'create_your_workout'.tr(),
               style: Theme.of(context).textTheme.displayLarge,
             ),
             WorkoutForm(

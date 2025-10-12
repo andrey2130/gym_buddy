@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:gym_buddy/features/workout/domain/entity/workout_entity.dart';
 
@@ -56,7 +57,7 @@ class AddExerciseButton extends StatelessWidget {
                   ),
                   const SizedBox(width: 12),
                   Text(
-                    'Add Exercise',
+                    'add_exercise'.tr(),
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,

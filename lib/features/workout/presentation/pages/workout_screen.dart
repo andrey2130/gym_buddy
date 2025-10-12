@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -37,7 +38,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
-                  'Your Workouts',
+                  'your_workouts'.tr(),
                   style: Theme.of(context).textTheme.displayMedium,
                 ),
               ),

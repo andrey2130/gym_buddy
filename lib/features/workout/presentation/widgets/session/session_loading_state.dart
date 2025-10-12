@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class SessionLoadingState extends StatelessWidget {
@@ -16,7 +17,7 @@ class SessionLoadingState extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            'Loading workout session...',
+            'loading_workout_session'.tr(),
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
               color: Theme.of(
                 context,

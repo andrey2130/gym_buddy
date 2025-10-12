@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class SessionErrorState extends StatelessWidget {
@@ -25,7 +26,7 @@ class SessionErrorState extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            'Error',
+            'error'.tr(),
             style: Theme.of(context).textTheme.displayMedium?.copyWith(
               color: Theme.of(context).colorScheme.error,
               fontWeight: FontWeight.bold,

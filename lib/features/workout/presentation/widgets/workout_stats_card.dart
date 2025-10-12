@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:gym_buddy/features/workout/domain/usecase/calculate_workout_stats_usecase.dart';
 
@@ -24,19 +25,19 @@ class WorkoutStatsCard extends StatelessWidget {
         children: [
           _buildStatItem(
             context,
-            'Total Hours',
+            'total_hours'.tr(),
             '${stats!.totalHours}h',
             Icons.timer,
           ),
           _buildStatItem(
             context,
-            'Total Reps',
+            'total_reps'.tr(),
             '${stats!.totalReps}',
             Icons.fitness_center,
           ),
           _buildStatItem(
             context,
-            'Workouts',
+            'total_workouts'.tr(),
             '${stats!.totalWorkouts}',
             Icons.sports_gymnastics,
           ),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:gym_buddy/features/workout/domain/entity/workout_entity.dart';
 import 'package:gym_buddy/features/workout/domain/usecase/calculate_workout_stats_usecase.dart';
@@ -29,9 +30,9 @@ class WorkoutContentBuilder extends StatelessWidget {
         WorkoutStatsCard(stats: stats),
         const SizedBox(height: 16),
         if (groupedWorkouts.isEmpty)
-          const WorkoutEmptyState(
-            title: 'No workouts found',
-            subtitle: 'Create your first workout to get started!',
+          WorkoutEmptyState(
+            title: 'no_workouts_found'.tr(),
+            subtitle: 'create_first_workout_message'.tr(),
           )
         else
           WorkoutDayFilter(groupedWorkouts: groupedWorkouts),

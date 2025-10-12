@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:gym_buddy/features/workout/domain/entity/exercise_entity.dart';
 import 'package:gym_buddy/features/workout/domain/entity/set_entity.dart';
@@ -12,7 +13,9 @@ class ExerciseCard extends StatelessWidget {
   final Function(ExerciseEntity, int)? onRemoveSet;
 
   const ExerciseCard({
-    required this.exercise, required this.workout, super.key,
+    required this.exercise,
+    required this.workout,
+    super.key,
     this.onRemoveExercise,
     this.onAddSet,
     this.onEditSet,
@@ -57,7 +60,7 @@ class ExerciseCard extends StatelessWidget {
               TextButton.icon(
                 onPressed: onAddSet,
                 icon: const Icon(Icons.add),
-                label: const Text('Add Set'),
+                label: Text('add_set'.tr()),
               ),
             ],
           ],
@@ -90,7 +93,7 @@ class ExerciseCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: workout.isCompleted
-                      ? Text('${set.reps} reps')
+                      ? Text('${set.reps} ${'reps'.tr()}')
                       : InkWell(
                           onTap: onEditSet != null
                               ? () => onEditSet!(exercise, setIndex, set)
@@ -106,7 +109,7 @@ class ExerciseCard extends StatelessWidget {
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            child: Text('${set.reps} reps'),
+                            child: Text('${set.reps} ${'reps'.tr()}'),
                           ),
                         ),
                 ),

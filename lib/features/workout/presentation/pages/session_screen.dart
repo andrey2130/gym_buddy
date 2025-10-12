@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -83,7 +84,7 @@ class _SessionScreenState extends State<SessionScreen>
                   } catch (e) {
                     WidgetsBinding.instance.addPostFrameCallback((_) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Workout not found')),
+                        SnackBar(content: Text('workout_not_found'.tr())),
                       );
                       context.pop();
                     });
@@ -127,7 +128,7 @@ class _SessionScreenState extends State<SessionScreen>
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                'Exercises',
+                'exercises'.tr(),
                 style: Theme.of(context).textTheme.displayMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).colorScheme.onSurface,

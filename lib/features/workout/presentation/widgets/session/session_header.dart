@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:gym_buddy/core/theme/app_themes.dart';
 import 'package:gym_buddy/features/workout/domain/entity/workout_entity.dart';
@@ -96,7 +97,7 @@ class SessionHeader extends StatelessWidget {
                 child: InfoCard(
                   context: context,
                   icon: Icons.access_time,
-                  label: 'Started',
+                  label: 'started'.tr(),
                   value: _formatTime(workout.startTime),
                 ),
               ),
@@ -106,7 +107,7 @@ class SessionHeader extends StatelessWidget {
                   child: InfoCard(
                     context: context,
                     icon: Icons.timer,
-                    label: 'Duration',
+                    label: 'duration'.tr(),
                     value: _formatDuration(workout.duration!),
                     color: Colors.green,
                   ),
@@ -145,7 +146,7 @@ class StatusChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final isCompleted = workout.isCompleted;
     final color = isCompleted ? Colors.green : AppThemes.secondary;
-    final text = isCompleted ? 'Completed' : 'In Progress';
+    final text = isCompleted ? 'completed'.tr() : 'in_progress'.tr();
     final icon = isCompleted ? Icons.check_circle : Icons.play_circle;
 
     return Container(

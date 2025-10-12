@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gym_buddy/core/widgets/custom_date_picker.dart';
@@ -35,20 +36,20 @@ class _WorkoutFormState extends State<WorkoutForm> {
     return Column(
       children: [
         CustomExpansionTile(
-          title: 'Enter workout name',
+          title: 'enter_workout_name'.tr(),
           icon: Icons.fitness_center,
           iosIcon: Icons.fitness_center,
           children: [
             CustomTextField(
               controller: widget.nameController,
-              labelText: 'Workout name',
-              hintText: 'Example: Push, Pull, Legs',
+              labelText: 'workout_name'.tr(),
+              hintText: 'workout_name_hint'.tr(),
               onChanged: (_) => widget.onFormChanged(),
             ),
           ],
         ),
         CustomExpansionTile(
-          title: 'Select workout date and time',
+          title: 'select_workout_date_and_time'.tr(),
           icon: Icons.calendar_today,
           iosIcon: CupertinoIcons.calendar,
           children: [
@@ -98,7 +99,7 @@ class _WorkoutFormState extends State<WorkoutForm> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Date',
+                    'date'.tr(),
                     style: Theme.of(context).textTheme.labelMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
@@ -154,7 +155,7 @@ class _WorkoutFormState extends State<WorkoutForm> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Start Time',
+                    'start_time'.tr(),
                     style: Theme.of(context).textTheme.labelMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
@@ -200,12 +201,12 @@ class _WorkoutFormState extends State<WorkoutForm> {
   }
 
   String _formatDate(DateTime? date) {
-    if (date == null) return 'No date selected';
+    if (date == null) return 'no_date_selected'.tr();
     return '${date.day}/${date.month}/${date.year}';
   }
 
   String _formatTime(TimeOfDay? time) {
-    if (time == null) return 'No time selected';
+    if (time == null) return 'no_time_selected'.tr();
 
     final hour = time.hour.toString().padLeft(2, '0');
     final minute = time.minute.toString().padLeft(2, '0');

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gym_buddy/features/workout/presentation/bloc/workout_bloc.dart';
@@ -29,7 +30,7 @@ class WorkoutCreateButton extends StatelessWidget {
               onPressed: isValid && !isLoading ? onCreateWorkout : null,
               child: isLoading
                   ? const CircularProgressIndicator.adaptive()
-                  : const Text('Create Workout'),
+                  : Text('create_workout'.tr()),
             ),
           ),
         );

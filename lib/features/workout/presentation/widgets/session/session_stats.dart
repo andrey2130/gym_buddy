@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:gym_buddy/features/workout/domain/entity/workout_entity.dart';
 
@@ -47,7 +48,7 @@ class SessionStats extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Session Progress',
+            'session_progress'.tr(),
             style: Theme.of(context).textTheme.displayMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Theme.of(context).colorScheme.onSurface,
@@ -60,7 +61,7 @@ class SessionStats extends StatelessWidget {
                 child: StatItem(
                   context: context,
                   value: '${workout.exercises.length}',
-                  label: 'Exercises',
+                  label: 'exercises'.tr(),
                   icon: Icons.fitness_center,
                 ),
               ),
@@ -68,7 +69,7 @@ class SessionStats extends StatelessWidget {
                 child: StatItem(
                   context: context,
                   value: '$completedSets/$totalSets',
-                  label: 'Sets',
+                  label: 'sets'.tr(),
                   icon: Icons.repeat,
                 ),
               ),
@@ -76,7 +77,7 @@ class SessionStats extends StatelessWidget {
                 child: StatItem(
                   context: context,
                   value: '$totalReps',
-                  label: 'Reps',
+                  label: 'reps'.tr(),
                   icon: Icons.trending_up,
                 ),
               ),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -113,14 +114,14 @@ class _WorkoutDayFilterState extends State<WorkoutDayFilter>
           ),
           const SizedBox(height: 16),
           Text(
-            'No Workouts Yet',
+            'no_workouts_yet'.tr(),
             style: Theme.of(context).textTheme.displayMedium?.copyWith(
               color: Theme.of(context).colorScheme.onSurface,
             ),
           ),
           const SizedBox(height: 8),
           Text(
-            'Start your fitness journey by creating your first workout!',
+            'start_your_fitness_journey_by_creating_your_first_workout'.tr(),
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: Theme.of(
@@ -237,14 +238,14 @@ class _WorkoutDayFilterState extends State<WorkoutDayFilter>
                       children: [
                         _buildStatChip(
                           context,
-                          '${workouts.length} workout${workouts.length == 1 ? '' : 's'}',
+                          '${workouts.length} ${workouts.length == 1 ? 'workout'.tr() : 'workouts'.tr()}',
                           Icons.fitness_center,
                         ),
                         const SizedBox(width: 8),
                         if (completedWorkouts > 0)
                           _buildStatChip(
                             context,
-                            '$completedWorkouts completed',
+                            '$completedWorkouts ${'completed'.tr()}',
                             Icons.check_circle,
                             color: Colors.green,
                           ),

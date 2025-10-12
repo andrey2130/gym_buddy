@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -53,14 +54,14 @@ class SessionAppBar extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Workout Session',
+                  'workout_session'.tr(),
                   style: Theme.of(context).textTheme.displayMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).colorScheme.onSurface,
                   ),
                 ),
                 Text(
-                  'Track your progress',
+                  'track_your_progress'.tr(),
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: Theme.of(
                       context,
@@ -124,16 +125,16 @@ class EndSessionButton extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
           onTap: () => _endSession(context, workout),
-          child: const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.stop_circle, color: Colors.white, size: 18),
-                SizedBox(width: 6),
+                const Icon(Icons.stop_circle, color: Colors.white, size: 18),
+                const SizedBox(width: 6),
                 Text(
-                  'End Session',
-                  style: TextStyle(
+                  'end_session'.tr(),
+                  style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w600,
                     fontSize: 14,
@@ -184,14 +185,16 @@ class EndSessionButton extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 12),
-            const Text('Session Completed!'),
+            Text('session_completed'.tr()),
           ],
         ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Great job! Your workout lasted ${_formatDuration(duration)}.',
+              'great_job_workout_duration'.tr(
+                args: [_formatDuration(duration)],
+              ),
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             const SizedBox(height: 16),
@@ -212,7 +215,7 @@ class EndSessionButton extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    'Keep up the great work!',
+                    'keep_up_great_work'.tr(),
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.primary,
                       fontWeight: FontWeight.w600,
@@ -237,7 +240,7 @@ class EndSessionButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
             ),
-            child: const Text('Awesome!'),
+            child: Text('awesome'.tr()),
           ),
         ],
       ),
@@ -271,14 +274,14 @@ class CompletedBadge extends StatelessWidget {
           width: 1,
         ),
       ),
-      child: const Row(
+      child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.check_circle, color: Colors.green, size: 16),
-          SizedBox(width: 4),
+          const Icon(Icons.check_circle, color: Colors.green, size: 16),
+          const SizedBox(width: 4),
           Text(
-            'Completed',
-            style: TextStyle(
+            'completed'.tr(),
+            style: const TextStyle(
               color: Colors.green,
               fontWeight: FontWeight.w600,
               fontSize: 12,

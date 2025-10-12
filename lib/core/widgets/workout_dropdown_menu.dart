@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -26,7 +27,7 @@ class WorkoutDropdownMenu {
       context: context,
       builder: (context) => CupertinoActionSheet(
         title: Text(
-          'Workout Options',
+          'workout_options'.tr(),
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
@@ -34,7 +35,7 @@ class WorkoutDropdownMenu {
           ),
         ),
         message: Text(
-          'What would you like to do with "$workoutName"?',
+          'workout_options_message'.tr(args: [workoutName]),
           style: TextStyle(
             fontSize: 14,
             color: CupertinoColors.secondaryLabel.resolveFrom(context),
@@ -46,18 +47,18 @@ class WorkoutDropdownMenu {
               context.pop();
               _showDeleteConfirmation(context, onDelete, workoutName);
             },
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
+                const Icon(
                   CupertinoIcons.delete,
                   color: CupertinoColors.destructiveRed,
                   size: 20,
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 Text(
-                  'Delete Workout',
-                  style: TextStyle(
+                  'delete_workout'.tr(),
+                  style: const TextStyle(
                     color: CupertinoColors.destructiveRed,
                     fontWeight: FontWeight.w600,
                   ),
@@ -68,9 +69,9 @@ class WorkoutDropdownMenu {
         ],
         cancelButton: CupertinoActionSheetAction(
           onPressed: () => context.pop(),
-          child: const Text(
-            'Cancel',
-            style: TextStyle(
+          child: Text(
+            'cancel'.tr(),
+            style: const TextStyle(
               color: CupertinoColors.activeBlue,
               fontWeight: FontWeight.w600,
             ),
@@ -89,15 +90,15 @@ class WorkoutDropdownMenu {
       context: context,
       position: const RelativeRect.fromLTRB(100, 100, 0, 0),
       items: [
-        const PopupMenuItem<String>(
-          value: 'delete',
+        PopupMenuItem<String>(
+          value: 'delete'.tr(),
           child: Row(
             children: [
-              Icon(Icons.delete_outline, color: Colors.red, size: 20),
-              SizedBox(width: 12),
+              const Icon(Icons.delete_outline, color: Colors.red, size: 20),
+              const SizedBox(width: 12),
               Text(
-                'Delete Workout',
-                style: TextStyle(
+                'delete_workout'.tr(),
+                style: const TextStyle(
                   color: Colors.red,
                   fontWeight: FontWeight.w500,
                 ),
@@ -134,14 +135,14 @@ class WorkoutDropdownMenu {
       context: context,
       builder: (context) => CupertinoAlertDialog(
         title: Text(
-          'Delete Workout',
+          'delete_workout'.tr(),
           style: TextStyle(
             fontWeight: FontWeight.w600,
             color: CupertinoColors.label.resolveFrom(context),
           ),
         ),
         content: Text(
-          'Are you sure you want to delete "$workoutName"? This action cannot be undone.',
+          'delete_workout_confirmation'.tr(args: [workoutName]),
           style: TextStyle(
             color: CupertinoColors.secondaryLabel.resolveFrom(context),
           ),
@@ -149,9 +150,9 @@ class WorkoutDropdownMenu {
         actions: [
           CupertinoDialogAction(
             onPressed: () => context.pop(),
-            child: const Text(
-              'Cancel',
-              style: TextStyle(
+            child: Text(
+              'cancel'.tr(),
+              style: const TextStyle(
                 color: CupertinoColors.activeBlue,
                 fontWeight: FontWeight.w600,
               ),
@@ -163,9 +164,9 @@ class WorkoutDropdownMenu {
               context.pop();
               onDelete();
             },
-            child: const Text(
-              'Delete',
-              style: TextStyle(
+            child: Text(
+              'delete'.tr(),
+              style: const TextStyle(
                 color: CupertinoColors.destructiveRed,
                 fontWeight: FontWeight.w600,
               ),
@@ -185,14 +186,14 @@ class WorkoutDropdownMenu {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(
-          'Delete Workout',
+          'delete_workout'.tr(),
           style: TextStyle(
             fontWeight: FontWeight.w600,
             color: Theme.of(context).colorScheme.onSurface,
           ),
         ),
         content: Text(
-          'Are you sure you want to delete "$workoutName"? This action cannot be undone.',
+          'delete_workout_confirmation'.tr(args: [workoutName]),
           style: TextStyle(
             color: Theme.of(
               context,
@@ -203,7 +204,7 @@ class WorkoutDropdownMenu {
           TextButton(
             onPressed: () => context.pop(),
             child: Text(
-              'Cancel',
+              'cancel'.tr(),
               style: TextStyle(
                 color: Theme.of(context).colorScheme.primary,
                 fontWeight: FontWeight.w600,
@@ -216,9 +217,12 @@ class WorkoutDropdownMenu {
               onDelete();
             },
             style: TextButton.styleFrom(foregroundColor: Colors.red),
-            child: const Text(
-              'Delete',
-              style: TextStyle(color: Colors.red, fontWeight: FontWeight.w600),
+            child: Text(
+              'delete'.tr(),
+              style: const TextStyle(
+                color: Colors.red,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
         ],

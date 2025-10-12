@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gym_buddy/features/workout/presentation/bloc/workout_bloc.dart';
@@ -49,7 +50,7 @@ class WorkoutStateHandler extends StatelessWidget {
 
         if (state is Failure) {
           return SliverToBoxAdapter(
-            child: Center(child: Text('Error: ${state.message}')),
+            child: Center(child: Text('${'error'.tr()}: ${state.message}')),
           );
         }
 

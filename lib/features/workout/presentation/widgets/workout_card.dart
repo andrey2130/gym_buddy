@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gym_buddy/core/theme/app_themes.dart';
@@ -183,7 +184,7 @@ class _WorkoutCardState extends State<WorkoutCard>
   Widget _buildStatusChip(BuildContext context) {
     final isCompleted = widget.workout.isCompleted;
     final color = isCompleted ? Colors.green : AppThemes.secondary;
-    final text = isCompleted ? 'Completed' : 'Active';
+    final text = isCompleted ? 'completed'.tr() : 'in_progress'.tr();
     final icon = isCompleted ? Icons.check_circle : Icons.play_circle;
 
     return Container(
@@ -234,7 +235,7 @@ class _WorkoutCardState extends State<WorkoutCard>
             context,
             Icons.calendar_today,
             _formatDate(widget.workout.date),
-            'Date',
+            'date'.tr(),
           ),
         ),
         const SizedBox(width: 16),
@@ -243,7 +244,7 @@ class _WorkoutCardState extends State<WorkoutCard>
             context,
             Icons.access_time,
             _formatTime(widget.workout.startTime),
-            'Start Time',
+            'start_time'.tr(),
           ),
         ),
         if (widget.workout.isCompleted && widget.workout.duration != null) ...[
@@ -253,7 +254,7 @@ class _WorkoutCardState extends State<WorkoutCard>
               context,
               Icons.timer,
               _formatDuration(widget.workout.duration!),
-              'Duration',
+              'duration'.tr(),
             ),
           ),
         ],
@@ -274,13 +275,16 @@ class _WorkoutCardState extends State<WorkoutCard>
           children: [
             Icon(icon, size: 14, color: Theme.of(context).colorScheme.primary),
             const SizedBox(width: 4),
-            Text(
-              label,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: Theme.of(
-                  context,
-                ).colorScheme.onSurface.withValues(alpha: 0.7),
-                fontSize: 11,
+            Expanded(
+              child: Text(
+                label,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withValues(alpha: 0.7),
+                  fontSize: 11,
+                ),
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],
@@ -315,7 +319,7 @@ class _WorkoutCardState extends State<WorkoutCard>
             ),
             const SizedBox(width: 6),
             Text(
-              'No exercises added yet',
+              'no_exercises_added_yet'.tr(),
               style: TextStyle(
                 fontSize: 12,
                 color: Theme.of(context).colorScheme.primary,
@@ -337,17 +341,17 @@ class _WorkoutCardState extends State<WorkoutCard>
           sum + exercise.sets.fold<int>(0, (setSum, set) => setSum + set.reps),
     );
 
-    return Row(
+    return Wrap(
+      spacing: 8,
+      runSpacing: 4,
       children: [
         _buildStatChip(
           context,
-          '${widget.workout.exercises.length} exercise${widget.workout.exercises.length == 1 ? '' : 's'}',
+          '${widget.workout.exercises.length} ${widget.workout.exercises.length == 1 ? 'exercise'.tr() : 'exercises_plural'.tr()}',
           Icons.fitness_center,
         ),
-        const SizedBox(width: 8),
-        _buildStatChip(context, '$totalSets sets', Icons.repeat),
-        const SizedBox(width: 8),
-        _buildStatChip(context, '$totalReps reps', Icons.trending_up),
+        _buildStatChip(context, '$totalSets ${'sets'.tr()}', Icons.repeat),
+        _buildStatChip(context, '$totalReps ${'reps'.tr()}', Icons.trending_up),
       ],
     );
   }
@@ -368,12 +372,15 @@ class _WorkoutCardState extends State<WorkoutCard>
         children: [
           Icon(icon, size: 12, color: Theme.of(context).colorScheme.primary),
           const SizedBox(width: 4),
-          Text(
-            text,
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.w500,
-              color: Theme.of(context).colorScheme.primary,
+          Flexible(
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w500,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ],

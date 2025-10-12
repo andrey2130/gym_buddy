@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class SessionEmptyState extends StatelessWidget {
@@ -42,7 +43,7 @@ class SessionEmptyState extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            'No Exercises Yet',
+            'no_exercises_yet'.tr(),
             style: Theme.of(context).textTheme.displayMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Theme.of(context).colorScheme.onSurface,
@@ -51,7 +52,7 @@ class SessionEmptyState extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            'Add your first exercise to start tracking your workout progress!',
+            'add_first_exercise_message'.tr(),
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: Theme.of(

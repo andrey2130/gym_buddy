@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -50,7 +51,7 @@ class WorkoutCreateService {
       if (context.mounted) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(const SnackBar(content: Text('User not authenticated')));
+        ).showSnackBar(SnackBar(content: Text('user_not_authenticated'.tr())));
       }
       return;
     }
@@ -80,15 +81,15 @@ class WorkoutCreateService {
     showAdaptiveDialog(
       context: context,
       builder: (context) => AlertDialog.adaptive(
-        title: const Text('Success'),
-        content: const Text('Workout created successfully!'),
+        title: Text('success'.tr()),
+        content: Text('workout_created_successfully'.tr()),
         actions: [
           TextButton(
             onPressed: () {
               context.pop();
               context.pop();
             },
-            child: const Text('OK'),
+            child: Text('ok'.tr()),
           ),
         ],
       ),

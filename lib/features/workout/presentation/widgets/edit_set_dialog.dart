@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gym_buddy/features/workout/domain/entity/set_entity.dart';
@@ -41,32 +42,32 @@ class _EditSetDialogState extends State<EditSetDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Edit Set ${widget.setIndex + 1}'),
+      title: Text('edit_set'.tr(args: ['${widget.setIndex + 1}'])),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           TextField(
             controller: _repsController,
-            decoration: const InputDecoration(
-              labelText: 'Reps',
-              hintText: '12',
+            decoration: InputDecoration(
+              labelText: 'reps_label'.tr(),
+              hintText: 'reps_hint'.tr(),
             ),
             keyboardType: TextInputType.number,
           ),
           const SizedBox(height: 16),
           TextField(
             controller: _weightController,
-            decoration: const InputDecoration(
-              labelText: 'Weight (kg)',
-              hintText: '60',
+            decoration: InputDecoration(
+              labelText: 'weight_kg'.tr(),
+              hintText: 'weight_hint'.tr(),
             ),
             keyboardType: TextInputType.number,
           ),
         ],
       ),
       actions: [
-        TextButton(onPressed: () => context.pop(), child: const Text('Cancel')),
-        ElevatedButton(onPressed: _saveSet, child: const Text('Save')),
+        TextButton(onPressed: () => context.pop(), child: Text('cancel'.tr())),
+        ElevatedButton(onPressed: _saveSet, child: Text('save'.tr())),
       ],
     );
   }
