@@ -32,222 +32,216 @@ class _WorkoutCreateScreenState extends State<WorkoutCreateScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => context.read<WorkoutBloc>(),
-      child: Scaffold(
-        body: SafeArea(
-          child: Column(
-            children: [
-              CustomAppBar(
-                leftWidget: IconButton(
-                  onPressed: () => context.pop(),
-                  icon: Platform.isAndroid
-                      ? const Icon(Icons.arrow_back)
-                      : const Icon(CupertinoIcons.back),
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            CustomAppBar(
+              leftWidget: IconButton(
+                onPressed: () => context.pop(),
+                icon: Platform.isAndroid
+                    ? const Icon(Icons.arrow_back)
+                    : const Icon(CupertinoIcons.back),
+              ),
+            ),
+            Text(
+              'Create your workout',
+              style: Theme.of(context).textTheme.displayLarge,
+            ),
+            CustomExpansionTile(
+              title: 'Enter workout name',
+              icon: Icons.fitness_center,
+              iosIcon: Icons.fitness_center,
+              children: [
+                CustomTextField(
+                  controller: _nameController,
+                  labelText: 'Workout name',
+                  hintText: 'Example: Push, Pull, Legs',
+                  onChanged: (_) => _validateFormIfReady(),
                 ),
-              ),
-              Text(
-                'Create your workout',
-                style: Theme.of(context).textTheme.displayLarge,
-              ),
-              CustomExpansionTile(
-                title: 'Enter workout name',
-                icon: Icons.fitness_center,
-                iosIcon: Icons.fitness_center,
-                children: [
-                  CustomTextField(
-                    controller: _nameController,
-                    labelText: 'Workout name',
-                    hintText: 'Example: Push, Pull, Legs',
-                    onChanged: (_) => _validateFormIfReady(),
-                  ),
-                ],
-              ),
-              CustomExpansionTile(
-                title: 'Select workout date and time',
-                icon: Icons.calendar_today,
-                iosIcon: CupertinoIcons.calendar,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      children: [
-                        InkWell(
-                          onTap: _selectDate,
-                          borderRadius: BorderRadius.circular(12),
-                          child: Container(
-                            width: double.infinity,
-                            padding: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .surfaceContainerHighest
-                                  .withValues(alpha: 0.5),
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
-                                color: Theme.of(
-                                  context,
-                                ).colorScheme.outline.withValues(alpha: 0.2),
-                              ),
-                            ),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Platform.isAndroid
-                                      ? Icons.calendar_today
-                                      : CupertinoIcons.calendar,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                                const SizedBox(width: 16),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Date',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelMedium
-                                            ?.copyWith(
-                                              color: Theme.of(
-                                                context,
-                                              ).colorScheme.onSurfaceVariant,
-                                            ),
-                                      ),
-                                      const SizedBox(height: 4),
-                                      Text(
-                                        _formatDate(_selectedDate),
-                                        style: Theme.of(
-                                          context,
-                                        ).textTheme.bodyLarge,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Icon(
-                                  Platform.isAndroid
-                                      ? Icons.chevron_right
-                                      : CupertinoIcons.chevron_right,
-                                  color: Theme.of(
-                                    context,
-                                  ).colorScheme.onSurfaceVariant,
-                                ),
-                              ],
+              ],
+            ),
+            CustomExpansionTile(
+              title: 'Select workout date and time',
+              icon: Icons.calendar_today,
+              iosIcon: CupertinoIcons.calendar,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      InkWell(
+                        onTap: _selectDate,
+                        borderRadius: BorderRadius.circular(12),
+                        child: Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .surfaceContainerHighest
+                                .withValues(alpha: 0.5),
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.outline.withValues(alpha: 0.2),
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 16),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: InkWell(
-                                onTap: _selectStartTime,
-                                borderRadius: BorderRadius.circular(12),
-                                child: Container(
-                                  padding: const EdgeInsets.all(16),
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .surfaceContainerHighest
-                                        .withValues(alpha: 0.5),
-                                    borderRadius: BorderRadius.circular(12),
-                                    border: Border.all(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .outline
-                                          .withValues(alpha: 0.2),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Platform.isAndroid
+                                    ? Icons.calendar_today
+                                    : CupertinoIcons.calendar,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Date',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelMedium
+                                          ?.copyWith(
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.onSurfaceVariant,
+                                          ),
                                     ),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      _formatDate(_selectedDate),
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.bodyLarge,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Icon(
+                                Platform.isAndroid
+                                    ? Icons.chevron_right
+                                    : CupertinoIcons.chevron_right,
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onSurfaceVariant,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: InkWell(
+                              onTap: _selectStartTime,
+                              borderRadius: BorderRadius.circular(12),
+                              child: Container(
+                                padding: const EdgeInsets.all(16),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .surfaceContainerHighest
+                                      .withValues(alpha: 0.5),
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(
+                                    color: Theme.of(context).colorScheme.outline
+                                        .withValues(alpha: 0.2),
                                   ),
-                                  child: Column(
-                                    children: [
-                                      Icon(
-                                        Platform.isAndroid
-                                            ? Icons.access_time
-                                            : CupertinoIcons.time,
-                                        color: Theme.of(
-                                          context,
-                                        ).colorScheme.primary,
-                                        size: 28,
-                                      ),
-                                      const SizedBox(height: 8),
-                                      Text(
-                                        'Start Time',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelMedium
-                                            ?.copyWith(
-                                              color: Theme.of(
-                                                context,
-                                              ).colorScheme.onSurfaceVariant,
-                                            ),
-                                      ),
-                                      const SizedBox(height: 4),
-                                      Text(
-                                        _formatTime(_startTime),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleMedium
-                                            ?.copyWith(
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Icon(
+                                      Platform.isAndroid
+                                          ? Icons.access_time
+                                          : CupertinoIcons.time,
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.primary,
+                                      size: 28,
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      'Start Time',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelMedium
+                                          ?.copyWith(
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.onSurfaceVariant,
+                                          ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      _formatTime(_startTime),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium
+                                          ?.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
-                          ],
-                        ),
-                      ],
-                    ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              const Spacer(),
-              BlocConsumer<WorkoutBloc, WorkoutState>(
-                listener: (context, state) {
-                  state.whenOrNull(
-                    created: (workout) {
-                      _showSuccessDialog(context);
-                    },
-                    failure: (message) {
-                      ScaffoldMessenger.of(
-                        context,
-                      ).showSnackBar(SnackBar(content: Text(message)));
-                    },
-                  );
-                },
-                builder: (context, state) {
-                  final isValid = state.maybeWhen(
-                    workoutValidated: (isValid) => isValid,
-                    orElse: () => false,
-                  );
+                ),
+              ],
+            ),
+            const Spacer(),
+            BlocConsumer<WorkoutBloc, WorkoutState>(
+              listener: (context, state) {
+                state.whenOrNull(
+                  created: (workout) {
+                    _showSuccessDialog(context);
+                  },
+                  failure: (message) {
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(SnackBar(content: Text(message)));
+                  },
+                );
+              },
+              builder: (context, state) {
+                final isValid = state.maybeWhen(
+                  workoutValidated: (isValid) => isValid,
+                  orElse: () => false,
+                );
 
-                  return Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed:
-                            isValid &&
-                                !state.maybeWhen(
-                                  loading: () => true,
-                                  orElse: () => false,
-                                )
-                            ? _createWorkout
-                            : null,
-                        child: state.maybeWhen(
-                          loading: () => const CircularProgressIndicator(),
-                          orElse: () => const Text('Create Workout'),
-                        ),
+                return Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed:
+                          isValid &&
+                              !state.maybeWhen(
+                                loading: () => true,
+                                orElse: () => false,
+                              )
+                          ? _createWorkout
+                          : null,
+                      child: state.maybeWhen(
+                        loading: () => const CircularProgressIndicator(),
+                        orElse: () => const Text('Create Workout'),
                       ),
                     ),
-                  );
-                },
-              ),
-            ],
-          ),
+                  ),
+                );
+              },
+            ),
+          ],
         ),
       ),
     );
@@ -282,9 +276,11 @@ class _WorkoutCreateScreenState extends State<WorkoutCreateScreen> {
           : null,
     );
 
-    context.read<WorkoutBloc>().add(
-      WorkoutEvent.validateWorkoutCreation(params),
-    );
+    if (mounted) {
+      context.read<WorkoutBloc>().add(
+        WorkoutEvent.validateWorkoutCreation(params),
+      );
+    }
   }
 
   Future<void> _createWorkout() async {
@@ -314,7 +310,9 @@ class _WorkoutCreateScreenState extends State<WorkoutCreateScreen> {
       createdAt: DateTime.now(),
     );
 
-    context.read<WorkoutBloc>().add(WorkoutEvent.createWorkout(workout));
+    if (mounted) {
+      context.read<WorkoutBloc>().add(WorkoutEvent.createWorkout(workout));
+    }
   }
 
   void _showSuccessDialog(BuildContext context) {
@@ -326,7 +324,7 @@ class _WorkoutCreateScreenState extends State<WorkoutCreateScreen> {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.of(context).pop();
+              context.pop();
               context.pop();
             },
             child: const Text('OK'),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gym_buddy/features/workout/domain/entity/set_entity.dart';
 
 class EditSetDialog extends StatefulWidget {
@@ -64,10 +65,7 @@ class _EditSetDialogState extends State<EditSetDialog> {
         ],
       ),
       actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Cancel'),
-        ),
+        TextButton(onPressed: () => context.pop(), child: const Text('Cancel')),
         ElevatedButton(onPressed: _saveSet, child: const Text('Save')),
       ],
     );
@@ -78,6 +76,6 @@ class _EditSetDialogState extends State<EditSetDialog> {
     final weight = double.tryParse(_weightController.text) ?? widget.set.weight;
 
     widget.onSave(reps, weight);
-    Navigator.of(context).pop();
+    context.pop();
   }
 }

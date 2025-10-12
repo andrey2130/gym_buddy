@@ -36,7 +36,9 @@ class _SessionScreenState extends State<SessionScreen> {
 
     if (widget.workout == null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        context.read<WorkoutBloc>().add(const WorkoutEvent.loadWorkouts());
+        if (mounted) {
+          context.read<WorkoutBloc>().add(const WorkoutEvent.loadWorkouts());
+        }
       });
     }
   }
@@ -250,7 +252,11 @@ class _SessionScreenState extends State<SessionScreen> {
     );
 
     final params = AddExerciseParams(workout: workout, exercise: exercise);
-    context.read<WorkoutBloc>().add(WorkoutEvent.addExerciseToWorkout(params));
+    if (mounted) {
+      context.read<WorkoutBloc>().add(
+        WorkoutEvent.addExerciseToWorkout(params),
+      );
+    }
   }
 
   void _addSet(WorkoutEntity workout, ExerciseEntity exercise) {
@@ -271,9 +277,11 @@ class _SessionScreenState extends State<SessionScreen> {
       exercise: updatedExercise,
     );
 
-    context.read<WorkoutBloc>().add(
-      WorkoutEvent.updateExerciseInWorkout(params),
-    );
+    if (mounted) {
+      context.read<WorkoutBloc>().add(
+        WorkoutEvent.updateExerciseInWorkout(params),
+      );
+    }
   }
 
   void _removeSet(
@@ -291,9 +299,11 @@ class _SessionScreenState extends State<SessionScreen> {
       exercise: updatedExercise,
     );
 
-    context.read<WorkoutBloc>().add(
-      WorkoutEvent.updateExerciseInWorkout(params),
-    );
+    if (mounted) {
+      context.read<WorkoutBloc>().add(
+        WorkoutEvent.updateExerciseInWorkout(params),
+      );
+    }
   }
 
   void _removeExercise(WorkoutEntity workout, ExerciseEntity exercise) {
@@ -302,9 +312,11 @@ class _SessionScreenState extends State<SessionScreen> {
       exerciseId: exercise.exerciseId,
     );
 
-    context.read<WorkoutBloc>().add(
-      WorkoutEvent.removeExerciseFromWorkout(params),
-    );
+    if (mounted) {
+      context.read<WorkoutBloc>().add(
+        WorkoutEvent.removeExerciseFromWorkout(params),
+      );
+    }
   }
 
   void _editSet(
@@ -330,9 +342,11 @@ class _SessionScreenState extends State<SessionScreen> {
             exercise: updatedExercise,
           );
 
-          context.read<WorkoutBloc>().add(
-            WorkoutEvent.updateExerciseInWorkout(params),
-          );
+          if (mounted) {
+            context.read<WorkoutBloc>().add(
+              WorkoutEvent.updateExerciseInWorkout(params),
+            );
+          }
         },
       ),
     );
@@ -344,7 +358,9 @@ class _SessionScreenState extends State<SessionScreen> {
 
     final params = EndWorkoutSessionParams(workout: workout, endTime: endTime);
 
-    context.read<WorkoutBloc>().add(WorkoutEvent.endWorkoutSession(params));
+    if (mounted) {
+      context.read<WorkoutBloc>().add(WorkoutEvent.endWorkoutSession(params));
+    }
 
     showAdaptiveDialog(
       context: context,
@@ -356,7 +372,7 @@ class _SessionScreenState extends State<SessionScreen> {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.of(context).pop();
+              context.pop();
               context.pop();
             },
             child: const Text('OK'),

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' as material;
+import 'package:go_router/go_router.dart';
 
 class CustomDatePicker {
   static Future<DateTime?> showDatePicker(
@@ -78,13 +79,13 @@ class CustomDatePicker {
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       onPressed: () {
                         selectedDate = null;
-                        Navigator.of(context).pop();
+                        context.pop(context);
                       },
                       child: const Text('Cancel'),
                     ),
                     CupertinoButton(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
-                      onPressed: () => Navigator.of(context).pop(),
+                      onPressed: () => context.pop(context),
                       child: const Text('Done'),
                     ),
                   ],

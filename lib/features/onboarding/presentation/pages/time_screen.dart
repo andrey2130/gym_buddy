@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gym_buddy/core/contstant/app_constant.dart';
 import 'package:gym_buddy/core/widgets/custom_text_field.dart';
 import 'package:gym_buddy/features/onboarding/domain/params/onboarding_params.dart';
@@ -211,14 +212,14 @@ class TimeScreenState extends State<TimeScreen> {
                         CupertinoButton(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: Text('cancel'.tr()),
-                          onPressed: () => Navigator.of(ctx).pop(),
+                          onPressed: () => context.pop(),
                         ),
                         CupertinoButton(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: Text('done'.tr()),
                           onPressed: () {
                             _selectCountry(AppConstant.countries[tempIndex]);
-                            Navigator.of(ctx).pop();
+                            context.pop(ctx);
                           },
                         ),
                       ],
@@ -257,7 +258,7 @@ class TimeScreenState extends State<TimeScreen> {
                   title: Text(c),
                   onTap: () {
                     _selectCountry(c);
-                    Navigator.of(ctx).pop();
+                    context.pop(ctx);
                   },
                 );
               },

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class AddExerciseDialog extends StatefulWidget {
   final Function(String name, int sets, int reps, double weight) onAddExercise;
@@ -68,10 +69,7 @@ class _AddExerciseDialogState extends State<AddExerciseDialog> {
         ],
       ),
       actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Cancel'),
-        ),
+        TextButton(onPressed: () => context.pop(), child: const Text('Cancel')),
         ElevatedButton(onPressed: _addExercise, child: const Text('Add')),
       ],
     );
@@ -91,6 +89,6 @@ class _AddExerciseDialogState extends State<AddExerciseDialog> {
     }
 
     widget.onAddExercise(name, setsCount, reps, weight);
-    Navigator.of(context).pop();
+    context.pop();
   }
 }

@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class TimeRangePicker extends StatelessWidget {
   final String labelText;
@@ -109,13 +110,13 @@ class TimeRangePicker extends StatelessWidget {
                   children: [
                     CupertinoButton(
                       child: Text('cancel'.tr()),
-                      onPressed: () => Navigator.of(context).pop(),
+                      onPressed: () =>context.pop(),
                     ),
                     CupertinoButton(
                       child: Text('done'.tr()),
                       onPressed: () {
                         onTimeSelected(startTime, endTime);
-                        Navigator.of(context).pop();
+                        context.pop();
                       },
                     ),
                   ],
