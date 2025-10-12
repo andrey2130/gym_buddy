@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:gym_buddy/core/theme/app_themes.dart';
+import 'package:gym_buddy/core/usecases/usecase.dart';
+import 'package:gym_buddy/features/auth/domain/usecases/get_current_user_usecase.dart';
 import 'package:gym_buddy/features/workout/domain/entity/workout_entity.dart';
+import 'package:gym_buddy/features/workout/domain/params/delete_workout_params.dart';
+import 'package:gym_buddy/features/workout/presentation/bloc/workout_bloc.dart';
 import 'package:gym_buddy/features/workout/presentation/widgets/workout_card.dart';
+
+final getIt = GetIt.instance;
 
 class WorkoutDayFilter extends StatefulWidget {
   final Map<String, List<WorkoutEntity>> groupedWorkouts;
@@ -18,6 +27,8 @@ class _WorkoutDayFilterState extends State<WorkoutDayFilter>
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   final Map<String, bool> _expandedStates = {};
+  final GetCurrentUserIdUsecase _getCurrentUserIdUsecase =
+      getIt<GetCurrentUserIdUsecase>();
 
   @override
   void initState() {
@@ -36,6 +47,20 @@ class _WorkoutDayFilterState extends State<WorkoutDayFilter>
   void dispose() {
     _animationController.dispose();
     super.dispose();
+  }
+
+  Future<void> _deleteWorkout(WorkoutEntity workout) async {
+    final userId = await _getCurrentUserIdUsecase(const NoParams());
+    if (userId != null) {
+      final params = DeleteWorkoutParams(
+        userId: userId,
+        workoutId: workout.workoutId,
+      );
+
+      if (mounted) {
+        context.read<WorkoutBloc>().add(WorkoutEvent.deleteWorkout(params));
+      }
+    }
   }
 
   @override
@@ -75,7 +100,9 @@ class _WorkoutDayFilterState extends State<WorkoutDayFilter>
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+              color: Theme.of(
+                context,
+              ).colorScheme.primary.withValues(alpha: 0.1),
               shape: BoxShape.circle,
             ),
             child: Icon(
@@ -96,7 +123,9 @@ class _WorkoutDayFilterState extends State<WorkoutDayFilter>
             'Start your fitness journey by creating your first workout!',
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.7),
             ),
           ),
         ],
@@ -128,7 +157,9 @@ class _WorkoutDayFilterState extends State<WorkoutDayFilter>
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+              color: Theme.of(
+                context,
+              ).colorScheme.primary.withValues(alpha: 0.1),
               blurRadius: 10,
               offset: const Offset(0, 4),
             ),
@@ -331,6 +362,7 @@ class _WorkoutDayFilterState extends State<WorkoutDayFilter>
                           extra: workout,
                         );
                       },
+                      onDelete: () => _deleteWorkout(workout),
                     ),
                   ),
                 ),

@@ -3,18 +3,19 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gym_buddy/core/theme/app_themes.dart';
+import 'package:gym_buddy/core/widgets/workout_dropdown_menu.dart';
 import 'package:gym_buddy/features/workout/domain/entity/workout_entity.dart';
 
 class WorkoutCard extends StatefulWidget {
   final WorkoutEntity workout;
   final VoidCallback? onTap;
-  final VoidCallback? onLongPress;
+  final VoidCallback? onDelete;
 
   const WorkoutCard({
     required this.workout,
     super.key,
     this.onTap,
-    this.onLongPress,
+    this.onDelete,
   });
 
   @override
@@ -51,11 +52,17 @@ class _WorkoutCardState extends State<WorkoutCard>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onLongPress: widget.onLongPress,
       onTapDown: (_) => _animationController.forward(),
       onTapUp: (_) => _animationController.reverse(),
       onTapCancel: () => _animationController.reverse(),
       onTap: widget.onTap,
+      onLongPress: widget.onDelete != null
+          ? () => WorkoutDropdownMenu.show(
+              context: context,
+              onDelete: widget.onDelete!,
+              workoutName: widget.workout.name,
+            )
+          : null,
       child: AnimatedBuilder(
         animation: _animationController,
         builder: (context, child) {
