@@ -12,9 +12,7 @@ class ExerciseCard extends StatelessWidget {
   final Function(ExerciseEntity, int)? onRemoveSet;
 
   const ExerciseCard({
-    super.key,
-    required this.exercise,
-    required this.workout,
+    required this.exercise, required this.workout, super.key,
     this.onRemoveExercise,
     this.onAddSet,
     this.onEditSet,

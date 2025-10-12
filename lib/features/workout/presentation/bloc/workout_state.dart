@@ -17,5 +17,6 @@ class WorkoutState with _$WorkoutState {
   const factory WorkoutState.failure(String message) = Failure;
   const factory WorkoutState.timeFormatted(String formattedTime) =
       TimeFormatted;
-  const factory WorkoutState.workoutValidated(bool isValid) = WorkoutValidated;
+  const factory WorkoutState.workoutValidated({required bool isValid}) =
+      WorkoutValidated;
 }

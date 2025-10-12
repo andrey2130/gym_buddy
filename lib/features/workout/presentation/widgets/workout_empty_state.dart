@@ -6,9 +6,7 @@ class WorkoutEmptyState extends StatelessWidget {
   final IconData icon;
 
   const WorkoutEmptyState({
-    super.key,
-    required this.title,
-    required this.subtitle,
+    required this.title, required this.subtitle, super.key,
     this.icon = Icons.fitness_center_outlined,
   });
 

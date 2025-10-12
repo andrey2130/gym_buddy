@@ -442,7 +442,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
       },
       (isValid) {
         getIt<Talker>().info('Workout validation successful');
-        emit(WorkoutState.workoutValidated(isValid));
+        emit(WorkoutState.workoutValidated(isValid: isValid));
       },
     );
   }

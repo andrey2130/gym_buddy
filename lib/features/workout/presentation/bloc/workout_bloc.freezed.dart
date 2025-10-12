@@ -2077,7 +2077,7 @@ as String,
 
 
 class WorkoutValidated implements WorkoutState {
-  const WorkoutValidated(this.isValid);
+  const WorkoutValidated({required this.isValid});
   
 
  final  bool isValid;
@@ -2131,7 +2131,7 @@ class _$WorkoutValidatedCopyWithImpl<$Res>
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? isValid = null,}) {
   return _then(WorkoutValidated(
-null == isValid ? _self.isValid : isValid // ignore: cast_nullable_to_non_nullable
+isValid: null == isValid ? _self.isValid : isValid // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
