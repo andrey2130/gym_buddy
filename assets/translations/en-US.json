@@ -168,6 +168,7 @@
   "total_hours": "Total Hours",
   "no_exercises_added_yet": "No exercises added yet",
   "exercise": "exercise",
-  "exercises_plural": "exercises"
+  "exercises_plural": "exercises",
+  "remove_exercise": "Remove Exercise"
 
 }

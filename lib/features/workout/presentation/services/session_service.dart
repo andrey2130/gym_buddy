@@ -155,4 +155,29 @@ class SessionService {
       ),
     );
   }
+
+  static void toggleSetCompletion(
+    BuildContext context,
+    WorkoutEntity workout,
+    ExerciseEntity exercise,
+    int setIndex,
+    SetEntity set,
+  ) {
+    final updatedSet = set.copyWith(isCompleted: !set.isCompleted);
+    final updatedSets = List<SetEntity>.from(exercise.sets);
+    updatedSets[setIndex] = updatedSet;
+
+    final updatedExercise = exercise.copyWith(sets: updatedSets);
+
+    final params = UpdateExerciseParams(
+      workout: workout,
+      exercise: updatedExercise,
+    );
+
+    if (context.mounted) {
+      context.read<WorkoutBloc>().add(
+        WorkoutEvent.updateExerciseInWorkout(params),
+      );
+    }
+  }
 }

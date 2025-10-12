@@ -167,5 +167,6 @@
   "total_hours": "Всього годин",
   "no_exercises_added_yet": "Поки не додано вправ",
   "exercise": "вправа",
-  "exercises_plural": "вправи"
+  "exercises_plural": "вправи",
+  "remove_exercise": "Видалити вправу"
 }
