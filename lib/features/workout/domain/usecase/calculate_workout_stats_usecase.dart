@@ -18,7 +18,7 @@ class CalculateWorkoutStatsUsecase
       int totalReps = 0;
 
       for (final workout in completedWorkouts) {
-        if (workout.duration != null) {
+        if (workout.duration != null && workout.duration! > 0) {
           totalHours += workout.duration! ~/ 60; // Convert minutes to hours
         }
 

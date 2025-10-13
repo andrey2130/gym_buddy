@@ -168,5 +168,12 @@
   "no_exercises_added_yet": "Поки не додано вправ",
   "exercise": "вправа",
   "exercises_plural": "вправи",
-  "remove_exercise": "Видалити вправу"
+  "remove_exercise": "Видалити вправу",
+  "monday": "Понеділок",
+  "tuesday": "Вівторок",
+  "wednesday": "Середа",
+  "thursday": "Четвер",
+  "friday": "П'ятниця",
+  "saturday": "Субота",
+  "sunday": "Неділя"
 }

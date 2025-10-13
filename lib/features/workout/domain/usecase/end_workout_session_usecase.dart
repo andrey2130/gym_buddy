@@ -20,9 +20,12 @@ class EndWorkoutSessionUsecase
   Future<Either<Failure, WorkoutEntity>> call(
     EndWorkoutSessionParams params,
   ) async {
-    final duration = params.endTime
+    final rawDuration = params.endTime
         .difference(params.workout.startTime)
         .inMinutes;
+
+    // If start time is in the future, set duration to 0 to avoid negative values
+    final duration = rawDuration < 0 ? 0 : rawDuration;
 
     final updatedWorkout = params.workout.copyWith(
       isCompleted: true,

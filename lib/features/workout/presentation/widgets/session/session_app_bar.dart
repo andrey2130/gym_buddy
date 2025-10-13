@@ -164,7 +164,8 @@ class EndSessionButton extends StatelessWidget {
     WorkoutEntity workout,
     DateTime endTime,
   ) {
-    final duration = endTime.difference(workout.startTime).inMinutes;
+    final rawDuration = endTime.difference(workout.startTime).inMinutes;
+    final duration = rawDuration < 0 ? 0 : rawDuration;
 
     showAdaptiveDialog(
       context: context,

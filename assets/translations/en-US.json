@@ -169,6 +169,13 @@
   "no_exercises_added_yet": "No exercises added yet",
   "exercise": "exercise",
   "exercises_plural": "exercises",
-  "remove_exercise": "Remove Exercise"
+  "remove_exercise": "Remove Exercise",
+  "monday": "Monday",
+  "tuesday": "Tuesday",
+  "wednesday": "Wednesday",
+  "thursday": "Thursday",
+  "friday": "Friday",
+  "saturday": "Saturday",
+  "sunday": "Sunday"
 
 }

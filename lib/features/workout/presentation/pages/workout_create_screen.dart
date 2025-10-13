@@ -29,48 +29,53 @@ class _WorkoutCreateScreenState extends State<WorkoutCreateScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            CustomAppBar(
-              leftWidget: IconButton(
-                onPressed: () => context.pop(),
-                icon: Platform.isAndroid
-                    ? const Icon(Icons.arrow_back)
-                    : const Icon(CupertinoIcons.back),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          context.read<WorkoutBloc>().add(const WorkoutEvent.loadWorkouts());
+        },
+        child: SafeArea(
+          child: Column(
+            children: [
+              CustomAppBar(
+                leftWidget: IconButton(
+                  onPressed: () => context.pop(),
+                  icon: Platform.isAndroid
+                      ? const Icon(Icons.arrow_back)
+                      : const Icon(CupertinoIcons.back),
+                ),
               ),
-            ),
-            Text(
-              'create_your_workout'.tr(),
-              style: Theme.of(context).textTheme.displayLarge,
-            ),
-            WorkoutForm(
-              nameController: _nameController,
-              selectedDate: _selectedDate,
-              startTime: _startTime,
-              onDateSelected: (date) => setState(() => _selectedDate = date),
-              onTimeSelected: (time) => setState(() => _startTime = time),
-              onFormChanged: _validateFormIfReady,
-            ),
-            const Spacer(),
-            BlocConsumer<WorkoutBloc, WorkoutState>(
-              listener: (context, state) {
-                state.whenOrNull(
-                  created: (workout) {
-                    WorkoutCreateService.showSuccessDialog(context);
-                  },
-                  failure: (message) {
-                    ScaffoldMessenger.of(
-                      context,
-                    ).showSnackBar(SnackBar(content: Text(message)));
-                  },
-                );
-              },
-              builder: (context, state) {
-                return WorkoutCreateButton(onCreateWorkout: _createWorkout);
-              },
-            ),
-          ],
+              Text(
+                'create_your_workout'.tr(),
+                style: Theme.of(context).textTheme.displayLarge,
+              ),
+              WorkoutForm(
+                nameController: _nameController,
+                selectedDate: _selectedDate,
+                startTime: _startTime,
+                onDateSelected: (date) => setState(() => _selectedDate = date),
+                onTimeSelected: (time) => setState(() => _startTime = time),
+                onFormChanged: _validateFormIfReady,
+              ),
+              const Spacer(),
+              BlocConsumer<WorkoutBloc, WorkoutState>(
+                listener: (context, state) {
+                  state.whenOrNull(
+                    created: (workout) {
+                      WorkoutCreateService.showSuccessDialog(context);
+                    },
+                    failure: (message) {
+                      ScaffoldMessenger.of(
+                        context,
+                      ).showSnackBar(SnackBar(content: Text(message)));
+                    },
+                  );
+                },
+                builder: (context, state) {
+                  return WorkoutCreateButton(onCreateWorkout: _createWorkout);
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

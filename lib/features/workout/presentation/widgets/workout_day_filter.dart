@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:gym_buddy/core/theme/app_themes.dart';
 import 'package:gym_buddy/core/usecases/usecase.dart';
+import 'package:gym_buddy/core/utils/day_utils.dart';
 import 'package:gym_buddy/features/auth/domain/usecases/get_current_user_usecase.dart';
 import 'package:gym_buddy/features/workout/domain/entity/workout_entity.dart';
 import 'package:gym_buddy/features/workout/domain/params/delete_workout_params.dart';
@@ -376,20 +377,21 @@ class _WorkoutDayFilterState extends State<WorkoutDayFilter>
   }
 
   IconData _getDayIcon(String dayName) {
-    switch (dayName) {
-      case 'Monday':
+    final dayIndex = _getDayIndex(dayName);
+    switch (dayIndex) {
+      case 0: // Monday
         return Icons.fitness_center;
-      case 'Tuesday':
+      case 1: // Tuesday
         return Icons.directions_run;
-      case 'Wednesday':
+      case 2: // Wednesday
         return Icons.sports_gymnastics;
-      case 'Thursday':
+      case 3: // Thursday
         return Icons.sports_martial_arts;
-      case 'Friday':
+      case 4: // Friday
         return Icons.sports_tennis;
-      case 'Saturday':
+      case 5: // Saturday
         return Icons.sports_volleyball;
-      case 'Sunday':
+      case 6: // Sunday
         return Icons.sports_basketball;
       default:
         return Icons.calendar_today;
@@ -397,24 +399,30 @@ class _WorkoutDayFilterState extends State<WorkoutDayFilter>
   }
 
   Color _getDayColor(String dayName) {
-    switch (dayName) {
-      case 'Monday':
+    final dayIndex = _getDayIndex(dayName);
+    switch (dayIndex) {
+      case 0: // Monday
         return const Color(0xFFE53E3E);
-      case 'Tuesday':
+      case 1: // Tuesday
         return const Color(0xFFDD6B20);
-      case 'Wednesday':
+      case 2: // Wednesday
         return const Color(0xFFD69E2E);
-      case 'Thursday':
+      case 3: // Thursday
         return const Color(0xFF38A169);
-      case 'Friday':
+      case 4: // Friday
         return const Color(0xFF3182CE);
-      case 'Saturday':
+      case 5: // Saturday
         return const Color(0xFF553C9A);
-      case 'Sunday':
+      case 6: // Sunday
         return const Color(0xFF805AD5);
       default:
         return AppThemes.primary;
     }
+  }
+
+  int _getDayIndex(String dayName) {
+    final translatedDays = DayUtils.getOrderedTranslatedDays();
+    return translatedDays.indexOf(dayName);
   }
 
   String _formatDuration(int minutes) {

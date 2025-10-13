@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:gym_buddy/core/error/failure.dart';
 import 'package:gym_buddy/core/usecases/usecase.dart';
+import 'package:gym_buddy/core/utils/day_utils.dart';
 import 'package:gym_buddy/features/workout/domain/entity/workout_entity.dart';
 import 'package:gym_buddy/features/workout/domain/params/group_workouts_by_day_params.dart';
 import 'package:injectable/injectable.dart';
@@ -24,15 +25,7 @@ class GroupWorkoutsByDayUsecase
         groupedWorkouts.putIfAbsent(dayName, () => []).add(workout);
       }
 
-      final orderedDays = [
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday',
-        'Sunday',
-      ];
+      final orderedDays = DayUtils.getOrderedTranslatedDays();
 
       final orderedGroupedWorkouts = <String, List<WorkoutEntity>>{};
       for (final day in orderedDays) {
@@ -50,15 +43,6 @@ class GroupWorkoutsByDayUsecase
   }
 
   String _getDayName(DateTime date) {
-    const days = [
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-      'Sunday',
-    ];
-    return days[date.weekday - 1];
+    return DayUtils.getTranslatedDayName(date);
   }
 }
