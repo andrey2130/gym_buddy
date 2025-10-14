@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gym_buddy/core/contstant/app_constant.dart';
 import 'package:gym_buddy/features/onboarding/presentation/bloc/onboarding_bloc.dart';
+import 'package:gym_buddy/features/onboarding/presentation/widgets/switch_pill.dart';
 
 class GoalScreen extends StatefulWidget {
   final VoidCallback? onNext;
@@ -65,36 +66,10 @@ class _GoalScreenState extends State<GoalScreen> {
                     return InkWell(
                       onTap: () => _onGoalSelected(index, goalKey),
                       borderRadius: BorderRadius.circular(12.r),
-                      child: Container(
-                        padding: EdgeInsets.all(16.w),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12.r),
-                          border: Border.all(
-                            color: isSelected
-                                ? theme.colorScheme.primary
-                                : theme.colorScheme.outlineVariant,
-                          ),
-                          color: isSelected
-                              ? theme.colorScheme.primary.withValues(
-                                  alpha: 0.08,
-                                )
-                              : theme.colorScheme.surface,
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                title,
-                                style: theme.textTheme.titleMedium,
-                              ),
-                            ),
-                            if (isSelected)
-                              Icon(
-                                Icons.check_circle,
-                                color: theme.colorScheme.primary,
-                              ),
-                          ],
-                        ),
+                      child: SwitchPill(
+                        title: title,
+                        selected: isSelected,
+                        onTap: () => _onGoalSelected(index, goalKey),
                       ),
                     );
                   },
