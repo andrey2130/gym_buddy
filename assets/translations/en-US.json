@@ -187,7 +187,14 @@
   "goal_build_muscle": "Build Muscle",
   "goal_lose_weight": "Lose Weight",
   "goal_increase_strength": "Increase Strength",
-  "goal_maintain_fitness": "Maintain Fitness"
-  
-
+  "goal_maintain_fitness": "Maintain Fitness",
+  "personal_metrics_title": "Your Personal Metrics",
+  "personal_metrics_sub": "Provide basic details to personalize your plan",
+  "gender_male": "Male",
+  "gender_female": "Female",
+  "gender_other": "Other",
+  "birth_year": "Year of Birth",
+  "weight": "Weight",
+  "height": "Height",
+  "enter_valid_metrics": "Please enter valid metrics"
 }

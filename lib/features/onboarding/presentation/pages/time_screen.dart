@@ -55,7 +55,7 @@ class TimeScreenState extends State<TimeScreen> {
         OnboardingEvent.saveOnboarding(
           OnboardingParams(
             trainingDays: selectedDays.toList(),
-            trainingPlan: selectedPlan,
+            trainingPlan: selectedPlan ?? '',
             trainingTime: _timeController.text,
             country: _selectedCountry ?? '',
             city: _cityController.text,

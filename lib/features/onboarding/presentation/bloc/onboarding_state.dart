@@ -17,4 +17,8 @@ class OnboardingState with _$OnboardingState {
     required String plan,
     String? goal,
   }) = PlanSelected;
+  const factory OnboardingState.metricsSet({
+    required Set<String> days,
+    String? goal,
+  }) = MetricsSet;
 }

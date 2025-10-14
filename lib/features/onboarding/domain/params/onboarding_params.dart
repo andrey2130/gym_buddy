@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:gym_buddy/features/onboarding/domain/entities/personal_metrics.dart';
 
 part 'onboarding_params.freezed.dart';
 part 'onboarding_params.g.dart';
@@ -13,6 +14,7 @@ abstract class OnboardingParams with _$OnboardingParams {
     required String city,
     required bool isMorning,
     String? goal,
+    PersonalMetrics? metrics,
   }) = _OnboardingParams;
 
   factory OnboardingParams.fromJson(Map<String, dynamic> json) =>

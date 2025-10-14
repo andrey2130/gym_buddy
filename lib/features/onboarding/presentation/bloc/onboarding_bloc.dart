@@ -6,6 +6,7 @@ import 'package:gym_buddy/features/onboarding/domain/usecases/save_onboarding_us
 
 import 'package:injectable/injectable.dart';
 import 'package:talker_flutter/talker_flutter.dart';
+import 'package:gym_buddy/features/onboarding/domain/entities/personal_metrics.dart';
 
 part 'onboarding_event.dart';
 part 'onboarding_state.dart';
@@ -19,6 +20,7 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
   Set<String> _selectedDays = {};
   String _selectedPlan = '';
   String _selectedGoal = '';
+  PersonalMetrics? _metrics;
 
   OnboardingBloc(
     this._saveOnboardingUsecase,
@@ -30,6 +32,7 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
     on<SelectDays>(_onSelectDays);
     on<SelectPlan>(_onSelectPlan);
     on<SelectGoal>(_onSelectGoal);
+    on<SetPersonalMetrics>(_onSetPersonalMetrics);
   }
 
   Future<void> _onSaveOnboarding(
@@ -42,6 +45,7 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
       trainingDays: _selectedDays.toList(),
       trainingPlan: _selectedPlan,
       goal: _selectedGoal,
+      metrics: _metrics,
     );
 
     final result = await _saveOnboardingUsecase(params);
@@ -70,6 +74,7 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
           _selectedDays = params.trainingDays.toSet();
           _selectedPlan = params.trainingPlan;
           _selectedGoal = params.goal ?? '';
+          _metrics = params.metrics;
           emit(OnboardingState.loaded(params));
         } else {
           emit(const OnboardingState.initial());
@@ -99,5 +104,20 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
     emit(
       OnboardingState.goalSelected(days: _selectedDays, goal: _selectedGoal),
     );
+  }
+
+  void _onSetPersonalMetrics(
+    SetPersonalMetrics event,
+    Emitter<OnboardingState> emit,
+  ) {
+    _metrics = PersonalMetrics(
+      gender: event.gender,
+      birthYear: event.birthYear,
+      weight: event.weight,
+      weightUnit: event.weightUnit,
+      height: event.height,
+      heightUnit: event.heightUnit,
+    );
+    emit(OnboardingState.metricsSet(days: _selectedDays, goal: _selectedGoal));
   }
 }

@@ -9,7 +9,7 @@ abstract class NavigationModule {
   @singleton
   GoRouter get router {
     final user = getIt<FirebaseAuth>().currentUser;
-    final initialLocation = user != null ? '/home' : '/';
+    final initialLocation = user != null ? '/home' : '/onboarding';
 
     return GoRouter(
       initialLocation: initialLocation,
@@ -22,7 +22,7 @@ abstract class NavigationModule {
             path != '/' &&
             path != '/login' &&
             path != '/register') {
-          return '/';
+          return '/onboarding';
         }
 
         return null;

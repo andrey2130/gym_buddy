@@ -17,6 +17,9 @@ _OnboardingParams _$OnboardingParamsFromJson(Map<String, dynamic> json) =>
       city: json['city'] as String,
       isMorning: json['isMorning'] as bool,
       goal: json['goal'] as String?,
+      metrics: json['metrics'] == null
+          ? null
+          : PersonalMetrics.fromJson(json['metrics'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$OnboardingParamsToJson(_OnboardingParams instance) =>
@@ -28,4 +31,5 @@ Map<String, dynamic> _$OnboardingParamsToJson(_OnboardingParams instance) =>
       'city': instance.city,
       'isMorning': instance.isMorning,
       'goal': instance.goal,
+      'metrics': instance.metrics,
     };

@@ -187,4 +187,14 @@
   "goal_lose_weight": "Схуднути",
   "goal_increase_strength": "Збільшити силу",
   "goal_maintain_fitness": "Підтримувати фітнес"
+,
+  "personal_metrics_title": "Ваші особисті параметри",
+  "personal_metrics_sub": "Вкажіть дані для персоналізації плану",
+  "gender_male": "Чоловік",
+  "gender_female": "Жінка",
+  "gender_other": "Інше",
+  "birth_year": "Рік народження",
+  "weight": "Вага",
+  "height": "Зріст",
+  "enter_valid_metrics": "Будь ласка, введіть коректні значення"
 }

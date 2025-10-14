@@ -7,8 +7,9 @@ import 'package:go_router/go_router.dart';
 import 'package:gym_buddy/core/widgets/custom_button.dart';
 import 'package:gym_buddy/features/onboarding/presentation/bloc/onboarding_bloc.dart';
 import 'package:gym_buddy/features/onboarding/presentation/pages/day_screen.dart';
-import 'package:gym_buddy/features/onboarding/presentation/pages/plan_screen.dart';
 import 'package:gym_buddy/features/onboarding/presentation/pages/goal_screen.dart';
+import 'package:gym_buddy/features/onboarding/presentation/pages/personal_metrics_screen.dart';
+import 'package:gym_buddy/features/onboarding/presentation/pages/plan_screen.dart';
 import 'package:gym_buddy/features/onboarding/presentation/pages/time_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -23,6 +24,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     with TickerProviderStateMixin {
   final PageController _pageController = PageController();
   final GlobalKey<TimeScreenState> _timeKey = GlobalKey<TimeScreenState>();
+  final GlobalKey<PersonalMetricsScreenState> _metricsKey =
+      GlobalKey<PersonalMetricsScreenState>();
   late AnimationController _introController;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
@@ -85,7 +88,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     if (currentPage == 1) {
       final selectedGoal = state.maybeWhen(
         goalSelected: (_, goal) => goal,
-        planSelected: (_, goal, __) => goal ?? '',
+        planSelected: (_, goal, __) => goal,
         orElse: () => '',
       );
       if (selectedGoal.isEmpty) {
@@ -97,11 +100,16 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     }
 
     if (currentPage == 2) {
+      final ok = _metricsKey.currentState?.validate() ?? false;
+      if (!ok) return;
+    }
+
+    if (currentPage == 3) {
       final selectedPlan = state.maybeWhen(
         planSelected: (_, __, plan) => plan,
         orElse: () => '',
       );
-      if (selectedPlan.isEmpty) {
+      if (selectedPlan?.isEmpty ?? true) {
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(SnackBar(content: Text('select_training_plan'.tr())));
@@ -130,7 +138,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   @override
   Widget build(BuildContext context) {
-    final isLastPage = _currentPage == 3;
+    final isLastPage = _currentPage == 4;
     return BlocListener<OnboardingBloc, OnboardingState>(
       listener: (context, state) {
         state.maybeWhen(
@@ -168,6 +176,10 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                         children: [
                           DayScreen(onNext: _next),
                           GoalScreen(onNext: _next),
+                          PersonalMetricsScreen(
+                            key: _metricsKey,
+                            onNext: _next,
+                          ),
                           PlanScreen(onNext: _next),
                           TimeScreen(key: _timeKey, onFinish: _skip),
                         ],
@@ -178,7 +190,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                       children: [
                         Expanded(
                           child: SmoothPageIndicator(
-                            count: 4,
+                            count: 5,
                             controller: _pageController,
                             effect: ExpandingDotsEffect(
                               dotHeight: 6.h,

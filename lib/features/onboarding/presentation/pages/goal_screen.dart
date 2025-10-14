@@ -30,7 +30,7 @@ class _GoalScreenState extends State<GoalScreen> {
         if (_selectedIndex == null) {
           final selectedGoalKey = state.maybeWhen(
             goalSelected: (_, goal) => goal,
-            planSelected: (_, goal, __) => goal ?? '',
+            planSelected: (_, goal, __) => goal,
             orElse: () => '',
           );
           _selectedIndex = AppConstant.trainingGoals.indexWhere(
