@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$OnboardingParams {
 
- List<String> get trainingDays; String get trainingPlan; String get trainingTime; String get country; String get city; bool get isMorning;
+ List<String> get trainingDays; String get trainingPlan; String get trainingTime; bool get isMorning; String get experienceLevel; String? get country; String? get city; String? get goal; PersonalMetrics? get metrics;
 /// Create a copy of OnboardingParams
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $OnboardingParamsCopyWith<OnboardingParams> get copyWith => _$OnboardingParamsCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OnboardingParams&&const DeepCollectionEquality().equals(other.trainingDays, trainingDays)&&(identical(other.trainingPlan, trainingPlan) || other.trainingPlan == trainingPlan)&&(identical(other.trainingTime, trainingTime) || other.trainingTime == trainingTime)&&(identical(other.country, country) || other.country == country)&&(identical(other.city, city) || other.city == city)&&(identical(other.isMorning, isMorning) || other.isMorning == isMorning));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OnboardingParams&&const DeepCollectionEquality().equals(other.trainingDays, trainingDays)&&(identical(other.trainingPlan, trainingPlan) || other.trainingPlan == trainingPlan)&&(identical(other.trainingTime, trainingTime) || other.trainingTime == trainingTime)&&(identical(other.isMorning, isMorning) || other.isMorning == isMorning)&&(identical(other.experienceLevel, experienceLevel) || other.experienceLevel == experienceLevel)&&(identical(other.country, country) || other.country == country)&&(identical(other.city, city) || other.city == city)&&(identical(other.goal, goal) || other.goal == goal)&&(identical(other.metrics, metrics) || other.metrics == metrics));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(trainingDays),trainingPlan,trainingTime,country,city,isMorning);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(trainingDays),trainingPlan,trainingTime,isMorning,experienceLevel,country,city,goal,metrics);
 
 @override
 String toString() {
-  return 'OnboardingParams(trainingDays: $trainingDays, trainingPlan: $trainingPlan, trainingTime: $trainingTime, country: $country, city: $city, isMorning: $isMorning)';
+  return 'OnboardingParams(trainingDays: $trainingDays, trainingPlan: $trainingPlan, trainingTime: $trainingTime, isMorning: $isMorning, experienceLevel: $experienceLevel, country: $country, city: $city, goal: $goal, metrics: $metrics)';
 }
 
 
@@ -48,11 +48,11 @@ abstract mixin class $OnboardingParamsCopyWith<$Res>  {
   factory $OnboardingParamsCopyWith(OnboardingParams value, $Res Function(OnboardingParams) _then) = _$OnboardingParamsCopyWithImpl;
 @useResult
 $Res call({
- List<String> trainingDays, String trainingPlan, String trainingTime, String country, String city, bool isMorning
+ List<String> trainingDays, String trainingPlan, String trainingTime, bool isMorning, String experienceLevel, String? country, String? city, String? goal, PersonalMetrics? metrics
 });
 
 
-
+$PersonalMetricsCopyWith<$Res>? get metrics;
 
 }
 /// @nodoc
@@ -65,18 +65,33 @@ class _$OnboardingParamsCopyWithImpl<$Res>
 
 /// Create a copy of OnboardingParams
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? trainingDays = null,Object? trainingPlan = null,Object? trainingTime = null,Object? country = null,Object? city = null,Object? isMorning = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? trainingDays = null,Object? trainingPlan = null,Object? trainingTime = null,Object? isMorning = null,Object? experienceLevel = null,Object? country = freezed,Object? city = freezed,Object? goal = freezed,Object? metrics = freezed,}) {
   return _then(_self.copyWith(
 trainingDays: null == trainingDays ? _self.trainingDays : trainingDays // ignore: cast_nullable_to_non_nullable
 as List<String>,trainingPlan: null == trainingPlan ? _self.trainingPlan : trainingPlan // ignore: cast_nullable_to_non_nullable
 as String,trainingTime: null == trainingTime ? _self.trainingTime : trainingTime // ignore: cast_nullable_to_non_nullable
-as String,country: null == country ? _self.country : country // ignore: cast_nullable_to_non_nullable
-as String,city: null == city ? _self.city : city // ignore: cast_nullable_to_non_nullable
 as String,isMorning: null == isMorning ? _self.isMorning : isMorning // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,experienceLevel: null == experienceLevel ? _self.experienceLevel : experienceLevel // ignore: cast_nullable_to_non_nullable
+as String,country: freezed == country ? _self.country : country // ignore: cast_nullable_to_non_nullable
+as String?,city: freezed == city ? _self.city : city // ignore: cast_nullable_to_non_nullable
+as String?,goal: freezed == goal ? _self.goal : goal // ignore: cast_nullable_to_non_nullable
+as String?,metrics: freezed == metrics ? _self.metrics : metrics // ignore: cast_nullable_to_non_nullable
+as PersonalMetrics?,
   ));
 }
+/// Create a copy of OnboardingParams
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$PersonalMetricsCopyWith<$Res>? get metrics {
+    if (_self.metrics == null) {
+    return null;
+  }
 
+  return $PersonalMetricsCopyWith<$Res>(_self.metrics!, (value) {
+    return _then(_self.copyWith(metrics: value));
+  });
+}
 }
 
 
@@ -158,10 +173,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<String> trainingDays,  String trainingPlan,  String trainingTime,  String country,  String city,  bool isMorning)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<String> trainingDays,  String trainingPlan,  String trainingTime,  bool isMorning,  String experienceLevel,  String? country,  String? city,  String? goal,  PersonalMetrics? metrics)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _OnboardingParams() when $default != null:
-return $default(_that.trainingDays,_that.trainingPlan,_that.trainingTime,_that.country,_that.city,_that.isMorning);case _:
+return $default(_that.trainingDays,_that.trainingPlan,_that.trainingTime,_that.isMorning,_that.experienceLevel,_that.country,_that.city,_that.goal,_that.metrics);case _:
   return orElse();
 
 }
@@ -179,10 +194,10 @@ return $default(_that.trainingDays,_that.trainingPlan,_that.trainingTime,_that.c
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<String> trainingDays,  String trainingPlan,  String trainingTime,  String country,  String city,  bool isMorning)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<String> trainingDays,  String trainingPlan,  String trainingTime,  bool isMorning,  String experienceLevel,  String? country,  String? city,  String? goal,  PersonalMetrics? metrics)  $default,) {final _that = this;
 switch (_that) {
 case _OnboardingParams():
-return $default(_that.trainingDays,_that.trainingPlan,_that.trainingTime,_that.country,_that.city,_that.isMorning);case _:
+return $default(_that.trainingDays,_that.trainingPlan,_that.trainingTime,_that.isMorning,_that.experienceLevel,_that.country,_that.city,_that.goal,_that.metrics);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -199,10 +214,10 @@ return $default(_that.trainingDays,_that.trainingPlan,_that.trainingTime,_that.c
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<String> trainingDays,  String trainingPlan,  String trainingTime,  String country,  String city,  bool isMorning)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<String> trainingDays,  String trainingPlan,  String trainingTime,  bool isMorning,  String experienceLevel,  String? country,  String? city,  String? goal,  PersonalMetrics? metrics)?  $default,) {final _that = this;
 switch (_that) {
 case _OnboardingParams() when $default != null:
-return $default(_that.trainingDays,_that.trainingPlan,_that.trainingTime,_that.country,_that.city,_that.isMorning);case _:
+return $default(_that.trainingDays,_that.trainingPlan,_that.trainingTime,_that.isMorning,_that.experienceLevel,_that.country,_that.city,_that.goal,_that.metrics);case _:
   return null;
 
 }
@@ -214,7 +229,7 @@ return $default(_that.trainingDays,_that.trainingPlan,_that.trainingTime,_that.c
 @JsonSerializable()
 
 class _OnboardingParams implements OnboardingParams {
-  const _OnboardingParams({required final  List<String> trainingDays, required this.trainingPlan, required this.trainingTime, required this.country, required this.city, required this.isMorning}): _trainingDays = trainingDays;
+  const _OnboardingParams({required final  List<String> trainingDays, required this.trainingPlan, required this.trainingTime, required this.isMorning, required this.experienceLevel, this.country, this.city, this.goal, this.metrics}): _trainingDays = trainingDays;
   factory _OnboardingParams.fromJson(Map<String, dynamic> json) => _$OnboardingParamsFromJson(json);
 
  final  List<String> _trainingDays;
@@ -226,9 +241,12 @@ class _OnboardingParams implements OnboardingParams {
 
 @override final  String trainingPlan;
 @override final  String trainingTime;
-@override final  String country;
-@override final  String city;
 @override final  bool isMorning;
+@override final  String experienceLevel;
+@override final  String? country;
+@override final  String? city;
+@override final  String? goal;
+@override final  PersonalMetrics? metrics;
 
 /// Create a copy of OnboardingParams
 /// with the given fields replaced by the non-null parameter values.
@@ -243,16 +261,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OnboardingParams&&const DeepCollectionEquality().equals(other._trainingDays, _trainingDays)&&(identical(other.trainingPlan, trainingPlan) || other.trainingPlan == trainingPlan)&&(identical(other.trainingTime, trainingTime) || other.trainingTime == trainingTime)&&(identical(other.country, country) || other.country == country)&&(identical(other.city, city) || other.city == city)&&(identical(other.isMorning, isMorning) || other.isMorning == isMorning));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OnboardingParams&&const DeepCollectionEquality().equals(other._trainingDays, _trainingDays)&&(identical(other.trainingPlan, trainingPlan) || other.trainingPlan == trainingPlan)&&(identical(other.trainingTime, trainingTime) || other.trainingTime == trainingTime)&&(identical(other.isMorning, isMorning) || other.isMorning == isMorning)&&(identical(other.experienceLevel, experienceLevel) || other.experienceLevel == experienceLevel)&&(identical(other.country, country) || other.country == country)&&(identical(other.city, city) || other.city == city)&&(identical(other.goal, goal) || other.goal == goal)&&(identical(other.metrics, metrics) || other.metrics == metrics));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_trainingDays),trainingPlan,trainingTime,country,city,isMorning);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_trainingDays),trainingPlan,trainingTime,isMorning,experienceLevel,country,city,goal,metrics);
 
 @override
 String toString() {
-  return 'OnboardingParams(trainingDays: $trainingDays, trainingPlan: $trainingPlan, trainingTime: $trainingTime, country: $country, city: $city, isMorning: $isMorning)';
+  return 'OnboardingParams(trainingDays: $trainingDays, trainingPlan: $trainingPlan, trainingTime: $trainingTime, isMorning: $isMorning, experienceLevel: $experienceLevel, country: $country, city: $city, goal: $goal, metrics: $metrics)';
 }
 
 
@@ -263,11 +281,11 @@ abstract mixin class _$OnboardingParamsCopyWith<$Res> implements $OnboardingPara
   factory _$OnboardingParamsCopyWith(_OnboardingParams value, $Res Function(_OnboardingParams) _then) = __$OnboardingParamsCopyWithImpl;
 @override @useResult
 $Res call({
- List<String> trainingDays, String trainingPlan, String trainingTime, String country, String city, bool isMorning
+ List<String> trainingDays, String trainingPlan, String trainingTime, bool isMorning, String experienceLevel, String? country, String? city, String? goal, PersonalMetrics? metrics
 });
 
 
-
+@override $PersonalMetricsCopyWith<$Res>? get metrics;
 
 }
 /// @nodoc
@@ -280,19 +298,34 @@ class __$OnboardingParamsCopyWithImpl<$Res>
 
 /// Create a copy of OnboardingParams
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? trainingDays = null,Object? trainingPlan = null,Object? trainingTime = null,Object? country = null,Object? city = null,Object? isMorning = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? trainingDays = null,Object? trainingPlan = null,Object? trainingTime = null,Object? isMorning = null,Object? experienceLevel = null,Object? country = freezed,Object? city = freezed,Object? goal = freezed,Object? metrics = freezed,}) {
   return _then(_OnboardingParams(
 trainingDays: null == trainingDays ? _self._trainingDays : trainingDays // ignore: cast_nullable_to_non_nullable
 as List<String>,trainingPlan: null == trainingPlan ? _self.trainingPlan : trainingPlan // ignore: cast_nullable_to_non_nullable
 as String,trainingTime: null == trainingTime ? _self.trainingTime : trainingTime // ignore: cast_nullable_to_non_nullable
-as String,country: null == country ? _self.country : country // ignore: cast_nullable_to_non_nullable
-as String,city: null == city ? _self.city : city // ignore: cast_nullable_to_non_nullable
 as String,isMorning: null == isMorning ? _self.isMorning : isMorning // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,experienceLevel: null == experienceLevel ? _self.experienceLevel : experienceLevel // ignore: cast_nullable_to_non_nullable
+as String,country: freezed == country ? _self.country : country // ignore: cast_nullable_to_non_nullable
+as String?,city: freezed == city ? _self.city : city // ignore: cast_nullable_to_non_nullable
+as String?,goal: freezed == goal ? _self.goal : goal // ignore: cast_nullable_to_non_nullable
+as String?,metrics: freezed == metrics ? _self.metrics : metrics // ignore: cast_nullable_to_non_nullable
+as PersonalMetrics?,
   ));
 }
 
+/// Create a copy of OnboardingParams
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$PersonalMetricsCopyWith<$Res>? get metrics {
+    if (_self.metrics == null) {
+    return null;
+  }
 
+  return $PersonalMetricsCopyWith<$Res>(_self.metrics!, (value) {
+    return _then(_self.copyWith(metrics: value));
+  });
+}
 }
 
 // dart format on

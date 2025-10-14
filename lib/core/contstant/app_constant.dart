@@ -15,5 +15,12 @@ class AppConstant {
     'sat',
     'sun',
   ];
+
+  static const List<String> trainingGoals = [
+    'goal_build_muscle',
+    'goal_lose_weight',
+    'goal_increase_strength',
+    'goal_maintain_fitness',
+  ];
   static const List<String> countries = ['Ukraine', 'Poland'];
 }

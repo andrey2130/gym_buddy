@@ -38,7 +38,8 @@ class _DayScreenState extends State<DayScreen> {
       builder: (context, state) {
         _selectedDays ??= state.maybeWhen(
           daysSelected: (days) => days,
-          planSelected: (days, _) => days,
+          goalSelected: (days, _) => days,
+          planSelected: (days, __, ___) => days,
           orElse: () => {},
         );
 

@@ -30,7 +30,7 @@ class _PlanScreenState extends State<PlanScreen> {
       builder: (context, state) {
         if (_selectedIndex == null) {
           final selectedPlanKey = state.maybeWhen(
-            planSelected: (_, plan) => plan,
+            planSelected: (_, __, plan) => plan,
             orElse: () => '',
           );
           _selectedIndex = AppConstant.trainingPlanKeys.indexWhere(
@@ -38,6 +38,13 @@ class _PlanScreenState extends State<PlanScreen> {
           );
           if (_selectedIndex == -1) _selectedIndex = null;
         }
+
+        final bloc = context.read<OnboardingBloc>();
+        final recommendedKey = _computeRecommendedPlan(
+          goalKey: bloc.selectedGoal,
+          days: bloc.selectedDays,
+          metrics: bloc.metrics,
+        );
 
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -62,11 +69,14 @@ class _PlanScreenState extends State<PlanScreen> {
                     final planTitle = planKey.tr();
                     final planSubtitle = '${planKey}_sub'.tr();
                     final isSelected = _selectedIndex == index;
+                    final isRecommended = planKey == recommendedKey;
 
                     return PlanCard(
                       title: planTitle,
                       subtitle: planSubtitle,
                       isSelected: isSelected,
+                      isRecommended: isRecommended,
+                      recommendedLabel: 'recommended'.tr(),
                       onTap: () => _onPlanSelected(index, planKey),
                     );
                   },
@@ -77,5 +87,32 @@ class _PlanScreenState extends State<PlanScreen> {
         );
       },
     );
+  }
+
+  String? _computeRecommendedPlan({
+    required String goalKey,
+    required Set<String> days,
+    required dynamic metrics,
+  }) {
+    final daysCount = days.length;
+    if (goalKey == 'goal_lose_weight') {
+      if (daysCount >= 5) return 'plan_split_push_pull_legs';
+      if (daysCount >= 4) return 'plan_split_upper_lower';
+      return 'plan_split_full_body';
+    }
+    if (goalKey == 'goal_build_muscle') {
+      if (daysCount >= 5) return 'plan_split_push_pull_legs';
+      if (daysCount >= 4) return 'plan_split_upper_lower';
+      return 'plan_split_full_body';
+    }
+    if (goalKey == 'goal_increase_strength') {
+      if (daysCount >= 4) return 'plan_split_upper_lower';
+      return 'plan_split_full_body';
+    }
+    if (goalKey == 'goal_maintain_fitness') {
+      if (daysCount >= 4) return 'plan_split_upper_lower';
+      return 'plan_split_full_body';
+    }
+    return null;
   }
 }

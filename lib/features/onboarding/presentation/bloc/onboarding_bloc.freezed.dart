@@ -55,14 +55,16 @@ extension OnboardingEventPatterns on OnboardingEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( SaveOnboarding value)?  saveOnboarding,TResult Function( GetOnboarding value)?  getOnboarding,TResult Function( SelectDays value)?  selectDays,TResult Function( SelectPlan value)?  selectPlan,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( SaveOnboarding value)?  saveOnboarding,TResult Function( GetOnboarding value)?  getOnboarding,TResult Function( SelectDays value)?  selectDays,TResult Function( SelectPlan value)?  selectPlan,TResult Function( SelectGoal value)?  selectGoal,TResult Function( SetPersonalMetrics value)?  setPersonalMetrics,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case SaveOnboarding() when saveOnboarding != null:
 return saveOnboarding(_that);case GetOnboarding() when getOnboarding != null:
 return getOnboarding(_that);case SelectDays() when selectDays != null:
 return selectDays(_that);case SelectPlan() when selectPlan != null:
-return selectPlan(_that);case _:
+return selectPlan(_that);case SelectGoal() when selectGoal != null:
+return selectGoal(_that);case SetPersonalMetrics() when setPersonalMetrics != null:
+return setPersonalMetrics(_that);case _:
   return orElse();
 
 }
@@ -80,14 +82,16 @@ return selectPlan(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( SaveOnboarding value)  saveOnboarding,required TResult Function( GetOnboarding value)  getOnboarding,required TResult Function( SelectDays value)  selectDays,required TResult Function( SelectPlan value)  selectPlan,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( SaveOnboarding value)  saveOnboarding,required TResult Function( GetOnboarding value)  getOnboarding,required TResult Function( SelectDays value)  selectDays,required TResult Function( SelectPlan value)  selectPlan,required TResult Function( SelectGoal value)  selectGoal,required TResult Function( SetPersonalMetrics value)  setPersonalMetrics,}){
 final _that = this;
 switch (_that) {
 case SaveOnboarding():
 return saveOnboarding(_that);case GetOnboarding():
 return getOnboarding(_that);case SelectDays():
 return selectDays(_that);case SelectPlan():
-return selectPlan(_that);case _:
+return selectPlan(_that);case SelectGoal():
+return selectGoal(_that);case SetPersonalMetrics():
+return setPersonalMetrics(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -104,14 +108,16 @@ return selectPlan(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( SaveOnboarding value)?  saveOnboarding,TResult? Function( GetOnboarding value)?  getOnboarding,TResult? Function( SelectDays value)?  selectDays,TResult? Function( SelectPlan value)?  selectPlan,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( SaveOnboarding value)?  saveOnboarding,TResult? Function( GetOnboarding value)?  getOnboarding,TResult? Function( SelectDays value)?  selectDays,TResult? Function( SelectPlan value)?  selectPlan,TResult? Function( SelectGoal value)?  selectGoal,TResult? Function( SetPersonalMetrics value)?  setPersonalMetrics,}){
 final _that = this;
 switch (_that) {
 case SaveOnboarding() when saveOnboarding != null:
 return saveOnboarding(_that);case GetOnboarding() when getOnboarding != null:
 return getOnboarding(_that);case SelectDays() when selectDays != null:
 return selectDays(_that);case SelectPlan() when selectPlan != null:
-return selectPlan(_that);case _:
+return selectPlan(_that);case SelectGoal() when selectGoal != null:
+return selectGoal(_that);case SetPersonalMetrics() when setPersonalMetrics != null:
+return setPersonalMetrics(_that);case _:
   return null;
 
 }
@@ -128,13 +134,15 @@ return selectPlan(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( OnboardingParams params)?  saveOnboarding,TResult Function( String userId)?  getOnboarding,TResult Function( Set<String> days)?  selectDays,TResult Function( String plan)?  selectPlan,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( OnboardingParams params)?  saveOnboarding,TResult Function( String userId)?  getOnboarding,TResult Function( Set<String> days)?  selectDays,TResult Function( String plan)?  selectPlan,TResult Function( String goal)?  selectGoal,TResult Function( PersonalMetrics metrics)?  setPersonalMetrics,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case SaveOnboarding() when saveOnboarding != null:
 return saveOnboarding(_that.params);case GetOnboarding() when getOnboarding != null:
 return getOnboarding(_that.userId);case SelectDays() when selectDays != null:
 return selectDays(_that.days);case SelectPlan() when selectPlan != null:
-return selectPlan(_that.plan);case _:
+return selectPlan(_that.plan);case SelectGoal() when selectGoal != null:
+return selectGoal(_that.goal);case SetPersonalMetrics() when setPersonalMetrics != null:
+return setPersonalMetrics(_that.metrics);case _:
   return orElse();
 
 }
@@ -152,13 +160,15 @@ return selectPlan(_that.plan);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( OnboardingParams params)  saveOnboarding,required TResult Function( String userId)  getOnboarding,required TResult Function( Set<String> days)  selectDays,required TResult Function( String plan)  selectPlan,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( OnboardingParams params)  saveOnboarding,required TResult Function( String userId)  getOnboarding,required TResult Function( Set<String> days)  selectDays,required TResult Function( String plan)  selectPlan,required TResult Function( String goal)  selectGoal,required TResult Function( PersonalMetrics metrics)  setPersonalMetrics,}) {final _that = this;
 switch (_that) {
 case SaveOnboarding():
 return saveOnboarding(_that.params);case GetOnboarding():
 return getOnboarding(_that.userId);case SelectDays():
 return selectDays(_that.days);case SelectPlan():
-return selectPlan(_that.plan);case _:
+return selectPlan(_that.plan);case SelectGoal():
+return selectGoal(_that.goal);case SetPersonalMetrics():
+return setPersonalMetrics(_that.metrics);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -175,13 +185,15 @@ return selectPlan(_that.plan);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( OnboardingParams params)?  saveOnboarding,TResult? Function( String userId)?  getOnboarding,TResult? Function( Set<String> days)?  selectDays,TResult? Function( String plan)?  selectPlan,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( OnboardingParams params)?  saveOnboarding,TResult? Function( String userId)?  getOnboarding,TResult? Function( Set<String> days)?  selectDays,TResult? Function( String plan)?  selectPlan,TResult? Function( String goal)?  selectGoal,TResult? Function( PersonalMetrics metrics)?  setPersonalMetrics,}) {final _that = this;
 switch (_that) {
 case SaveOnboarding() when saveOnboarding != null:
 return saveOnboarding(_that.params);case GetOnboarding() when getOnboarding != null:
 return getOnboarding(_that.userId);case SelectDays() when selectDays != null:
 return selectDays(_that.days);case SelectPlan() when selectPlan != null:
-return selectPlan(_that.plan);case _:
+return selectPlan(_that.plan);case SelectGoal() when selectGoal != null:
+return selectGoal(_that.goal);case SetPersonalMetrics() when setPersonalMetrics != null:
+return setPersonalMetrics(_that.metrics);case _:
   return null;
 
 }
@@ -469,6 +481,147 @@ as String,
 }
 
 /// @nodoc
+
+
+class SelectGoal implements OnboardingEvent {
+  const SelectGoal(this.goal);
+  
+
+ final  String goal;
+
+/// Create a copy of OnboardingEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SelectGoalCopyWith<SelectGoal> get copyWith => _$SelectGoalCopyWithImpl<SelectGoal>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SelectGoal&&(identical(other.goal, goal) || other.goal == goal));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,goal);
+
+@override
+String toString() {
+  return 'OnboardingEvent.selectGoal(goal: $goal)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SelectGoalCopyWith<$Res> implements $OnboardingEventCopyWith<$Res> {
+  factory $SelectGoalCopyWith(SelectGoal value, $Res Function(SelectGoal) _then) = _$SelectGoalCopyWithImpl;
+@useResult
+$Res call({
+ String goal
+});
+
+
+
+
+}
+/// @nodoc
+class _$SelectGoalCopyWithImpl<$Res>
+    implements $SelectGoalCopyWith<$Res> {
+  _$SelectGoalCopyWithImpl(this._self, this._then);
+
+  final SelectGoal _self;
+  final $Res Function(SelectGoal) _then;
+
+/// Create a copy of OnboardingEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? goal = null,}) {
+  return _then(SelectGoal(
+null == goal ? _self.goal : goal // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class SetPersonalMetrics implements OnboardingEvent {
+  const SetPersonalMetrics({required this.metrics});
+  
+
+ final  PersonalMetrics metrics;
+
+/// Create a copy of OnboardingEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SetPersonalMetricsCopyWith<SetPersonalMetrics> get copyWith => _$SetPersonalMetricsCopyWithImpl<SetPersonalMetrics>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SetPersonalMetrics&&(identical(other.metrics, metrics) || other.metrics == metrics));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,metrics);
+
+@override
+String toString() {
+  return 'OnboardingEvent.setPersonalMetrics(metrics: $metrics)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SetPersonalMetricsCopyWith<$Res> implements $OnboardingEventCopyWith<$Res> {
+  factory $SetPersonalMetricsCopyWith(SetPersonalMetrics value, $Res Function(SetPersonalMetrics) _then) = _$SetPersonalMetricsCopyWithImpl;
+@useResult
+$Res call({
+ PersonalMetrics metrics
+});
+
+
+$PersonalMetricsCopyWith<$Res> get metrics;
+
+}
+/// @nodoc
+class _$SetPersonalMetricsCopyWithImpl<$Res>
+    implements $SetPersonalMetricsCopyWith<$Res> {
+  _$SetPersonalMetricsCopyWithImpl(this._self, this._then);
+
+  final SetPersonalMetrics _self;
+  final $Res Function(SetPersonalMetrics) _then;
+
+/// Create a copy of OnboardingEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? metrics = null,}) {
+  return _then(SetPersonalMetrics(
+metrics: null == metrics ? _self.metrics : metrics // ignore: cast_nullable_to_non_nullable
+as PersonalMetrics,
+  ));
+}
+
+/// Create a copy of OnboardingEvent
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$PersonalMetricsCopyWith<$Res> get metrics {
+  
+  return $PersonalMetricsCopyWith<$Res>(_self.metrics, (value) {
+    return _then(_self.copyWith(metrics: value));
+  });
+}
+}
+
+/// @nodoc
 mixin _$OnboardingState {
 
 
@@ -512,7 +665,7 @@ extension OnboardingStatePatterns on OnboardingState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Initial value)?  initial,TResult Function( Loading value)?  loading,TResult Function( Success value)?  success,TResult Function( Loaded value)?  loaded,TResult Function( Failure value)?  failure,TResult Function( DaysSelected value)?  daysSelected,TResult Function( PlanSelected value)?  planSelected,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Initial value)?  initial,TResult Function( Loading value)?  loading,TResult Function( Success value)?  success,TResult Function( Loaded value)?  loaded,TResult Function( Failure value)?  failure,TResult Function( DaysSelected value)?  daysSelected,TResult Function( GoalSelected value)?  goalSelected,TResult Function( PlanSelected value)?  planSelected,TResult Function( MetricsSet value)?  metricsSet,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case Initial() when initial != null:
@@ -521,8 +674,10 @@ return loading(_that);case Success() when success != null:
 return success(_that);case Loaded() when loaded != null:
 return loaded(_that);case Failure() when failure != null:
 return failure(_that);case DaysSelected() when daysSelected != null:
-return daysSelected(_that);case PlanSelected() when planSelected != null:
-return planSelected(_that);case _:
+return daysSelected(_that);case GoalSelected() when goalSelected != null:
+return goalSelected(_that);case PlanSelected() when planSelected != null:
+return planSelected(_that);case MetricsSet() when metricsSet != null:
+return metricsSet(_that);case _:
   return orElse();
 
 }
@@ -540,7 +695,7 @@ return planSelected(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Initial value)  initial,required TResult Function( Loading value)  loading,required TResult Function( Success value)  success,required TResult Function( Loaded value)  loaded,required TResult Function( Failure value)  failure,required TResult Function( DaysSelected value)  daysSelected,required TResult Function( PlanSelected value)  planSelected,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Initial value)  initial,required TResult Function( Loading value)  loading,required TResult Function( Success value)  success,required TResult Function( Loaded value)  loaded,required TResult Function( Failure value)  failure,required TResult Function( DaysSelected value)  daysSelected,required TResult Function( GoalSelected value)  goalSelected,required TResult Function( PlanSelected value)  planSelected,required TResult Function( MetricsSet value)  metricsSet,}){
 final _that = this;
 switch (_that) {
 case Initial():
@@ -549,8 +704,10 @@ return loading(_that);case Success():
 return success(_that);case Loaded():
 return loaded(_that);case Failure():
 return failure(_that);case DaysSelected():
-return daysSelected(_that);case PlanSelected():
-return planSelected(_that);case _:
+return daysSelected(_that);case GoalSelected():
+return goalSelected(_that);case PlanSelected():
+return planSelected(_that);case MetricsSet():
+return metricsSet(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -567,7 +724,7 @@ return planSelected(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Initial value)?  initial,TResult? Function( Loading value)?  loading,TResult? Function( Success value)?  success,TResult? Function( Loaded value)?  loaded,TResult? Function( Failure value)?  failure,TResult? Function( DaysSelected value)?  daysSelected,TResult? Function( PlanSelected value)?  planSelected,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Initial value)?  initial,TResult? Function( Loading value)?  loading,TResult? Function( Success value)?  success,TResult? Function( Loaded value)?  loaded,TResult? Function( Failure value)?  failure,TResult? Function( DaysSelected value)?  daysSelected,TResult? Function( GoalSelected value)?  goalSelected,TResult? Function( PlanSelected value)?  planSelected,TResult? Function( MetricsSet value)?  metricsSet,}){
 final _that = this;
 switch (_that) {
 case Initial() when initial != null:
@@ -576,8 +733,10 @@ return loading(_that);case Success() when success != null:
 return success(_that);case Loaded() when loaded != null:
 return loaded(_that);case Failure() when failure != null:
 return failure(_that);case DaysSelected() when daysSelected != null:
-return daysSelected(_that);case PlanSelected() when planSelected != null:
-return planSelected(_that);case _:
+return daysSelected(_that);case GoalSelected() when goalSelected != null:
+return goalSelected(_that);case PlanSelected() when planSelected != null:
+return planSelected(_that);case MetricsSet() when metricsSet != null:
+return metricsSet(_that);case _:
   return null;
 
 }
@@ -594,7 +753,7 @@ return planSelected(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function()?  success,TResult Function( OnboardingParams params)?  loaded,TResult Function( String message)?  failure,TResult Function( Set<String> days)?  daysSelected,TResult Function( Set<String> days,  String plan)?  planSelected,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function()?  success,TResult Function( OnboardingParams params)?  loaded,TResult Function( String message)?  failure,TResult Function( Set<String> days)?  daysSelected,TResult Function( Set<String> days,  String goal)?  goalSelected,TResult Function( Set<String> days,  String plan,  String? goal)?  planSelected,TResult Function( Set<String> days,  String? goal)?  metricsSet,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case Initial() when initial != null:
 return initial();case Loading() when loading != null:
@@ -602,8 +761,10 @@ return loading();case Success() when success != null:
 return success();case Loaded() when loaded != null:
 return loaded(_that.params);case Failure() when failure != null:
 return failure(_that.message);case DaysSelected() when daysSelected != null:
-return daysSelected(_that.days);case PlanSelected() when planSelected != null:
-return planSelected(_that.days,_that.plan);case _:
+return daysSelected(_that.days);case GoalSelected() when goalSelected != null:
+return goalSelected(_that.days,_that.goal);case PlanSelected() when planSelected != null:
+return planSelected(_that.days,_that.plan,_that.goal);case MetricsSet() when metricsSet != null:
+return metricsSet(_that.days,_that.goal);case _:
   return orElse();
 
 }
@@ -621,7 +782,7 @@ return planSelected(_that.days,_that.plan);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function()  success,required TResult Function( OnboardingParams params)  loaded,required TResult Function( String message)  failure,required TResult Function( Set<String> days)  daysSelected,required TResult Function( Set<String> days,  String plan)  planSelected,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function()  success,required TResult Function( OnboardingParams params)  loaded,required TResult Function( String message)  failure,required TResult Function( Set<String> days)  daysSelected,required TResult Function( Set<String> days,  String goal)  goalSelected,required TResult Function( Set<String> days,  String plan,  String? goal)  planSelected,required TResult Function( Set<String> days,  String? goal)  metricsSet,}) {final _that = this;
 switch (_that) {
 case Initial():
 return initial();case Loading():
@@ -629,8 +790,10 @@ return loading();case Success():
 return success();case Loaded():
 return loaded(_that.params);case Failure():
 return failure(_that.message);case DaysSelected():
-return daysSelected(_that.days);case PlanSelected():
-return planSelected(_that.days,_that.plan);case _:
+return daysSelected(_that.days);case GoalSelected():
+return goalSelected(_that.days,_that.goal);case PlanSelected():
+return planSelected(_that.days,_that.plan,_that.goal);case MetricsSet():
+return metricsSet(_that.days,_that.goal);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -647,7 +810,7 @@ return planSelected(_that.days,_that.plan);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function()?  success,TResult? Function( OnboardingParams params)?  loaded,TResult? Function( String message)?  failure,TResult? Function( Set<String> days)?  daysSelected,TResult? Function( Set<String> days,  String plan)?  planSelected,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function()?  success,TResult? Function( OnboardingParams params)?  loaded,TResult? Function( String message)?  failure,TResult? Function( Set<String> days)?  daysSelected,TResult? Function( Set<String> days,  String goal)?  goalSelected,TResult? Function( Set<String> days,  String plan,  String? goal)?  planSelected,TResult? Function( Set<String> days,  String? goal)?  metricsSet,}) {final _that = this;
 switch (_that) {
 case Initial() when initial != null:
 return initial();case Loading() when loading != null:
@@ -655,8 +818,10 @@ return loading();case Success() when success != null:
 return success();case Loaded() when loaded != null:
 return loaded(_that.params);case Failure() when failure != null:
 return failure(_that.message);case DaysSelected() when daysSelected != null:
-return daysSelected(_that.days);case PlanSelected() when planSelected != null:
-return planSelected(_that.days,_that.plan);case _:
+return daysSelected(_that.days);case GoalSelected() when goalSelected != null:
+return goalSelected(_that.days,_that.goal);case PlanSelected() when planSelected != null:
+return planSelected(_that.days,_that.plan,_that.goal);case MetricsSet() when metricsSet != null:
+return metricsSet(_that.days,_that.goal);case _:
   return null;
 
 }
@@ -976,8 +1141,82 @@ as Set<String>,
 /// @nodoc
 
 
+class GoalSelected implements OnboardingState {
+  const GoalSelected({required final  Set<String> days, required this.goal}): _days = days;
+  
+
+ final  Set<String> _days;
+ Set<String> get days {
+  if (_days is EqualUnmodifiableSetView) return _days;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableSetView(_days);
+}
+
+ final  String goal;
+
+/// Create a copy of OnboardingState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$GoalSelectedCopyWith<GoalSelected> get copyWith => _$GoalSelectedCopyWithImpl<GoalSelected>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GoalSelected&&const DeepCollectionEquality().equals(other._days, _days)&&(identical(other.goal, goal) || other.goal == goal));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_days),goal);
+
+@override
+String toString() {
+  return 'OnboardingState.goalSelected(days: $days, goal: $goal)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $GoalSelectedCopyWith<$Res> implements $OnboardingStateCopyWith<$Res> {
+  factory $GoalSelectedCopyWith(GoalSelected value, $Res Function(GoalSelected) _then) = _$GoalSelectedCopyWithImpl;
+@useResult
+$Res call({
+ Set<String> days, String goal
+});
+
+
+
+
+}
+/// @nodoc
+class _$GoalSelectedCopyWithImpl<$Res>
+    implements $GoalSelectedCopyWith<$Res> {
+  _$GoalSelectedCopyWithImpl(this._self, this._then);
+
+  final GoalSelected _self;
+  final $Res Function(GoalSelected) _then;
+
+/// Create a copy of OnboardingState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? days = null,Object? goal = null,}) {
+  return _then(GoalSelected(
+days: null == days ? _self._days : days // ignore: cast_nullable_to_non_nullable
+as Set<String>,goal: null == goal ? _self.goal : goal // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
 class PlanSelected implements OnboardingState {
-  const PlanSelected({required final  Set<String> days, required this.plan}): _days = days;
+  const PlanSelected({required final  Set<String> days, required this.plan, this.goal}): _days = days;
   
 
  final  Set<String> _days;
@@ -988,6 +1227,7 @@ class PlanSelected implements OnboardingState {
 }
 
  final  String plan;
+ final  String? goal;
 
 /// Create a copy of OnboardingState
 /// with the given fields replaced by the non-null parameter values.
@@ -999,16 +1239,16 @@ $PlanSelectedCopyWith<PlanSelected> get copyWith => _$PlanSelectedCopyWithImpl<P
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PlanSelected&&const DeepCollectionEquality().equals(other._days, _days)&&(identical(other.plan, plan) || other.plan == plan));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PlanSelected&&const DeepCollectionEquality().equals(other._days, _days)&&(identical(other.plan, plan) || other.plan == plan)&&(identical(other.goal, goal) || other.goal == goal));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_days),plan);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_days),plan,goal);
 
 @override
 String toString() {
-  return 'OnboardingState.planSelected(days: $days, plan: $plan)';
+  return 'OnboardingState.planSelected(days: $days, plan: $plan, goal: $goal)';
 }
 
 
@@ -1019,7 +1259,7 @@ abstract mixin class $PlanSelectedCopyWith<$Res> implements $OnboardingStateCopy
   factory $PlanSelectedCopyWith(PlanSelected value, $Res Function(PlanSelected) _then) = _$PlanSelectedCopyWithImpl;
 @useResult
 $Res call({
- Set<String> days, String plan
+ Set<String> days, String plan, String? goal
 });
 
 
@@ -1036,11 +1276,86 @@ class _$PlanSelectedCopyWithImpl<$Res>
 
 /// Create a copy of OnboardingState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? days = null,Object? plan = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? days = null,Object? plan = null,Object? goal = freezed,}) {
   return _then(PlanSelected(
 days: null == days ? _self._days : days // ignore: cast_nullable_to_non_nullable
 as Set<String>,plan: null == plan ? _self.plan : plan // ignore: cast_nullable_to_non_nullable
-as String,
+as String,goal: freezed == goal ? _self.goal : goal // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class MetricsSet implements OnboardingState {
+  const MetricsSet({required final  Set<String> days, this.goal}): _days = days;
+  
+
+ final  Set<String> _days;
+ Set<String> get days {
+  if (_days is EqualUnmodifiableSetView) return _days;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableSetView(_days);
+}
+
+ final  String? goal;
+
+/// Create a copy of OnboardingState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$MetricsSetCopyWith<MetricsSet> get copyWith => _$MetricsSetCopyWithImpl<MetricsSet>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MetricsSet&&const DeepCollectionEquality().equals(other._days, _days)&&(identical(other.goal, goal) || other.goal == goal));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_days),goal);
+
+@override
+String toString() {
+  return 'OnboardingState.metricsSet(days: $days, goal: $goal)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $MetricsSetCopyWith<$Res> implements $OnboardingStateCopyWith<$Res> {
+  factory $MetricsSetCopyWith(MetricsSet value, $Res Function(MetricsSet) _then) = _$MetricsSetCopyWithImpl;
+@useResult
+$Res call({
+ Set<String> days, String? goal
+});
+
+
+
+
+}
+/// @nodoc
+class _$MetricsSetCopyWithImpl<$Res>
+    implements $MetricsSetCopyWith<$Res> {
+  _$MetricsSetCopyWithImpl(this._self, this._then);
+
+  final MetricsSet _self;
+  final $Res Function(MetricsSet) _then;
+
+/// Create a copy of OnboardingState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? days = null,Object? goal = freezed,}) {
+  return _then(MetricsSet(
+days: null == days ? _self._days : days // ignore: cast_nullable_to_non_nullable
+as Set<String>,goal: freezed == goal ? _self.goal : goal // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
