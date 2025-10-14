@@ -55,7 +55,11 @@
 "city": "City",
 "enter_city": "Enter your city",
 "country_required": "Country is required",
-"city_required": "City is required"
+"city_required": "City is required",
+"experience_level_title": "Experience Level",
+"beginner": "Beginner",
+"intermediate": "Intermediate",
+"advanced": "Advanced"
 ,
   "cancel": "Cancel",
   "done": "Done",
