@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gym_buddy/features/auth/domain/params/register_params.dart';
-import 'package:gym_buddy/injections.dart';
 import 'package:injectable/injectable.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -11,9 +10,10 @@ abstract class UserDataSource {
 
 @Injectable(as: UserDataSource)
 class UserDataSourceImpl implements UserDataSource {
+  final Talker _talker;
   final FirebaseFirestore _firestore;
 
-  UserDataSourceImpl(this._firestore);
+  UserDataSourceImpl(this._firestore, this._talker);
 
   @override
   Future<void> saveUserDataEmail(User user, RegisterParams params) async {
@@ -25,7 +25,7 @@ class UserDataSourceImpl implements UserDataSource {
         'createdAt': FieldValue.serverTimestamp(),
       });
     } catch (e) {
-      getIt<Talker>().handle(e);
+      _talker.handle(e);
       rethrow;
     }
   }

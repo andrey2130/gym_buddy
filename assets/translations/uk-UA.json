@@ -146,6 +146,11 @@
   "add_exercise": "Додати вправу",
   "add_set": "Додати підхід",
   "edit_set": "Редагувати підхід @setNumber",
+  "edit_workout": "Редагувати тренування",
+  "workout_updated_successfully": "Тренування успішно оновлено!",
+  "save_changes": "Зберегти зміни",
+  "end_time": "Час закінчення",
+  "end_time_must_be_after_start_time": "Час закінчення повинен бути після часу початку",
   "reps_label": "Повторення",
   "reps_hint": "12",
   "weight_kg": "Вага (кг)",
@@ -167,5 +172,13 @@
   "total_hours": "Всього годин",
   "no_exercises_added_yet": "Поки не додано вправ",
   "exercise": "вправа",
-  "exercises_plural": "вправи"
+  "exercises_plural": "вправи",
+  "remove_exercise": "Видалити вправу",
+  "monday": "Понеділок",
+  "tuesday": "Вівторок",
+  "wednesday": "Середа",
+  "thursday": "Четвер",
+  "friday": "П'ятниця",
+  "saturday": "Субота",
+  "sunday": "Неділя"
 }

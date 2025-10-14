@@ -10,8 +10,6 @@ abstract class ExerciseEntity with _$ExerciseEntity {
     required String exerciseId,
     required String name,
     required List<SetEntity> sets,
-    String? notes,
-    String? muscleGroup,
     DateTime? createdAt,
   }) = _ExerciseEntity;
 

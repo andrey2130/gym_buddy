@@ -1,10 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:gym_buddy/features/profile/presentation/widgets/common/expansion_tile.dart';
 import 'package:gym_buddy/features/workout/domain/entity/exercise_entity.dart';
 import 'package:gym_buddy/features/workout/domain/entity/set_entity.dart';
 import 'package:gym_buddy/features/workout/domain/entity/workout_entity.dart';
 
-class ExerciseCard extends StatelessWidget {
+class ExerciseExpansionCard extends StatelessWidget {
   final ExerciseEntity exercise;
   final WorkoutEntity workout;
   final VoidCallback? onRemoveExercise;
@@ -13,7 +14,7 @@ class ExerciseCard extends StatelessWidget {
   final Function(ExerciseEntity, int)? onRemoveSet;
   final Function(ExerciseEntity, int, SetEntity)? onToggleSetCompletion;
 
-  const ExerciseCard({
+  const ExerciseExpansionCard({
     required this.exercise,
     required this.workout,
     super.key,
@@ -26,48 +27,42 @@ class ExerciseCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.only(bottom: 16),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    exercise.name,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                if (!workout.isCompleted && onRemoveExercise != null)
-                  IconButton(
-                    onPressed: onRemoveExercise,
-                    icon: const Icon(Icons.delete),
-                    color: Theme.of(context).colorScheme.error,
-                  ),
-              ],
+    final completedSets = exercise.sets.where((set) => set.isCompleted).length;
+    final totalSets = exercise.sets.length;
+    final subtitle = '$completedSets/$totalSets ${'sets'.tr()}';
+
+    return CustomExpansionTile(
+      title: exercise.name,
+      subtitle: subtitle,
+      icon: Icons.fitness_center,
+      iosIcon: Icons.fitness_center,
+      initiallyExpanded: false,
+      children: [
+        ...exercise.sets.asMap().entries.map((entry) {
+          final setIndex = entry.key;
+          final set = entry.value;
+          return _buildSetRow(context, exercise, setIndex, set);
+        }),
+        if (!workout.isCompleted && onAddSet != null) ...[
+          const SizedBox(height: 8),
+          TextButton.icon(
+            onPressed: onAddSet,
+            icon: const Icon(Icons.add),
+            label: Text('add_set'.tr()),
+          ),
+        ],
+        if (!workout.isCompleted && onRemoveExercise != null) ...[
+          const SizedBox(height: 8),
+          TextButton.icon(
+            onPressed: onRemoveExercise,
+            icon: const Icon(Icons.delete),
+            label: Text('remove_exercise'.tr()),
+            style: TextButton.styleFrom(
+              foregroundColor: Theme.of(context).colorScheme.error,
             ),
-            const SizedBox(height: 8),
-            ...exercise.sets.asMap().entries.map((entry) {
-              final setIndex = entry.key;
-              final set = entry.value;
-              return _buildSetRow(context, exercise, setIndex, set);
-            }),
-            if (!workout.isCompleted && onAddSet != null) ...[
-              const SizedBox(height: 8),
-              TextButton.icon(
-                onPressed: onAddSet,
-                icon: const Icon(Icons.add),
-                label: Text('add_set'.tr()),
-              ),
-            ],
-          ],
-        ),
-      ),
+          ),
+        ],
+      ],
     );
   }
 

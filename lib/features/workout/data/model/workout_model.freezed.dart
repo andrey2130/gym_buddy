@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$WorkoutModel {
 
- String get workoutId; String get userId; String get name;@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime get date;@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime get startTime; List<ExerciseModel> get exercises; int? get duration; String? get notes;@JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) DateTime? get createdAt;@JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) DateTime? get updatedAt; bool get isCompleted;
+ String get workoutId; String get userId; String get name;@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime get date;@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime get startTime;@JsonKey(toJson: _exercisesToJson, fromJson: _exercisesFromJson) List<ExerciseModel> get exercises; DateTime? get endTime; int? get duration;@JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) DateTime? get createdAt;@JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) DateTime? get updatedAt; bool get isCompleted;
 /// Create a copy of WorkoutModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $WorkoutModelCopyWith<WorkoutModel> get copyWith => _$WorkoutModelCopyWithImpl<W
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is WorkoutModel&&(identical(other.workoutId, workoutId) || other.workoutId == workoutId)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.name, name) || other.name == name)&&(identical(other.date, date) || other.date == date)&&(identical(other.startTime, startTime) || other.startTime == startTime)&&const DeepCollectionEquality().equals(other.exercises, exercises)&&(identical(other.duration, duration) || other.duration == duration)&&(identical(other.notes, notes) || other.notes == notes)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.isCompleted, isCompleted) || other.isCompleted == isCompleted));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WorkoutModel&&(identical(other.workoutId, workoutId) || other.workoutId == workoutId)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.name, name) || other.name == name)&&(identical(other.date, date) || other.date == date)&&(identical(other.startTime, startTime) || other.startTime == startTime)&&const DeepCollectionEquality().equals(other.exercises, exercises)&&(identical(other.endTime, endTime) || other.endTime == endTime)&&(identical(other.duration, duration) || other.duration == duration)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.isCompleted, isCompleted) || other.isCompleted == isCompleted));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,workoutId,userId,name,date,startTime,const DeepCollectionEquality().hash(exercises),duration,notes,createdAt,updatedAt,isCompleted);
+int get hashCode => Object.hash(runtimeType,workoutId,userId,name,date,startTime,const DeepCollectionEquality().hash(exercises),endTime,duration,createdAt,updatedAt,isCompleted);
 
 @override
 String toString() {
-  return 'WorkoutModel(workoutId: $workoutId, userId: $userId, name: $name, date: $date, startTime: $startTime, exercises: $exercises, duration: $duration, notes: $notes, createdAt: $createdAt, updatedAt: $updatedAt, isCompleted: $isCompleted)';
+  return 'WorkoutModel(workoutId: $workoutId, userId: $userId, name: $name, date: $date, startTime: $startTime, exercises: $exercises, endTime: $endTime, duration: $duration, createdAt: $createdAt, updatedAt: $updatedAt, isCompleted: $isCompleted)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $WorkoutModelCopyWith<$Res>  {
   factory $WorkoutModelCopyWith(WorkoutModel value, $Res Function(WorkoutModel) _then) = _$WorkoutModelCopyWithImpl;
 @useResult
 $Res call({
- String workoutId, String userId, String name,@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime date,@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime startTime, List<ExerciseModel> exercises, int? duration, String? notes,@JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) DateTime? createdAt,@JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) DateTime? updatedAt, bool isCompleted
+ String workoutId, String userId, String name,@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime date,@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime startTime,@JsonKey(toJson: _exercisesToJson, fromJson: _exercisesFromJson) List<ExerciseModel> exercises, DateTime? endTime, int? duration,@JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) DateTime? createdAt,@JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) DateTime? updatedAt, bool isCompleted
 });
 
 
@@ -65,7 +65,7 @@ class _$WorkoutModelCopyWithImpl<$Res>
 
 /// Create a copy of WorkoutModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? workoutId = null,Object? userId = null,Object? name = null,Object? date = null,Object? startTime = null,Object? exercises = null,Object? duration = freezed,Object? notes = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,Object? isCompleted = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? workoutId = null,Object? userId = null,Object? name = null,Object? date = null,Object? startTime = null,Object? exercises = null,Object? endTime = freezed,Object? duration = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,Object? isCompleted = null,}) {
   return _then(_self.copyWith(
 workoutId: null == workoutId ? _self.workoutId : workoutId // ignore: cast_nullable_to_non_nullable
 as String,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
@@ -73,9 +73,9 @@ as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non
 as String,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
 as DateTime,startTime: null == startTime ? _self.startTime : startTime // ignore: cast_nullable_to_non_nullable
 as DateTime,exercises: null == exercises ? _self.exercises : exercises // ignore: cast_nullable_to_non_nullable
-as List<ExerciseModel>,duration: freezed == duration ? _self.duration : duration // ignore: cast_nullable_to_non_nullable
-as int?,notes: freezed == notes ? _self.notes : notes // ignore: cast_nullable_to_non_nullable
-as String?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as List<ExerciseModel>,endTime: freezed == endTime ? _self.endTime : endTime // ignore: cast_nullable_to_non_nullable
+as DateTime?,duration: freezed == duration ? _self.duration : duration // ignore: cast_nullable_to_non_nullable
+as int?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,isCompleted: null == isCompleted ? _self.isCompleted : isCompleted // ignore: cast_nullable_to_non_nullable
 as bool,
@@ -163,10 +163,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String workoutId,  String userId,  String name, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime date, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime startTime,  List<ExerciseModel> exercises,  int? duration,  String? notes, @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp)  DateTime? createdAt, @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp)  DateTime? updatedAt,  bool isCompleted)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String workoutId,  String userId,  String name, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime date, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime startTime, @JsonKey(toJson: _exercisesToJson, fromJson: _exercisesFromJson)  List<ExerciseModel> exercises,  DateTime? endTime,  int? duration, @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp)  DateTime? createdAt, @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp)  DateTime? updatedAt,  bool isCompleted)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _WorkoutModel() when $default != null:
-return $default(_that.workoutId,_that.userId,_that.name,_that.date,_that.startTime,_that.exercises,_that.duration,_that.notes,_that.createdAt,_that.updatedAt,_that.isCompleted);case _:
+return $default(_that.workoutId,_that.userId,_that.name,_that.date,_that.startTime,_that.exercises,_that.endTime,_that.duration,_that.createdAt,_that.updatedAt,_that.isCompleted);case _:
   return orElse();
 
 }
@@ -184,10 +184,10 @@ return $default(_that.workoutId,_that.userId,_that.name,_that.date,_that.startTi
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String workoutId,  String userId,  String name, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime date, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime startTime,  List<ExerciseModel> exercises,  int? duration,  String? notes, @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp)  DateTime? createdAt, @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp)  DateTime? updatedAt,  bool isCompleted)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String workoutId,  String userId,  String name, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime date, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime startTime, @JsonKey(toJson: _exercisesToJson, fromJson: _exercisesFromJson)  List<ExerciseModel> exercises,  DateTime? endTime,  int? duration, @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp)  DateTime? createdAt, @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp)  DateTime? updatedAt,  bool isCompleted)  $default,) {final _that = this;
 switch (_that) {
 case _WorkoutModel():
-return $default(_that.workoutId,_that.userId,_that.name,_that.date,_that.startTime,_that.exercises,_that.duration,_that.notes,_that.createdAt,_that.updatedAt,_that.isCompleted);case _:
+return $default(_that.workoutId,_that.userId,_that.name,_that.date,_that.startTime,_that.exercises,_that.endTime,_that.duration,_that.createdAt,_that.updatedAt,_that.isCompleted);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -204,10 +204,10 @@ return $default(_that.workoutId,_that.userId,_that.name,_that.date,_that.startTi
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String workoutId,  String userId,  String name, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime date, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime startTime,  List<ExerciseModel> exercises,  int? duration,  String? notes, @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp)  DateTime? createdAt, @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp)  DateTime? updatedAt,  bool isCompleted)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String workoutId,  String userId,  String name, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime date, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp)  DateTime startTime, @JsonKey(toJson: _exercisesToJson, fromJson: _exercisesFromJson)  List<ExerciseModel> exercises,  DateTime? endTime,  int? duration, @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp)  DateTime? createdAt, @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp)  DateTime? updatedAt,  bool isCompleted)?  $default,) {final _that = this;
 switch (_that) {
 case _WorkoutModel() when $default != null:
-return $default(_that.workoutId,_that.userId,_that.name,_that.date,_that.startTime,_that.exercises,_that.duration,_that.notes,_that.createdAt,_that.updatedAt,_that.isCompleted);case _:
+return $default(_that.workoutId,_that.userId,_that.name,_that.date,_that.startTime,_that.exercises,_that.endTime,_that.duration,_that.createdAt,_that.updatedAt,_that.isCompleted);case _:
   return null;
 
 }
@@ -219,7 +219,7 @@ return $default(_that.workoutId,_that.userId,_that.name,_that.date,_that.startTi
 @JsonSerializable()
 
 class _WorkoutModel extends WorkoutModel {
-  const _WorkoutModel({required this.workoutId, required this.userId, required this.name, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) required this.date, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) required this.startTime, required final  List<ExerciseModel> exercises, this.duration, this.notes, @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) this.createdAt, @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) this.updatedAt, this.isCompleted = false}): _exercises = exercises,super._();
+  const _WorkoutModel({required this.workoutId, required this.userId, required this.name, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) required this.date, @JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) required this.startTime, @JsonKey(toJson: _exercisesToJson, fromJson: _exercisesFromJson) required final  List<ExerciseModel> exercises, this.endTime, this.duration, @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) this.createdAt, @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) this.updatedAt, this.isCompleted = false}): _exercises = exercises,super._();
   factory _WorkoutModel.fromJson(Map<String, dynamic> json) => _$WorkoutModelFromJson(json);
 
 @override final  String workoutId;
@@ -228,14 +228,14 @@ class _WorkoutModel extends WorkoutModel {
 @override@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) final  DateTime date;
 @override@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) final  DateTime startTime;
  final  List<ExerciseModel> _exercises;
-@override List<ExerciseModel> get exercises {
+@override@JsonKey(toJson: _exercisesToJson, fromJson: _exercisesFromJson) List<ExerciseModel> get exercises {
   if (_exercises is EqualUnmodifiableListView) return _exercises;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_exercises);
 }
 
+@override final  DateTime? endTime;
 @override final  int? duration;
-@override final  String? notes;
 @override@JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) final  DateTime? createdAt;
 @override@JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) final  DateTime? updatedAt;
 @override@JsonKey() final  bool isCompleted;
@@ -253,16 +253,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WorkoutModel&&(identical(other.workoutId, workoutId) || other.workoutId == workoutId)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.name, name) || other.name == name)&&(identical(other.date, date) || other.date == date)&&(identical(other.startTime, startTime) || other.startTime == startTime)&&const DeepCollectionEquality().equals(other._exercises, _exercises)&&(identical(other.duration, duration) || other.duration == duration)&&(identical(other.notes, notes) || other.notes == notes)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.isCompleted, isCompleted) || other.isCompleted == isCompleted));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WorkoutModel&&(identical(other.workoutId, workoutId) || other.workoutId == workoutId)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.name, name) || other.name == name)&&(identical(other.date, date) || other.date == date)&&(identical(other.startTime, startTime) || other.startTime == startTime)&&const DeepCollectionEquality().equals(other._exercises, _exercises)&&(identical(other.endTime, endTime) || other.endTime == endTime)&&(identical(other.duration, duration) || other.duration == duration)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.isCompleted, isCompleted) || other.isCompleted == isCompleted));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,workoutId,userId,name,date,startTime,const DeepCollectionEquality().hash(_exercises),duration,notes,createdAt,updatedAt,isCompleted);
+int get hashCode => Object.hash(runtimeType,workoutId,userId,name,date,startTime,const DeepCollectionEquality().hash(_exercises),endTime,duration,createdAt,updatedAt,isCompleted);
 
 @override
 String toString() {
-  return 'WorkoutModel(workoutId: $workoutId, userId: $userId, name: $name, date: $date, startTime: $startTime, exercises: $exercises, duration: $duration, notes: $notes, createdAt: $createdAt, updatedAt: $updatedAt, isCompleted: $isCompleted)';
+  return 'WorkoutModel(workoutId: $workoutId, userId: $userId, name: $name, date: $date, startTime: $startTime, exercises: $exercises, endTime: $endTime, duration: $duration, createdAt: $createdAt, updatedAt: $updatedAt, isCompleted: $isCompleted)';
 }
 
 
@@ -273,7 +273,7 @@ abstract mixin class _$WorkoutModelCopyWith<$Res> implements $WorkoutModelCopyWi
   factory _$WorkoutModelCopyWith(_WorkoutModel value, $Res Function(_WorkoutModel) _then) = __$WorkoutModelCopyWithImpl;
 @override @useResult
 $Res call({
- String workoutId, String userId, String name,@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime date,@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime startTime, List<ExerciseModel> exercises, int? duration, String? notes,@JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) DateTime? createdAt,@JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) DateTime? updatedAt, bool isCompleted
+ String workoutId, String userId, String name,@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime date,@JsonKey(fromJson: _fromTimestamp, toJson: _toTimestamp) DateTime startTime,@JsonKey(toJson: _exercisesToJson, fromJson: _exercisesFromJson) List<ExerciseModel> exercises, DateTime? endTime, int? duration,@JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) DateTime? createdAt,@JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp) DateTime? updatedAt, bool isCompleted
 });
 
 
@@ -290,7 +290,7 @@ class __$WorkoutModelCopyWithImpl<$Res>
 
 /// Create a copy of WorkoutModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? workoutId = null,Object? userId = null,Object? name = null,Object? date = null,Object? startTime = null,Object? exercises = null,Object? duration = freezed,Object? notes = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,Object? isCompleted = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? workoutId = null,Object? userId = null,Object? name = null,Object? date = null,Object? startTime = null,Object? exercises = null,Object? endTime = freezed,Object? duration = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,Object? isCompleted = null,}) {
   return _then(_WorkoutModel(
 workoutId: null == workoutId ? _self.workoutId : workoutId // ignore: cast_nullable_to_non_nullable
 as String,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
@@ -298,9 +298,9 @@ as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non
 as String,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
 as DateTime,startTime: null == startTime ? _self.startTime : startTime // ignore: cast_nullable_to_non_nullable
 as DateTime,exercises: null == exercises ? _self._exercises : exercises // ignore: cast_nullable_to_non_nullable
-as List<ExerciseModel>,duration: freezed == duration ? _self.duration : duration // ignore: cast_nullable_to_non_nullable
-as int?,notes: freezed == notes ? _self.notes : notes // ignore: cast_nullable_to_non_nullable
-as String?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as List<ExerciseModel>,endTime: freezed == endTime ? _self.endTime : endTime // ignore: cast_nullable_to_non_nullable
+as DateTime?,duration: freezed == duration ? _self.duration : duration // ignore: cast_nullable_to_non_nullable
+as int?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,isCompleted: null == isCompleted ? _self.isCompleted : isCompleted // ignore: cast_nullable_to_non_nullable
 as bool,

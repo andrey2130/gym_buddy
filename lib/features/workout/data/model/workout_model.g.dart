@@ -13,11 +13,11 @@ _WorkoutModel _$WorkoutModelFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       date: _fromTimestamp(json['date']),
       startTime: _fromTimestamp(json['startTime']),
-      exercises: (json['exercises'] as List<dynamic>)
-          .map((e) => ExerciseModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      exercises: _exercisesFromJson(json['exercises'] as List),
+      endTime: json['endTime'] == null
+          ? null
+          : DateTime.parse(json['endTime'] as String),
       duration: (json['duration'] as num?)?.toInt(),
-      notes: json['notes'] as String?,
       createdAt: _fromTimestampNullable(json['createdAt']),
       updatedAt: _fromTimestampNullable(json['updatedAt']),
       isCompleted: json['isCompleted'] as bool? ?? false,
@@ -30,9 +30,9 @@ Map<String, dynamic> _$WorkoutModelToJson(_WorkoutModel instance) =>
       'name': instance.name,
       'date': _toTimestamp(instance.date),
       'startTime': _toTimestamp(instance.startTime),
-      'exercises': instance.exercises.map((e) => e.toJson()).toList(),
+      'exercises': _exercisesToJson(instance.exercises),
+      'endTime': instance.endTime?.toIso8601String(),
       'duration': instance.duration,
-      'notes': instance.notes,
       'createdAt': _toTimestamp(instance.createdAt),
       'updatedAt': _toTimestamp(instance.updatedAt),
       'isCompleted': instance.isCompleted,

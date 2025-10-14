@@ -8,6 +8,7 @@ class WorkoutEvent with _$WorkoutEvent {
   const factory WorkoutEvent.loadWorkouts() = LoadWorkouts;
   const factory WorkoutEvent.updateWorkout(WorkoutEntity workout) =
       UpdateWorkout;
+  const factory WorkoutEvent.editWorkout(WorkoutEntity workout) = EditWorkout;
   const factory WorkoutEvent.updateWorkoutExercises(WorkoutEntity workout) =
       UpdateWorkoutExercises;
   const factory WorkoutEvent.deleteWorkout(DeleteWorkoutParams params) =
@@ -24,10 +25,6 @@ class WorkoutEvent with _$WorkoutEvent {
       EndWorkoutSession;
   const factory WorkoutEvent.calculateStats(List<WorkoutEntity> workouts) =
       CalculateStats;
-  const factory WorkoutEvent.filterWorkouts(
-    List<WorkoutEntity> workouts,
-    WorkoutFilterType filterType,
-  ) = FilterWorkouts;
   const factory WorkoutEvent.groupWorkoutsByDay(List<WorkoutEntity> workouts) =
       GroupWorkoutsByDay;
   const factory WorkoutEvent.formatTime(

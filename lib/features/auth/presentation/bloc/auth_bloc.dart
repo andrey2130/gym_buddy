@@ -7,7 +7,6 @@ import 'package:gym_buddy/features/auth/domain/usecases/get_current_user_usecase
 import 'package:gym_buddy/features/auth/domain/usecases/login_usecase.dart';
 import 'package:gym_buddy/features/auth/domain/usecases/logout_usecase.dart';
 import 'package:gym_buddy/features/auth/domain/usecases/register_usecase.dart';
-import 'package:gym_buddy/injections.dart';
 import 'package:injectable/injectable.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -17,6 +16,7 @@ part 'auth_bloc.freezed.dart';
 
 @injectable
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
+  final Talker _talker;
   final RegisterUsecase _registerUsecase;
   final LoginUsecase _loginUsecase;
   final GetCurrentUserIdUsecase _getCurrentUserIdUsecase;
@@ -27,6 +27,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     this._loginUsecase,
     this._getCurrentUserIdUsecase,
     this._logoutUsecase,
+    this._talker,
   ) : super(const AuthState.initial()) {
     on<RegisterViaEmail>(_onRegisterViaEmail);
     on<LoginViaEmail>(_onLoginViaEmail);
@@ -44,7 +45,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     result.fold((failure) {
       emit(AuthState.failure(message: failure.message));
-      getIt<Talker>().handle(failure.message);
+      _talker.handle(failure.message);
     }, (userId) => emit(AuthState.authenticated(userId: userId)));
   }
 
@@ -58,7 +59,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     result.fold((failure) {
       emit(AuthState.failure(message: failure.message));
-      getIt<Talker>().handle(failure.message);
+      _talker.handle(failure.message);
     }, (userId) => emit(AuthState.logined(userId: userId)));
   }
 
@@ -82,7 +83,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     result.fold((failure) {
       emit(AuthState.failure(message: failure.message));
-      getIt<Talker>().handle(failure.message);
+      _talker.handle(failure.message);
     }, (_) => emit(const AuthState.unauthenticated()));
   }
 }

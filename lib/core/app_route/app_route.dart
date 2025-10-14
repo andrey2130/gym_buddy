@@ -12,6 +12,7 @@ import 'package:gym_buddy/features/splash_screen/presentation/splash_screen.dart
 import 'package:gym_buddy/features/workout/domain/entity/workout_entity.dart';
 import 'package:gym_buddy/features/workout/presentation/pages/session_screen.dart';
 import 'package:gym_buddy/features/workout/presentation/pages/workout_create_screen.dart';
+import 'package:gym_buddy/features/workout/presentation/pages/workout_edit_screen.dart';
 import 'package:gym_buddy/features/workout/presentation/pages/workout_screen.dart';
 import 'package:gym_buddy/injections.dart';
 
@@ -120,6 +121,13 @@ final appRoutes = [
       child: WorkoutCreateScreen(
         getCurrentUserIdUsecase: getIt<GetCurrentUserIdUsecase>(),
       ),
+    ),
+  ),
+  GoRoute(
+    path: '/workout/edit/:workoutId',
+    pageBuilder: (context, state) => buildTransitionPage(
+      key: state.pageKey,
+      child: WorkoutEditScreen(workout: state.extra! as WorkoutEntity),
     ),
   ),
   GoRoute(

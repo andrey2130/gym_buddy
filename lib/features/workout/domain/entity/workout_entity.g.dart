@@ -16,6 +16,9 @@ _WorkoutEntity _$WorkoutEntityFromJson(Map<String, dynamic> json) =>
       exercises: (json['exercises'] as List<dynamic>)
           .map((e) => ExerciseEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
+      endTime: json['endTime'] == null
+          ? null
+          : DateTime.parse(json['endTime'] as String),
       duration: (json['duration'] as num?)?.toInt(),
       notes: json['notes'] as String?,
       createdAt: json['createdAt'] == null
@@ -35,6 +38,7 @@ Map<String, dynamic> _$WorkoutEntityToJson(_WorkoutEntity instance) =>
       'date': instance.date.toIso8601String(),
       'startTime': instance.startTime.toIso8601String(),
       'exercises': instance.exercises,
+      'endTime': instance.endTime?.toIso8601String(),
       'duration': instance.duration,
       'notes': instance.notes,
       'createdAt': instance.createdAt?.toIso8601String(),

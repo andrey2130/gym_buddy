@@ -164,7 +164,8 @@ class EndSessionButton extends StatelessWidget {
     WorkoutEntity workout,
     DateTime endTime,
   ) {
-    final duration = endTime.difference(workout.startTime).inMinutes;
+    final rawDuration = endTime.difference(workout.startTime).inMinutes;
+    final duration = rawDuration < 0 ? 0 : rawDuration;
 
     showAdaptiveDialog(
       context: context,
@@ -191,14 +192,18 @@ class EndSessionButton extends StatelessWidget {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              'great_job_workout_duration'.tr(
-                args: [_formatDuration(duration)],
+            Flexible(
+              child: Text(
+                'great_job_workout_duration'.tr(
+                  args: [_formatDuration(duration)],
+                ),
+
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
-              style: Theme.of(context).textTheme.bodyLarge,
             ),
             const SizedBox(height: 16),
             Container(
+              width: double.infinity,
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: Theme.of(
@@ -214,11 +219,13 @@ class EndSessionButton extends StatelessWidget {
                     size: 20,
                   ),
                   const SizedBox(width: 8),
-                  Text(
-                    'keep_up_great_work'.tr(),
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
-                      fontWeight: FontWeight.w600,
+                  Expanded(
+                    child: Text(
+                      'keep_up_great_work'.tr(),
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ],

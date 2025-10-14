@@ -10,11 +10,7 @@ _ExerciseModel _$ExerciseModelFromJson(Map<String, dynamic> json) =>
     _ExerciseModel(
       exerciseId: json['exerciseId'] as String,
       name: json['name'] as String,
-      sets: (json['sets'] as List<dynamic>)
-          .map((e) => SetModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      notes: json['notes'] as String?,
-      muscleGroup: json['muscleGroup'] as String?,
+      sets: _setsFromJson(json['sets'] as List),
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
@@ -24,8 +20,6 @@ Map<String, dynamic> _$ExerciseModelToJson(_ExerciseModel instance) =>
     <String, dynamic>{
       'exerciseId': instance.exerciseId,
       'name': instance.name,
-      'sets': instance.sets.map((e) => e.toJson()).toList(),
-      'notes': instance.notes,
-      'muscleGroup': instance.muscleGroup,
+      'sets': _setsToJson(instance.sets),
       'createdAt': instance.createdAt?.toIso8601String(),
     };

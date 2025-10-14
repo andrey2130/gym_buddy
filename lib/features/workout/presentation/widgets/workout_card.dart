@@ -11,12 +11,13 @@ class WorkoutCard extends StatefulWidget {
   final WorkoutEntity workout;
   final VoidCallback? onTap;
   final VoidCallback? onDelete;
-
+  final VoidCallback? onEdit;
   const WorkoutCard({
     required this.workout,
     super.key,
     this.onTap,
     this.onDelete,
+    this.onEdit,
   });
 
   @override
@@ -57,13 +58,12 @@ class _WorkoutCardState extends State<WorkoutCard>
       onTapUp: (_) => _animationController.reverse(),
       onTapCancel: () => _animationController.reverse(),
       onTap: widget.onTap,
-      onLongPress: widget.onDelete != null
-          ? () => WorkoutDropdownMenu.show(
-              context: context,
-              onDelete: widget.onDelete!,
-              workoutName: widget.workout.name,
-            )
-          : null,
+      onLongPress: () => WorkoutDropdownMenu.show(
+        context: context,
+        onDelete: widget.onDelete!,
+        workoutName: widget.workout.name,
+        onEdit: widget.onEdit ?? () {},
+      ),
       child: AnimatedBuilder(
         animation: _animationController,
         builder: (context, child) {

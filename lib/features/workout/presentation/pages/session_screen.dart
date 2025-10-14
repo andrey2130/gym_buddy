@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:gym_buddy/features/workout/domain/entity/workout_entity.dart';
 import 'package:gym_buddy/features/workout/presentation/bloc/workout_bloc.dart';
 import 'package:gym_buddy/features/workout/presentation/services/session_service.dart';
-import 'package:gym_buddy/features/workout/presentation/widgets/exercise_card.dart';
+import 'package:gym_buddy/features/workout/presentation/widgets/exercise_expansion_card.dart';
 import 'package:gym_buddy/features/workout/presentation/widgets/session/add_exercise_button.dart';
 import 'package:gym_buddy/features/workout/presentation/widgets/session/session_app_bar.dart';
 import 'package:gym_buddy/features/workout/presentation/widgets/session/session_empty_state.dart';
@@ -71,7 +71,8 @@ class _SessionScreenState extends State<SessionScreen>
             position: _slideAnimation,
             child: BlocBuilder<WorkoutBloc, WorkoutState>(
               builder: (context, state) {
-                if (state is Loading || state is Initial) {
+                if (state is Initial ||
+                    (state is Loading && widget.workout == null)) {
                   return const SessionLoadingState();
                 }
 
@@ -126,7 +127,7 @@ class _SessionScreenState extends State<SessionScreen>
         else
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: Text(
                 'exercises'.tr(),
                 style: Theme.of(context).textTheme.displayMedium?.copyWith(
@@ -148,48 +149,51 @@ class _SessionScreenState extends State<SessionScreen>
                     offset: Offset(0, 20 * (1 - value)),
                     child: Opacity(
                       opacity: value,
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 6,
-                        ),
-                        child: ExerciseCard(
-                          exercise: exercise,
-                          workout: workout,
-                          onRemoveExercise: !workout.isCompleted
-                              ? () => SessionService.removeExercise(
-                                  context,
-                                  workout,
-                                  exercise,
-                                )
-                              : null,
-                          onAddSet: !workout.isCompleted
-                              ? () => SessionService.addSet(
-                                  context,
-                                  workout,
-                                  exercise,
-                                )
-                              : null,
-                          onEditSet: !workout.isCompleted
-                              ? (exercise, setIndex, set) =>
-                                    SessionService.editSet(
-                                      context,
-                                      workout,
-                                      exercise,
-                                      setIndex,
-                                      set,
-                                    )
-                              : null,
-                          onRemoveSet: !workout.isCompleted
-                              ? (exercise, setIndex) =>
-                                    SessionService.removeSet(
-                                      context,
-                                      workout,
-                                      exercise,
-                                      setIndex,
-                                    )
-                              : null,
-                        ),
+                      child: ExerciseExpansionCard(
+                        exercise: exercise,
+                        workout: workout,
+                        onRemoveExercise: !workout.isCompleted
+                            ? () => SessionService.removeExercise(
+                                context,
+                                workout,
+                                exercise,
+                              )
+                            : null,
+                        onAddSet: !workout.isCompleted
+                            ? () => SessionService.addSet(
+                                context,
+                                workout,
+                                exercise,
+                              )
+                            : null,
+                        onEditSet: !workout.isCompleted
+                            ? (exercise, setIndex, set) =>
+                                  SessionService.editSet(
+                                    context,
+                                    workout,
+                                    exercise,
+                                    setIndex,
+                                    set,
+                                  )
+                            : null,
+                        onRemoveSet: !workout.isCompleted
+                            ? (exercise, setIndex) => SessionService.removeSet(
+                                context,
+                                workout,
+                                exercise,
+                                setIndex,
+                              )
+                            : null,
+                        onToggleSetCompletion: !workout.isCompleted
+                            ? (exercise, setIndex, set) =>
+                                  SessionService.toggleSetCompletion(
+                                    context,
+                                    workout,
+                                    exercise,
+                                    setIndex,
+                                    set,
+                                  )
+                            : null,
                       ),
                     ),
                   );

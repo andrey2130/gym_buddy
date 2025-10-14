@@ -64,12 +64,11 @@ import 'features/workout/domain/usecase/add_exercise_to_workout_usecase.dart'
     as _i0;
 import 'features/workout/domain/usecase/calculate_workout_stats_usecase.dart'
     as _i108;
-import 'features/workout/domain/usecase/create_exercise_usecase.dart' as _i422;
 import 'features/workout/domain/usecase/create_workout_usecase.dart' as _i1046;
 import 'features/workout/domain/usecase/delete_workout_usecase.dart' as _i407;
+import 'features/workout/domain/usecase/edit_workout_usecase.dart' as _i853;
 import 'features/workout/domain/usecase/end_workout_session_usecase.dart'
     as _i903;
-import 'features/workout/domain/usecase/filter_workouts_usecase.dart' as _i341;
 import 'features/workout/domain/usecase/format_workout_time_usecase.dart'
     as _i588;
 import 'features/workout/domain/usecase/get_workouts_usecase.dart' as _i948;
@@ -95,20 +94,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i588.FormatWorkoutTimeUsecase>(
       () => _i588.FormatWorkoutTimeUsecase(),
     );
-    gh.factory<_i341.FilterWorkoutsUsecase>(
-      () => _i341.FilterWorkoutsUsecase(),
-    );
-    gh.factory<_i422.CreateExerciseUsecase>(
-      () => _i422.CreateExerciseUsecase(),
+    gh.factory<_i703.GroupWorkoutsByDayUsecase>(
+      () => _i703.GroupWorkoutsByDayUsecase(),
     );
     gh.factory<_i589.ValidateWorkoutCreationUsecase>(
       () => _i589.ValidateWorkoutCreationUsecase(),
     );
     gh.factory<_i108.CalculateWorkoutStatsUsecase>(
       () => _i108.CalculateWorkoutStatsUsecase(),
-    );
-    gh.factory<_i703.GroupWorkoutsByDayUsecase>(
-      () => _i703.GroupWorkoutsByDayUsecase(),
     );
     gh.singleton<_i583.GoRouter>(() => navigationModule.router);
     gh.factory<_i326.ProfileDataSource>(
@@ -123,13 +116,13 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i732.SharedPreferencesService(gh<_i460.SharedPreferences>()),
     );
     gh.factory<_i937.UserDataSource>(
-      () => _i937.UserDataSourceImpl(gh<_i974.FirebaseFirestore>()),
+      () => _i937.UserDataSourceImpl(
+        gh<_i974.FirebaseFirestore>(),
+        gh<_i207.Talker>(),
+      ),
     );
     gh.factory<_i1015.ProfileRepository>(
       () => _i277.ProfileRepositoryImpl(gh<_i326.ProfileDataSource>()),
-    );
-    gh.factory<_i691.OnboardingDataSource>(
-      () => _i691.OnboardingDataSourceImpl(gh<_i974.FirebaseFirestore>()),
     );
     gh.lazySingleton<_i482.WorkoutDatasource>(
       () => _i482.WorkoutDatasourceImpl(gh<_i974.FirebaseFirestore>()),
@@ -137,16 +130,29 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i494.WorkoutRepository>(
       () => _i596.WorkoutRepositoryImpl(gh<_i482.WorkoutDatasource>()),
     );
+    gh.factory<_i691.OnboardingDataSource>(
+      () => _i691.OnboardingDataSourceImpl(
+        gh<_i974.FirebaseFirestore>(),
+        gh<_i207.Talker>(),
+      ),
+    );
     gh.factory<_i1046.ChangeUserTrainingPlanUsecase>(
       () =>
           _i1046.ChangeUserTrainingPlanUsecase(gh<_i1015.ProfileRepository>()),
+    );
+    gh.factory<_i982.UpdateUserStatsUsecase>(
+      () => _i982.UpdateUserStatsUsecase(gh<_i1015.ProfileRepository>()),
     );
     gh.factory<_i1014.ChangeUserTrainingDaysUsecase>(
       () =>
           _i1014.ChangeUserTrainingDaysUsecase(gh<_i1015.ProfileRepository>()),
     );
-    gh.factory<_i982.UpdateUserStatsUsecase>(
-      () => _i982.UpdateUserStatsUsecase(gh<_i1015.ProfileRepository>()),
+    gh.factory<_i971.RemoveExerciseFromWorkoutUsecase>(
+      () =>
+          _i971.RemoveExerciseFromWorkoutUsecase(gh<_i494.WorkoutRepository>()),
+    );
+    gh.factory<_i880.UpdateExerciseInWorkoutUsecase>(
+      () => _i880.UpdateExerciseInWorkoutUsecase(gh<_i494.WorkoutRepository>()),
     );
     gh.factory<_i540.UpdateWorkoutUsecase>(
       () => _i540.UpdateWorkoutUsecase(gh<_i494.WorkoutRepository>()),
@@ -157,36 +163,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i948.GetWorkoutsUsecase>(
       () => _i948.GetWorkoutsUsecase(gh<_i494.WorkoutRepository>()),
     );
-    gh.factory<_i407.DeleteWorkoutUsecase>(
-      () => _i407.DeleteWorkoutUsecase(gh<_i494.WorkoutRepository>()),
-    );
-    gh.factory<_i971.RemoveExerciseFromWorkoutUsecase>(
-      () =>
-          _i971.RemoveExerciseFromWorkoutUsecase(gh<_i494.WorkoutRepository>()),
-    );
-    gh.factory<_i880.UpdateExerciseInWorkoutUsecase>(
-      () => _i880.UpdateExerciseInWorkoutUsecase(gh<_i494.WorkoutRepository>()),
+    gh.factory<_i853.EditWorkoutUsecase>(
+      () => _i853.EditWorkoutUsecase(gh<_i494.WorkoutRepository>()),
     );
     gh.factory<_i0.AddExerciseToWorkoutUsecase>(
       () => _i0.AddExerciseToWorkoutUsecase(gh<_i494.WorkoutRepository>()),
     );
-    gh.factory<_i337.AuthDataSource>(
-      () => _i337.AuthDataSourceImpl(
-        gh<_i59.FirebaseAuth>(),
-        gh<_i937.UserDataSource>(),
-      ),
-    );
-    gh.factory<_i442.AuthRepo>(
-      () => _i186.AuthRepoImpl(gh<_i337.AuthDataSource>()),
-    );
-    gh.factory<_i693.RegisterUsecase>(
-      () => _i693.RegisterUsecase(authRepo: gh<_i442.AuthRepo>()),
-    );
-    gh.factory<_i206.LoginUsecase>(
-      () => _i206.LoginUsecase(authRepo: gh<_i442.AuthRepo>()),
-    );
-    gh.factory<_i824.LogoutUsecase>(
-      () => _i824.LogoutUsecase(authRepo: gh<_i442.AuthRepo>()),
+    gh.factory<_i407.DeleteWorkoutUsecase>(
+      () => _i407.DeleteWorkoutUsecase(gh<_i494.WorkoutRepository>()),
     );
     gh.factory<_i160.GetUserProfileUsecase>(
       () => _i160.GetUserProfileUsecase(gh<_i1015.ProfileRepository>()),
@@ -197,28 +181,26 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i577.ThemeCubit>(
       () => _i577.ThemeCubit(gh<_i732.SharedPreferencesService>()),
     );
+    gh.factory<_i337.AuthDataSource>(
+      () => _i337.AuthDataSourceImpl(
+        gh<_i59.FirebaseAuth>(),
+        gh<_i937.UserDataSource>(),
+        gh<_i207.Talker>(),
+      ),
+    );
     gh.factory<_i721.OnboardingRepo>(
       () => _i139.OnboardingRepoImpl(
         dataSource: gh<_i691.OnboardingDataSource>(),
         auth: gh<_i59.FirebaseAuth>(),
       ),
     );
-    gh.factory<_i630.GetCurrentUserIdUsecase>(
-      () => _i630.GetCurrentUserIdUsecase(gh<_i442.AuthRepo>()),
-    );
     gh.factory<_i959.SyncUserStatsFromWorkoutsUsecase>(
       () => _i959.SyncUserStatsFromWorkoutsUsecase(
         gh<_i982.UpdateUserStatsUsecase>(),
       ),
     );
-    gh.factory<_i284.ProfileBloc>(
-      () => _i284.ProfileBloc(
-        gh<_i630.GetCurrentUserIdUsecase>(),
-        gh<_i160.GetUserProfileUsecase>(),
-        gh<_i140.UpdateUserProfileUsecase>(),
-        gh<_i1046.ChangeUserTrainingPlanUsecase>(),
-        gh<_i1014.ChangeUserTrainingDaysUsecase>(),
-      ),
+    gh.factory<_i442.AuthRepo>(
+      () => _i186.AuthRepoImpl(gh<_i337.AuthDataSource>()),
     );
     gh.factory<_i312.GetOnboardingUsecase>(
       () => _i312.GetOnboardingUsecase(
@@ -230,18 +212,33 @@ extension GetItInjectableX on _i174.GetIt {
         onboardingRepo: gh<_i721.OnboardingRepo>(),
       ),
     );
-    gh.factory<_i363.AuthBloc>(
-      () => _i363.AuthBloc(
-        gh<_i693.RegisterUsecase>(),
-        gh<_i206.LoginUsecase>(),
-        gh<_i630.GetCurrentUserIdUsecase>(),
-        gh<_i824.LogoutUsecase>(),
-      ),
+    gh.factory<_i693.RegisterUsecase>(
+      () => _i693.RegisterUsecase(authRepo: gh<_i442.AuthRepo>()),
+    );
+    gh.factory<_i206.LoginUsecase>(
+      () => _i206.LoginUsecase(authRepo: gh<_i442.AuthRepo>()),
+    );
+    gh.factory<_i824.LogoutUsecase>(
+      () => _i824.LogoutUsecase(authRepo: gh<_i442.AuthRepo>()),
     );
     gh.factory<_i100.OnboardingBloc>(
       () => _i100.OnboardingBloc(
         gh<_i226.SaveOnboardingUsecase>(),
         gh<_i312.GetOnboardingUsecase>(),
+        gh<_i207.Talker>(),
+      ),
+    );
+    gh.factory<_i630.GetCurrentUserIdUsecase>(
+      () => _i630.GetCurrentUserIdUsecase(gh<_i442.AuthRepo>()),
+    );
+    gh.factory<_i284.ProfileBloc>(
+      () => _i284.ProfileBloc(
+        gh<_i630.GetCurrentUserIdUsecase>(),
+        gh<_i160.GetUserProfileUsecase>(),
+        gh<_i140.UpdateUserProfileUsecase>(),
+        gh<_i1046.ChangeUserTrainingPlanUsecase>(),
+        gh<_i1014.ChangeUserTrainingDaysUsecase>(),
+        gh<_i207.Talker>(),
       ),
     );
     gh.factory<_i903.EndWorkoutSessionUsecase>(
@@ -250,18 +247,28 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i959.SyncUserStatsFromWorkoutsUsecase>(),
       ),
     );
+    gh.factory<_i363.AuthBloc>(
+      () => _i363.AuthBloc(
+        gh<_i693.RegisterUsecase>(),
+        gh<_i206.LoginUsecase>(),
+        gh<_i630.GetCurrentUserIdUsecase>(),
+        gh<_i824.LogoutUsecase>(),
+        gh<_i207.Talker>(),
+      ),
+    );
     gh.factory<_i959.WorkoutBloc>(
       () => _i959.WorkoutBloc(
         gh<_i948.GetWorkoutsUsecase>(),
         gh<_i1046.CreateWorkoutUsecase>(),
         gh<_i540.UpdateWorkoutUsecase>(),
+        gh<_i853.EditWorkoutUsecase>(),
         gh<_i407.DeleteWorkoutUsecase>(),
         gh<_i0.AddExerciseToWorkoutUsecase>(),
         gh<_i880.UpdateExerciseInWorkoutUsecase>(),
         gh<_i971.RemoveExerciseFromWorkoutUsecase>(),
         gh<_i903.EndWorkoutSessionUsecase>(),
         gh<_i108.CalculateWorkoutStatsUsecase>(),
-        gh<_i341.FilterWorkoutsUsecase>(),
+        gh<_i207.Talker>(),
         gh<_i703.GroupWorkoutsByDayUsecase>(),
         gh<_i588.FormatWorkoutTimeUsecase>(),
         gh<_i589.ValidateWorkoutCreationUsecase>(),

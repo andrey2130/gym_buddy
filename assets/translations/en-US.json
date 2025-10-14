@@ -147,6 +147,11 @@
   "add_exercise": "Add Exercise",
   "add_set": "Add Set",
   "edit_set": "Edit Set @setNumber",
+  "edit_workout": "Edit Workout",
+  "workout_updated_successfully": "Workout updated successfully!",
+  "save_changes": "Save Changes",
+  "end_time": "End Time",
+  "end_time_must_be_after_start_time": "End time must be after start time",
   "reps_label": "Reps",
   "reps_hint": "12",
   "weight_kg": "Weight (kg)",
@@ -168,6 +173,14 @@
   "total_hours": "Total Hours",
   "no_exercises_added_yet": "No exercises added yet",
   "exercise": "exercise",
-  "exercises_plural": "exercises"
+  "exercises_plural": "exercises",
+  "remove_exercise": "Remove Exercise",
+  "monday": "Monday",
+  "tuesday": "Tuesday",
+  "wednesday": "Wednesday",
+  "thursday": "Thursday",
+  "friday": "Friday",
+  "saturday": "Saturday",
+  "sunday": "Sunday"
 
 }

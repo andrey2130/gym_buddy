@@ -10,9 +10,8 @@ abstract class ExerciseModel with _$ExerciseModel {
   const factory ExerciseModel({
     required String exerciseId,
     required String name,
+    @JsonKey(toJson: _setsToJson, fromJson: _setsFromJson)
     required List<SetModel> sets,
-    String? notes,
-    String? muscleGroup,
     DateTime? createdAt,
   }) = _ExerciseModel;
 
@@ -25,8 +24,6 @@ abstract class ExerciseModel with _$ExerciseModel {
     exerciseId: exerciseId,
     name: name,
     sets: sets.map((set) => set.toEntity()).toList(),
-    notes: notes,
-    muscleGroup: muscleGroup,
     createdAt: createdAt,
   );
 
@@ -34,8 +31,14 @@ abstract class ExerciseModel with _$ExerciseModel {
     exerciseId: entity.exerciseId,
     name: entity.name,
     sets: entity.sets.map(SetModel.fromEntity).toList(),
-    notes: entity.notes,
-    muscleGroup: entity.muscleGroup,
     createdAt: entity.createdAt,
   );
+}
+
+List<Map<String, dynamic>> _setsToJson(List<SetModel> sets) {
+  return sets.map((set) => set.toJson()).toList();
+}
+
+List<SetModel> _setsFromJson(List<dynamic> json) {
+  return json.map((e) => SetModel.fromJson(e as Map<String, dynamic>)).toList();
 }

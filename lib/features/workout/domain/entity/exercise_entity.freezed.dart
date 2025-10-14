@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ExerciseEntity {
 
- String get exerciseId; String get name; List<SetEntity> get sets; String? get notes; String? get muscleGroup; DateTime? get createdAt;
+ String get exerciseId; String get name; List<SetEntity> get sets; DateTime? get createdAt;
 /// Create a copy of ExerciseEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $ExerciseEntityCopyWith<ExerciseEntity> get copyWith => _$ExerciseEntityCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExerciseEntity&&(identical(other.exerciseId, exerciseId) || other.exerciseId == exerciseId)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.sets, sets)&&(identical(other.notes, notes) || other.notes == notes)&&(identical(other.muscleGroup, muscleGroup) || other.muscleGroup == muscleGroup)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExerciseEntity&&(identical(other.exerciseId, exerciseId) || other.exerciseId == exerciseId)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.sets, sets)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,exerciseId,name,const DeepCollectionEquality().hash(sets),notes,muscleGroup,createdAt);
+int get hashCode => Object.hash(runtimeType,exerciseId,name,const DeepCollectionEquality().hash(sets),createdAt);
 
 @override
 String toString() {
-  return 'ExerciseEntity(exerciseId: $exerciseId, name: $name, sets: $sets, notes: $notes, muscleGroup: $muscleGroup, createdAt: $createdAt)';
+  return 'ExerciseEntity(exerciseId: $exerciseId, name: $name, sets: $sets, createdAt: $createdAt)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $ExerciseEntityCopyWith<$Res>  {
   factory $ExerciseEntityCopyWith(ExerciseEntity value, $Res Function(ExerciseEntity) _then) = _$ExerciseEntityCopyWithImpl;
 @useResult
 $Res call({
- String exerciseId, String name, List<SetEntity> sets, String? notes, String? muscleGroup, DateTime? createdAt
+ String exerciseId, String name, List<SetEntity> sets, DateTime? createdAt
 });
 
 
@@ -65,14 +65,12 @@ class _$ExerciseEntityCopyWithImpl<$Res>
 
 /// Create a copy of ExerciseEntity
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? exerciseId = null,Object? name = null,Object? sets = null,Object? notes = freezed,Object? muscleGroup = freezed,Object? createdAt = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? exerciseId = null,Object? name = null,Object? sets = null,Object? createdAt = freezed,}) {
   return _then(_self.copyWith(
 exerciseId: null == exerciseId ? _self.exerciseId : exerciseId // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,sets: null == sets ? _self.sets : sets // ignore: cast_nullable_to_non_nullable
-as List<SetEntity>,notes: freezed == notes ? _self.notes : notes // ignore: cast_nullable_to_non_nullable
-as String?,muscleGroup: freezed == muscleGroup ? _self.muscleGroup : muscleGroup // ignore: cast_nullable_to_non_nullable
-as String?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as List<SetEntity>,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,
   ));
 }
@@ -158,10 +156,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String exerciseId,  String name,  List<SetEntity> sets,  String? notes,  String? muscleGroup,  DateTime? createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String exerciseId,  String name,  List<SetEntity> sets,  DateTime? createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ExerciseEntity() when $default != null:
-return $default(_that.exerciseId,_that.name,_that.sets,_that.notes,_that.muscleGroup,_that.createdAt);case _:
+return $default(_that.exerciseId,_that.name,_that.sets,_that.createdAt);case _:
   return orElse();
 
 }
@@ -179,10 +177,10 @@ return $default(_that.exerciseId,_that.name,_that.sets,_that.notes,_that.muscleG
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String exerciseId,  String name,  List<SetEntity> sets,  String? notes,  String? muscleGroup,  DateTime? createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String exerciseId,  String name,  List<SetEntity> sets,  DateTime? createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _ExerciseEntity():
-return $default(_that.exerciseId,_that.name,_that.sets,_that.notes,_that.muscleGroup,_that.createdAt);case _:
+return $default(_that.exerciseId,_that.name,_that.sets,_that.createdAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -199,10 +197,10 @@ return $default(_that.exerciseId,_that.name,_that.sets,_that.notes,_that.muscleG
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String exerciseId,  String name,  List<SetEntity> sets,  String? notes,  String? muscleGroup,  DateTime? createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String exerciseId,  String name,  List<SetEntity> sets,  DateTime? createdAt)?  $default,) {final _that = this;
 switch (_that) {
 case _ExerciseEntity() when $default != null:
-return $default(_that.exerciseId,_that.name,_that.sets,_that.notes,_that.muscleGroup,_that.createdAt);case _:
+return $default(_that.exerciseId,_that.name,_that.sets,_that.createdAt);case _:
   return null;
 
 }
@@ -214,7 +212,7 @@ return $default(_that.exerciseId,_that.name,_that.sets,_that.notes,_that.muscleG
 @JsonSerializable()
 
 class _ExerciseEntity implements ExerciseEntity {
-  const _ExerciseEntity({required this.exerciseId, required this.name, required final  List<SetEntity> sets, this.notes, this.muscleGroup, this.createdAt}): _sets = sets;
+  const _ExerciseEntity({required this.exerciseId, required this.name, required final  List<SetEntity> sets, this.createdAt}): _sets = sets;
   factory _ExerciseEntity.fromJson(Map<String, dynamic> json) => _$ExerciseEntityFromJson(json);
 
 @override final  String exerciseId;
@@ -226,8 +224,6 @@ class _ExerciseEntity implements ExerciseEntity {
   return EqualUnmodifiableListView(_sets);
 }
 
-@override final  String? notes;
-@override final  String? muscleGroup;
 @override final  DateTime? createdAt;
 
 /// Create a copy of ExerciseEntity
@@ -243,16 +239,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ExerciseEntity&&(identical(other.exerciseId, exerciseId) || other.exerciseId == exerciseId)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._sets, _sets)&&(identical(other.notes, notes) || other.notes == notes)&&(identical(other.muscleGroup, muscleGroup) || other.muscleGroup == muscleGroup)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ExerciseEntity&&(identical(other.exerciseId, exerciseId) || other.exerciseId == exerciseId)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._sets, _sets)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,exerciseId,name,const DeepCollectionEquality().hash(_sets),notes,muscleGroup,createdAt);
+int get hashCode => Object.hash(runtimeType,exerciseId,name,const DeepCollectionEquality().hash(_sets),createdAt);
 
 @override
 String toString() {
-  return 'ExerciseEntity(exerciseId: $exerciseId, name: $name, sets: $sets, notes: $notes, muscleGroup: $muscleGroup, createdAt: $createdAt)';
+  return 'ExerciseEntity(exerciseId: $exerciseId, name: $name, sets: $sets, createdAt: $createdAt)';
 }
 
 
@@ -263,7 +259,7 @@ abstract mixin class _$ExerciseEntityCopyWith<$Res> implements $ExerciseEntityCo
   factory _$ExerciseEntityCopyWith(_ExerciseEntity value, $Res Function(_ExerciseEntity) _then) = __$ExerciseEntityCopyWithImpl;
 @override @useResult
 $Res call({
- String exerciseId, String name, List<SetEntity> sets, String? notes, String? muscleGroup, DateTime? createdAt
+ String exerciseId, String name, List<SetEntity> sets, DateTime? createdAt
 });
 
 
@@ -280,14 +276,12 @@ class __$ExerciseEntityCopyWithImpl<$Res>
 
 /// Create a copy of ExerciseEntity
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? exerciseId = null,Object? name = null,Object? sets = null,Object? notes = freezed,Object? muscleGroup = freezed,Object? createdAt = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? exerciseId = null,Object? name = null,Object? sets = null,Object? createdAt = freezed,}) {
   return _then(_ExerciseEntity(
 exerciseId: null == exerciseId ? _self.exerciseId : exerciseId // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,sets: null == sets ? _self._sets : sets // ignore: cast_nullable_to_non_nullable
-as List<SetEntity>,notes: freezed == notes ? _self.notes : notes // ignore: cast_nullable_to_non_nullable
-as String?,muscleGroup: freezed == muscleGroup ? _self.muscleGroup : muscleGroup // ignore: cast_nullable_to_non_nullable
-as String?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as List<SetEntity>,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,
   ));
 }

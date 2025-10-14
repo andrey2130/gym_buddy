@@ -10,7 +10,6 @@ import 'package:gym_buddy/features/profile/domain/usecases/change_user_training_
 import 'package:gym_buddy/features/profile/domain/usecases/change_user_training_plan_usecase.dart';
 import 'package:gym_buddy/features/profile/domain/usecases/get_user_profile_usecase.dart';
 import 'package:gym_buddy/features/profile/domain/usecases/update_user_profile_usecase.dart';
-import 'package:gym_buddy/injections.dart';
 import 'package:injectable/injectable.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -25,6 +24,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final UpdateUserProfileUsecase _updateUserProfileUsecase;
   final ChangeUserTrainingPlanUsecase _changeUserTrainingPlanUsecase;
   final ChangeUserTrainingDaysUsecase _changeUserTrainingDaysUsecase;
+  final Talker _talker;
 
   ProfileBloc(
     this._getCurrentUserIdUsecase,
@@ -32,6 +32,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     this._updateUserProfileUsecase,
     this._changeUserTrainingPlanUsecase,
     this._changeUserTrainingDaysUsecase,
+    this._talker,
   ) : super(const ProfileState.initial()) {
     on<LoadUserProfile>(_onLoadUserProfile);
     on<UpdateUserProfile>(_onUpdateUserProfile);
@@ -49,7 +50,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
     if (uid == null) {
       const message = 'User not authenticated';
-      getIt<Talker>().error(message);
+      _talker.error(message);
       emit(const ProfileState.failure(message));
       return;
     }
@@ -58,7 +59,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
     result.fold(
       (failure) {
-        getIt<Talker>().error(failure.message);
+        _talker.error(failure.message);
         if (failure.message.contains('SESSION_EXPIRED')) {
           emit(const ProfileState.sessionExpired());
         } else {
@@ -70,7 +71,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           emit(ProfileState.loaded(user));
         } else {
           const message = 'User not found';
-          getIt<Talker>().error(message);
+          _talker.error(message);
           emit(const ProfileState.failure(message));
         }
       },
@@ -87,7 +88,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
     await result.fold(
       (failure) {
-        getIt<Talker>().error(failure.message);
+        _talker.error(failure.message);
         if (failure.message.contains('SESSION_EXPIRED')) {
           emit(const ProfileState.sessionExpired());
         } else {
@@ -103,7 +104,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
             } else {
               emit(ProfileState.failure(failure.message));
             }
-            getIt<Talker>().handle(failure.message);
+            _talker.handle(failure.message);
           },
           (user) {
             if (user != null) {
@@ -126,7 +127,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     final result = await _changeUserTrainingPlanUsecase(event.params);
 
     result.fold((failure) {
-      getIt<Talker>().error(failure.message);
+      _talker.error(failure.message);
       if (failure.message.contains('SESSION_EXPIRED')) {
         emit(const ProfileState.sessionExpired());
       } else {
@@ -143,7 +144,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     final result = await _changeUserTrainingDaysUsecase(event.params);
 
     result.fold((failure) {
-      getIt<Talker>().error(failure.message);
+      _talker.error(failure.message);
       if (failure.message.contains('SESSION_EXPIRED')) {
         emit(const ProfileState.sessionExpired());
       } else {
