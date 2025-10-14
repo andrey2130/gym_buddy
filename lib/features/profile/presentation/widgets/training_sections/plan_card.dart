@@ -6,16 +6,12 @@ class PlanCard extends StatelessWidget {
   final String subtitle;
   final bool isSelected;
   final VoidCallback onTap;
-  final bool isRecommended;
-  final String? recommendedLabel;
 
   const PlanCard({
     required this.title,
     required this.subtitle,
     required this.isSelected,
     required this.onTap,
-    this.isRecommended = false,
-    this.recommendedLabel,
     super.key,
   });
 
@@ -55,21 +51,6 @@ class PlanCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (isRecommended)
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
-                margin: EdgeInsets.only(bottom: 8.h),
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.tertiaryContainer,
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-                child: Text(
-                  recommendedLabel ?? 'Recommended',
-                  style: theme.textTheme.labelSmall?.copyWith(
-                    color: theme.colorScheme.onTertiaryContainer,
-                  ),
-                ),
-              ),
             Text(
               title,
               style: theme.textTheme.titleLarge?.copyWith(color: titleColor),

@@ -13,44 +13,6 @@ Users can register, select training days, customize their plan, log exercises wi
 💬 Chat with messages, photos, and replies
 
 📅 Onboarding: choose training days, plan, and time
-Updated Recommended Onboarding Flow (5 Steps)
-
-The new **"Personal Metrics"** step will be placed immediately after defining the fitness goal, as knowing your weight and age is critical for calculating Basal Metabolic Rate (BMR) and providing training plan recommendations.
-
-### Step 1: Choose your training days
-* **Title:** "Choose the days you usually go to the gym."
-* **Content:** Seven day-of-the-week buttons.
-* **Goal:** Establish the schedule.
-
-### Step 2: Your primary fitness goal
-* **Title:** "What is your main goal?"
-* **Content:** Buttons with options: **Build Muscle** / **Lose Weight** / **Increase Strength** / **Maintain Fitness**.
-* **Goal:** Understand user motivation.
-
-### Step 3 (NEW): Your Personal Metrics
-* **Title:** "Your Personal Metrics"
-* **Content:** Input fields for:
-    1.  **Gender:** Toggle **Male / Female** (or "Other/Prefer not to say").
-    2.  **Year of Birth (or Age):** Number input (for BMR and recovery recommendations).
-    3.  **Weight:** Number input with unit selector: **kg / lbs**.
-    4.  **Height:** Number input with unit selector: **cm / ft, in**.
-* **Goal:** Personalization, calculation of **BMI** (Body Mass Index) and **BMR**.
-
-### Step 4: Choose your plan
-* **Title:** "Choose your plan"
-* **Content:** Cards with splits (**Full Body, Upper/Lower, Push/Pull/Legs**), where one plan can be tagged as **"Recommended"** based on the **Goal** (Step 2) and **Metrics** (Step 3).
-* **Goal:** Select the training split.
-
-### Step 5: Final details
-* **Title:** "Select time and level"
-* **Content:**
-    1.  Time of day selection: **Morning / Evening**.
-    2.  Preferred Time Window: Time selector (e.g., **6:00 PM - 8:00 PM**).
-    3.  Experience Level: Toggle buttons: **Beginner / Intermediate / Advanced**.
-    *(We recommend moving "Country" and "City" fields to Profile Settings).*
-* **Goal:** Set up daily reminders and determine user proficiency level.
-
-This 5-step process is quick yet gathers **all the necessary data** to ensure deep personalization and power your future features (statistics, chat, recommendations).
 
 🏋️ Workout Tracker: exercises, sets, reps, save progress
 Here’s your updated and expanded plan in English 👇
