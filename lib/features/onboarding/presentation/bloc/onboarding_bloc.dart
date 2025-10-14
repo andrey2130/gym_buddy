@@ -116,12 +116,10 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
     Emitter<OnboardingState> emit,
   ) {
     _metrics = PersonalMetrics(
-      gender: event.gender,
-      birthYear: event.birthYear,
-      weight: event.weight,
-      weightUnit: event.weightUnit,
-      height: event.height,
-      heightUnit: event.heightUnit,
+      gender: event.metrics.gender,
+      birthYear: event.metrics.birthYear,
+      weight: event.metrics.weight,
+      height: event.metrics.height,
     );
     emit(OnboardingState.metricsSet(days: _selectedDays, goal: _selectedGoal));
   }

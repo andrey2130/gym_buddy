@@ -15,9 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PersonalMetrics {
 
- String get gender; int get birthYear; double get weight; String get weightUnit;// kg | lbs
- double get height; String get heightUnit;// cm | ft_in
- double? get bmi; double? get bmr;
+ String get gender; int get birthYear; double get weight; double get height; double? get bmi; double? get bmr;
 /// Create a copy of PersonalMetrics
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,16 +28,16 @@ $PersonalMetricsCopyWith<PersonalMetrics> get copyWith => _$PersonalMetricsCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PersonalMetrics&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.birthYear, birthYear) || other.birthYear == birthYear)&&(identical(other.weight, weight) || other.weight == weight)&&(identical(other.weightUnit, weightUnit) || other.weightUnit == weightUnit)&&(identical(other.height, height) || other.height == height)&&(identical(other.heightUnit, heightUnit) || other.heightUnit == heightUnit)&&(identical(other.bmi, bmi) || other.bmi == bmi)&&(identical(other.bmr, bmr) || other.bmr == bmr));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PersonalMetrics&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.birthYear, birthYear) || other.birthYear == birthYear)&&(identical(other.weight, weight) || other.weight == weight)&&(identical(other.height, height) || other.height == height)&&(identical(other.bmi, bmi) || other.bmi == bmi)&&(identical(other.bmr, bmr) || other.bmr == bmr));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,gender,birthYear,weight,weightUnit,height,heightUnit,bmi,bmr);
+int get hashCode => Object.hash(runtimeType,gender,birthYear,weight,height,bmi,bmr);
 
 @override
 String toString() {
-  return 'PersonalMetrics(gender: $gender, birthYear: $birthYear, weight: $weight, weightUnit: $weightUnit, height: $height, heightUnit: $heightUnit, bmi: $bmi, bmr: $bmr)';
+  return 'PersonalMetrics(gender: $gender, birthYear: $birthYear, weight: $weight, height: $height, bmi: $bmi, bmr: $bmr)';
 }
 
 
@@ -50,7 +48,7 @@ abstract mixin class $PersonalMetricsCopyWith<$Res>  {
   factory $PersonalMetricsCopyWith(PersonalMetrics value, $Res Function(PersonalMetrics) _then) = _$PersonalMetricsCopyWithImpl;
 @useResult
 $Res call({
- String gender, int birthYear, double weight, String weightUnit, double height, String heightUnit, double? bmi, double? bmr
+ String gender, int birthYear, double weight, double height, double? bmi, double? bmr
 });
 
 
@@ -67,15 +65,13 @@ class _$PersonalMetricsCopyWithImpl<$Res>
 
 /// Create a copy of PersonalMetrics
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? gender = null,Object? birthYear = null,Object? weight = null,Object? weightUnit = null,Object? height = null,Object? heightUnit = null,Object? bmi = freezed,Object? bmr = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? gender = null,Object? birthYear = null,Object? weight = null,Object? height = null,Object? bmi = freezed,Object? bmr = freezed,}) {
   return _then(_self.copyWith(
 gender: null == gender ? _self.gender : gender // ignore: cast_nullable_to_non_nullable
 as String,birthYear: null == birthYear ? _self.birthYear : birthYear // ignore: cast_nullable_to_non_nullable
 as int,weight: null == weight ? _self.weight : weight // ignore: cast_nullable_to_non_nullable
-as double,weightUnit: null == weightUnit ? _self.weightUnit : weightUnit // ignore: cast_nullable_to_non_nullable
-as String,height: null == height ? _self.height : height // ignore: cast_nullable_to_non_nullable
-as double,heightUnit: null == heightUnit ? _self.heightUnit : heightUnit // ignore: cast_nullable_to_non_nullable
-as String,bmi: freezed == bmi ? _self.bmi : bmi // ignore: cast_nullable_to_non_nullable
+as double,height: null == height ? _self.height : height // ignore: cast_nullable_to_non_nullable
+as double,bmi: freezed == bmi ? _self.bmi : bmi // ignore: cast_nullable_to_non_nullable
 as double?,bmr: freezed == bmr ? _self.bmr : bmr // ignore: cast_nullable_to_non_nullable
 as double?,
   ));
@@ -162,10 +158,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String gender,  int birthYear,  double weight,  String weightUnit,  double height,  String heightUnit,  double? bmi,  double? bmr)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String gender,  int birthYear,  double weight,  double height,  double? bmi,  double? bmr)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PersonalMetrics() when $default != null:
-return $default(_that.gender,_that.birthYear,_that.weight,_that.weightUnit,_that.height,_that.heightUnit,_that.bmi,_that.bmr);case _:
+return $default(_that.gender,_that.birthYear,_that.weight,_that.height,_that.bmi,_that.bmr);case _:
   return orElse();
 
 }
@@ -183,10 +179,10 @@ return $default(_that.gender,_that.birthYear,_that.weight,_that.weightUnit,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String gender,  int birthYear,  double weight,  String weightUnit,  double height,  String heightUnit,  double? bmi,  double? bmr)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String gender,  int birthYear,  double weight,  double height,  double? bmi,  double? bmr)  $default,) {final _that = this;
 switch (_that) {
 case _PersonalMetrics():
-return $default(_that.gender,_that.birthYear,_that.weight,_that.weightUnit,_that.height,_that.heightUnit,_that.bmi,_that.bmr);case _:
+return $default(_that.gender,_that.birthYear,_that.weight,_that.height,_that.bmi,_that.bmr);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -203,10 +199,10 @@ return $default(_that.gender,_that.birthYear,_that.weight,_that.weightUnit,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String gender,  int birthYear,  double weight,  String weightUnit,  double height,  String heightUnit,  double? bmi,  double? bmr)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String gender,  int birthYear,  double weight,  double height,  double? bmi,  double? bmr)?  $default,) {final _that = this;
 switch (_that) {
 case _PersonalMetrics() when $default != null:
-return $default(_that.gender,_that.birthYear,_that.weight,_that.weightUnit,_that.height,_that.heightUnit,_that.bmi,_that.bmr);case _:
+return $default(_that.gender,_that.birthYear,_that.weight,_that.height,_that.bmi,_that.bmr);case _:
   return null;
 
 }
@@ -218,17 +214,13 @@ return $default(_that.gender,_that.birthYear,_that.weight,_that.weightUnit,_that
 @JsonSerializable()
 
 class _PersonalMetrics implements PersonalMetrics {
-  const _PersonalMetrics({required this.gender, required this.birthYear, required this.weight, required this.weightUnit, required this.height, required this.heightUnit, this.bmi, this.bmr});
+  const _PersonalMetrics({required this.gender, required this.birthYear, required this.weight, required this.height, this.bmi, this.bmr});
   factory _PersonalMetrics.fromJson(Map<String, dynamic> json) => _$PersonalMetricsFromJson(json);
 
 @override final  String gender;
 @override final  int birthYear;
 @override final  double weight;
-@override final  String weightUnit;
-// kg | lbs
 @override final  double height;
-@override final  String heightUnit;
-// cm | ft_in
 @override final  double? bmi;
 @override final  double? bmr;
 
@@ -245,16 +237,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PersonalMetrics&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.birthYear, birthYear) || other.birthYear == birthYear)&&(identical(other.weight, weight) || other.weight == weight)&&(identical(other.weightUnit, weightUnit) || other.weightUnit == weightUnit)&&(identical(other.height, height) || other.height == height)&&(identical(other.heightUnit, heightUnit) || other.heightUnit == heightUnit)&&(identical(other.bmi, bmi) || other.bmi == bmi)&&(identical(other.bmr, bmr) || other.bmr == bmr));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PersonalMetrics&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.birthYear, birthYear) || other.birthYear == birthYear)&&(identical(other.weight, weight) || other.weight == weight)&&(identical(other.height, height) || other.height == height)&&(identical(other.bmi, bmi) || other.bmi == bmi)&&(identical(other.bmr, bmr) || other.bmr == bmr));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,gender,birthYear,weight,weightUnit,height,heightUnit,bmi,bmr);
+int get hashCode => Object.hash(runtimeType,gender,birthYear,weight,height,bmi,bmr);
 
 @override
 String toString() {
-  return 'PersonalMetrics(gender: $gender, birthYear: $birthYear, weight: $weight, weightUnit: $weightUnit, height: $height, heightUnit: $heightUnit, bmi: $bmi, bmr: $bmr)';
+  return 'PersonalMetrics(gender: $gender, birthYear: $birthYear, weight: $weight, height: $height, bmi: $bmi, bmr: $bmr)';
 }
 
 
@@ -265,7 +257,7 @@ abstract mixin class _$PersonalMetricsCopyWith<$Res> implements $PersonalMetrics
   factory _$PersonalMetricsCopyWith(_PersonalMetrics value, $Res Function(_PersonalMetrics) _then) = __$PersonalMetricsCopyWithImpl;
 @override @useResult
 $Res call({
- String gender, int birthYear, double weight, String weightUnit, double height, String heightUnit, double? bmi, double? bmr
+ String gender, int birthYear, double weight, double height, double? bmi, double? bmr
 });
 
 
@@ -282,15 +274,13 @@ class __$PersonalMetricsCopyWithImpl<$Res>
 
 /// Create a copy of PersonalMetrics
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? gender = null,Object? birthYear = null,Object? weight = null,Object? weightUnit = null,Object? height = null,Object? heightUnit = null,Object? bmi = freezed,Object? bmr = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? gender = null,Object? birthYear = null,Object? weight = null,Object? height = null,Object? bmi = freezed,Object? bmr = freezed,}) {
   return _then(_PersonalMetrics(
 gender: null == gender ? _self.gender : gender // ignore: cast_nullable_to_non_nullable
 as String,birthYear: null == birthYear ? _self.birthYear : birthYear // ignore: cast_nullable_to_non_nullable
 as int,weight: null == weight ? _self.weight : weight // ignore: cast_nullable_to_non_nullable
-as double,weightUnit: null == weightUnit ? _self.weightUnit : weightUnit // ignore: cast_nullable_to_non_nullable
-as String,height: null == height ? _self.height : height // ignore: cast_nullable_to_non_nullable
-as double,heightUnit: null == heightUnit ? _self.heightUnit : heightUnit // ignore: cast_nullable_to_non_nullable
-as String,bmi: freezed == bmi ? _self.bmi : bmi // ignore: cast_nullable_to_non_nullable
+as double,height: null == height ? _self.height : height // ignore: cast_nullable_to_non_nullable
+as double,bmi: freezed == bmi ? _self.bmi : bmi // ignore: cast_nullable_to_non_nullable
 as double?,bmr: freezed == bmr ? _self.bmr : bmr // ignore: cast_nullable_to_non_nullable
 as double?,
   ));

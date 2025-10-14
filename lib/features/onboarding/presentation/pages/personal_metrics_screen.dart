@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gym_buddy/core/widgets/custom_text_field.dart';
+import 'package:gym_buddy/features/onboarding/domain/entities/personal_metrics.dart';
 import 'package:gym_buddy/features/onboarding/presentation/bloc/onboarding_bloc.dart';
 import 'package:gym_buddy/features/onboarding/presentation/widgets/switch_pill.dart';
 
@@ -22,8 +23,7 @@ class PersonalMetricsScreenState extends State<PersonalMetricsScreen> {
   final TextEditingController _birthYear = TextEditingController();
   final TextEditingController _weight = TextEditingController();
   final TextEditingController _height = TextEditingController();
-  String _weightUnit = 'kg';
-  String _heightUnit = 'cm';
+
   DateTime? _birthDate;
 
   @override
@@ -53,13 +53,12 @@ class PersonalMetricsScreenState extends State<PersonalMetricsScreen> {
     }
     context.read<OnboardingBloc>().add(
       OnboardingEvent.setPersonalMetrics(
-        gender: _gender,
-        birthYear: by,
-
-        weight: w,
-        weightUnit: _weightUnit,
-        height: h,
-        heightUnit: _heightUnit,
+        metrics: PersonalMetrics(
+          gender: _gender,
+          birthYear: by,
+          weight: w,
+          height: h,
+        ),
       ),
     );
     return true;
@@ -127,28 +126,6 @@ class PersonalMetricsScreenState extends State<PersonalMetricsScreen> {
                     ),
                   ),
                 ),
-                SizedBox(width: 12.w),
-                Expanded(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: SwitchPill(
-                          title: 'kg',
-                          selected: _weightUnit == 'kg',
-                          onTap: () => setState(() => _weightUnit = 'kg'),
-                        ),
-                      ),
-                      SizedBox(width: 12.w),
-                      Expanded(
-                        child: SwitchPill(
-                          title: 'lbs',
-                          selected: _weightUnit == 'lbs',
-                          onTap: () => setState(() => _weightUnit = 'lbs'),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
               ],
             ),
             SizedBox(height: 16.h),
@@ -161,28 +138,6 @@ class PersonalMetricsScreenState extends State<PersonalMetricsScreen> {
                     keyboardType: const TextInputType.numberWithOptions(
                       decimal: true,
                     ),
-                  ),
-                ),
-                SizedBox(width: 12.w),
-                Expanded(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: SwitchPill(
-                          title: 'cm',
-                          selected: _heightUnit == 'cm',
-                          onTap: () => setState(() => _heightUnit = 'cm'),
-                        ),
-                      ),
-                      SizedBox(width: 12.w),
-                      Expanded(
-                        child: SwitchPill(
-                          title: 'ft, in',
-                          selected: _heightUnit == 'ft_in',
-                          onTap: () => setState(() => _heightUnit = 'ft_in'),
-                        ),
-                      ),
-                    ],
                   ),
                 ),
               ],

@@ -134,7 +134,7 @@ return setPersonalMetrics(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( OnboardingParams params)?  saveOnboarding,TResult Function( String userId)?  getOnboarding,TResult Function( Set<String> days)?  selectDays,TResult Function( String plan)?  selectPlan,TResult Function( String goal)?  selectGoal,TResult Function( String gender,  int birthYear,  double weight,  String weightUnit,  double height,  String heightUnit)?  setPersonalMetrics,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( OnboardingParams params)?  saveOnboarding,TResult Function( String userId)?  getOnboarding,TResult Function( Set<String> days)?  selectDays,TResult Function( String plan)?  selectPlan,TResult Function( String goal)?  selectGoal,TResult Function( PersonalMetrics metrics)?  setPersonalMetrics,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case SaveOnboarding() when saveOnboarding != null:
 return saveOnboarding(_that.params);case GetOnboarding() when getOnboarding != null:
@@ -142,7 +142,7 @@ return getOnboarding(_that.userId);case SelectDays() when selectDays != null:
 return selectDays(_that.days);case SelectPlan() when selectPlan != null:
 return selectPlan(_that.plan);case SelectGoal() when selectGoal != null:
 return selectGoal(_that.goal);case SetPersonalMetrics() when setPersonalMetrics != null:
-return setPersonalMetrics(_that.gender,_that.birthYear,_that.weight,_that.weightUnit,_that.height,_that.heightUnit);case _:
+return setPersonalMetrics(_that.metrics);case _:
   return orElse();
 
 }
@@ -160,7 +160,7 @@ return setPersonalMetrics(_that.gender,_that.birthYear,_that.weight,_that.weight
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( OnboardingParams params)  saveOnboarding,required TResult Function( String userId)  getOnboarding,required TResult Function( Set<String> days)  selectDays,required TResult Function( String plan)  selectPlan,required TResult Function( String goal)  selectGoal,required TResult Function( String gender,  int birthYear,  double weight,  String weightUnit,  double height,  String heightUnit)  setPersonalMetrics,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( OnboardingParams params)  saveOnboarding,required TResult Function( String userId)  getOnboarding,required TResult Function( Set<String> days)  selectDays,required TResult Function( String plan)  selectPlan,required TResult Function( String goal)  selectGoal,required TResult Function( PersonalMetrics metrics)  setPersonalMetrics,}) {final _that = this;
 switch (_that) {
 case SaveOnboarding():
 return saveOnboarding(_that.params);case GetOnboarding():
@@ -168,7 +168,7 @@ return getOnboarding(_that.userId);case SelectDays():
 return selectDays(_that.days);case SelectPlan():
 return selectPlan(_that.plan);case SelectGoal():
 return selectGoal(_that.goal);case SetPersonalMetrics():
-return setPersonalMetrics(_that.gender,_that.birthYear,_that.weight,_that.weightUnit,_that.height,_that.heightUnit);case _:
+return setPersonalMetrics(_that.metrics);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -185,7 +185,7 @@ return setPersonalMetrics(_that.gender,_that.birthYear,_that.weight,_that.weight
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( OnboardingParams params)?  saveOnboarding,TResult? Function( String userId)?  getOnboarding,TResult? Function( Set<String> days)?  selectDays,TResult? Function( String plan)?  selectPlan,TResult? Function( String goal)?  selectGoal,TResult? Function( String gender,  int birthYear,  double weight,  String weightUnit,  double height,  String heightUnit)?  setPersonalMetrics,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( OnboardingParams params)?  saveOnboarding,TResult? Function( String userId)?  getOnboarding,TResult? Function( Set<String> days)?  selectDays,TResult? Function( String plan)?  selectPlan,TResult? Function( String goal)?  selectGoal,TResult? Function( PersonalMetrics metrics)?  setPersonalMetrics,}) {final _that = this;
 switch (_that) {
 case SaveOnboarding() when saveOnboarding != null:
 return saveOnboarding(_that.params);case GetOnboarding() when getOnboarding != null:
@@ -193,7 +193,7 @@ return getOnboarding(_that.userId);case SelectDays() when selectDays != null:
 return selectDays(_that.days);case SelectPlan() when selectPlan != null:
 return selectPlan(_that.plan);case SelectGoal() when selectGoal != null:
 return selectGoal(_that.goal);case SetPersonalMetrics() when setPersonalMetrics != null:
-return setPersonalMetrics(_that.gender,_that.birthYear,_that.weight,_that.weightUnit,_that.height,_that.heightUnit);case _:
+return setPersonalMetrics(_that.metrics);case _:
   return null;
 
 }
@@ -550,15 +550,10 @@ as String,
 
 
 class SetPersonalMetrics implements OnboardingEvent {
-  const SetPersonalMetrics({required this.gender, required this.birthYear, required this.weight, required this.weightUnit, required this.height, required this.heightUnit});
+  const SetPersonalMetrics({required this.metrics});
   
 
- final  String gender;
- final  int birthYear;
- final  double weight;
- final  String weightUnit;
- final  double height;
- final  String heightUnit;
+ final  PersonalMetrics metrics;
 
 /// Create a copy of OnboardingEvent
 /// with the given fields replaced by the non-null parameter values.
@@ -570,16 +565,16 @@ $SetPersonalMetricsCopyWith<SetPersonalMetrics> get copyWith => _$SetPersonalMet
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SetPersonalMetrics&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.birthYear, birthYear) || other.birthYear == birthYear)&&(identical(other.weight, weight) || other.weight == weight)&&(identical(other.weightUnit, weightUnit) || other.weightUnit == weightUnit)&&(identical(other.height, height) || other.height == height)&&(identical(other.heightUnit, heightUnit) || other.heightUnit == heightUnit));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SetPersonalMetrics&&(identical(other.metrics, metrics) || other.metrics == metrics));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,gender,birthYear,weight,weightUnit,height,heightUnit);
+int get hashCode => Object.hash(runtimeType,metrics);
 
 @override
 String toString() {
-  return 'OnboardingEvent.setPersonalMetrics(gender: $gender, birthYear: $birthYear, weight: $weight, weightUnit: $weightUnit, height: $height, heightUnit: $heightUnit)';
+  return 'OnboardingEvent.setPersonalMetrics(metrics: $metrics)';
 }
 
 
@@ -590,11 +585,11 @@ abstract mixin class $SetPersonalMetricsCopyWith<$Res> implements $OnboardingEve
   factory $SetPersonalMetricsCopyWith(SetPersonalMetrics value, $Res Function(SetPersonalMetrics) _then) = _$SetPersonalMetricsCopyWithImpl;
 @useResult
 $Res call({
- String gender, int birthYear, double weight, String weightUnit, double height, String heightUnit
+ PersonalMetrics metrics
 });
 
 
-
+$PersonalMetricsCopyWith<$Res> get metrics;
 
 }
 /// @nodoc
@@ -607,19 +602,23 @@ class _$SetPersonalMetricsCopyWithImpl<$Res>
 
 /// Create a copy of OnboardingEvent
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? gender = null,Object? birthYear = null,Object? weight = null,Object? weightUnit = null,Object? height = null,Object? heightUnit = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? metrics = null,}) {
   return _then(SetPersonalMetrics(
-gender: null == gender ? _self.gender : gender // ignore: cast_nullable_to_non_nullable
-as String,birthYear: null == birthYear ? _self.birthYear : birthYear // ignore: cast_nullable_to_non_nullable
-as int,weight: null == weight ? _self.weight : weight // ignore: cast_nullable_to_non_nullable
-as double,weightUnit: null == weightUnit ? _self.weightUnit : weightUnit // ignore: cast_nullable_to_non_nullable
-as String,height: null == height ? _self.height : height // ignore: cast_nullable_to_non_nullable
-as double,heightUnit: null == heightUnit ? _self.heightUnit : heightUnit // ignore: cast_nullable_to_non_nullable
-as String,
+metrics: null == metrics ? _self.metrics : metrics // ignore: cast_nullable_to_non_nullable
+as PersonalMetrics,
   ));
 }
 
-
+/// Create a copy of OnboardingEvent
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$PersonalMetricsCopyWith<$Res> get metrics {
+  
+  return $PersonalMetricsCopyWith<$Res>(_self.metrics, (value) {
+    return _then(_self.copyWith(metrics: value));
+  });
+}
 }
 
 /// @nodoc
