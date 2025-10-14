@@ -180,5 +180,11 @@
   "thursday": "Четвер",
   "friday": "П'ятниця",
   "saturday": "Субота",
-  "sunday": "Неділя"
+  "sunday": "Неділя",
+  "primary_goal_title": "Основна мета",
+  "primary_goal_sub": "Виберіть основну мету, яка мотивує вас тренуватися.",
+  "goal_build_muscle": "Збільшити м'язову масу",
+  "goal_lose_weight": "Схуднути",
+  "goal_increase_strength": "Збільшити силу",
+  "goal_maintain_fitness": "Підтримувати фітнес"
 }

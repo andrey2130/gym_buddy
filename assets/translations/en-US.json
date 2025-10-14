@@ -181,6 +181,13 @@
   "thursday": "Thursday",
   "friday": "Friday",
   "saturday": "Saturday",
-  "sunday": "Sunday"
+  "sunday": "Sunday", 
+  "primary_goal_title": "Primary Goal",
+  "primary_goal_sub": "Select the primary goal that motivates you to train.",
+  "goal_build_muscle": "Build Muscle",
+  "goal_lose_weight": "Lose Weight",
+  "goal_increase_strength": "Increase Strength",
+  "goal_maintain_fitness": "Maintain Fitness"
+  
 
 }
