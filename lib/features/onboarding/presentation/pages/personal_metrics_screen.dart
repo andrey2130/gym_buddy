@@ -1,11 +1,12 @@
 import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gym_buddy/features/onboarding/presentation/bloc/onboarding_bloc.dart';
 import 'package:gym_buddy/core/widgets/custom_text_field.dart';
+import 'package:gym_buddy/features/onboarding/presentation/bloc/onboarding_bloc.dart';
 import 'package:gym_buddy/features/onboarding/presentation/widgets/switch_pill.dart';
 
 class PersonalMetricsScreen extends StatefulWidget {

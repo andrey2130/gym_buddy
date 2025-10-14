@@ -22,6 +22,11 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
   String _selectedGoal = '';
   PersonalMetrics? _metrics;
 
+  Set<String> get selectedDays => _selectedDays;
+  String get selectedPlan => _selectedPlan;
+  String get selectedGoal => _selectedGoal;
+  PersonalMetrics? get metrics => _metrics;
+
   OnboardingBloc(
     this._saveOnboardingUsecase,
     this._getOnboardingUsecase,
