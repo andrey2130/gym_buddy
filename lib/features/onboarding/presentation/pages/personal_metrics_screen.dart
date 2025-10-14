@@ -68,125 +68,127 @@ class PersonalMetricsScreenState extends State<PersonalMetricsScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          SizedBox(height: 16.h),
-          Text(
-            'personal_metrics_title'.tr(),
-            style: theme.textTheme.displayLarge,
-            textAlign: TextAlign.left,
-          ),
-          SizedBox(height: 8.h),
-          Text('personal_metrics_sub'.tr(), style: theme.textTheme.bodyLarge),
-          SizedBox(height: 24.h),
-          Row(
-            children: [
-              Expanded(
-                child: SwitchPill(
-                  title: 'gender_male'.tr(),
-                  selected: _gender == 'male',
-                  onTap: () => setState(() => _gender = 'male'),
-                ),
-              ),
-              SizedBox(width: 12.w),
-              Expanded(
-                child: SwitchPill(
-                  title: 'gender_female'.tr(),
-                  selected: _gender == 'female',
-                  onTap: () => setState(() => _gender = 'female'),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 16.h),
-          TextFormField(
-            readOnly: true,
-            controller: _birthYear,
-            decoration: InputDecoration(
-              labelText: 'birth_year'.tr(),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.r),
-              ),
-              hintText: 'DD-MM-YYYY',
+    return SingleChildScrollView(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(height: 16.h),
+            Text(
+              'personal_metrics_title'.tr(),
+              style: theme.textTheme.displayLarge,
+              textAlign: TextAlign.left,
             ),
-            onTap: _openBirthDatePicker,
-          ),
-          SizedBox(height: 16.h),
-          Row(
-            children: [
-              Expanded(
-                child: CustomTextField(
-                  controller: _weight,
-                  labelText: 'weight'.tr(),
-                  keyboardType: const TextInputType.numberWithOptions(
-                    decimal: true,
+            SizedBox(height: 8.h),
+            Text('personal_metrics_sub'.tr(), style: theme.textTheme.bodyLarge),
+            SizedBox(height: 24.h),
+            Row(
+              children: [
+                Expanded(
+                  child: SwitchPill(
+                    title: 'gender_male'.tr(),
+                    selected: _gender == 'male',
+                    onTap: () => setState(() => _gender = 'male'),
                   ),
                 ),
-              ),
-              SizedBox(width: 12.w),
-              Expanded(
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: SwitchPill(
-                        title: 'kg',
-                        selected: _weightUnit == 'kg',
-                        onTap: () => setState(() => _weightUnit = 'kg'),
-                      ),
-                    ),
-                    SizedBox(width: 12.w),
-                    Expanded(
-                      child: SwitchPill(
-                        title: 'lbs',
-                        selected: _weightUnit == 'lbs',
-                        onTap: () => setState(() => _weightUnit = 'lbs'),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 16.h),
-          Row(
-            children: [
-              Expanded(
-                child: CustomTextField(
-                  controller: _height,
-                  labelText: 'height'.tr(),
-                  keyboardType: const TextInputType.numberWithOptions(
-                    decimal: true,
+                SizedBox(width: 12.w),
+                Expanded(
+                  child: SwitchPill(
+                    title: 'gender_female'.tr(),
+                    selected: _gender == 'female',
+                    onTap: () => setState(() => _gender = 'female'),
                   ),
                 ),
-              ),
-              SizedBox(width: 12.w),
-              Expanded(
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: SwitchPill(
-                        title: 'cm',
-                        selected: _heightUnit == 'cm',
-                        onTap: () => setState(() => _heightUnit = 'cm'),
-                      ),
-                    ),
-                    SizedBox(width: 12.w),
-                    Expanded(
-                      child: SwitchPill(
-                        title: 'ft, in',
-                        selected: _heightUnit == 'ft_in',
-                        onTap: () => setState(() => _heightUnit = 'ft_in'),
-                      ),
-                    ),
-                  ],
+              ],
+            ),
+            SizedBox(height: 16.h),
+            TextFormField(
+              readOnly: true,
+              controller: _birthYear,
+              decoration: InputDecoration(
+                labelText: 'birth_year'.tr(),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
+                hintText: 'DD-MM-YYYY',
               ),
-            ],
-          ),
-        ],
+              onTap: _openBirthDatePicker,
+            ),
+            SizedBox(height: 16.h),
+            Row(
+              children: [
+                Expanded(
+                  child: CustomTextField(
+                    controller: _weight,
+                    labelText: 'weight'.tr(),
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 12.w),
+                Expanded(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: SwitchPill(
+                          title: 'kg',
+                          selected: _weightUnit == 'kg',
+                          onTap: () => setState(() => _weightUnit = 'kg'),
+                        ),
+                      ),
+                      SizedBox(width: 12.w),
+                      Expanded(
+                        child: SwitchPill(
+                          title: 'lbs',
+                          selected: _weightUnit == 'lbs',
+                          onTap: () => setState(() => _weightUnit = 'lbs'),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 16.h),
+            Row(
+              children: [
+                Expanded(
+                  child: CustomTextField(
+                    controller: _height,
+                    labelText: 'height'.tr(),
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 12.w),
+                Expanded(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: SwitchPill(
+                          title: 'cm',
+                          selected: _heightUnit == 'cm',
+                          onTap: () => setState(() => _heightUnit = 'cm'),
+                        ),
+                      ),
+                      SizedBox(width: 12.w),
+                      Expanded(
+                        child: SwitchPill(
+                          title: 'ft, in',
+                          selected: _heightUnit == 'ft_in',
+                          onTap: () => setState(() => _heightUnit = 'ft_in'),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
