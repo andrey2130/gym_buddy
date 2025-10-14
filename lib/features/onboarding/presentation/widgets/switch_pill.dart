@@ -5,13 +5,11 @@ class SwitchPill extends StatelessWidget {
   final String title;
   final bool selected;
   final VoidCallback onTap;
-  final TextStyle? textStyle;
 
   const SwitchPill({
     required this.title,
     required this.selected,
     required this.onTap,
-    this.textStyle,
     super.key,
   });
 
@@ -48,8 +46,7 @@ class SwitchPill extends StatelessWidget {
         child: Center(
           child: Text(
             title,
-            style:
-                textStyle ?? theme.textTheme.titleMedium?.copyWith(color: fg),
+            style: theme.textTheme.titleMedium?.copyWith(color: fg),
           ),
         ),
       ),

@@ -30,7 +30,6 @@
 "sun": "Sun",
 "choose_plan": "Choose your plan",
 "choose_plan_sub": "Select the split that fits your routine.",
-  "recommended": "Recommended",
 "plan_split_full_body": "Full Body",
 "plan_split_full_body_sub": "3 days · Whole-body focus",
 "plan_split_upper_lower": "Upper/Lower",
@@ -55,11 +54,7 @@
 "city": "City",
 "enter_city": "Enter your city",
 "country_required": "Country is required",
-"city_required": "City is required",
-"experience_level_title": "Experience Level",
-"beginner": "Beginner",
-"intermediate": "Intermediate",
-"advanced": "Advanced"
+"city_required": "City is required"
 ,
   "cancel": "Cancel",
   "done": "Done",
@@ -186,20 +181,6 @@
   "thursday": "Thursday",
   "friday": "Friday",
   "saturday": "Saturday",
-  "sunday": "Sunday", 
-  "primary_goal_title": "Primary Goal",
-  "primary_goal_sub": "Select the primary goal that motivates you to train.",
-  "goal_build_muscle": "Build Muscle",
-  "goal_lose_weight": "Lose Weight",
-  "goal_increase_strength": "Increase Strength",
-  "goal_maintain_fitness": "Maintain Fitness",
-  "personal_metrics_title": "Your Personal Metrics",
-  "personal_metrics_sub": "Provide basic details to personalize your plan",
-  "gender_male": "Male",
-  "gender_female": "Female",
-  "gender_other": "Other",
-  "birth_year": "Year of Birth",
-  "weight": "Weight",
-  "height": "Height",
-  "enter_valid_metrics": "Please enter valid metrics"
+  "sunday": "Sunday"
+
 }
