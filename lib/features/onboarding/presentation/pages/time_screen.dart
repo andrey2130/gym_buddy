@@ -41,12 +41,13 @@ class TimeScreenState extends State<TimeScreen> {
     if (isValid) {
       final state = context.read<OnboardingBloc>().state;
       final selectedDays = state.maybeWhen(
-        planSelected: (days, _) => days,
+        planSelected: (days, __, ___) => days,
+        goalSelected: (days, _) => days,
         daysSelected: (days) => days,
         orElse: () => <String>{},
       );
       final selectedPlan = state.maybeWhen(
-        planSelected: (_, plan) => plan,
+        planSelected: (_, __, plan) => plan,
         orElse: () => '',
       );
 
@@ -59,6 +60,11 @@ class TimeScreenState extends State<TimeScreen> {
             country: _selectedCountry ?? '',
             city: _cityController.text,
             isMorning: _isMorning,
+            goal: state.maybeWhen(
+              goalSelected: (_, goal) => goal,
+              planSelected: (_, goal, __) => goal,
+              orElse: () => null,
+            ),
           ),
         ),
       );

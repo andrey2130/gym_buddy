@@ -8,6 +8,7 @@ import 'package:gym_buddy/core/widgets/custom_button.dart';
 import 'package:gym_buddy/features/onboarding/presentation/bloc/onboarding_bloc.dart';
 import 'package:gym_buddy/features/onboarding/presentation/pages/day_screen.dart';
 import 'package:gym_buddy/features/onboarding/presentation/pages/plan_screen.dart';
+import 'package:gym_buddy/features/onboarding/presentation/pages/goal_screen.dart';
 import 'package:gym_buddy/features/onboarding/presentation/pages/time_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -69,7 +70,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     if (currentPage == 0) {
       final selectedDays = state.maybeWhen(
         daysSelected: (days) => days,
-        planSelected: (days, _) => days,
+        planSelected: (days, __, ___) => days,
         orElse: () => <String>{},
       );
 
@@ -82,11 +83,24 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     }
 
     if (currentPage == 1) {
-      final selectedPlan = state.maybeWhen(
-        planSelected: (_, plan) => plan,
+      final selectedGoal = state.maybeWhen(
+        goalSelected: (_, goal) => goal,
+        planSelected: (_, goal, __) => goal ?? '',
         orElse: () => '',
       );
+      if (selectedGoal.isEmpty) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('select_primary_goal'.tr())));
+        return;
+      }
+    }
 
+    if (currentPage == 2) {
+      final selectedPlan = state.maybeWhen(
+        planSelected: (_, __, plan) => plan,
+        orElse: () => '',
+      );
       if (selectedPlan.isEmpty) {
         ScaffoldMessenger.of(
           context,
@@ -96,7 +110,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     }
 
     final nextPage = currentPage + 1;
-    if (nextPage < 3) {
+    if (nextPage < 4) {
       _pageController.animateToPage(
         nextPage,
         duration: const Duration(milliseconds: 400),
@@ -116,7 +130,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   @override
   Widget build(BuildContext context) {
-    final isLastPage = _currentPage == 2; 
+    final isLastPage = _currentPage == 3;
     return BlocListener<OnboardingBloc, OnboardingState>(
       listener: (context, state) {
         state.maybeWhen(
@@ -153,6 +167,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                         controller: _pageController,
                         children: [
                           DayScreen(onNext: _next),
+                          GoalScreen(onNext: _next),
                           PlanScreen(onNext: _next),
                           TimeScreen(key: _timeKey, onFinish: _skip),
                         ],
@@ -163,7 +178,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                       children: [
                         Expanded(
                           child: SmoothPageIndicator(
-                            count: 3,
+                            count: 4,
                             controller: _pageController,
                             effect: ExpandingDotsEffect(
                               dotHeight: 6.h,

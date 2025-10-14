@@ -8,8 +8,13 @@ class OnboardingState with _$OnboardingState {
   const factory OnboardingState.loaded(OnboardingParams params) = Loaded;
   const factory OnboardingState.failure(String message) = Failure;
   const factory OnboardingState.daysSelected(Set<String> days) = DaysSelected;
+  const factory OnboardingState.goalSelected({
+    required Set<String> days,
+    required String goal,
+  }) = GoalSelected;
   const factory OnboardingState.planSelected({
     required Set<String> days,
     required String plan,
+    String? goal,
   }) = PlanSelected;
 }

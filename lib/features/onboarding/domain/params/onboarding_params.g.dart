@@ -16,6 +16,7 @@ _OnboardingParams _$OnboardingParamsFromJson(Map<String, dynamic> json) =>
       country: json['country'] as String,
       city: json['city'] as String,
       isMorning: json['isMorning'] as bool,
+      goal: json['goal'] as String?,
     );
 
 Map<String, dynamic> _$OnboardingParamsToJson(_OnboardingParams instance) =>
@@ -26,4 +27,5 @@ Map<String, dynamic> _$OnboardingParamsToJson(_OnboardingParams instance) =>
       'country': instance.country,
       'city': instance.city,
       'isMorning': instance.isMorning,
+      'goal': instance.goal,
     };

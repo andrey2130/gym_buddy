@@ -30,7 +30,7 @@ class _PlanScreenState extends State<PlanScreen> {
       builder: (context, state) {
         if (_selectedIndex == null) {
           final selectedPlanKey = state.maybeWhen(
-            planSelected: (_, plan) => plan,
+            planSelected: (_, __, plan) => plan,
             orElse: () => '',
           );
           _selectedIndex = AppConstant.trainingPlanKeys.indexWhere(
