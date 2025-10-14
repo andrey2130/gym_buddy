@@ -10,11 +10,12 @@ class WorkoutDropdownMenu {
     required BuildContext context,
     required VoidCallback onDelete,
     required String workoutName,
+    required VoidCallback onEdit,
   }) {
     if (Platform.isIOS) {
-      _showCupertinoMenu(context, onDelete, workoutName);
+      _showCupertinoMenu(context, onDelete, workoutName, onEdit);
     } else {
-      _showMaterialMenu(context, onDelete, workoutName);
+      _showMaterialMenu(context, onDelete, workoutName, onEdit);
     }
   }
 
@@ -22,6 +23,7 @@ class WorkoutDropdownMenu {
     BuildContext context,
     VoidCallback onDelete,
     String workoutName,
+    VoidCallback onEdit,
   ) {
     showCupertinoModalPopup(
       context: context,
@@ -42,6 +44,13 @@ class WorkoutDropdownMenu {
           ),
         ),
         actions: [
+          CupertinoActionSheetAction(
+            onPressed: () {
+              context.pop();
+              onEdit();
+            },
+            child: Text('edit'.tr()),
+          ),
           CupertinoActionSheetAction(
             onPressed: () {
               context.pop();
@@ -85,13 +94,30 @@ class WorkoutDropdownMenu {
     BuildContext context,
     VoidCallback onDelete,
     String workoutName,
+    VoidCallback onEdit,
   ) {
     showMenu<String>(
       context: context,
       position: const RelativeRect.fromLTRB(100, 100, 0, 0),
       items: [
         PopupMenuItem<String>(
-          value: 'delete'.tr(),
+          value: 'edit',
+          child: Row(
+            children: [
+              const Icon(Icons.edit_outlined, color: Colors.blue, size: 20),
+              const SizedBox(width: 12),
+              Text(
+                'edit'.tr(),
+                style: const TextStyle(
+                  color: Colors.blue,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        ),
+        PopupMenuItem<String>(
+          value: 'delete',
           child: Row(
             children: [
               const Icon(Icons.delete_outline, color: Colors.red, size: 20),
@@ -110,6 +136,8 @@ class WorkoutDropdownMenu {
     ).then((value) {
       if (value == 'delete' && context.mounted) {
         _showDeleteConfirmation(context, onDelete, workoutName);
+      } else if (value == 'edit' && context.mounted) {
+        onEdit();
       }
     });
   }

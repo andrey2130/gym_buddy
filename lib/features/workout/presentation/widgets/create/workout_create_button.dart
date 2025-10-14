@@ -5,8 +5,13 @@ import 'package:gym_buddy/features/workout/presentation/bloc/workout_bloc.dart';
 
 class WorkoutCreateButton extends StatelessWidget {
   final VoidCallback onCreateWorkout;
+  final String? buttonText;
 
-  const WorkoutCreateButton({required this.onCreateWorkout, super.key});
+  const WorkoutCreateButton({
+    required this.onCreateWorkout,
+    this.buttonText,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +35,7 @@ class WorkoutCreateButton extends StatelessWidget {
               onPressed: isValid && !isLoading ? onCreateWorkout : null,
               child: isLoading
                   ? const CircularProgressIndicator.adaptive()
-                  : Text('create_workout'.tr()),
+                  : Text(buttonText ?? 'create_workout'.tr()),
             ),
           ),
         );

@@ -8,6 +8,7 @@ class WorkoutEvent with _$WorkoutEvent {
   const factory WorkoutEvent.loadWorkouts() = LoadWorkouts;
   const factory WorkoutEvent.updateWorkout(WorkoutEntity workout) =
       UpdateWorkout;
+  const factory WorkoutEvent.editWorkout(WorkoutEntity workout) = EditWorkout;
   const factory WorkoutEvent.updateWorkoutExercises(WorkoutEntity workout) =
       UpdateWorkoutExercises;
   const factory WorkoutEvent.deleteWorkout(DeleteWorkoutParams params) =

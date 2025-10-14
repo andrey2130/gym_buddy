@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:gym_buddy/features/onboarding/domain/params/onboarding_params.dart';
 import 'package:gym_buddy/features/onboarding/domain/usecases/get_onboarding_usecase.dart';
 import 'package:gym_buddy/features/onboarding/domain/usecases/save_onboarding_usecase.dart';
-import 'package:gym_buddy/injections.dart';
+
 import 'package:injectable/injectable.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -15,10 +15,12 @@ part 'onboarding_bloc.freezed.dart';
 class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
   final SaveOnboardingUsecase _saveOnboardingUsecase;
   final GetOnboardingUsecase _getOnboardingUsecase;
+  final Talker _talker;
   Set<String> _selectedDays = {};
   String _selectedPlan = '';
 
-  OnboardingBloc(this._saveOnboardingUsecase, this._getOnboardingUsecase)
+
+  OnboardingBloc(this._saveOnboardingUsecase, this._getOnboardingUsecase, this._talker)
     : super(const OnboardingState.initial()) {
     on<SaveOnboarding>(_onSaveOnboarding);
     on<GetOnboarding>(_onGetOnboarding);
@@ -41,7 +43,7 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
 
     result.fold((failure) {
       emit(OnboardingState.failure(failure.message));
-      getIt<Talker>().handle(failure.message);
+      _talker.handle(failure.message);
     }, (_) => emit(const OnboardingState.success()));
   }
 
@@ -56,7 +58,7 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
     result.fold(
       (failure) {
         emit(OnboardingState.failure(failure.message));
-        getIt<Talker>().handle(failure.message);
+        _talker.handle(failure.message);
       },
       (params) {
         if (params != null) {

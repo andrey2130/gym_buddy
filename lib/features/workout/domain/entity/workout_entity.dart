@@ -13,6 +13,7 @@ abstract class WorkoutEntity with _$WorkoutEntity {
     required DateTime date,
     required DateTime startTime,
     required List<ExerciseEntity> exercises,
+    DateTime? endTime,
     int? duration,
     String? notes,
     DateTime? createdAt,

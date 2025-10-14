@@ -61,6 +61,7 @@ class WorkoutCreateService {
       userId: userId,
       name: name.trim(),
       date: selectedDate!,
+
       startTime: DateTime(
         selectedDate.year,
         selectedDate.month,

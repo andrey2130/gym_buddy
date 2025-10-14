@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gym_buddy/features/auth/data/datasource/user_datasource.dart';
 import 'package:gym_buddy/features/auth/domain/params/login_params.dart';
 import 'package:gym_buddy/features/auth/domain/params/register_params.dart';
-import 'package:gym_buddy/injections.dart';
 import 'package:injectable/injectable.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -15,10 +14,11 @@ abstract class AuthDataSource {
 
 @Injectable(as: AuthDataSource)
 class AuthDataSourceImpl implements AuthDataSource {
+  final Talker _talker;
   final FirebaseAuth _firebaseAuth;
   final UserDataSource _userDataSource;
 
-  AuthDataSourceImpl(this._firebaseAuth, this._userDataSource);
+  AuthDataSourceImpl(this._firebaseAuth, this._userDataSource, this._talker);
 
   @override
   Future<String> registerViaEmail(RegisterParams params) async {
@@ -35,7 +35,7 @@ class AuthDataSourceImpl implements AuthDataSource {
         throw Exception("Failed to create user");
       }
     } on FirebaseAuthException catch (e) {
-      getIt<Talker>().handle(e);
+      _talker.handle(e);
       String errorMessage;
       switch (e.code) {
         case 'weak-password':
@@ -49,7 +49,7 @@ class AuthDataSourceImpl implements AuthDataSource {
       }
       throw Exception(errorMessage);
     } catch (e) {
-      getIt<Talker>().handle(e);
+      _talker.handle(e);
       rethrow;
     }
   }
@@ -68,7 +68,7 @@ class AuthDataSourceImpl implements AuthDataSource {
         throw Exception("User not found");
       }
     } on FirebaseAuthException catch (e) {
-      getIt<Talker>().handle(e);
+      _talker.handle(e);
       String errorMessage;
       switch (e.code) {
         case 'user-not-found':
@@ -86,7 +86,7 @@ class AuthDataSourceImpl implements AuthDataSource {
       }
       throw Exception(errorMessage);
     } catch (e) {
-      getIt<Talker>().handle(e);
+      _talker.handle(e);
       rethrow;
     }
   }
@@ -96,7 +96,7 @@ class AuthDataSourceImpl implements AuthDataSource {
     try {
       await _firebaseAuth.signOut();
     } catch (e) {
-      getIt<Talker>().handle(e);
+      _talker.handle(e);
       rethrow;
     }
   }

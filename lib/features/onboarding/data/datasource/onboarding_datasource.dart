@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gym_buddy/core/utils/training_helper.dart';
 import 'package:gym_buddy/features/onboarding/domain/params/onboarding_params.dart';
-import 'package:gym_buddy/injections.dart';
 import 'package:injectable/injectable.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -13,8 +12,9 @@ abstract class OnboardingDataSource {
 @Injectable(as: OnboardingDataSource)
 class OnboardingDataSourceImpl implements OnboardingDataSource {
   final FirebaseFirestore _firestore;
+  final Talker _talker;
 
-  OnboardingDataSourceImpl(this._firestore);
+  OnboardingDataSourceImpl(this._firestore, this._talker);
 
   @override
   Future<void> saveOnboardingData(
@@ -24,7 +24,7 @@ class OnboardingDataSourceImpl implements OnboardingDataSource {
     try {
       await _firestore.collection('users').doc(userId).update(params.toJson());
     } catch (e) {
-      getIt<Talker>().handle(e);
+      _talker.handle(e);
       rethrow;
     }
   }
@@ -55,7 +55,7 @@ class OnboardingDataSourceImpl implements OnboardingDataSource {
 
       return OnboardingParams.fromJson(normalizedData);
     } catch (e) {
-      getIt<Talker>().handle(e);
+      _talker.handle(e);
       rethrow;
     }
   }

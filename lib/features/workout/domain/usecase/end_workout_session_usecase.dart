@@ -31,6 +31,7 @@ class EndWorkoutSessionUsecase
       isCompleted: true,
       duration: duration,
       updatedAt: params.endTime,
+      endTime: params.endTime,
     );
 
     final result = await _workoutRepository.updateWorkout(updatedWorkout);

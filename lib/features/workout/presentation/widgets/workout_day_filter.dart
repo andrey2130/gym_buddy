@@ -65,6 +65,10 @@ class _WorkoutDayFilterState extends State<WorkoutDayFilter>
     }
   }
 
+  void _editWorkout(WorkoutEntity workout) {
+    context.push('/workout/edit/${workout.workoutId}', extra: workout);
+  }
+
   @override
   Widget build(BuildContext context) {
     if (widget.groupedWorkouts.isEmpty) {
@@ -365,6 +369,7 @@ class _WorkoutDayFilterState extends State<WorkoutDayFilter>
                         );
                       },
                       onDelete: () => _deleteWorkout(workout),
+                      onEdit: () => _editWorkout(workout),
                     ),
                   ),
                 ),

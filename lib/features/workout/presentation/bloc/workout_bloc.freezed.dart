@@ -55,14 +55,15 @@ extension WorkoutEventPatterns on WorkoutEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Started value)?  started,TResult Function( CreateWorkout value)?  createWorkout,TResult Function( LoadWorkouts value)?  loadWorkouts,TResult Function( UpdateWorkout value)?  updateWorkout,TResult Function( UpdateWorkoutExercises value)?  updateWorkoutExercises,TResult Function( DeleteWorkout value)?  deleteWorkout,TResult Function( AddExerciseToWorkout value)?  addExerciseToWorkout,TResult Function( UpdateExerciseInWorkout value)?  updateExerciseInWorkout,TResult Function( RemoveExerciseFromWorkout value)?  removeExerciseFromWorkout,TResult Function( EndWorkoutSession value)?  endWorkoutSession,TResult Function( CalculateStats value)?  calculateStats,TResult Function( GroupWorkoutsByDay value)?  groupWorkoutsByDay,TResult Function( FormatTime value)?  formatTime,TResult Function( FormatDuration value)?  formatDuration,TResult Function( ValidateWorkoutCreation value)?  validateWorkoutCreation,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Started value)?  started,TResult Function( CreateWorkout value)?  createWorkout,TResult Function( LoadWorkouts value)?  loadWorkouts,TResult Function( UpdateWorkout value)?  updateWorkout,TResult Function( EditWorkout value)?  editWorkout,TResult Function( UpdateWorkoutExercises value)?  updateWorkoutExercises,TResult Function( DeleteWorkout value)?  deleteWorkout,TResult Function( AddExerciseToWorkout value)?  addExerciseToWorkout,TResult Function( UpdateExerciseInWorkout value)?  updateExerciseInWorkout,TResult Function( RemoveExerciseFromWorkout value)?  removeExerciseFromWorkout,TResult Function( EndWorkoutSession value)?  endWorkoutSession,TResult Function( CalculateStats value)?  calculateStats,TResult Function( GroupWorkoutsByDay value)?  groupWorkoutsByDay,TResult Function( FormatTime value)?  formatTime,TResult Function( FormatDuration value)?  formatDuration,TResult Function( ValidateWorkoutCreation value)?  validateWorkoutCreation,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case Started() when started != null:
 return started(_that);case CreateWorkout() when createWorkout != null:
 return createWorkout(_that);case LoadWorkouts() when loadWorkouts != null:
 return loadWorkouts(_that);case UpdateWorkout() when updateWorkout != null:
-return updateWorkout(_that);case UpdateWorkoutExercises() when updateWorkoutExercises != null:
+return updateWorkout(_that);case EditWorkout() when editWorkout != null:
+return editWorkout(_that);case UpdateWorkoutExercises() when updateWorkoutExercises != null:
 return updateWorkoutExercises(_that);case DeleteWorkout() when deleteWorkout != null:
 return deleteWorkout(_that);case AddExerciseToWorkout() when addExerciseToWorkout != null:
 return addExerciseToWorkout(_that);case UpdateExerciseInWorkout() when updateExerciseInWorkout != null:
@@ -91,14 +92,15 @@ return validateWorkoutCreation(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Started value)  started,required TResult Function( CreateWorkout value)  createWorkout,required TResult Function( LoadWorkouts value)  loadWorkouts,required TResult Function( UpdateWorkout value)  updateWorkout,required TResult Function( UpdateWorkoutExercises value)  updateWorkoutExercises,required TResult Function( DeleteWorkout value)  deleteWorkout,required TResult Function( AddExerciseToWorkout value)  addExerciseToWorkout,required TResult Function( UpdateExerciseInWorkout value)  updateExerciseInWorkout,required TResult Function( RemoveExerciseFromWorkout value)  removeExerciseFromWorkout,required TResult Function( EndWorkoutSession value)  endWorkoutSession,required TResult Function( CalculateStats value)  calculateStats,required TResult Function( GroupWorkoutsByDay value)  groupWorkoutsByDay,required TResult Function( FormatTime value)  formatTime,required TResult Function( FormatDuration value)  formatDuration,required TResult Function( ValidateWorkoutCreation value)  validateWorkoutCreation,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Started value)  started,required TResult Function( CreateWorkout value)  createWorkout,required TResult Function( LoadWorkouts value)  loadWorkouts,required TResult Function( UpdateWorkout value)  updateWorkout,required TResult Function( EditWorkout value)  editWorkout,required TResult Function( UpdateWorkoutExercises value)  updateWorkoutExercises,required TResult Function( DeleteWorkout value)  deleteWorkout,required TResult Function( AddExerciseToWorkout value)  addExerciseToWorkout,required TResult Function( UpdateExerciseInWorkout value)  updateExerciseInWorkout,required TResult Function( RemoveExerciseFromWorkout value)  removeExerciseFromWorkout,required TResult Function( EndWorkoutSession value)  endWorkoutSession,required TResult Function( CalculateStats value)  calculateStats,required TResult Function( GroupWorkoutsByDay value)  groupWorkoutsByDay,required TResult Function( FormatTime value)  formatTime,required TResult Function( FormatDuration value)  formatDuration,required TResult Function( ValidateWorkoutCreation value)  validateWorkoutCreation,}){
 final _that = this;
 switch (_that) {
 case Started():
 return started(_that);case CreateWorkout():
 return createWorkout(_that);case LoadWorkouts():
 return loadWorkouts(_that);case UpdateWorkout():
-return updateWorkout(_that);case UpdateWorkoutExercises():
+return updateWorkout(_that);case EditWorkout():
+return editWorkout(_that);case UpdateWorkoutExercises():
 return updateWorkoutExercises(_that);case DeleteWorkout():
 return deleteWorkout(_that);case AddExerciseToWorkout():
 return addExerciseToWorkout(_that);case UpdateExerciseInWorkout():
@@ -126,14 +128,15 @@ return validateWorkoutCreation(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Started value)?  started,TResult? Function( CreateWorkout value)?  createWorkout,TResult? Function( LoadWorkouts value)?  loadWorkouts,TResult? Function( UpdateWorkout value)?  updateWorkout,TResult? Function( UpdateWorkoutExercises value)?  updateWorkoutExercises,TResult? Function( DeleteWorkout value)?  deleteWorkout,TResult? Function( AddExerciseToWorkout value)?  addExerciseToWorkout,TResult? Function( UpdateExerciseInWorkout value)?  updateExerciseInWorkout,TResult? Function( RemoveExerciseFromWorkout value)?  removeExerciseFromWorkout,TResult? Function( EndWorkoutSession value)?  endWorkoutSession,TResult? Function( CalculateStats value)?  calculateStats,TResult? Function( GroupWorkoutsByDay value)?  groupWorkoutsByDay,TResult? Function( FormatTime value)?  formatTime,TResult? Function( FormatDuration value)?  formatDuration,TResult? Function( ValidateWorkoutCreation value)?  validateWorkoutCreation,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Started value)?  started,TResult? Function( CreateWorkout value)?  createWorkout,TResult? Function( LoadWorkouts value)?  loadWorkouts,TResult? Function( UpdateWorkout value)?  updateWorkout,TResult? Function( EditWorkout value)?  editWorkout,TResult? Function( UpdateWorkoutExercises value)?  updateWorkoutExercises,TResult? Function( DeleteWorkout value)?  deleteWorkout,TResult? Function( AddExerciseToWorkout value)?  addExerciseToWorkout,TResult? Function( UpdateExerciseInWorkout value)?  updateExerciseInWorkout,TResult? Function( RemoveExerciseFromWorkout value)?  removeExerciseFromWorkout,TResult? Function( EndWorkoutSession value)?  endWorkoutSession,TResult? Function( CalculateStats value)?  calculateStats,TResult? Function( GroupWorkoutsByDay value)?  groupWorkoutsByDay,TResult? Function( FormatTime value)?  formatTime,TResult? Function( FormatDuration value)?  formatDuration,TResult? Function( ValidateWorkoutCreation value)?  validateWorkoutCreation,}){
 final _that = this;
 switch (_that) {
 case Started() when started != null:
 return started(_that);case CreateWorkout() when createWorkout != null:
 return createWorkout(_that);case LoadWorkouts() when loadWorkouts != null:
 return loadWorkouts(_that);case UpdateWorkout() when updateWorkout != null:
-return updateWorkout(_that);case UpdateWorkoutExercises() when updateWorkoutExercises != null:
+return updateWorkout(_that);case EditWorkout() when editWorkout != null:
+return editWorkout(_that);case UpdateWorkoutExercises() when updateWorkoutExercises != null:
 return updateWorkoutExercises(_that);case DeleteWorkout() when deleteWorkout != null:
 return deleteWorkout(_that);case AddExerciseToWorkout() when addExerciseToWorkout != null:
 return addExerciseToWorkout(_that);case UpdateExerciseInWorkout() when updateExerciseInWorkout != null:
@@ -161,13 +164,14 @@ return validateWorkoutCreation(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  started,TResult Function( WorkoutEntity workout)?  createWorkout,TResult Function()?  loadWorkouts,TResult Function( WorkoutEntity workout)?  updateWorkout,TResult Function( WorkoutEntity workout)?  updateWorkoutExercises,TResult Function( DeleteWorkoutParams params)?  deleteWorkout,TResult Function( AddExerciseParams params)?  addExerciseToWorkout,TResult Function( UpdateExerciseParams params)?  updateExerciseInWorkout,TResult Function( RemoveExerciseParams params)?  removeExerciseFromWorkout,TResult Function( EndWorkoutSessionParams params)?  endWorkoutSession,TResult Function( List<WorkoutEntity> workouts)?  calculateStats,TResult Function( List<WorkoutEntity> workouts)?  groupWorkoutsByDay,TResult Function( DateTime dateTime,  TimeFormatType formatType)?  formatTime,TResult Function( int minutes)?  formatDuration,TResult Function( ValidateWorkoutCreationParams params)?  validateWorkoutCreation,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  started,TResult Function( WorkoutEntity workout)?  createWorkout,TResult Function()?  loadWorkouts,TResult Function( WorkoutEntity workout)?  updateWorkout,TResult Function( WorkoutEntity workout)?  editWorkout,TResult Function( WorkoutEntity workout)?  updateWorkoutExercises,TResult Function( DeleteWorkoutParams params)?  deleteWorkout,TResult Function( AddExerciseParams params)?  addExerciseToWorkout,TResult Function( UpdateExerciseParams params)?  updateExerciseInWorkout,TResult Function( RemoveExerciseParams params)?  removeExerciseFromWorkout,TResult Function( EndWorkoutSessionParams params)?  endWorkoutSession,TResult Function( List<WorkoutEntity> workouts)?  calculateStats,TResult Function( List<WorkoutEntity> workouts)?  groupWorkoutsByDay,TResult Function( DateTime dateTime,  TimeFormatType formatType)?  formatTime,TResult Function( int minutes)?  formatDuration,TResult Function( ValidateWorkoutCreationParams params)?  validateWorkoutCreation,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case Started() when started != null:
 return started();case CreateWorkout() when createWorkout != null:
 return createWorkout(_that.workout);case LoadWorkouts() when loadWorkouts != null:
 return loadWorkouts();case UpdateWorkout() when updateWorkout != null:
-return updateWorkout(_that.workout);case UpdateWorkoutExercises() when updateWorkoutExercises != null:
+return updateWorkout(_that.workout);case EditWorkout() when editWorkout != null:
+return editWorkout(_that.workout);case UpdateWorkoutExercises() when updateWorkoutExercises != null:
 return updateWorkoutExercises(_that.workout);case DeleteWorkout() when deleteWorkout != null:
 return deleteWorkout(_that.params);case AddExerciseToWorkout() when addExerciseToWorkout != null:
 return addExerciseToWorkout(_that.params);case UpdateExerciseInWorkout() when updateExerciseInWorkout != null:
@@ -196,13 +200,14 @@ return validateWorkoutCreation(_that.params);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  started,required TResult Function( WorkoutEntity workout)  createWorkout,required TResult Function()  loadWorkouts,required TResult Function( WorkoutEntity workout)  updateWorkout,required TResult Function( WorkoutEntity workout)  updateWorkoutExercises,required TResult Function( DeleteWorkoutParams params)  deleteWorkout,required TResult Function( AddExerciseParams params)  addExerciseToWorkout,required TResult Function( UpdateExerciseParams params)  updateExerciseInWorkout,required TResult Function( RemoveExerciseParams params)  removeExerciseFromWorkout,required TResult Function( EndWorkoutSessionParams params)  endWorkoutSession,required TResult Function( List<WorkoutEntity> workouts)  calculateStats,required TResult Function( List<WorkoutEntity> workouts)  groupWorkoutsByDay,required TResult Function( DateTime dateTime,  TimeFormatType formatType)  formatTime,required TResult Function( int minutes)  formatDuration,required TResult Function( ValidateWorkoutCreationParams params)  validateWorkoutCreation,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  started,required TResult Function( WorkoutEntity workout)  createWorkout,required TResult Function()  loadWorkouts,required TResult Function( WorkoutEntity workout)  updateWorkout,required TResult Function( WorkoutEntity workout)  editWorkout,required TResult Function( WorkoutEntity workout)  updateWorkoutExercises,required TResult Function( DeleteWorkoutParams params)  deleteWorkout,required TResult Function( AddExerciseParams params)  addExerciseToWorkout,required TResult Function( UpdateExerciseParams params)  updateExerciseInWorkout,required TResult Function( RemoveExerciseParams params)  removeExerciseFromWorkout,required TResult Function( EndWorkoutSessionParams params)  endWorkoutSession,required TResult Function( List<WorkoutEntity> workouts)  calculateStats,required TResult Function( List<WorkoutEntity> workouts)  groupWorkoutsByDay,required TResult Function( DateTime dateTime,  TimeFormatType formatType)  formatTime,required TResult Function( int minutes)  formatDuration,required TResult Function( ValidateWorkoutCreationParams params)  validateWorkoutCreation,}) {final _that = this;
 switch (_that) {
 case Started():
 return started();case CreateWorkout():
 return createWorkout(_that.workout);case LoadWorkouts():
 return loadWorkouts();case UpdateWorkout():
-return updateWorkout(_that.workout);case UpdateWorkoutExercises():
+return updateWorkout(_that.workout);case EditWorkout():
+return editWorkout(_that.workout);case UpdateWorkoutExercises():
 return updateWorkoutExercises(_that.workout);case DeleteWorkout():
 return deleteWorkout(_that.params);case AddExerciseToWorkout():
 return addExerciseToWorkout(_that.params);case UpdateExerciseInWorkout():
@@ -230,13 +235,14 @@ return validateWorkoutCreation(_that.params);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  started,TResult? Function( WorkoutEntity workout)?  createWorkout,TResult? Function()?  loadWorkouts,TResult? Function( WorkoutEntity workout)?  updateWorkout,TResult? Function( WorkoutEntity workout)?  updateWorkoutExercises,TResult? Function( DeleteWorkoutParams params)?  deleteWorkout,TResult? Function( AddExerciseParams params)?  addExerciseToWorkout,TResult? Function( UpdateExerciseParams params)?  updateExerciseInWorkout,TResult? Function( RemoveExerciseParams params)?  removeExerciseFromWorkout,TResult? Function( EndWorkoutSessionParams params)?  endWorkoutSession,TResult? Function( List<WorkoutEntity> workouts)?  calculateStats,TResult? Function( List<WorkoutEntity> workouts)?  groupWorkoutsByDay,TResult? Function( DateTime dateTime,  TimeFormatType formatType)?  formatTime,TResult? Function( int minutes)?  formatDuration,TResult? Function( ValidateWorkoutCreationParams params)?  validateWorkoutCreation,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  started,TResult? Function( WorkoutEntity workout)?  createWorkout,TResult? Function()?  loadWorkouts,TResult? Function( WorkoutEntity workout)?  updateWorkout,TResult? Function( WorkoutEntity workout)?  editWorkout,TResult? Function( WorkoutEntity workout)?  updateWorkoutExercises,TResult? Function( DeleteWorkoutParams params)?  deleteWorkout,TResult? Function( AddExerciseParams params)?  addExerciseToWorkout,TResult? Function( UpdateExerciseParams params)?  updateExerciseInWorkout,TResult? Function( RemoveExerciseParams params)?  removeExerciseFromWorkout,TResult? Function( EndWorkoutSessionParams params)?  endWorkoutSession,TResult? Function( List<WorkoutEntity> workouts)?  calculateStats,TResult? Function( List<WorkoutEntity> workouts)?  groupWorkoutsByDay,TResult? Function( DateTime dateTime,  TimeFormatType formatType)?  formatTime,TResult? Function( int minutes)?  formatDuration,TResult? Function( ValidateWorkoutCreationParams params)?  validateWorkoutCreation,}) {final _that = this;
 switch (_that) {
 case Started() when started != null:
 return started();case CreateWorkout() when createWorkout != null:
 return createWorkout(_that.workout);case LoadWorkouts() when loadWorkouts != null:
 return loadWorkouts();case UpdateWorkout() when updateWorkout != null:
-return updateWorkout(_that.workout);case UpdateWorkoutExercises() when updateWorkoutExercises != null:
+return updateWorkout(_that.workout);case EditWorkout() when editWorkout != null:
+return editWorkout(_that.workout);case UpdateWorkoutExercises() when updateWorkoutExercises != null:
 return updateWorkoutExercises(_that.workout);case DeleteWorkout() when deleteWorkout != null:
 return deleteWorkout(_that.params);case AddExerciseToWorkout() when addExerciseToWorkout != null:
 return addExerciseToWorkout(_that.params);case UpdateExerciseInWorkout() when updateExerciseInWorkout != null:
@@ -452,6 +458,81 @@ class _$UpdateWorkoutCopyWithImpl<$Res>
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? workout = null,}) {
   return _then(UpdateWorkout(
+null == workout ? _self.workout : workout // ignore: cast_nullable_to_non_nullable
+as WorkoutEntity,
+  ));
+}
+
+/// Create a copy of WorkoutEvent
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$WorkoutEntityCopyWith<$Res> get workout {
+  
+  return $WorkoutEntityCopyWith<$Res>(_self.workout, (value) {
+    return _then(_self.copyWith(workout: value));
+  });
+}
+}
+
+/// @nodoc
+
+
+class EditWorkout implements WorkoutEvent {
+  const EditWorkout(this.workout);
+  
+
+ final  WorkoutEntity workout;
+
+/// Create a copy of WorkoutEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$EditWorkoutCopyWith<EditWorkout> get copyWith => _$EditWorkoutCopyWithImpl<EditWorkout>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is EditWorkout&&(identical(other.workout, workout) || other.workout == workout));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,workout);
+
+@override
+String toString() {
+  return 'WorkoutEvent.editWorkout(workout: $workout)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $EditWorkoutCopyWith<$Res> implements $WorkoutEventCopyWith<$Res> {
+  factory $EditWorkoutCopyWith(EditWorkout value, $Res Function(EditWorkout) _then) = _$EditWorkoutCopyWithImpl;
+@useResult
+$Res call({
+ WorkoutEntity workout
+});
+
+
+$WorkoutEntityCopyWith<$Res> get workout;
+
+}
+/// @nodoc
+class _$EditWorkoutCopyWithImpl<$Res>
+    implements $EditWorkoutCopyWith<$Res> {
+  _$EditWorkoutCopyWithImpl(this._self, this._then);
+
+  final EditWorkout _self;
+  final $Res Function(EditWorkout) _then;
+
+/// Create a copy of WorkoutEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? workout = null,}) {
+  return _then(EditWorkout(
 null == workout ? _self.workout : workout // ignore: cast_nullable_to_non_nullable
 as WorkoutEntity,
   ));

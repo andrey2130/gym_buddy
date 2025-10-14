@@ -37,8 +37,8 @@ abstract class WorkoutModel with _$WorkoutModel {
     required DateTime startTime,
     @JsonKey(toJson: _exercisesToJson, fromJson: _exercisesFromJson)
     required List<ExerciseModel> exercises,
+    DateTime? endTime,
     int? duration,
-
     @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp)
     DateTime? createdAt,
     @JsonKey(fromJson: _fromTimestampNullable, toJson: _toTimestamp)
@@ -58,6 +58,7 @@ abstract class WorkoutModel with _$WorkoutModel {
     date: date,
     startTime: startTime,
     exercises: exercises.map((e) => e.toEntity()).toList(),
+    endTime: endTime,
     duration: duration,
 
     createdAt: createdAt,
@@ -72,8 +73,8 @@ abstract class WorkoutModel with _$WorkoutModel {
     date: entity.date,
     startTime: entity.startTime,
     exercises: entity.exercises.map(ExerciseModel.fromEntity).toList(),
+    endTime: entity.endTime,
     duration: entity.duration,
-
     createdAt: entity.createdAt,
     updatedAt: entity.updatedAt,
     isCompleted: entity.isCompleted,
