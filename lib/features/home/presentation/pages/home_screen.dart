@@ -1,364 +1,150 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gym_buddy/features/home/presentation/widgets/dynamic_action_button.dart';
+import 'package:gym_buddy/features/home/presentation/widgets/home_app_bar.dart';
+import 'package:gym_buddy/features/home/presentation/widgets/personalized_tip_card.dart';
+import 'package:gym_buddy/features/home/presentation/widgets/stat_card.dart';
+import 'package:gym_buddy/features/home/presentation/widgets/training_day_banner.dart';
+import 'package:gym_buddy/features/home/presentation/widgets/training_plan_overview.dart';
+import 'package:gym_buddy/features/home/presentation/widgets/weekly_progress.dart';
+import 'package:gym_buddy/features/profile/presentation/bloc/profile_bloc.dart';
+import 'package:gym_buddy/injections.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) =>
+              getIt<ProfileBloc>()..add(const LoadUserProfile()),
+        ),
+        // Тут можна додати інші bloc'и
+        // BlocProvider(
+        //   create: (context) => getIt<WorkoutBloc>()..add(const LoadWorkouts()),
+        // ),
+      ],
+      child: BlocBuilder<ProfileBloc, ProfileState>(
+        builder: (context, state) {
+          return state.when(
+            initial: () => const Scaffold(
+              body: Center(child: CircularProgressIndicator.adaptive()),
+            ),
+            loading: () => const Scaffold(
+              body: Center(child: CircularProgressIndicator.adaptive()),
+            ),
+            loaded: (user) => _buildHomeContent(context, user.name),
+            failure: (message) =>
+                Scaffold(body: Center(child: Text('Error: $message'))),
+            sessionExpired: () =>
+                const Scaffold(body: Center(child: Text('Session expired'))),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildHomeContent(BuildContext context, String userName) {
     final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
     final textTheme = theme.textTheme;
 
     const bool isTrainingDay = true;
-
     const String trainingPlan = "Push / Pull / Legs";
     const String currentWorkout = "Push (Chest, shoulders, triceps)";
     const int cycleDay = 1;
     const int totalCycleDays = 3;
     const int completedWorkouts = 12;
-    const String userName = "Alex";
 
     return Scaffold(
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            SliverAppBar(
-              pinned: true,
-
-              backgroundColor: theme.scaffoldBackgroundColor,
-              titleSpacing: 20,
-              toolbarHeight: 72,
-              centerTitle: false,
-              automaticallyImplyLeading: false,
-
-              title: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Hello, $userName 👋', style: textTheme.displayLarge),
-                  const SizedBox(height: 4),
-                  Text(_getGreeting(), style: textTheme.bodyMedium),
-                ],
-              ),
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: Center(
-                    child: Container(
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: colorScheme.surface,
-                        borderRadius: BorderRadius.circular(12),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.05),
-                            blurRadius: 10,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
-                      ),
-                      child: Icon(
-                        Icons.notifications_outlined,
-                        color: colorScheme.onSurface,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            HomeAppBar(userName: userName),
             const SliverToBoxAdapter(child: SizedBox(height: 24)),
             SliverPadding(
               padding: const EdgeInsets.all(20.0),
               sliver: SliverList(
                 delegate: SliverChildListDelegate([
                   // spacing after app bar handled above
-
-                  // Training Day Banner
                   if (isTrainingDay)
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            colorScheme.primary,
-                            colorScheme.primary.withOpacity(0.8),
-                          ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            color: colorScheme.primary.withOpacity(0.3),
-                            blurRadius: 12,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(8),
-                                decoration: BoxDecoration(
-                                  color: Colors.white.withOpacity(0.2),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: const Icon(
-                                  Icons.fitness_center,
-                                  color: Colors.white,
-                                  size: 24,
-                                ),
-                              ),
-                              const SizedBox(width: 12),
-                              Text(
-                                'TODAY IS YOUR TRAINING DAY!',
-                                style: textTheme.labelLarge?.copyWith(
-                                  color: Colors.white,
-                                  letterSpacing: 0.5,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-                          Text(
-                            currentWorkout,
-                            style: textTheme.displayMedium?.copyWith(
-                              color: Colors.white,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            '$trainingPlan • Day $cycleDay of $totalCycleDays',
-                            style: textTheme.bodyMedium?.copyWith(
-                              color: Colors.white.withOpacity(0.9),
-                            ),
-                          ),
-                        ],
-                      ),
+                    const TrainingDayBanner(
+                      currentWorkout: currentWorkout,
+                      trainingPlan: trainingPlan,
+                      cycleDay: cycleDay,
+                      totalCycleDays: totalCycleDays,
                     ),
                   const SizedBox(height: 24),
 
                   // Dynamic Action Button
-                  SizedBox(
-                    width: double.infinity,
-                    height: 56,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Start workout action
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(Icons.play_arrow_rounded, size: 28),
-                          const SizedBox(width: 8),
-                          Text(
-                            "Start Today's Workout",
-                            style: textTheme.bodyLarge?.copyWith(
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  DynamicActionButton(
+                    label: "Start Today's Workout",
+                    icon: Icons.play_arrow_rounded,
+                    onPressed: () {},
                   ),
                   const SizedBox(height: 24),
 
                   // Weekly Progress
-                  Container(
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      color: colorScheme.surface,
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.05),
-                          blurRadius: 10,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Weekly Progress',
-                              style: textTheme.displayMedium,
-                            ),
-                            Text(
-                              '$completedWorkouts workouts',
-                              style: textTheme.bodyMedium?.copyWith(
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 16),
-                        Row(
-                          children: List.generate(7, (index) {
-                            final days = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
-                            final isCompleted = index < 2;
-                            final isToday = index == 2;
-
-                            return Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 4,
-                                ),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      height: 48,
-                                      decoration: BoxDecoration(
-                                        color: isCompleted
-                                            ? colorScheme.primary
-                                            : isToday
-                                            ? colorScheme.primary.withOpacity(
-                                                0.2,
-                                              )
-                                            : colorScheme.surface.withOpacity(
-                                                0.5,
-                                              ),
-                                        borderRadius: BorderRadius.circular(8),
-                                        border: isToday
-                                            ? Border.all(
-                                                color: colorScheme.primary,
-                                                width: 2,
-                                              )
-                                            : null,
-                                      ),
-                                      child: Center(
-                                        child: isCompleted
-                                            ? const Icon(
-                                                Icons.check,
-                                                color: Colors.white,
-                                                size: 20,
-                                              )
-                                            : null,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 8),
-                                    Text(
-                                      days[index],
-                                      style: textTheme.bodyMedium?.copyWith(
-                                        fontWeight: isToday
-                                            ? FontWeight.bold
-                                            : FontWeight.normal,
-                                        color: isToday
-                                            ? colorScheme.onSurface
-                                            : colorScheme.onSurface.withOpacity(
-                                                0.6,
-                                              ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          }),
-                        ),
-                      ],
-                    ),
+                  const WeeklyProgress(
+                    completedWorkouts: completedWorkouts,
+                    days: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+                    completedIndices: {0, 1},
+                    todayIndex: 2,
                   ),
                   const SizedBox(height: 16),
 
                   // Quick Stats
-                  Row(
+                  const Row(
                     children: [
                       Expanded(
-                        child: _buildStatCard(
-                          context: context,
+                        child: StatCard(
                           icon: Icons.local_fire_department,
                           value: '1,245',
                           label: 'Calories',
-                          color: colorScheme.error,
+                          color: Colors.red,
                         ),
                       ),
-                      const SizedBox(width: 12),
+                      SizedBox(width: 12),
                       Expanded(
-                        child: _buildStatCard(
-                          context: context,
+                        child: StatCard(
                           icon: Icons.timer_outlined,
                           value: '45 min',
                           label: 'Avg Time',
-                          color: colorScheme.primary,
+                          color: Colors.blue,
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 24),
 
-                  // Personalized Tip
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: colorScheme.secondary.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: colorScheme.secondary,
-                        width: 1,
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: colorScheme.secondary,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: const Icon(
-                            Icons.lightbulb_outline,
-                            color: Colors.white,
-                            size: 20,
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Text(
-                            "Don't forget to warm up before starting your push exercises!",
-                            style: textTheme.bodyMedium?.copyWith(
-                              color: colorScheme.onSurface,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                  const PersonalizedTipCard(
+                    tip:
+                        "Don't forget to warm up before starting your push exercises!",
                   ),
                   const SizedBox(height: 24),
 
                   // Training Plan Overview
                   Text('Your Training Plan', style: textTheme.displayMedium),
                   const SizedBox(height: 12),
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: colorScheme.surface,
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.05),
-                          blurRadius: 10,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      children: [
-                        _buildPlanDay(context, 'Push', 'Mon, Thu', true),
-                        const Divider(height: 24),
-                        _buildPlanDay(context, 'Pull', 'Tue, Fri', false),
-                        const Divider(height: 24),
-                        _buildPlanDay(context, 'Legs', 'Wed, Sat', false),
-                      ],
-                    ),
+                  const TrainingPlanOverview(
+                    items: [
+                      PlanDayItemData(
+                        workout: 'Push',
+                        days: 'Mon, Thu',
+                        isActive: true,
+                      ),
+                      PlanDayItemData(
+                        workout: 'Pull',
+                        days: 'Tue, Fri',
+                        isActive: false,
+                      ),
+                      PlanDayItemData(
+                        workout: 'Legs',
+                        days: 'Wed, Sat',
+                        isActive: false,
+                      ),
+                    ],
                   ),
                 ]),
               ),
@@ -367,123 +153,5 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Widget _buildStatCard({
-    required BuildContext context,
-    required IconData icon,
-    required String value,
-    required String label,
-    required Color color,
-  }) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-    final textTheme = theme.textTheme;
-
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(icon, color: color, size: 24),
-          const SizedBox(height: 8),
-          Text(value, style: textTheme.displayMedium?.copyWith(fontSize: 20)),
-          const SizedBox(height: 4),
-          Text(label, style: textTheme.bodyMedium),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildPlanDay(
-    BuildContext context,
-    String workout,
-    String days,
-    bool isActive,
-  ) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-    final textTheme = theme.textTheme;
-
-    return Row(
-      children: [
-        Container(
-          width: 48,
-          height: 48,
-          decoration: BoxDecoration(
-            color: isActive
-                ? colorScheme.primary
-                : colorScheme.surface.withOpacity(0.5),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Center(
-            child: Icon(
-              Icons.fitness_center,
-              color: isActive
-                  ? Colors.white
-                  : colorScheme.onSurface.withOpacity(0.4),
-              size: 24,
-            ),
-          ),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                workout,
-                style: textTheme.bodyLarge?.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: isActive
-                      ? colorScheme.onSurface
-                      : colorScheme.onSurface.withOpacity(0.6),
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                days,
-                style: textTheme.bodyMedium?.copyWith(
-                  color: colorScheme.onSurface.withOpacity(0.5),
-                ),
-              ),
-            ],
-          ),
-        ),
-        if (isActive)
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: colorScheme.primary.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Text(
-              'Today',
-              style: textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.w600,
-                color: colorScheme.primary,
-              ),
-            ),
-          ),
-      ],
-    );
-  }
-
-  String _getGreeting() {
-    final hour = DateTime.now().hour;
-    if (hour < 12) return 'Good morning';
-    if (hour < 17) return 'Good afternoon';
-    return 'Good evening';
   }
 }
