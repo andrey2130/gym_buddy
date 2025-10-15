@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gym_buddy/core/widgets/custom_button.dart';
 import 'package:gym_buddy/features/onboarding/presentation/bloc/onboarding_bloc.dart';
+import 'package:gym_buddy/features/onboarding/presentation/pages/custom_plan_naming_screen.dart';
 import 'package:gym_buddy/features/onboarding/presentation/pages/day_screen.dart';
 import 'package:gym_buddy/features/onboarding/presentation/pages/plan_screen.dart';
 import 'package:gym_buddy/features/onboarding/presentation/pages/time_screen.dart';
@@ -27,6 +28,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   late Animation<Offset> _slideAnimation;
 
   int _currentPage = 0;
+  bool _isCustomPlan = false;
 
   @override
   void initState() {
@@ -67,6 +69,22 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     final state = context.read<OnboardingBloc>().state;
 
     if (currentPage == 0) {
+      final selectedPlan = state.maybeWhen(
+        planSelected: (_, plan) => plan,
+        orElse: () => '',
+      );
+
+      if (selectedPlan.isEmpty) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('select_training_plan'.tr())));
+        return;
+      }
+
+      _isCustomPlan = selectedPlan == 'custom_plan';
+    }
+
+    if (currentPage == 1) {
       final selectedDays = state.maybeWhen(
         daysSelected: (days) => days,
         planSelected: (days, _) => days,
@@ -81,22 +99,24 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       }
     }
 
-    if (currentPage == 1) {
-      final selectedPlan = state.maybeWhen(
-        planSelected: (_, plan) => plan,
-        orElse: () => '',
+    if (currentPage == 2 && _isCustomPlan) {
+      final customWorkoutNames = state.maybeWhen(
+        customWorkoutNamesSet: (names) => names,
+        orElse: () => <String, String>{},
       );
 
-      if (selectedPlan.isEmpty) {
+      if (customWorkoutNames.isEmpty) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text('select_training_plan'.tr())));
+        ).showSnackBar(SnackBar(content: Text('name_your_workouts'.tr())));
         return;
       }
     }
 
+    final maxPages = _isCustomPlan ? 4 : 3;
     final nextPage = currentPage + 1;
-    if (nextPage < 3) {
+
+    if (nextPage < maxPages) {
       _pageController.animateToPage(
         nextPage,
         duration: const Duration(milliseconds: 400),
@@ -116,7 +136,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   @override
   Widget build(BuildContext context) {
-    final isLastPage = _currentPage == 2; 
+    final maxPages = _isCustomPlan ? 4 : 3;
+    final isLastPage = _currentPage == maxPages - 1;
     return BlocListener<OnboardingBloc, OnboardingState>(
       listener: (context, state) {
         state.maybeWhen(
@@ -152,9 +173,14 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                       child: PageView(
                         controller: _pageController,
                         children: [
-                          DayScreen(onNext: _next),
                           PlanScreen(onNext: _next),
-                          TimeScreen(key: _timeKey, onFinish: _skip),
+                          DayScreen(onNext: _next),
+                          if (_isCustomPlan)
+                            CustomPlanNamingScreen(onNext: _next)
+                          else
+                            TimeScreen(key: _timeKey, onFinish: _skip),
+                          if (_isCustomPlan)
+                            TimeScreen(key: _timeKey, onFinish: _skip),
                         ],
                       ),
                     ),
@@ -163,7 +189,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                       children: [
                         Expanded(
                           child: SmoothPageIndicator(
-                            count: 3,
+                            count: maxPages,
                             controller: _pageController,
                             effect: ExpandingDotsEffect(
                               dotHeight: 6.h,

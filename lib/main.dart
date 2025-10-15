@@ -18,7 +18,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 void main() async {
-  
   await runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
@@ -43,7 +42,7 @@ void main() async {
       );
     },
     (error, stackTrace) {
-      getIt<Talker>().handle(error);
+      getIt<Talker>().handle("Application Launch Error: $error");
     },
   );
 }

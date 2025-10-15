@@ -55,14 +55,15 @@ extension OnboardingEventPatterns on OnboardingEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( SaveOnboarding value)?  saveOnboarding,TResult Function( GetOnboarding value)?  getOnboarding,TResult Function( SelectDays value)?  selectDays,TResult Function( SelectPlan value)?  selectPlan,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( SaveOnboarding value)?  saveOnboarding,TResult Function( GetOnboarding value)?  getOnboarding,TResult Function( SelectDays value)?  selectDays,TResult Function( SelectPlan value)?  selectPlan,TResult Function( SetCustomWorkoutNames value)?  setCustomWorkoutNames,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case SaveOnboarding() when saveOnboarding != null:
 return saveOnboarding(_that);case GetOnboarding() when getOnboarding != null:
 return getOnboarding(_that);case SelectDays() when selectDays != null:
 return selectDays(_that);case SelectPlan() when selectPlan != null:
-return selectPlan(_that);case _:
+return selectPlan(_that);case SetCustomWorkoutNames() when setCustomWorkoutNames != null:
+return setCustomWorkoutNames(_that);case _:
   return orElse();
 
 }
@@ -80,14 +81,15 @@ return selectPlan(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( SaveOnboarding value)  saveOnboarding,required TResult Function( GetOnboarding value)  getOnboarding,required TResult Function( SelectDays value)  selectDays,required TResult Function( SelectPlan value)  selectPlan,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( SaveOnboarding value)  saveOnboarding,required TResult Function( GetOnboarding value)  getOnboarding,required TResult Function( SelectDays value)  selectDays,required TResult Function( SelectPlan value)  selectPlan,required TResult Function( SetCustomWorkoutNames value)  setCustomWorkoutNames,}){
 final _that = this;
 switch (_that) {
 case SaveOnboarding():
 return saveOnboarding(_that);case GetOnboarding():
 return getOnboarding(_that);case SelectDays():
 return selectDays(_that);case SelectPlan():
-return selectPlan(_that);case _:
+return selectPlan(_that);case SetCustomWorkoutNames():
+return setCustomWorkoutNames(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -104,14 +106,15 @@ return selectPlan(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( SaveOnboarding value)?  saveOnboarding,TResult? Function( GetOnboarding value)?  getOnboarding,TResult? Function( SelectDays value)?  selectDays,TResult? Function( SelectPlan value)?  selectPlan,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( SaveOnboarding value)?  saveOnboarding,TResult? Function( GetOnboarding value)?  getOnboarding,TResult? Function( SelectDays value)?  selectDays,TResult? Function( SelectPlan value)?  selectPlan,TResult? Function( SetCustomWorkoutNames value)?  setCustomWorkoutNames,}){
 final _that = this;
 switch (_that) {
 case SaveOnboarding() when saveOnboarding != null:
 return saveOnboarding(_that);case GetOnboarding() when getOnboarding != null:
 return getOnboarding(_that);case SelectDays() when selectDays != null:
 return selectDays(_that);case SelectPlan() when selectPlan != null:
-return selectPlan(_that);case _:
+return selectPlan(_that);case SetCustomWorkoutNames() when setCustomWorkoutNames != null:
+return setCustomWorkoutNames(_that);case _:
   return null;
 
 }
@@ -128,13 +131,14 @@ return selectPlan(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( OnboardingParams params)?  saveOnboarding,TResult Function( String userId)?  getOnboarding,TResult Function( Set<String> days)?  selectDays,TResult Function( String plan)?  selectPlan,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( OnboardingParams params)?  saveOnboarding,TResult Function( String userId)?  getOnboarding,TResult Function( Set<String> days)?  selectDays,TResult Function( String plan)?  selectPlan,TResult Function( Map<String, String> workoutNames)?  setCustomWorkoutNames,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case SaveOnboarding() when saveOnboarding != null:
 return saveOnboarding(_that.params);case GetOnboarding() when getOnboarding != null:
 return getOnboarding(_that.userId);case SelectDays() when selectDays != null:
 return selectDays(_that.days);case SelectPlan() when selectPlan != null:
-return selectPlan(_that.plan);case _:
+return selectPlan(_that.plan);case SetCustomWorkoutNames() when setCustomWorkoutNames != null:
+return setCustomWorkoutNames(_that.workoutNames);case _:
   return orElse();
 
 }
@@ -152,13 +156,14 @@ return selectPlan(_that.plan);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( OnboardingParams params)  saveOnboarding,required TResult Function( String userId)  getOnboarding,required TResult Function( Set<String> days)  selectDays,required TResult Function( String plan)  selectPlan,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( OnboardingParams params)  saveOnboarding,required TResult Function( String userId)  getOnboarding,required TResult Function( Set<String> days)  selectDays,required TResult Function( String plan)  selectPlan,required TResult Function( Map<String, String> workoutNames)  setCustomWorkoutNames,}) {final _that = this;
 switch (_that) {
 case SaveOnboarding():
 return saveOnboarding(_that.params);case GetOnboarding():
 return getOnboarding(_that.userId);case SelectDays():
 return selectDays(_that.days);case SelectPlan():
-return selectPlan(_that.plan);case _:
+return selectPlan(_that.plan);case SetCustomWorkoutNames():
+return setCustomWorkoutNames(_that.workoutNames);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -175,13 +180,14 @@ return selectPlan(_that.plan);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( OnboardingParams params)?  saveOnboarding,TResult? Function( String userId)?  getOnboarding,TResult? Function( Set<String> days)?  selectDays,TResult? Function( String plan)?  selectPlan,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( OnboardingParams params)?  saveOnboarding,TResult? Function( String userId)?  getOnboarding,TResult? Function( Set<String> days)?  selectDays,TResult? Function( String plan)?  selectPlan,TResult? Function( Map<String, String> workoutNames)?  setCustomWorkoutNames,}) {final _that = this;
 switch (_that) {
 case SaveOnboarding() when saveOnboarding != null:
 return saveOnboarding(_that.params);case GetOnboarding() when getOnboarding != null:
 return getOnboarding(_that.userId);case SelectDays() when selectDays != null:
 return selectDays(_that.days);case SelectPlan() when selectPlan != null:
-return selectPlan(_that.plan);case _:
+return selectPlan(_that.plan);case SetCustomWorkoutNames() when setCustomWorkoutNames != null:
+return setCustomWorkoutNames(_that.workoutNames);case _:
   return null;
 
 }
@@ -469,6 +475,78 @@ as String,
 }
 
 /// @nodoc
+
+
+class SetCustomWorkoutNames implements OnboardingEvent {
+  const SetCustomWorkoutNames(final  Map<String, String> workoutNames): _workoutNames = workoutNames;
+  
+
+ final  Map<String, String> _workoutNames;
+ Map<String, String> get workoutNames {
+  if (_workoutNames is EqualUnmodifiableMapView) return _workoutNames;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_workoutNames);
+}
+
+
+/// Create a copy of OnboardingEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SetCustomWorkoutNamesCopyWith<SetCustomWorkoutNames> get copyWith => _$SetCustomWorkoutNamesCopyWithImpl<SetCustomWorkoutNames>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SetCustomWorkoutNames&&const DeepCollectionEquality().equals(other._workoutNames, _workoutNames));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_workoutNames));
+
+@override
+String toString() {
+  return 'OnboardingEvent.setCustomWorkoutNames(workoutNames: $workoutNames)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SetCustomWorkoutNamesCopyWith<$Res> implements $OnboardingEventCopyWith<$Res> {
+  factory $SetCustomWorkoutNamesCopyWith(SetCustomWorkoutNames value, $Res Function(SetCustomWorkoutNames) _then) = _$SetCustomWorkoutNamesCopyWithImpl;
+@useResult
+$Res call({
+ Map<String, String> workoutNames
+});
+
+
+
+
+}
+/// @nodoc
+class _$SetCustomWorkoutNamesCopyWithImpl<$Res>
+    implements $SetCustomWorkoutNamesCopyWith<$Res> {
+  _$SetCustomWorkoutNamesCopyWithImpl(this._self, this._then);
+
+  final SetCustomWorkoutNames _self;
+  final $Res Function(SetCustomWorkoutNames) _then;
+
+/// Create a copy of OnboardingEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? workoutNames = null,}) {
+  return _then(SetCustomWorkoutNames(
+null == workoutNames ? _self._workoutNames : workoutNames // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,
+  ));
+}
+
+
+}
+
+/// @nodoc
 mixin _$OnboardingState {
 
 
@@ -512,7 +590,7 @@ extension OnboardingStatePatterns on OnboardingState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Initial value)?  initial,TResult Function( Loading value)?  loading,TResult Function( Success value)?  success,TResult Function( Loaded value)?  loaded,TResult Function( Failure value)?  failure,TResult Function( DaysSelected value)?  daysSelected,TResult Function( PlanSelected value)?  planSelected,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( Initial value)?  initial,TResult Function( Loading value)?  loading,TResult Function( Success value)?  success,TResult Function( Loaded value)?  loaded,TResult Function( Failure value)?  failure,TResult Function( DaysSelected value)?  daysSelected,TResult Function( PlanSelected value)?  planSelected,TResult Function( CustomWorkoutNamesSet value)?  customWorkoutNamesSet,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case Initial() when initial != null:
@@ -522,7 +600,8 @@ return success(_that);case Loaded() when loaded != null:
 return loaded(_that);case Failure() when failure != null:
 return failure(_that);case DaysSelected() when daysSelected != null:
 return daysSelected(_that);case PlanSelected() when planSelected != null:
-return planSelected(_that);case _:
+return planSelected(_that);case CustomWorkoutNamesSet() when customWorkoutNamesSet != null:
+return customWorkoutNamesSet(_that);case _:
   return orElse();
 
 }
@@ -540,7 +619,7 @@ return planSelected(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Initial value)  initial,required TResult Function( Loading value)  loading,required TResult Function( Success value)  success,required TResult Function( Loaded value)  loaded,required TResult Function( Failure value)  failure,required TResult Function( DaysSelected value)  daysSelected,required TResult Function( PlanSelected value)  planSelected,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( Initial value)  initial,required TResult Function( Loading value)  loading,required TResult Function( Success value)  success,required TResult Function( Loaded value)  loaded,required TResult Function( Failure value)  failure,required TResult Function( DaysSelected value)  daysSelected,required TResult Function( PlanSelected value)  planSelected,required TResult Function( CustomWorkoutNamesSet value)  customWorkoutNamesSet,}){
 final _that = this;
 switch (_that) {
 case Initial():
@@ -550,7 +629,8 @@ return success(_that);case Loaded():
 return loaded(_that);case Failure():
 return failure(_that);case DaysSelected():
 return daysSelected(_that);case PlanSelected():
-return planSelected(_that);case _:
+return planSelected(_that);case CustomWorkoutNamesSet():
+return customWorkoutNamesSet(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -567,7 +647,7 @@ return planSelected(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Initial value)?  initial,TResult? Function( Loading value)?  loading,TResult? Function( Success value)?  success,TResult? Function( Loaded value)?  loaded,TResult? Function( Failure value)?  failure,TResult? Function( DaysSelected value)?  daysSelected,TResult? Function( PlanSelected value)?  planSelected,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( Initial value)?  initial,TResult? Function( Loading value)?  loading,TResult? Function( Success value)?  success,TResult? Function( Loaded value)?  loaded,TResult? Function( Failure value)?  failure,TResult? Function( DaysSelected value)?  daysSelected,TResult? Function( PlanSelected value)?  planSelected,TResult? Function( CustomWorkoutNamesSet value)?  customWorkoutNamesSet,}){
 final _that = this;
 switch (_that) {
 case Initial() when initial != null:
@@ -577,7 +657,8 @@ return success(_that);case Loaded() when loaded != null:
 return loaded(_that);case Failure() when failure != null:
 return failure(_that);case DaysSelected() when daysSelected != null:
 return daysSelected(_that);case PlanSelected() when planSelected != null:
-return planSelected(_that);case _:
+return planSelected(_that);case CustomWorkoutNamesSet() when customWorkoutNamesSet != null:
+return customWorkoutNamesSet(_that);case _:
   return null;
 
 }
@@ -594,7 +675,7 @@ return planSelected(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function()?  success,TResult Function( OnboardingParams params)?  loaded,TResult Function( String message)?  failure,TResult Function( Set<String> days)?  daysSelected,TResult Function( Set<String> days,  String plan)?  planSelected,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function()?  success,TResult Function( OnboardingParams params)?  loaded,TResult Function( String message)?  failure,TResult Function( Set<String> days)?  daysSelected,TResult Function( Set<String> days,  String plan)?  planSelected,TResult Function( Map<String, String> workoutNames)?  customWorkoutNamesSet,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case Initial() when initial != null:
 return initial();case Loading() when loading != null:
@@ -603,7 +684,8 @@ return success();case Loaded() when loaded != null:
 return loaded(_that.params);case Failure() when failure != null:
 return failure(_that.message);case DaysSelected() when daysSelected != null:
 return daysSelected(_that.days);case PlanSelected() when planSelected != null:
-return planSelected(_that.days,_that.plan);case _:
+return planSelected(_that.days,_that.plan);case CustomWorkoutNamesSet() when customWorkoutNamesSet != null:
+return customWorkoutNamesSet(_that.workoutNames);case _:
   return orElse();
 
 }
@@ -621,7 +703,7 @@ return planSelected(_that.days,_that.plan);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function()  success,required TResult Function( OnboardingParams params)  loaded,required TResult Function( String message)  failure,required TResult Function( Set<String> days)  daysSelected,required TResult Function( Set<String> days,  String plan)  planSelected,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function()  success,required TResult Function( OnboardingParams params)  loaded,required TResult Function( String message)  failure,required TResult Function( Set<String> days)  daysSelected,required TResult Function( Set<String> days,  String plan)  planSelected,required TResult Function( Map<String, String> workoutNames)  customWorkoutNamesSet,}) {final _that = this;
 switch (_that) {
 case Initial():
 return initial();case Loading():
@@ -630,7 +712,8 @@ return success();case Loaded():
 return loaded(_that.params);case Failure():
 return failure(_that.message);case DaysSelected():
 return daysSelected(_that.days);case PlanSelected():
-return planSelected(_that.days,_that.plan);case _:
+return planSelected(_that.days,_that.plan);case CustomWorkoutNamesSet():
+return customWorkoutNamesSet(_that.workoutNames);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -647,7 +730,7 @@ return planSelected(_that.days,_that.plan);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function()?  success,TResult? Function( OnboardingParams params)?  loaded,TResult? Function( String message)?  failure,TResult? Function( Set<String> days)?  daysSelected,TResult? Function( Set<String> days,  String plan)?  planSelected,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function()?  success,TResult? Function( OnboardingParams params)?  loaded,TResult? Function( String message)?  failure,TResult? Function( Set<String> days)?  daysSelected,TResult? Function( Set<String> days,  String plan)?  planSelected,TResult? Function( Map<String, String> workoutNames)?  customWorkoutNamesSet,}) {final _that = this;
 switch (_that) {
 case Initial() when initial != null:
 return initial();case Loading() when loading != null:
@@ -656,7 +739,8 @@ return success();case Loaded() when loaded != null:
 return loaded(_that.params);case Failure() when failure != null:
 return failure(_that.message);case DaysSelected() when daysSelected != null:
 return daysSelected(_that.days);case PlanSelected() when planSelected != null:
-return planSelected(_that.days,_that.plan);case _:
+return planSelected(_that.days,_that.plan);case CustomWorkoutNamesSet() when customWorkoutNamesSet != null:
+return customWorkoutNamesSet(_that.workoutNames);case _:
   return null;
 
 }
@@ -1041,6 +1125,78 @@ class _$PlanSelectedCopyWithImpl<$Res>
 days: null == days ? _self._days : days // ignore: cast_nullable_to_non_nullable
 as Set<String>,plan: null == plan ? _self.plan : plan // ignore: cast_nullable_to_non_nullable
 as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class CustomWorkoutNamesSet implements OnboardingState {
+  const CustomWorkoutNamesSet(final  Map<String, String> workoutNames): _workoutNames = workoutNames;
+  
+
+ final  Map<String, String> _workoutNames;
+ Map<String, String> get workoutNames {
+  if (_workoutNames is EqualUnmodifiableMapView) return _workoutNames;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_workoutNames);
+}
+
+
+/// Create a copy of OnboardingState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$CustomWorkoutNamesSetCopyWith<CustomWorkoutNamesSet> get copyWith => _$CustomWorkoutNamesSetCopyWithImpl<CustomWorkoutNamesSet>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CustomWorkoutNamesSet&&const DeepCollectionEquality().equals(other._workoutNames, _workoutNames));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_workoutNames));
+
+@override
+String toString() {
+  return 'OnboardingState.customWorkoutNamesSet(workoutNames: $workoutNames)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $CustomWorkoutNamesSetCopyWith<$Res> implements $OnboardingStateCopyWith<$Res> {
+  factory $CustomWorkoutNamesSetCopyWith(CustomWorkoutNamesSet value, $Res Function(CustomWorkoutNamesSet) _then) = _$CustomWorkoutNamesSetCopyWithImpl;
+@useResult
+$Res call({
+ Map<String, String> workoutNames
+});
+
+
+
+
+}
+/// @nodoc
+class _$CustomWorkoutNamesSetCopyWithImpl<$Res>
+    implements $CustomWorkoutNamesSetCopyWith<$Res> {
+  _$CustomWorkoutNamesSetCopyWithImpl(this._self, this._then);
+
+  final CustomWorkoutNamesSet _self;
+  final $Res Function(CustomWorkoutNamesSet) _then;
+
+/// Create a copy of OnboardingState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? workoutNames = null,}) {
+  return _then(CustomWorkoutNamesSet(
+null == workoutNames ? _self._workoutNames : workoutNames // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,
   ));
 }
 

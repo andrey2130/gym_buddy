@@ -3,7 +3,7 @@ class AppConstant {
     'plan_split_full_body',
     'plan_split_upper_lower',
     'plan_split_push_pull_legs',
-    'plan_split_bro',
+    'custom_plan',
   ];
 
   static const List<String> trainingDays = [
@@ -15,5 +15,18 @@ class AppConstant {
     'sat',
     'sun',
   ];
-  static const List<String> countries = ['Ukraine', 'Poland'];
+
+  static const Map<String, int> planDayLimits = {
+    'plan_split_full_body': 3,
+    'plan_split_upper_lower': 4,
+    'plan_split_push_pull_legs': 6,
+    'custom_plan': 7,
+  };
+
+  static const Map<String, int> planMinDays = {
+    'plan_split_full_body': 3,
+    'plan_split_upper_lower': 4,
+    'plan_split_push_pull_legs': 5,
+    'custom_plan': 1,
+  };
 }

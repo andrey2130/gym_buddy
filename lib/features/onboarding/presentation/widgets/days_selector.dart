@@ -5,12 +5,16 @@ class DaysSelector extends StatefulWidget {
   final List<String> days;
   final Function(Set<int>) onDaysSelected;
   final Set<int>? initialSelection;
+  final int? maxDays;
+  final int? minDays;
 
   const DaysSelector({
     required this.days,
     required this.onDaysSelected,
     super.key,
     this.initialSelection,
+    this.maxDays,
+    this.minDays,
   });
 
   @override
@@ -41,12 +45,20 @@ class _DaysSelectorState extends State<DaysSelector>
       itemCount: widget.days.length,
       itemBuilder: (context, index) {
         final isSelected = _selected.contains(index);
+        final isDisabled = !isSelected && 
+            widget.maxDays != null && 
+            _selected.length >= widget.maxDays!;
+        
         final color = isSelected
             ? theme.colorScheme.primary
-            : theme.colorScheme.surfaceContainerHighest;
+            : isDisabled
+                ? theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5)
+                : theme.colorScheme.surfaceContainerHighest;
         final textColor = isSelected
             ? theme.colorScheme.onPrimary
-            : theme.colorScheme.onSurface;
+            : isDisabled
+                ? theme.colorScheme.onSurface.withValues(alpha: 0.5)
+                : theme.colorScheme.onSurface;
         return AnimatedContainer(
           duration: const Duration(milliseconds: 250),
           curve: Curves.easeOut,
@@ -70,6 +82,9 @@ class _DaysSelectorState extends State<DaysSelector>
                 if (isSelected) {
                   _selected.remove(index);
                 } else {
+                  if (widget.maxDays != null && _selected.length >= widget.maxDays!) {
+                    return;
+                  }
                   _selected.add(index);
                 }
                 widget.onDaysSelected(_selected);

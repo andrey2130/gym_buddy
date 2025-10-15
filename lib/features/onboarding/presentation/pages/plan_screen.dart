@@ -62,7 +62,6 @@ class _PlanScreenState extends State<PlanScreen> {
                     final planTitle = planKey.tr();
                     final planSubtitle = '${planKey}_sub'.tr();
                     final isSelected = _selectedIndex == index;
-
                     return PlanCard(
                       title: planTitle,
                       subtitle: planSubtitle,

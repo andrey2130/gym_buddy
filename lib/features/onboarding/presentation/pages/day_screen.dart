@@ -27,6 +27,14 @@ class _DayScreenState extends State<DayScreen> {
     );
   }
 
+  int? _getMaxDaysForPlan(String planKey) {
+    return AppConstant.planDayLimits[planKey];
+  }
+
+  int? _getMinDaysForPlan(String planKey) {
+    return AppConstant.planMinDays[planKey];
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -42,10 +50,26 @@ class _DayScreenState extends State<DayScreen> {
           orElse: () => {},
         );
 
+        final selectedPlan = context.read<OnboardingBloc>().selectedPlan;
+
         final selectedIndices = _selectedDays
             ?.map((dayKey) => AppConstant.trainingDays.indexOf(dayKey))
             .where((i) => i != -1)
             .toSet();
+
+        final maxDays = _getMaxDaysForPlan(selectedPlan);
+        final minDays = _getMinDaysForPlan(selectedPlan);
+
+        String subtitle = 'choose_training_days_sub'.tr();
+        if (selectedPlan.isNotEmpty && selectedPlan != 'custom_plan') {
+          if (minDays == maxDays) {
+            subtitle = 'select_exactly_days'.tr(args: [maxDays.toString()]);
+          } else {
+            subtitle = 'select_between_days'.tr(
+              args: [minDays.toString(), maxDays.toString()],
+            );
+          }
+        }
 
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -59,16 +83,15 @@ class _DayScreenState extends State<DayScreen> {
                 textAlign: TextAlign.left,
               ),
               SizedBox(height: 8.h),
-              Text(
-                'choose_training_days_sub'.tr(),
-                style: theme.textTheme.bodyLarge,
-              ),
+              Text(subtitle, style: theme.textTheme.bodyLarge),
               SizedBox(height: 24.h),
               Expanded(
                 child: DaysSelector(
                   days: translatedDays,
                   initialSelection: selectedIndices,
                   onDaysSelected: _onDaysSelected,
+                  maxDays: maxDays,
+                  minDays: minDays,
                 ),
               ),
             ],
