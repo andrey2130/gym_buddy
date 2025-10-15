@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 
 class WeeklyProgress extends StatelessWidget {
   final int completedWorkouts;
+  final int totalWorkouts;
   final List<String> days;
   final Set<int> completedIndices;
   final int todayIndex;
 
   const WeeklyProgress({
     required this.completedWorkouts,
+    required this.totalWorkouts,
     required this.days,
     required this.completedIndices,
     required this.todayIndex,

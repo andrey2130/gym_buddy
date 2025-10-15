@@ -65,6 +65,7 @@ class _SessionScreenState extends State<SessionScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
+        bottom: false,
         child: FadeTransition(
           opacity: _fadeAnimation,
           child: SlideTransition(
