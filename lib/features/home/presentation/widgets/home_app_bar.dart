@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class HomeAppBar extends StatelessWidget {
@@ -23,7 +24,7 @@ class HomeAppBar extends StatelessWidget {
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Hello $userName 👋', style: textTheme.displayLarge),
+          Text('${'hello'.tr()} $userName 👋', style: textTheme.displayLarge),
           const SizedBox(height: 4),
           Text(_getGreeting(), style: textTheme.bodyMedium),
         ],
@@ -58,8 +59,8 @@ class HomeAppBar extends StatelessWidget {
 
   String _getGreeting() {
     final hour = DateTime.now().hour;
-    if (hour < 12) return 'Good morning';
-    if (hour < 17) return 'Good afternoon';
-    return 'Good evening';
+    if (hour < 12) return 'good_morning'.tr();
+    if (hour < 17) return 'good_afternoon'.tr();
+    return 'good_evening'.tr();
   }
 }

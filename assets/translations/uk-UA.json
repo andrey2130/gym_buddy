@@ -181,5 +181,20 @@
   "thursday": "Четвер",
   "friday": "П'ятниця",
   "saturday": "Субота",
-  "sunday": "Неділя"
+  "sunday": "Неділя",
+  "start_today's_workout": "Почати сьогоднішнє тренування",
+  "avg_time": "Середній чаc тренування",
+  "don't_forget_to_warm_up_before_starting_your_push_exercises!": "Не забудьте розігрітися перед початком своїх вправ!",
+  "your_training_plan": "Ваш план тренувань",
+  "hello": "Привіт",
+  "good_morning": "Доброго ранку",
+  "good_afternoon": "Доброго дня",
+  "good_evening": "Доброго вечора",
+  "today_is_your_training_day": "СЬОГОДНІ ВАШ ДЕНЬ ТРЕНУВАННЯ!",
+  "weekly_progress": "Щотижневий прогрес",
+  "today": "Сьогодні",
+  "min": "хв",
+  "avatar": "Аватар",
+  "background": "Фон", 
+  "choose_avatar": "Виберіть аватар"
 }

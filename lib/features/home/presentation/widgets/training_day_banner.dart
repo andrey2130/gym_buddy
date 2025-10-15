@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class TrainingDayBanner extends StatelessWidget {
@@ -59,11 +60,13 @@ class TrainingDayBanner extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 12),
-              Text(
-                'TODAY IS YOUR TRAINING DAY!',
-                style: textTheme.labelLarge?.copyWith(
-                  color: Colors.white,
-                  letterSpacing: 0.5,
+              Expanded(
+                child: Text(
+                  'today_is_your_training_day'.tr(),
+                  style: textTheme.labelLarge?.copyWith(
+                    color: Colors.white,
+                    letterSpacing: 0.5,
+                  ),
                 ),
               ),
             ],

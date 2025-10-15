@@ -187,6 +187,21 @@
   "thursday": "Thursday",
   "friday": "Friday",
   "saturday": "Saturday",
-  "sunday": "Sunday"
+  "sunday": "Sunday",
+  "start_today's_workout": "Start Today's Workout",
+  "avg_time": "Avg Training Time",
+  "don't_forget_to_warm_up_before_starting_your_push_exercises!": "Don't forget to warm up before starting your push exercises!",
+  "your_training_plan": "Your Training Plan",
+  "hello": "Hello",
+  "good_morning": "Good Morning",
+  "good_afternoon": "Good Afternoon",
+  "good_evening": "Good Evening",
+  "today_is_your_training_day": "TODAY IS YOUR TRAINING DAY!",
+  "weekly_progress": "Weekly Progress",
+  "today": "Today",
+  "min": "min", 
+  "avatar": "Avatar", 
+  "background": "Background",
+  "choose_avatar": "Choose Avatar"
 
 }

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gym_buddy/features/home/presentation/widgets/dynamic_action_button.dart';
@@ -79,7 +80,7 @@ class HomeScreen extends StatelessWidget {
 
                   // Dynamic Action Button
                   DynamicActionButton(
-                    label: "Start Today's Workout",
+                    label: "start_today's_workout".tr(),
                     icon: Icons.play_arrow_rounded,
                     onPressed: () {},
                   ),
@@ -95,22 +96,13 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(height: 16),
 
                   // Quick Stats
-                  const Row(
+                  Row(
                     children: [
                       Expanded(
                         child: StatCard(
-                          icon: Icons.local_fire_department,
-                          value: '1,245',
-                          label: 'Calories',
-                          color: Colors.red,
-                        ),
-                      ),
-                      SizedBox(width: 12),
-                      Expanded(
-                        child: StatCard(
                           icon: Icons.timer_outlined,
-                          value: '45 min',
-                          label: 'Avg Time',
+                          value: '45 ${'min'.tr()}',
+                          label: 'avg_time'.tr(),
                           color: Colors.blue,
                         ),
                       ),
@@ -118,14 +110,18 @@ class HomeScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 24),
 
-                  const PersonalizedTipCard(
+                  PersonalizedTipCard(
                     tip:
-                        "Don't forget to warm up before starting your push exercises!",
+                        "don't_forget_to_warm_up_before_starting_your_push_exercises!"
+                            .tr(),
                   ),
                   const SizedBox(height: 24),
 
                   // Training Plan Overview
-                  Text('Your Training Plan', style: textTheme.displayMedium),
+                  Text(
+                    'your_training_plan'.tr(),
+                    style: textTheme.displayMedium,
+                  ),
                   const SizedBox(height: 12),
                   const TrainingPlanOverview(
                     items: [

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class WeeklyProgress extends StatelessWidget {
@@ -39,9 +40,16 @@ class WeeklyProgress extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Weekly Progress', style: textTheme.displayMedium),
+              Expanded(
+                child: Text(
+                  'weekly_progress'.tr(),
+                  style: Localizations.localeOf(context).languageCode == 'uk'
+                      ? textTheme.displayMedium?.copyWith(fontSize: 20)
+                      : textTheme.displayMedium,
+                ),
+              ),
               Text(
-                '$completedWorkouts workouts',
+                '$completedWorkouts ${'workouts'.tr()}',
                 style: textTheme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.w500,
                 ),
