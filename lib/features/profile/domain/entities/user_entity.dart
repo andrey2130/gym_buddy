@@ -9,6 +9,7 @@ abstract class UserEntity with _$UserEntity {
     required String uid,
     required String email,
     required String name,
+    Map<String, String>? workoutNames,
     String? password,
     String? avatarUrl,
     String? backgroundUrl,

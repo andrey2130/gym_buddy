@@ -13,6 +13,11 @@ _UserModel _$UserModelFromJson(Map<String, dynamic> json) => _UserModel(
   totalWorkouts: (json['totalWorkouts'] as num?)?.toInt() ?? 0,
   totalReps: (json['totalReps'] as num?)?.toInt() ?? 0,
   currentStreak: (json['currentStreak'] as num?)?.toInt() ?? 0,
+  workoutNames:
+      (json['workoutNames'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, e as String),
+      ) ??
+      null,
   password: json['password'] as String?,
   avatarUrl: json['avatarUrl'] as String? ?? null,
   backgroundUrl: json['backgroundUrl'] as String? ?? null,
@@ -36,6 +41,7 @@ Map<String, dynamic> _$UserModelToJson(_UserModel instance) =>
       'totalWorkouts': instance.totalWorkouts,
       'totalReps': instance.totalReps,
       'currentStreak': instance.currentStreak,
+      'workoutNames': instance.workoutNames,
       'password': instance.password,
       'avatarUrl': instance.avatarUrl,
       'backgroundUrl': instance.backgroundUrl,
