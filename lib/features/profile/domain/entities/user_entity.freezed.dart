@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UserEntity {
 
- String get uid; String get email; String get name; String? get password; String? get avatarUrl; String? get backgroundUrl; List<String>? get trainingDays; String? get trainingPlan; String? get pendingEmail; DateTime? get emailVerificationSentAt; DateTime? get createdAt; DateTime? get updatedAt; int get totalWorkouts; int get totalReps; int get currentStreak;
+ String get uid; String get email; String get name; Map<String, String>? get workoutNames; String? get password; String? get avatarUrl; String? get backgroundUrl; List<String>? get trainingDays; String? get trainingPlan; String? get pendingEmail; DateTime? get emailVerificationSentAt; DateTime? get createdAt; DateTime? get updatedAt; int get totalWorkouts; int get totalReps; int get currentStreak;
 /// Create a copy of UserEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $UserEntityCopyWith<UserEntity> get copyWith => _$UserEntityCopyWithImpl<UserEnt
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserEntity&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.email, email) || other.email == email)&&(identical(other.name, name) || other.name == name)&&(identical(other.password, password) || other.password == password)&&(identical(other.avatarUrl, avatarUrl) || other.avatarUrl == avatarUrl)&&(identical(other.backgroundUrl, backgroundUrl) || other.backgroundUrl == backgroundUrl)&&const DeepCollectionEquality().equals(other.trainingDays, trainingDays)&&(identical(other.trainingPlan, trainingPlan) || other.trainingPlan == trainingPlan)&&(identical(other.pendingEmail, pendingEmail) || other.pendingEmail == pendingEmail)&&(identical(other.emailVerificationSentAt, emailVerificationSentAt) || other.emailVerificationSentAt == emailVerificationSentAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.totalWorkouts, totalWorkouts) || other.totalWorkouts == totalWorkouts)&&(identical(other.totalReps, totalReps) || other.totalReps == totalReps)&&(identical(other.currentStreak, currentStreak) || other.currentStreak == currentStreak));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserEntity&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.email, email) || other.email == email)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.workoutNames, workoutNames)&&(identical(other.password, password) || other.password == password)&&(identical(other.avatarUrl, avatarUrl) || other.avatarUrl == avatarUrl)&&(identical(other.backgroundUrl, backgroundUrl) || other.backgroundUrl == backgroundUrl)&&const DeepCollectionEquality().equals(other.trainingDays, trainingDays)&&(identical(other.trainingPlan, trainingPlan) || other.trainingPlan == trainingPlan)&&(identical(other.pendingEmail, pendingEmail) || other.pendingEmail == pendingEmail)&&(identical(other.emailVerificationSentAt, emailVerificationSentAt) || other.emailVerificationSentAt == emailVerificationSentAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.totalWorkouts, totalWorkouts) || other.totalWorkouts == totalWorkouts)&&(identical(other.totalReps, totalReps) || other.totalReps == totalReps)&&(identical(other.currentStreak, currentStreak) || other.currentStreak == currentStreak));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,uid,email,name,password,avatarUrl,backgroundUrl,const DeepCollectionEquality().hash(trainingDays),trainingPlan,pendingEmail,emailVerificationSentAt,createdAt,updatedAt,totalWorkouts,totalReps,currentStreak);
+int get hashCode => Object.hash(runtimeType,uid,email,name,const DeepCollectionEquality().hash(workoutNames),password,avatarUrl,backgroundUrl,const DeepCollectionEquality().hash(trainingDays),trainingPlan,pendingEmail,emailVerificationSentAt,createdAt,updatedAt,totalWorkouts,totalReps,currentStreak);
 
 @override
 String toString() {
-  return 'UserEntity(uid: $uid, email: $email, name: $name, password: $password, avatarUrl: $avatarUrl, backgroundUrl: $backgroundUrl, trainingDays: $trainingDays, trainingPlan: $trainingPlan, pendingEmail: $pendingEmail, emailVerificationSentAt: $emailVerificationSentAt, createdAt: $createdAt, updatedAt: $updatedAt, totalWorkouts: $totalWorkouts, totalReps: $totalReps, currentStreak: $currentStreak)';
+  return 'UserEntity(uid: $uid, email: $email, name: $name, workoutNames: $workoutNames, password: $password, avatarUrl: $avatarUrl, backgroundUrl: $backgroundUrl, trainingDays: $trainingDays, trainingPlan: $trainingPlan, pendingEmail: $pendingEmail, emailVerificationSentAt: $emailVerificationSentAt, createdAt: $createdAt, updatedAt: $updatedAt, totalWorkouts: $totalWorkouts, totalReps: $totalReps, currentStreak: $currentStreak)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $UserEntityCopyWith<$Res>  {
   factory $UserEntityCopyWith(UserEntity value, $Res Function(UserEntity) _then) = _$UserEntityCopyWithImpl;
 @useResult
 $Res call({
- String uid, String email, String name, String? password, String? avatarUrl, String? backgroundUrl, List<String>? trainingDays, String? trainingPlan, String? pendingEmail, DateTime? emailVerificationSentAt, DateTime? createdAt, DateTime? updatedAt, int totalWorkouts, int totalReps, int currentStreak
+ String uid, String email, String name, Map<String, String>? workoutNames, String? password, String? avatarUrl, String? backgroundUrl, List<String>? trainingDays, String? trainingPlan, String? pendingEmail, DateTime? emailVerificationSentAt, DateTime? createdAt, DateTime? updatedAt, int totalWorkouts, int totalReps, int currentStreak
 });
 
 
@@ -65,12 +65,13 @@ class _$UserEntityCopyWithImpl<$Res>
 
 /// Create a copy of UserEntity
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? uid = null,Object? email = null,Object? name = null,Object? password = freezed,Object? avatarUrl = freezed,Object? backgroundUrl = freezed,Object? trainingDays = freezed,Object? trainingPlan = freezed,Object? pendingEmail = freezed,Object? emailVerificationSentAt = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,Object? totalWorkouts = null,Object? totalReps = null,Object? currentStreak = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? uid = null,Object? email = null,Object? name = null,Object? workoutNames = freezed,Object? password = freezed,Object? avatarUrl = freezed,Object? backgroundUrl = freezed,Object? trainingDays = freezed,Object? trainingPlan = freezed,Object? pendingEmail = freezed,Object? emailVerificationSentAt = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,Object? totalWorkouts = null,Object? totalReps = null,Object? currentStreak = null,}) {
   return _then(_self.copyWith(
 uid: null == uid ? _self.uid : uid // ignore: cast_nullable_to_non_nullable
 as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,password: freezed == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
+as String,workoutNames: freezed == workoutNames ? _self.workoutNames : workoutNames // ignore: cast_nullable_to_non_nullable
+as Map<String, String>?,password: freezed == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
 as String?,avatarUrl: freezed == avatarUrl ? _self.avatarUrl : avatarUrl // ignore: cast_nullable_to_non_nullable
 as String?,backgroundUrl: freezed == backgroundUrl ? _self.backgroundUrl : backgroundUrl // ignore: cast_nullable_to_non_nullable
 as String?,trainingDays: freezed == trainingDays ? _self.trainingDays : trainingDays // ignore: cast_nullable_to_non_nullable
@@ -167,10 +168,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String uid,  String email,  String name,  String? password,  String? avatarUrl,  String? backgroundUrl,  List<String>? trainingDays,  String? trainingPlan,  String? pendingEmail,  DateTime? emailVerificationSentAt,  DateTime? createdAt,  DateTime? updatedAt,  int totalWorkouts,  int totalReps,  int currentStreak)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String uid,  String email,  String name,  Map<String, String>? workoutNames,  String? password,  String? avatarUrl,  String? backgroundUrl,  List<String>? trainingDays,  String? trainingPlan,  String? pendingEmail,  DateTime? emailVerificationSentAt,  DateTime? createdAt,  DateTime? updatedAt,  int totalWorkouts,  int totalReps,  int currentStreak)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _UserEntity() when $default != null:
-return $default(_that.uid,_that.email,_that.name,_that.password,_that.avatarUrl,_that.backgroundUrl,_that.trainingDays,_that.trainingPlan,_that.pendingEmail,_that.emailVerificationSentAt,_that.createdAt,_that.updatedAt,_that.totalWorkouts,_that.totalReps,_that.currentStreak);case _:
+return $default(_that.uid,_that.email,_that.name,_that.workoutNames,_that.password,_that.avatarUrl,_that.backgroundUrl,_that.trainingDays,_that.trainingPlan,_that.pendingEmail,_that.emailVerificationSentAt,_that.createdAt,_that.updatedAt,_that.totalWorkouts,_that.totalReps,_that.currentStreak);case _:
   return orElse();
 
 }
@@ -188,10 +189,10 @@ return $default(_that.uid,_that.email,_that.name,_that.password,_that.avatarUrl,
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String uid,  String email,  String name,  String? password,  String? avatarUrl,  String? backgroundUrl,  List<String>? trainingDays,  String? trainingPlan,  String? pendingEmail,  DateTime? emailVerificationSentAt,  DateTime? createdAt,  DateTime? updatedAt,  int totalWorkouts,  int totalReps,  int currentStreak)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String uid,  String email,  String name,  Map<String, String>? workoutNames,  String? password,  String? avatarUrl,  String? backgroundUrl,  List<String>? trainingDays,  String? trainingPlan,  String? pendingEmail,  DateTime? emailVerificationSentAt,  DateTime? createdAt,  DateTime? updatedAt,  int totalWorkouts,  int totalReps,  int currentStreak)  $default,) {final _that = this;
 switch (_that) {
 case _UserEntity():
-return $default(_that.uid,_that.email,_that.name,_that.password,_that.avatarUrl,_that.backgroundUrl,_that.trainingDays,_that.trainingPlan,_that.pendingEmail,_that.emailVerificationSentAt,_that.createdAt,_that.updatedAt,_that.totalWorkouts,_that.totalReps,_that.currentStreak);case _:
+return $default(_that.uid,_that.email,_that.name,_that.workoutNames,_that.password,_that.avatarUrl,_that.backgroundUrl,_that.trainingDays,_that.trainingPlan,_that.pendingEmail,_that.emailVerificationSentAt,_that.createdAt,_that.updatedAt,_that.totalWorkouts,_that.totalReps,_that.currentStreak);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -208,10 +209,10 @@ return $default(_that.uid,_that.email,_that.name,_that.password,_that.avatarUrl,
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String uid,  String email,  String name,  String? password,  String? avatarUrl,  String? backgroundUrl,  List<String>? trainingDays,  String? trainingPlan,  String? pendingEmail,  DateTime? emailVerificationSentAt,  DateTime? createdAt,  DateTime? updatedAt,  int totalWorkouts,  int totalReps,  int currentStreak)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String uid,  String email,  String name,  Map<String, String>? workoutNames,  String? password,  String? avatarUrl,  String? backgroundUrl,  List<String>? trainingDays,  String? trainingPlan,  String? pendingEmail,  DateTime? emailVerificationSentAt,  DateTime? createdAt,  DateTime? updatedAt,  int totalWorkouts,  int totalReps,  int currentStreak)?  $default,) {final _that = this;
 switch (_that) {
 case _UserEntity() when $default != null:
-return $default(_that.uid,_that.email,_that.name,_that.password,_that.avatarUrl,_that.backgroundUrl,_that.trainingDays,_that.trainingPlan,_that.pendingEmail,_that.emailVerificationSentAt,_that.createdAt,_that.updatedAt,_that.totalWorkouts,_that.totalReps,_that.currentStreak);case _:
+return $default(_that.uid,_that.email,_that.name,_that.workoutNames,_that.password,_that.avatarUrl,_that.backgroundUrl,_that.trainingDays,_that.trainingPlan,_that.pendingEmail,_that.emailVerificationSentAt,_that.createdAt,_that.updatedAt,_that.totalWorkouts,_that.totalReps,_that.currentStreak);case _:
   return null;
 
 }
@@ -223,12 +224,21 @@ return $default(_that.uid,_that.email,_that.name,_that.password,_that.avatarUrl,
 @JsonSerializable()
 
 class _UserEntity implements UserEntity {
-  const _UserEntity({required this.uid, required this.email, required this.name, this.password, this.avatarUrl, this.backgroundUrl, final  List<String>? trainingDays, this.trainingPlan, this.pendingEmail, this.emailVerificationSentAt, this.createdAt, this.updatedAt, this.totalWorkouts = 0, this.totalReps = 0, this.currentStreak = 0}): _trainingDays = trainingDays;
+  const _UserEntity({required this.uid, required this.email, required this.name, final  Map<String, String>? workoutNames, this.password, this.avatarUrl, this.backgroundUrl, final  List<String>? trainingDays, this.trainingPlan, this.pendingEmail, this.emailVerificationSentAt, this.createdAt, this.updatedAt, this.totalWorkouts = 0, this.totalReps = 0, this.currentStreak = 0}): _workoutNames = workoutNames,_trainingDays = trainingDays;
   factory _UserEntity.fromJson(Map<String, dynamic> json) => _$UserEntityFromJson(json);
 
 @override final  String uid;
 @override final  String email;
 @override final  String name;
+ final  Map<String, String>? _workoutNames;
+@override Map<String, String>? get workoutNames {
+  final value = _workoutNames;
+  if (value == null) return null;
+  if (_workoutNames is EqualUnmodifiableMapView) return _workoutNames;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(value);
+}
+
 @override final  String? password;
 @override final  String? avatarUrl;
 @override final  String? backgroundUrl;
@@ -263,16 +273,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserEntity&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.email, email) || other.email == email)&&(identical(other.name, name) || other.name == name)&&(identical(other.password, password) || other.password == password)&&(identical(other.avatarUrl, avatarUrl) || other.avatarUrl == avatarUrl)&&(identical(other.backgroundUrl, backgroundUrl) || other.backgroundUrl == backgroundUrl)&&const DeepCollectionEquality().equals(other._trainingDays, _trainingDays)&&(identical(other.trainingPlan, trainingPlan) || other.trainingPlan == trainingPlan)&&(identical(other.pendingEmail, pendingEmail) || other.pendingEmail == pendingEmail)&&(identical(other.emailVerificationSentAt, emailVerificationSentAt) || other.emailVerificationSentAt == emailVerificationSentAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.totalWorkouts, totalWorkouts) || other.totalWorkouts == totalWorkouts)&&(identical(other.totalReps, totalReps) || other.totalReps == totalReps)&&(identical(other.currentStreak, currentStreak) || other.currentStreak == currentStreak));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserEntity&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.email, email) || other.email == email)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._workoutNames, _workoutNames)&&(identical(other.password, password) || other.password == password)&&(identical(other.avatarUrl, avatarUrl) || other.avatarUrl == avatarUrl)&&(identical(other.backgroundUrl, backgroundUrl) || other.backgroundUrl == backgroundUrl)&&const DeepCollectionEquality().equals(other._trainingDays, _trainingDays)&&(identical(other.trainingPlan, trainingPlan) || other.trainingPlan == trainingPlan)&&(identical(other.pendingEmail, pendingEmail) || other.pendingEmail == pendingEmail)&&(identical(other.emailVerificationSentAt, emailVerificationSentAt) || other.emailVerificationSentAt == emailVerificationSentAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.totalWorkouts, totalWorkouts) || other.totalWorkouts == totalWorkouts)&&(identical(other.totalReps, totalReps) || other.totalReps == totalReps)&&(identical(other.currentStreak, currentStreak) || other.currentStreak == currentStreak));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,uid,email,name,password,avatarUrl,backgroundUrl,const DeepCollectionEquality().hash(_trainingDays),trainingPlan,pendingEmail,emailVerificationSentAt,createdAt,updatedAt,totalWorkouts,totalReps,currentStreak);
+int get hashCode => Object.hash(runtimeType,uid,email,name,const DeepCollectionEquality().hash(_workoutNames),password,avatarUrl,backgroundUrl,const DeepCollectionEquality().hash(_trainingDays),trainingPlan,pendingEmail,emailVerificationSentAt,createdAt,updatedAt,totalWorkouts,totalReps,currentStreak);
 
 @override
 String toString() {
-  return 'UserEntity(uid: $uid, email: $email, name: $name, password: $password, avatarUrl: $avatarUrl, backgroundUrl: $backgroundUrl, trainingDays: $trainingDays, trainingPlan: $trainingPlan, pendingEmail: $pendingEmail, emailVerificationSentAt: $emailVerificationSentAt, createdAt: $createdAt, updatedAt: $updatedAt, totalWorkouts: $totalWorkouts, totalReps: $totalReps, currentStreak: $currentStreak)';
+  return 'UserEntity(uid: $uid, email: $email, name: $name, workoutNames: $workoutNames, password: $password, avatarUrl: $avatarUrl, backgroundUrl: $backgroundUrl, trainingDays: $trainingDays, trainingPlan: $trainingPlan, pendingEmail: $pendingEmail, emailVerificationSentAt: $emailVerificationSentAt, createdAt: $createdAt, updatedAt: $updatedAt, totalWorkouts: $totalWorkouts, totalReps: $totalReps, currentStreak: $currentStreak)';
 }
 
 
@@ -283,7 +293,7 @@ abstract mixin class _$UserEntityCopyWith<$Res> implements $UserEntityCopyWith<$
   factory _$UserEntityCopyWith(_UserEntity value, $Res Function(_UserEntity) _then) = __$UserEntityCopyWithImpl;
 @override @useResult
 $Res call({
- String uid, String email, String name, String? password, String? avatarUrl, String? backgroundUrl, List<String>? trainingDays, String? trainingPlan, String? pendingEmail, DateTime? emailVerificationSentAt, DateTime? createdAt, DateTime? updatedAt, int totalWorkouts, int totalReps, int currentStreak
+ String uid, String email, String name, Map<String, String>? workoutNames, String? password, String? avatarUrl, String? backgroundUrl, List<String>? trainingDays, String? trainingPlan, String? pendingEmail, DateTime? emailVerificationSentAt, DateTime? createdAt, DateTime? updatedAt, int totalWorkouts, int totalReps, int currentStreak
 });
 
 
@@ -300,12 +310,13 @@ class __$UserEntityCopyWithImpl<$Res>
 
 /// Create a copy of UserEntity
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? uid = null,Object? email = null,Object? name = null,Object? password = freezed,Object? avatarUrl = freezed,Object? backgroundUrl = freezed,Object? trainingDays = freezed,Object? trainingPlan = freezed,Object? pendingEmail = freezed,Object? emailVerificationSentAt = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,Object? totalWorkouts = null,Object? totalReps = null,Object? currentStreak = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? uid = null,Object? email = null,Object? name = null,Object? workoutNames = freezed,Object? password = freezed,Object? avatarUrl = freezed,Object? backgroundUrl = freezed,Object? trainingDays = freezed,Object? trainingPlan = freezed,Object? pendingEmail = freezed,Object? emailVerificationSentAt = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,Object? totalWorkouts = null,Object? totalReps = null,Object? currentStreak = null,}) {
   return _then(_UserEntity(
 uid: null == uid ? _self.uid : uid // ignore: cast_nullable_to_non_nullable
 as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,password: freezed == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
+as String,workoutNames: freezed == workoutNames ? _self._workoutNames : workoutNames // ignore: cast_nullable_to_non_nullable
+as Map<String, String>?,password: freezed == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
 as String?,avatarUrl: freezed == avatarUrl ? _self.avatarUrl : avatarUrl // ignore: cast_nullable_to_non_nullable
 as String?,backgroundUrl: freezed == backgroundUrl ? _self.backgroundUrl : backgroundUrl // ignore: cast_nullable_to_non_nullable
 as String?,trainingDays: freezed == trainingDays ? _self._trainingDays : trainingDays // ignore: cast_nullable_to_non_nullable

@@ -50,6 +50,23 @@ class _ChangeTrainingDaysScreenState extends State<ChangeTrainingDaysScreen> {
                     .where((i) => i != -1)
                     .toSet();
 
+                final planKey = user.trainingPlan ?? '';
+                final maxDays = AppConstant.planDayLimits[planKey];
+                final minDays = AppConstant.planMinDays[planKey];
+
+                String subtitle = 'choose_training_days_sub'.tr();
+                if (planKey.isNotEmpty && planKey != 'custom_plan') {
+                  if (minDays == maxDays && maxDays != null) {
+                    subtitle = 'select_exactly_days'.tr(
+                      args: [maxDays.toString()],
+                    );
+                  } else if (minDays != null && maxDays != null) {
+                    subtitle = 'select_between_days'.tr(
+                      args: [minDays.toString(), maxDays.toString()],
+                    );
+                  }
+                }
+
                 return Column(
                   children: [
                     Padding(
@@ -71,6 +88,14 @@ class _ChangeTrainingDaysScreenState extends State<ChangeTrainingDaysScreen> {
                         style: Theme.of(context).textTheme.displayLarge,
                       ),
                     ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      child: Text(
+                        subtitle,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                     SizedBox(height: 16.h),
                     Expanded(
                       child: Padding(
@@ -89,6 +114,8 @@ class _ChangeTrainingDaysScreenState extends State<ChangeTrainingDaysScreen> {
                                   ),
                                 ),
                               ),
+                          maxDays: maxDays,
+                          minDays: minDays,
                         ),
                       ),
                     ),

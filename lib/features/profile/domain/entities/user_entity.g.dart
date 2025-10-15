@@ -10,6 +10,9 @@ _UserEntity _$UserEntityFromJson(Map<String, dynamic> json) => _UserEntity(
   uid: json['uid'] as String,
   email: json['email'] as String,
   name: json['name'] as String,
+  workoutNames: (json['workoutNames'] as Map<String, dynamic>?)?.map(
+    (k, e) => MapEntry(k, e as String),
+  ),
   password: json['password'] as String?,
   avatarUrl: json['avatarUrl'] as String?,
   backgroundUrl: json['backgroundUrl'] as String?,
@@ -37,6 +40,7 @@ Map<String, dynamic> _$UserEntityToJson(_UserEntity instance) =>
       'uid': instance.uid,
       'email': instance.email,
       'name': instance.name,
+      'workoutNames': instance.workoutNames,
       'password': instance.password,
       'avatarUrl': instance.avatarUrl,
       'backgroundUrl': instance.backgroundUrl,
