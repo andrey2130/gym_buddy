@@ -1,12 +1,7 @@
-import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
-import 'package:gym_buddy/core/contstant/app_constant.dart';
-import 'package:gym_buddy/core/widgets/custom_text_field.dart';
 import 'package:gym_buddy/features/onboarding/domain/params/onboarding_params.dart';
 import 'package:gym_buddy/features/onboarding/presentation/bloc/onboarding_bloc.dart';
 import 'package:gym_buddy/features/onboarding/presentation/widgets/switch_pill.dart';
@@ -26,7 +21,6 @@ class TimeScreenState extends State<TimeScreen> {
   final TextEditingController _countryController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool _isMorning = true;
-  String? _selectedCountry;
 
   @override
   void dispose() {
@@ -49,6 +43,10 @@ class TimeScreenState extends State<TimeScreen> {
         planSelected: (_, plan) => plan,
         orElse: () => '',
       );
+      final workoutNames = state.maybeWhen(
+        customWorkoutNamesSet: (names) => names,
+        orElse: () => <String, String>{},
+      );
 
       context.read<OnboardingBloc>().add(
         OnboardingEvent.saveOnboarding(
@@ -56,9 +54,8 @@ class TimeScreenState extends State<TimeScreen> {
             trainingDays: selectedDays.toList(),
             trainingPlan: selectedPlan,
             trainingTime: _timeController.text,
-            country: _selectedCountry ?? '',
-            city: _cityController.text,
             isMorning: _isMorning,
+            workoutNames: workoutNames,
           ),
         ),
       );
@@ -146,32 +143,6 @@ class TimeScreenState extends State<TimeScreen> {
                     validator: _validateTime,
                   ),
                   SizedBox(height: 16.h),
-                  TextFormField(
-                    readOnly: true,
-                    controller: _countryController,
-                    decoration: InputDecoration(
-                      labelText: 'country'.tr(),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.r),
-                      ),
-                    ),
-                    onTap: _openCountryPicker,
-                    validator: (_) =>
-                        (_selectedCountry == null || _selectedCountry!.isEmpty)
-                        ? 'country_required'.tr()
-                        : null,
-                  ),
-                  SizedBox(height: 16.h),
-                  CustomTextField(
-                    controller: _cityController,
-                    labelText: 'city'.tr(),
-                    hintText: 'enter_city'.tr(),
-                    keyboardType: TextInputType.text,
-                    height: 56.h,
-                    validator: (v) => (v == null || v.trim().isEmpty)
-                        ? 'city_required'.tr()
-                        : null,
-                  ),
                 ],
               ),
             ),
@@ -179,93 +150,5 @@ class TimeScreenState extends State<TimeScreen> {
         );
       },
     );
-  }
-
-  void _selectCountry(String value) {
-    setState(() {
-      _selectedCountry = value;
-      _countryController.text = value;
-    });
-  }
-
-  Future<void> _openCountryPicker() async {
-    if (Platform.isIOS) {
-      final int initialIndex = _selectedCountry != null
-          ? AppConstant.countries.indexOf(_selectedCountry!)
-          : 0;
-      int tempIndex = initialIndex < 0 ? 0 : initialIndex;
-      await showCupertinoModalPopup<void>(
-        context: context,
-        builder: (ctx) {
-          return Container(
-            color: CupertinoColors.systemBackground.resolveFrom(ctx),
-            height: 300,
-            child: SafeArea(
-              top: false,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 44,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        CupertinoButton(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Text('cancel'.tr()),
-                          onPressed: () => context.pop(),
-                        ),
-                        CupertinoButton(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Text('done'.tr()),
-                          onPressed: () {
-                            _selectCountry(AppConstant.countries[tempIndex]);
-                            context.pop(ctx);
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: CupertinoPicker(
-                      scrollController: FixedExtentScrollController(
-                        initialItem: tempIndex,
-                      ),
-                      itemExtent: 40,
-                      onSelectedItemChanged: (i) => tempIndex = i,
-                      children: AppConstant.countries
-                          .map((c) => Center(child: Text(c)))
-                          .toList(),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      );
-    } else {
-      await showModalBottomSheet<void>(
-        context: context,
-        builder: (ctx) {
-          return SafeArea(
-            child: ListView.separated(
-              shrinkWrap: true,
-              itemCount: AppConstant.countries.length,
-              separatorBuilder: (_, __) => const Divider(height: 1),
-              itemBuilder: (_, i) {
-                final c = AppConstant.countries[i];
-                return ListTile(
-                  title: Text(c),
-                  onTap: () {
-                    _selectCountry(c);
-                    context.pop(ctx);
-                  },
-                );
-              },
-            ),
-          );
-        },
-      );
-    }
   }
 }

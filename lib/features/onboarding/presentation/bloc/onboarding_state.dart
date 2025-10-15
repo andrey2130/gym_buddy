@@ -12,4 +12,7 @@ class OnboardingState with _$OnboardingState {
     required Set<String> days,
     required String plan,
   }) = PlanSelected;
+  const factory OnboardingState.customWorkoutNamesSet(
+    Map<String, String> workoutNames,
+  ) = CustomWorkoutNamesSet;
 }

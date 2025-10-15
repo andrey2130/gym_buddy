@@ -9,9 +9,8 @@ abstract class OnboardingParams with _$OnboardingParams {
     required List<String> trainingDays,
     required String trainingPlan,
     required String trainingTime,
-    required String country,
-    required String city,
     required bool isMorning,
+    Map<String, String>? workoutNames,
   }) = _OnboardingParams;
 
   factory OnboardingParams.fromJson(Map<String, dynamic> json) =>

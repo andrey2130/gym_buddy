@@ -13,9 +13,10 @@ _OnboardingParams _$OnboardingParamsFromJson(Map<String, dynamic> json) =>
           .toList(),
       trainingPlan: json['trainingPlan'] as String,
       trainingTime: json['trainingTime'] as String,
-      country: json['country'] as String,
-      city: json['city'] as String,
       isMorning: json['isMorning'] as bool,
+      workoutNames: (json['workoutNames'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, e as String),
+      ),
     );
 
 Map<String, dynamic> _$OnboardingParamsToJson(_OnboardingParams instance) =>
@@ -23,7 +24,6 @@ Map<String, dynamic> _$OnboardingParamsToJson(_OnboardingParams instance) =>
       'trainingDays': instance.trainingDays,
       'trainingPlan': instance.trainingPlan,
       'trainingTime': instance.trainingTime,
-      'country': instance.country,
-      'city': instance.city,
       'isMorning': instance.isMorning,
+      'workoutNames': instance.workoutNames,
     };

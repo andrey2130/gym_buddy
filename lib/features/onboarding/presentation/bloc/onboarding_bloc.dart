@@ -18,14 +18,20 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
   final Talker _talker;
   Set<String> _selectedDays = {};
   String _selectedPlan = '';
+  Map<String, String> _customWorkoutNames = {};
 
+  String get selectedPlan => _selectedPlan;
 
-  OnboardingBloc(this._saveOnboardingUsecase, this._getOnboardingUsecase, this._talker)
-    : super(const OnboardingState.initial()) {
+  OnboardingBloc(
+    this._saveOnboardingUsecase,
+    this._getOnboardingUsecase,
+    this._talker,
+  ) : super(const OnboardingState.initial()) {
     on<SaveOnboarding>(_onSaveOnboarding);
     on<GetOnboarding>(_onGetOnboarding);
     on<SelectDays>(_onSelectDays);
     on<SelectPlan>(_onSelectPlan);
+    on<SetCustomWorkoutNames>(_onSetCustomWorkoutNames);
   }
 
   Future<void> _onSaveOnboarding(
@@ -82,5 +88,13 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
     emit(
       OnboardingState.planSelected(days: _selectedDays, plan: _selectedPlan),
     );
+  }
+
+  void _onSetCustomWorkoutNames(
+    SetCustomWorkoutNames event,
+    Emitter<OnboardingState> emit,
+  ) {
+    _customWorkoutNames = event.workoutNames;
+    emit(OnboardingState.customWorkoutNamesSet(_customWorkoutNames));
   }
 }
