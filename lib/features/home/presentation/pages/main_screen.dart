@@ -3,9 +3,12 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gym_buddy/features/home/presentation/pages/home_screen.dart';
 import 'package:gym_buddy/features/profile/presentation/pages/profile_screen.dart';
+import 'package:gym_buddy/features/workout/presentation/bloc/workout_bloc.dart';
 import 'package:gym_buddy/features/workout/presentation/pages/workout_screen.dart';
+import 'package:gym_buddy/injections.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -16,17 +19,22 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
+  int _previousIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(
-        index: _currentIndex,
-        children: const [HomeScreen(), WorkoutScreen(), ProfileScreen()],
+    return BlocProvider(
+      create: (context) =>
+          getIt<WorkoutBloc>()..add(const WorkoutEvent.loadWorkouts()),
+      child: Scaffold(
+        body: IndexedStack(
+          index: _currentIndex,
+          children: const [HomeScreen(), WorkoutScreen(), ProfileScreen()],
+        ),
+        bottomNavigationBar: Platform.isAndroid
+            ? _buildBottomNavBar()
+            : _buildBottomNavBarIos(),
       ),
-      bottomNavigationBar: Platform.isAndroid
-          ? _buildBottomNavBar()
-          : _buildBottomNavBarIos(),
     );
   }
 
@@ -37,8 +45,16 @@ class _MainScreenState extends State<MainScreen> {
       currentIndex: _currentIndex,
       onTap: (index) {
         setState(() {
+          _previousIndex = _currentIndex;
           _currentIndex = index;
         });
+
+        // Refresh workouts when switching to workout tab
+        if (index == 1 && _previousIndex != 1) {
+          context.read<WorkoutBloc>().add(
+            const WorkoutEvent.loadWorkouts(forceLoading: false),
+          );
+        }
       },
       items: [
         BottomNavigationBarItem(
@@ -62,8 +78,16 @@ class _MainScreenState extends State<MainScreen> {
       currentIndex: _currentIndex,
       onTap: (index) {
         setState(() {
+          _previousIndex = _currentIndex;
           _currentIndex = index;
         });
+
+        // Refresh workouts when switching to workout tab
+        if (index == 1 && _previousIndex != 1) {
+          context.read<WorkoutBloc>().add(
+            const WorkoutEvent.loadWorkouts(forceLoading: false),
+          );
+        }
       },
       items: [
         BottomNavigationBarItem(

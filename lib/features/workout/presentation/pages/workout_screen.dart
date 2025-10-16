@@ -14,16 +14,6 @@ class WorkoutScreen extends StatefulWidget {
 
 class _WorkoutScreenState extends State<WorkoutScreen> {
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) {
-        context.read<WorkoutBloc>().add(const WorkoutEvent.loadWorkouts());
-      }
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -52,20 +42,30 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                   );
                 }
 
-                if (state is Loaded) {
-                  return WorkoutContentBuilder(
-                    workouts: state.workouts,
-                    stats: state.stats,
+                if (state is Loaded || state is SilentlyUpdated) {
+                  final workouts = state is Loaded
+                      ? state.workouts
+                      : (state as SilentlyUpdated).workouts;
+                  final stats = state is Loaded
+                      ? state.stats
+                      : (state as SilentlyUpdated).stats;
+                  final groupedWorkouts = state is Loaded
+                      ? state.groupedWorkouts
+                      : (state as SilentlyUpdated).groupedWorkouts;
 
-                    groupedWorkouts: state.groupedWorkouts,
+                  return WorkoutContentBuilder(
+                    workouts: workouts,
+                    stats: stats,
+                    groupedWorkouts: groupedWorkouts ?? {},
                   );
                 }
 
                 if (state is Updated) {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     if (context.mounted) {
+                      // Використовуємо silent reload після оновлення
                       context.read<WorkoutBloc>().add(
-                        const WorkoutEvent.loadWorkouts(),
+                        const WorkoutEvent.loadWorkouts(forceLoading: false),
                       );
                     }
                   });
@@ -75,8 +75,9 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                 if (state is Created) {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     if (context.mounted) {
+                      // Після створення показуємо loader
                       context.read<WorkoutBloc>().add(
-                        const WorkoutEvent.loadWorkouts(),
+                        const WorkoutEvent.loadWorkouts(forceLoading: true),
                       );
                     }
                   });
@@ -88,8 +89,9 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                 if (state is Deleted) {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     if (context.mounted) {
+                      // Після видалення показуємо loader
                       context.read<WorkoutBloc>().add(
-                        const WorkoutEvent.loadWorkouts(),
+                        const WorkoutEvent.loadWorkouts(forceLoading: true),
                       );
                     }
                   });

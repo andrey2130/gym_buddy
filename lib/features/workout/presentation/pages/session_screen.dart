@@ -29,6 +29,9 @@ class _SessionScreenState extends State<SessionScreen>
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
+  
+  WorkoutEntity? _currentWorkout;
+
   @override
   void initState() {
     super.initState();
@@ -52,10 +55,14 @@ class _SessionScreenState extends State<SessionScreen>
 
     _animationController.forward();
 
+    _currentWorkout = widget.workout;
+
     if (widget.workout == null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (mounted) {
-          context.read<WorkoutBloc>().add(const WorkoutEvent.loadWorkouts());
+          context.read<WorkoutBloc>().add(
+            const WorkoutEvent.loadWorkouts(forceLoading: true),
+          );
         }
       });
     }
@@ -65,22 +72,31 @@ class _SessionScreenState extends State<SessionScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
+        bottom: false,
         child: FadeTransition(
           opacity: _fadeAnimation,
           child: SlideTransition(
             position: _slideAnimation,
             child: BlocBuilder<WorkoutBloc, WorkoutState>(
               builder: (context, state) {
-                if (state is Initial ||
-                    (state is Loading && widget.workout == null)) {
-                  return const SessionLoadingState();
+                // Зберігаємо поточний workout при оновленнях
+                if (state is Updated) {
+                  if (state.workout.workoutId == widget.workoutId) {
+                    _currentWorkout = state.workout;
+                  }
+                  return _buildSessionContent(_currentWorkout!);
                 }
 
-                if (state is Loaded) {
+                if (state is Loaded || state is SilentlyUpdated) {
+                  final workouts = state is Loaded 
+                      ? state.workouts 
+                      : (state as SilentlyUpdated).workouts;
+                  
                   try {
-                    final workout = state.workouts.firstWhere(
+                    final workout = workouts.firstWhere(
                       (w) => w.workoutId == widget.workoutId,
                     );
+                    _currentWorkout = workout;
                     return _buildSessionContent(workout);
                   } catch (e) {
                     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -93,8 +109,12 @@ class _SessionScreenState extends State<SessionScreen>
                   }
                 }
 
-                if (state is Updated) {
-                  return _buildSessionContent(state.workout);
+                if (state is Initial || state is Loading) {
+                  // Якщо є збережений workout, показуємо його замість loader
+                  if (_currentWorkout != null) {
+                    return _buildSessionContent(_currentWorkout!);
+                  }
+                  return const SessionLoadingState();
                 }
 
                 if (state is Failure) {
@@ -103,7 +123,16 @@ class _SessionScreenState extends State<SessionScreen>
                       context,
                     ).showSnackBar(SnackBar(content: Text(state.message)));
                   });
+                  // Якщо є збережений workout, показуємо його
+                  if (_currentWorkout != null) {
+                    return _buildSessionContent(_currentWorkout!);
+                  }
                   return SessionErrorState(message: state.message);
+                }
+
+                // Fallback - якщо є збережений workout
+                if (_currentWorkout != null) {
+                  return _buildSessionContent(_currentWorkout!);
                 }
 
                 return const SessionLoadingState();

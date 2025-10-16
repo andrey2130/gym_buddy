@@ -47,8 +47,8 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return SizedBox(
-      height: height ?? 56.h,
+    return ConstrainedBox(
+      constraints: BoxConstraints(minHeight: height ?? 56.h),
       child: TextFormField(
         autocorrect: false,
         controller: controller,

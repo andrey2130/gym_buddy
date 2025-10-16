@@ -17,6 +17,26 @@ Users can register, select training days, customize their plan, log exercises wi
 🏋️ Workout Tracker: exercises, sets, reps, save progress
 Here’s your updated and expanded plan in English 👇
 
+
+**Home scren**
+
+---
+### **Personalized Home Screen Features**
+
+* **Reminders based on selected days:** Since the user has already indicated they train on, for example, Monday, Wednesday, and Friday, you can automatically generate reminders. On Monday morning, the home screen can show a large block saying: "**Today is your training day!**" This will be much more effective than general advice.
+* **Workout suggestions based on the plan:** If a user chose a "Push / Pull / Legs" plan, you can automatically suggest the appropriate workout on the home screen. For instance, on Monday, it could be "**Push (Chest, shoulders, triceps)**." This makes it easier for the user to start their session, as they don't have to think about where to begin.
+* **Personalized tips:** Use the chosen plan to provide targeted advice. If a user chose a "Bro Split," you can show tips related to the recovery of specific muscle groups. For example: "Today is leg day; don't forget to stretch your quadriceps after your workout."
+* **Displaying progress based on the plan:** The home screen can show where the user is in their training cycle. For instance: "Your Push/Pull/Legs cycle: **Day 1 of 3**." This creates a sense of accomplishment and progress.
+
+
+
+### **General Design and Functionality Ideas**
+
+* **Dynamic button:** Instead of a generic "Create a new session" button, make it dynamic. If today is a training day, it should say "**Start today's workout**." If not, it can say "Start a new session." This is intuitive and user-friendly.
+* **Location integration:** Since the user enters their country and city, you can use this in the future to find friends in the same city, which was one of your original ideas.
+* **"Daily Progress" widget:** If a user has started a workout, you can add a mini-widget on the home screen that shows how many sets or exercises they've already completed from the current plan. This provides a sense of real-time progress.
+
+---
 **FIRST SCREEN – WorkoutScreen**
 
 1. Display all user workout sessions (with state: *active* or *completed*).

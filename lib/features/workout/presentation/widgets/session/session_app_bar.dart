@@ -81,9 +81,30 @@ class SessionAppBar extends StatelessWidget {
                   return !workout.isCompleted
                       ? EndSessionButton(workout: workout)
                       : const CompletedBadge();
-                } catch (e) {
+                } catch (_) {
                   return const SizedBox.shrink();
                 }
+              }
+              if (state is SilentlyUpdated) {
+                try {
+                  final workout = state.workouts.firstWhere(
+                    (w) => w.workoutId == workoutId,
+                  );
+                  return !workout.isCompleted
+                      ? EndSessionButton(workout: workout)
+                      : const CompletedBadge();
+                } catch (_) {
+                  return const SizedBox.shrink();
+                }
+              }
+              if (state is Updated) {
+                final workout = state.workout;
+                if (workout.workoutId == workoutId) {
+                  return !workout.isCompleted
+                      ? EndSessionButton(workout: workout)
+                      : const CompletedBadge();
+                }
+                return const SizedBox.shrink();
               }
               return const SizedBox.shrink();
             },

@@ -18,6 +18,10 @@ abstract class ProfileRepository {
   Future<Either<Failure, UserEntity>> changeUserTrainingDays(
     ChangeUserTrainingDaysParams params,
   );
+  Future<Either<Failure, UserEntity>> updateWorkoutNames(
+    String uid,
+    Map<String, String> workoutNames,
+  );
   Future<Either<Failure, UserEntity>> updateUserStats(
     UpdateUserStatsParams params,
   );

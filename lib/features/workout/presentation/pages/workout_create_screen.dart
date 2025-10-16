@@ -29,11 +29,9 @@ class _WorkoutCreateScreenState extends State<WorkoutCreateScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: RefreshIndicator(
-        onRefresh: () async {
-          context.read<WorkoutBloc>().add(const WorkoutEvent.loadWorkouts());
-        },
-        child: SafeArea(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          physics: const NeverScrollableScrollPhysics(),
           child: Column(
             children: [
               CustomAppBar(
@@ -48,6 +46,7 @@ class _WorkoutCreateScreenState extends State<WorkoutCreateScreen> {
                 'create_your_workout'.tr(),
                 style: Theme.of(context).textTheme.displayLarge,
               ),
+              const SizedBox(height: 16),
               WorkoutForm(
                 nameController: _nameController,
                 selectedDate: _selectedDate,
@@ -56,7 +55,7 @@ class _WorkoutCreateScreenState extends State<WorkoutCreateScreen> {
                 onTimeSelected: (time) => setState(() => _startTime = time),
                 onFormChanged: _validateFormIfReady,
               ),
-              const Spacer(),
+
               BlocConsumer<WorkoutBloc, WorkoutState>(
                 listener: (context, state) {
                   state.whenOrNull(

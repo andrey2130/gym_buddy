@@ -50,6 +50,11 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
   final GetCurrentUserIdUsecase _getCurrentUserIdUsecase;
   final Talker _talker;
 
+  // Кешуємо останній завантажений список воркаутів
+  List<WorkoutEntity> _cachedWorkouts = [];
+  WorkoutStats? _cachedStats;
+  Map<String, List<WorkoutEntity>>? _cachedGroupedWorkouts;
+
   WorkoutBloc(
     this._getWorkoutsUsecase,
     this._createWorkoutUsecase,
@@ -78,7 +83,6 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     on<RemoveExerciseFromWorkout>(_onRemoveExerciseFromWorkout);
     on<EndWorkoutSession>(_onEndWorkoutSession);
     on<CalculateStats>(_onCalculateStats);
-
     on<GroupWorkoutsByDay>(_onGroupWorkoutsByDay);
     on<FormatTime>(_onFormatTime);
     on<FormatDuration>(_onFormatDuration);
@@ -109,7 +113,12 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     LoadWorkouts event,
     Emitter<WorkoutState> emit,
   ) async {
-    emit(const WorkoutState.loading());
+    // Якщо це не форсований перезавантаження і є кеш, використовуємо silent update
+    final bool showLoading = event.forceLoading ?? _cachedWorkouts.isEmpty;
+    
+    if (showLoading) {
+      emit(const WorkoutState.loading());
+    }
 
     final uid = await _getCurrentUserIdUsecase(const NoParams());
     if (uid == null) {
@@ -128,7 +137,17 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
       },
       (workouts) {
         _talker.info('Workouts loaded: ${workouts.length}');
-        emit(WorkoutState.loaded(workouts));
+        _cachedWorkouts = workouts;
+        
+        if (showLoading) {
+          emit(WorkoutState.loaded(workouts));
+        } else {
+          emit(WorkoutState.silentlyUpdated(
+            workouts,
+            stats: _cachedStats,
+            groupedWorkouts: _cachedGroupedWorkouts,
+          ));
+        }
 
         // Calculate stats and group workouts by day after loading workouts
         add(CalculateStats(workouts));
@@ -141,8 +160,6 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     UpdateWorkout event,
     Emitter<WorkoutState> emit,
   ) async {
-    emit(const WorkoutState.loading());
-
     final result = await _updateWorkoutUsecase(event.workout);
 
     result.fold(
@@ -152,6 +169,13 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
       },
       (workout) {
         _talker.info('Workout updated successfully');
+        
+        // Оновлюємо кеш локально
+        final index = _cachedWorkouts.indexWhere((w) => w.workoutId == workout.workoutId);
+        if (index != -1) {
+          _cachedWorkouts[index] = workout;
+        }
+        
         emit(WorkoutState.updated(workout));
       },
     );
@@ -161,8 +185,6 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     EditWorkout event,
     Emitter<WorkoutState> emit,
   ) async {
-    emit(const WorkoutState.loading());
-
     final result = await _editWorkoutUsecase(event.workout);
 
     result.fold(
@@ -172,6 +194,13 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
       },
       (workout) {
         _talker.info('Workout edited successfully');
+        
+        // Оновлюємо кеш локально
+        final index = _cachedWorkouts.indexWhere((w) => w.workoutId == workout.workoutId);
+        if (index != -1) {
+          _cachedWorkouts[index] = workout;
+        }
+        
         emit(WorkoutState.updated(workout));
       },
     );
@@ -190,6 +219,13 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
       },
       (workout) {
         _talker.info('Workout exercises updated successfully');
+        
+        // Оновлюємо кеш локально
+        final index = _cachedWorkouts.indexWhere((w) => w.workoutId == workout.workoutId);
+        if (index != -1) {
+          _cachedWorkouts[index] = workout;
+        }
+        
         emit(WorkoutState.updated(workout));
       },
     );
@@ -199,8 +235,6 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     DeleteWorkout event,
     Emitter<WorkoutState> emit,
   ) async {
-    emit(const WorkoutState.loading());
-
     final params = DeleteWorkoutParams(
       userId: event.params.userId,
       workoutId: event.params.workoutId,
@@ -215,6 +249,10 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
       },
       (_) {
         _talker.info('Workout deleted successfully');
+        
+        // Видаляємо з кешу локально
+        _cachedWorkouts.removeWhere((w) => w.workoutId == event.params.workoutId);
+        
         emit(WorkoutState.deleted(event.params));
       },
     );
@@ -233,6 +271,13 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
       },
       (workout) {
         _talker.info('Exercise added successfully');
+        
+        // Оновлюємо кеш локально
+        final index = _cachedWorkouts.indexWhere((w) => w.workoutId == workout.workoutId);
+        if (index != -1) {
+          _cachedWorkouts[index] = workout;
+        }
+        
         emit(WorkoutState.updated(workout));
       },
     );
@@ -251,6 +296,13 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
       },
       (workout) {
         _talker.info('Exercise updated successfully');
+        
+        // Оновлюємо кеш локально
+        final index = _cachedWorkouts.indexWhere((w) => w.workoutId == workout.workoutId);
+        if (index != -1) {
+          _cachedWorkouts[index] = workout;
+        }
+        
         emit(WorkoutState.updated(workout));
       },
     );
@@ -269,6 +321,13 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
       },
       (workout) {
         _talker.info('Exercise removed successfully');
+        
+        // Оновлюємо кеш локально
+        final index = _cachedWorkouts.indexWhere((w) => w.workoutId == workout.workoutId);
+        if (index != -1) {
+          _cachedWorkouts[index] = workout;
+        }
+        
         emit(WorkoutState.updated(workout));
       },
     );
@@ -287,6 +346,13 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
       },
       (workout) {
         _talker.info('Workout session ended successfully');
+        
+        // Оновлюємо кеш локально
+        final index = _cachedWorkouts.indexWhere((w) => w.workoutId == workout.workoutId);
+        if (index != -1) {
+          _cachedWorkouts[index] = workout;
+        }
+        
         emit(WorkoutState.updated(workout));
       },
     );
@@ -306,12 +372,14 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
       },
       (stats) {
         _talker.info('Stats calculated successfully');
-        // Update the current loaded state with stats
+        _cachedStats = stats;
+        
         final currentState = state;
         if (currentState is Loaded) {
           emit(currentState.copyWith(stats: stats));
+        } else if (currentState is SilentlyUpdated) {
+          emit(currentState.copyWith(stats: stats));
         } else {
-          // If not in loaded state, create a new loaded state with stats
           emit(WorkoutState.loaded(event.workouts, stats: stats));
         }
       },
@@ -332,12 +400,14 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
       },
       (groupedWorkouts) {
         _talker.info('Workouts grouped by day successfully');
-        // Update the current loaded state with grouped workouts
+        _cachedGroupedWorkouts = groupedWorkouts;
+        
         final currentState = state;
         if (currentState is Loaded) {
           emit(currentState.copyWith(groupedWorkouts: groupedWorkouts));
+        } else if (currentState is SilentlyUpdated) {
+          emit(currentState.copyWith(groupedWorkouts: groupedWorkouts));
         } else {
-          // If not in loaded state, create a new loaded state with grouped workouts
           emit(
             WorkoutState.loaded(
               event.workouts,
