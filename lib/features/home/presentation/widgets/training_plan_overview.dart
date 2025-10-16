@@ -51,7 +51,7 @@ class PlanDayItemData {
 class PlanDayItem extends StatelessWidget {
   final PlanDayItemData data;
 
-  const PlanDayItem({super.key, required this.data});
+  const PlanDayItem({required this.data, super.key});
 
   @override
   Widget build(BuildContext context) {

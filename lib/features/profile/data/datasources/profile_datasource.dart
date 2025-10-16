@@ -22,6 +22,10 @@ abstract class ProfileDataSource {
   Future<UserModel?> changeUserTrainingDays(
     ChangeUserTrainingDaysParams params,
   );
+  Future<UserModel?> updateWorkoutNames(
+    String uid,
+    Map<String, String> workoutNames,
+  );
   Future<UserModel?> updateUserStats(UpdateUserStatsParams params);
 }
 
@@ -221,6 +225,33 @@ class ProfileDataSourceImpl implements ProfileDataSource {
       final doc = await _firestore.collection('users').doc(params.uid).get();
       if (!doc.exists || doc.data() == null) return null;
       return UserModel.fromJson(doc.data()!);
+    } catch (e) {
+      _talker.handle(e);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<UserModel?> updateWorkoutNames(
+    String uid,
+    Map<String, String> workoutNames,
+  ) async {
+    try {
+      await _firestore.collection('users').doc(uid).update({
+        'workoutNames': workoutNames,
+        'updatedAt': FieldValue.serverTimestamp(),
+      });
+      final doc = await _firestore.collection('users').doc(uid).get();
+      if (!doc.exists || doc.data() == null) return null;
+      return UserModel.fromJson(doc.data()!);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-token-expired') {
+        _talker.error('Token expired, signing out user');
+        await _firebaseAuth.signOut();
+        throw Exception('SESSION_EXPIRED');
+      }
+      _talker.handle(e);
+      rethrow;
     } catch (e) {
       _talker.handle(e);
       rethrow;

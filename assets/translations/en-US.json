@@ -202,6 +202,18 @@
   "min": "min", 
   "avatar": "Avatar", 
   "background": "Background",
-  "choose_avatar": "Choose Avatar"
+  "choose_avatar": "Choose Avatar",
+  "next_training_day": "NEXT TRAINING DAY",
+  "tomorrow": "tomorrow",
+  "in_days": "in {} days",
+  "start_new_session": "Start New Session",
+  "hours": "hours",
+  "day_m": "M",
+  "day_t": "T",
+  "day_w": "W",
+  "day_th": "T",
+  "day_f": "F",
+  "day_s": "S",
+  "day_su": "S"
 
 }

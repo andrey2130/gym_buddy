@@ -30,6 +30,11 @@ import 'features/auth/domain/usecases/login_usecase.dart' as _i206;
 import 'features/auth/domain/usecases/logout_usecase.dart' as _i824;
 import 'features/auth/domain/usecases/register_usecase.dart' as _i693;
 import 'features/auth/presentation/bloc/auth_bloc.dart' as _i363;
+import 'features/home/data/datasources/home_datasource_impl.dart' as _i905;
+import 'features/home/data/repository/home_repository_impl.dart' as _i891;
+import 'features/home/domain/repository/home_repository.dart' as _i125;
+import 'features/home/domain/usecases/get_home_overview_usecase.dart' as _i731;
+import 'features/home/presentation/bloc/home_bloc.dart' as _i123;
 import 'features/onboarding/data/datasource/onboarding_datasource.dart'
     as _i691;
 import 'features/onboarding/data/repo/onboarding_repo_impl.dart' as _i139;
@@ -194,6 +199,12 @@ extension GetItInjectableX on _i174.GetIt {
         auth: gh<_i59.FirebaseAuth>(),
       ),
     );
+    gh.lazySingleton<_i905.HomeDataSource>(
+      () => _i905.HomeDataSourceImpl(
+        gh<_i326.ProfileDataSource>(),
+        gh<_i482.WorkoutDatasource>(),
+      ),
+    );
     gh.factory<_i959.SyncUserStatsFromWorkoutsUsecase>(
       () => _i959.SyncUserStatsFromWorkoutsUsecase(
         gh<_i982.UpdateUserStatsUsecase>(),
@@ -227,6 +238,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i312.GetOnboardingUsecase>(),
         gh<_i207.Talker>(),
       ),
+    );
+    gh.factory<_i125.HomeRepository>(
+      () => _i891.HomeRepositoryImpl(gh<_i905.HomeDataSource>()),
     );
     gh.factory<_i630.GetCurrentUserIdUsecase>(
       () => _i630.GetCurrentUserIdUsecase(gh<_i442.AuthRepo>()),
@@ -273,6 +287,16 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i588.FormatWorkoutTimeUsecase>(),
         gh<_i589.ValidateWorkoutCreationUsecase>(),
         gh<_i630.GetCurrentUserIdUsecase>(),
+      ),
+    );
+    gh.factory<_i731.GetHomeOverviewUsecase>(
+      () => _i731.GetHomeOverviewUsecase(gh<_i125.HomeRepository>()),
+    );
+    gh.factory<_i123.HomeBloc>(
+      () => _i123.HomeBloc(
+        gh<_i731.GetHomeOverviewUsecase>(),
+        gh<_i630.GetCurrentUserIdUsecase>(),
+        gh<_i207.Talker>(),
       ),
     );
     return this;

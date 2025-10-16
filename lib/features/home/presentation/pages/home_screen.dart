@@ -1,15 +1,18 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gym_buddy/features/home/domain/entities/home_overview_entity.dart';
+import 'package:gym_buddy/features/home/presentation/bloc/home_bloc.dart'
+    as home;
 import 'package:gym_buddy/features/home/presentation/widgets/dynamic_action_button.dart';
 import 'package:gym_buddy/features/home/presentation/widgets/home_app_bar.dart';
 import 'package:gym_buddy/features/home/presentation/widgets/personalized_tip_card.dart';
 import 'package:gym_buddy/features/home/presentation/widgets/stat_card.dart';
+import 'package:gym_buddy/features/home/presentation/widgets/next_training_banner.dart';
 import 'package:gym_buddy/features/home/presentation/widgets/training_day_banner.dart';
 import 'package:gym_buddy/features/home/presentation/widgets/training_plan_overview.dart';
 import 'package:gym_buddy/features/home/presentation/widgets/weekly_progress.dart';
 import 'package:gym_buddy/features/profile/presentation/bloc/profile_bloc.dart';
-import 'package:gym_buddy/features/workout/domain/entity/workout_entity.dart';
 import 'package:gym_buddy/features/workout/presentation/bloc/workout_bloc.dart'
     as workout;
 import 'package:gym_buddy/injections.dart';
@@ -30,6 +33,10 @@ class HomeScreen extends StatelessWidget {
               getIt<workout.WorkoutBloc>()
                 ..add(const workout.WorkoutEvent.loadWorkouts()),
         ),
+        BlocProvider(
+          create: (context) =>
+              getIt<home.HomeBloc>()..add(const home.HomeEvent.load()),
+        ),
       ],
       child: BlocBuilder<ProfileBloc, ProfileState>(
         builder: (context, profileState) {
@@ -43,7 +50,16 @@ class HomeScreen extends StatelessWidget {
             loaded: (user) =>
                 BlocBuilder<workout.WorkoutBloc, workout.WorkoutState>(
                   builder: (context, workoutState) {
-                    return _buildHomeContent(context, user.name, workoutState);
+                    return BlocBuilder<home.HomeBloc, home.HomeState>(
+                      builder: (context, homeState) {
+                        return _buildHomeContent(
+                          context,
+                          user.name,
+                          workoutState,
+                          homeState,
+                        );
+                      },
+                    );
                   },
                 ),
             failure: (message) =>
@@ -60,25 +76,58 @@ class HomeScreen extends StatelessWidget {
     BuildContext context,
     String userName,
     workout.WorkoutState workoutState,
+    home.HomeState homeState,
   ) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
 
-    const bool isTrainingDay = true;
-    const String trainingPlan = "Push / Pull / Legs";
-    const String currentWorkout = "Push (Chest, shoulders, triceps)";
-    const int cycleDay = 1;
-    const int totalCycleDays = 3;
+    return homeState.when(
+      initial: () => const Scaffold(
+        body: Center(child: CircularProgressIndicator.adaptive()),
+      ),
+      loading: () => const Scaffold(
+        body: Center(child: CircularProgressIndicator.adaptive()),
+      ),
+      loaded: (overview) => _buildLoadedContent(
+        context,
+        userName,
+        overview,
+        workoutState,
+        textTheme,
+      ),
+      failure: (message) =>
+          Scaffold(body: Center(child: Text('Error: $message'))),
+    );
+  }
 
-    int completedWorkouts = 0;
-    int totalWorkouts = 0;
-    Set<int> completedIndices = {};
-
-    if (workoutState is workout.Loaded) {
-      completedWorkouts = workoutState.stats?.totalWorkouts ?? 0;
-      totalWorkouts = workoutState.workouts.length;
-      completedIndices = _getCompletedWorkoutDays(workoutState.workouts);
-    }
+  Widget _buildLoadedContent(
+    BuildContext context,
+    String userName,
+    HomeOverviewEntity overview,
+    workout.WorkoutState workoutState,
+    TextTheme textTheme,
+  ) {
+    final isTrainingDay = overview.isTrainingDay;
+    final trainingPlan = overview.trainingPlan;
+    final currentWorkout = overview.currentWorkoutTitle;
+    final cycleDay = overview.cycleDay;
+    final totalCycleDays = overview.totalCycleDays;
+    final tip = overview.personalizedTip;
+    final completedWorkouts = overview.completedWorkouts;
+    final totalWorkouts = overview.totalWorkouts;
+    final completedIndices = overview.completedDayIndices;
+    final nextTrainingWorkout = overview.nextTrainingWorkout;
+    final nextTrainingDay = overview.nextTrainingDay;
+    final daysUntilNextTraining = overview.daysUntilNextTraining;
+    final overviewItems = overview.planItems
+        .map(
+          (e) => PlanDayItemData(
+            workout: e.workout,
+            days: e.days,
+            isActive: e.isActive,
+          ),
+        )
+        .toList();
 
     return Scaffold(
       body: SafeArea(
@@ -87,6 +136,7 @@ class HomeScreen extends StatelessWidget {
             context.read<workout.WorkoutBloc>().add(
               const workout.WorkoutEvent.loadWorkouts(),
             );
+            context.read<home.HomeBloc>().add(const home.HomeEvent.refresh());
           },
           child: CustomScrollView(
             slivers: [
@@ -98,18 +148,28 @@ class HomeScreen extends StatelessWidget {
                   delegate: SliverChildListDelegate([
                     // spacing after app bar handled above
                     if (isTrainingDay)
-                      const TrainingDayBanner(
-                        currentWorkout: currentWorkout,
-                        trainingPlan: trainingPlan,
-                        cycleDay: cycleDay,
-                        totalCycleDays: totalCycleDays,
+                      TrainingDayBanner(
+                        currentWorkout: currentWorkout ?? '',
+                        trainingPlan: trainingPlan ?? '',
+                        cycleDay: cycleDay ?? 0,
+                        totalCycleDays: totalCycleDays ?? 0,
+                      )
+                    else if (nextTrainingWorkout != null &&
+                        nextTrainingDay != null &&
+                        daysUntilNextTraining != null)
+                      NextTrainingBanner(
+                        nextWorkout: nextTrainingWorkout,
+                        nextDay: nextTrainingDay,
+                        daysUntil: daysUntilNextTraining,
                       ),
 
                     const SizedBox(height: 24),
 
                     // Dynamic Action Button
                     DynamicActionButton(
-                      label: "start_today's_workout".tr(),
+                      label: isTrainingDay
+                          ? "start_today's_workout".tr()
+                          : 'start_new_session'.tr(),
                       icon: Icons.play_arrow_rounded,
                       onPressed: () {},
                     ),
@@ -119,7 +179,15 @@ class HomeScreen extends StatelessWidget {
                     WeeklyProgress(
                       completedWorkouts: completedWorkouts,
                       totalWorkouts: totalWorkouts,
-                      days: const ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+                      days: [
+                        'day_m'.tr(),
+                        'day_t'.tr(),
+                        'day_w'.tr(),
+                        'day_th'.tr(),
+                        'day_f'.tr(),
+                        'day_s'.tr(),
+                        'day_su'.tr(),
+                      ],
                       completedIndices: completedIndices,
                       todayIndex: _todayIndex(context),
                     ),
@@ -132,7 +200,7 @@ class HomeScreen extends StatelessWidget {
                           child: StatCard(
                             icon: Icons.timer_outlined,
                             value:
-                                '${_calculateAverageWorkoutTime(workoutState is workout.Loaded ? workoutState.workouts : [])} ${'min'.tr()}',
+                                '${overview.averageWorkoutHours} ${'hours'.tr()}',
                             label: 'avg_time'.tr(),
                             color: Colors.blue,
                           ),
@@ -141,38 +209,16 @@ class HomeScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 24),
 
-                    PersonalizedTipCard(
-                      tip:
-                          "don't_forget_to_warm_up_before_starting_your_push_exercises!"
-                              .tr(),
-                    ),
+                    if (tip != null) PersonalizedTipCard(tip: tip.tr()),
                     const SizedBox(height: 24),
 
-                    // Training Plan Overview
                     Text(
                       'your_training_plan'.tr(),
                       style: textTheme.displayMedium,
                     ),
                     const SizedBox(height: 12),
-                    const TrainingPlanOverview(
-                      items: [
-                        PlanDayItemData(
-                          workout: 'Push',
-                          days: 'Mon, Thu',
-                          isActive: true,
-                        ),
-                        PlanDayItemData(
-                          workout: 'Pull',
-                          days: 'Tue, Fri',
-                          isActive: false,
-                        ),
-                        PlanDayItemData(
-                          workout: 'Legs',
-                          days: 'Wed, Sat',
-                          isActive: false,
-                        ),
-                      ],
-                    ),
+                    if (overviewItems.isNotEmpty)
+                      TrainingPlanOverview(items: overviewItems),
                   ]),
                 ),
               ),
@@ -183,32 +229,9 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  int _calculateAverageWorkoutTime(List<WorkoutEntity> workouts) {
-    if (workouts.isEmpty) return 0;
-
-    final totalTime = workouts.fold(
-      0,
-      (sum, workout) => sum + (workout.duration ?? 0),
-    );
-    return totalTime ~/ workouts.length;
-  }
-
   int _todayIndex(BuildContext context) {
     final now = DateTime.now();
     final dayOfWeek = now.weekday;
     return dayOfWeek - 1;
-  }
-
-  Set<int> _getCompletedWorkoutDays(List<WorkoutEntity> workouts) {
-    final completedDays = <int>{};
-
-    for (final workout in workouts) {
-      if (workout.isCompleted) {
-        final dayOfWeek = workout.date.weekday;
-        completedDays.add(dayOfWeek - 1);
-      }
-    }
-
-    return completedDays;
   }
 }

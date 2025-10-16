@@ -69,6 +69,22 @@ class ProfileRepositoryImpl implements ProfileRepository {
   }
 
   @override
+  Future<Either<Failure, UserEntity>> updateWorkoutNames(
+    String uid,
+    Map<String, String> workoutNames,
+  ) async {
+    try {
+      final model = await _dataSource.updateWorkoutNames(uid, workoutNames);
+      if (model == null) {
+        return Left(Failure(message: 'User not found'));
+      }
+      return Right(model.toEntity());
+    } catch (e) {
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
   Future<Either<Failure, UserEntity>> updateUserStats(
     UpdateUserStatsParams params,
   ) async {

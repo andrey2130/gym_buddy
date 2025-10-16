@@ -38,6 +38,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<UpdateUserProfile>(_onUpdateUserProfile);
     on<ChangeUserTrainingPlan>(_onChangeUserTrainingPlan);
     on<ChangeUserTrainingDays>(_onChangeUserTrainingDays);
+    // no direct handler here for workout names to avoid Freezed changes
   }
 
   Future<void> _onLoadUserProfile(
@@ -77,6 +78,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       },
     );
   }
+
+  // workout names update is triggered from UI via repository directly
 
   Future<void> _onUpdateUserProfile(
     UpdateUserProfile event,

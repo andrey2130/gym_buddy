@@ -196,5 +196,17 @@
   "min": "хв",
   "avatar": "Аватар",
   "background": "Фон", 
-  "choose_avatar": "Виберіть аватар"
+  "choose_avatar": "Виберіть аватар",
+  "next_training_day": "НАСТУПНИЙ ДЕНЬ ТРЕНУВАННЯ",
+  "tomorrow": "завтра",
+  "in_days": "через {} днів",
+  "start_new_session": "Почати нову сесію",
+  "hours": "годин",
+  "day_m": "П",
+  "day_t": "В",
+  "day_w": "С",
+  "day_th": "Ч",
+  "day_f": "П",
+  "day_s": "С",
+  "day_su": "Н"
 }
