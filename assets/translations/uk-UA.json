@@ -122,6 +122,7 @@
   "create_your_workout": "Створіть своє тренування",
   "success": "Успіх",
   "workout_created_successfully": "Тренування успішно створено!",
+"workout_started_automatically": "Тренування автоматично розпочато!",
   "ok": "ОК",
   "user_not_authenticated": "Користувач не авторизований",
   "workout_not_found": "Тренування не знайдено",

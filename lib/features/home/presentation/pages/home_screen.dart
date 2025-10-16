@@ -12,6 +12,7 @@ import 'package:gym_buddy/features/home/presentation/widgets/next_training_banne
 import 'package:gym_buddy/features/home/presentation/widgets/training_day_banner.dart';
 import 'package:gym_buddy/features/home/presentation/widgets/training_plan_overview.dart';
 import 'package:gym_buddy/features/home/presentation/widgets/weekly_progress.dart';
+import 'package:gym_buddy/features/home/presentation/services/home_workout_service.dart';
 import 'package:gym_buddy/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:gym_buddy/features/workout/presentation/bloc/workout_bloc.dart'
     as workout;
@@ -171,7 +172,11 @@ class HomeScreen extends StatelessWidget {
                           ? "start_today's_workout".tr()
                           : 'start_new_session'.tr(),
                       icon: Icons.play_arrow_rounded,
-                      onPressed: () {},
+                      onPressed: () =>
+                          HomeWorkoutService.handleActionButtonPress(
+                            context,
+                            overview,
+                          ),
                     ),
                     const SizedBox(height: 24),
 
