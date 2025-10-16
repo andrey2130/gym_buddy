@@ -14,19 +14,6 @@ class WorkoutScreen extends StatefulWidget {
 
 class _WorkoutScreenState extends State<WorkoutScreen> {
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) {
-        // Форсуємо показ loading при першому завантаженні
-        context.read<WorkoutBloc>().add(
-          const WorkoutEvent.loadWorkouts(forceLoading: true),
-        );
-      }
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(

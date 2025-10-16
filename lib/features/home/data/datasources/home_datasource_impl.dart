@@ -4,7 +4,6 @@ import 'package:gym_buddy/features/profile/data/datasources/profile_datasource.d
 import 'package:gym_buddy/features/workout/data/datasource/workout_datasource.dart';
 import 'package:injectable/injectable.dart';
 
-
 abstract class HomeDataSource {
   Future<HomeOverviewModel> getHomeOverview(String uid);
 }

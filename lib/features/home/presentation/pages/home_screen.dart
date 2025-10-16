@@ -4,15 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gym_buddy/features/home/domain/entities/home_overview_entity.dart';
 import 'package:gym_buddy/features/home/presentation/bloc/home_bloc.dart'
     as home;
+import 'package:gym_buddy/features/home/presentation/services/home_workout_service.dart';
 import 'package:gym_buddy/features/home/presentation/widgets/dynamic_action_button.dart';
 import 'package:gym_buddy/features/home/presentation/widgets/home_app_bar.dart';
+import 'package:gym_buddy/features/home/presentation/widgets/next_training_banner.dart';
 import 'package:gym_buddy/features/home/presentation/widgets/personalized_tip_card.dart';
 import 'package:gym_buddy/features/home/presentation/widgets/stat_card.dart';
-import 'package:gym_buddy/features/home/presentation/widgets/next_training_banner.dart';
 import 'package:gym_buddy/features/home/presentation/widgets/training_day_banner.dart';
 import 'package:gym_buddy/features/home/presentation/widgets/training_plan_overview.dart';
 import 'package:gym_buddy/features/home/presentation/widgets/weekly_progress.dart';
-import 'package:gym_buddy/features/home/presentation/services/home_workout_service.dart';
 import 'package:gym_buddy/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:gym_buddy/features/workout/presentation/bloc/workout_bloc.dart'
     as workout;
@@ -28,11 +28,6 @@ class HomeScreen extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               getIt<ProfileBloc>()..add(const LoadUserProfile()),
-        ),
-        BlocProvider(
-          create: (context) =>
-              getIt<workout.WorkoutBloc>()
-                ..add(const workout.WorkoutEvent.loadWorkouts()),
         ),
         BlocProvider(
           create: (context) =>

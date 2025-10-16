@@ -33,6 +33,8 @@ import 'features/auth/presentation/bloc/auth_bloc.dart' as _i363;
 import 'features/home/data/datasources/home_datasource_impl.dart' as _i905;
 import 'features/home/data/repository/home_repository_impl.dart' as _i891;
 import 'features/home/domain/repository/home_repository.dart' as _i125;
+import 'features/home/domain/usecases/create_automatic_workout_usecase.dart'
+    as _i53;
 import 'features/home/domain/usecases/get_home_overview_usecase.dart' as _i731;
 import 'features/home/presentation/bloc/home_bloc.dart' as _i123;
 import 'features/onboarding/data/datasource/onboarding_datasource.dart'
@@ -259,6 +261,12 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i903.EndWorkoutSessionUsecase(
         gh<_i494.WorkoutRepository>(),
         gh<_i959.SyncUserStatsFromWorkoutsUsecase>(),
+      ),
+    );
+    gh.factory<_i53.CreateAutomaticWorkoutUsecase>(
+      () => _i53.CreateAutomaticWorkoutUsecase(
+        gh<_i630.GetCurrentUserIdUsecase>(),
+        gh<_i1046.CreateWorkoutUsecase>(),
       ),
     );
     gh.factory<_i363.AuthBloc>(

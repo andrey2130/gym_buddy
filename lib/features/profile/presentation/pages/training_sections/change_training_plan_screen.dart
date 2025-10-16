@@ -13,10 +13,10 @@ import 'package:gym_buddy/core/widgets/custom_text_field.dart';
 import 'package:gym_buddy/features/onboarding/presentation/widgets/days_selector.dart';
 import 'package:gym_buddy/features/profile/domain/params/change_user_training_days_params.dart';
 import 'package:gym_buddy/features/profile/domain/params/change_user_training_plan_params.dart';
-import 'package:gym_buddy/features/profile/presentation/bloc/profile_bloc.dart';
-import 'package:gym_buddy/injections.dart';
 import 'package:gym_buddy/features/profile/domain/repositories/profile_repositories.dart';
+import 'package:gym_buddy/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:gym_buddy/features/profile/presentation/widgets/training_sections/plan_card.dart';
+import 'package:gym_buddy/injections.dart';
 
 class ChangeTrainingPlanScreen extends StatefulWidget {
   const ChangeTrainingPlanScreen({super.key});
