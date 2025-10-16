@@ -104,6 +104,7 @@ class HomeScreen extends StatelessWidget {
                         cycleDay: cycleDay,
                         totalCycleDays: totalCycleDays,
                       ),
+
                     const SizedBox(height: 24),
 
                     // Dynamic Action Button
