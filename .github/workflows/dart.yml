@@ -13,10 +13,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Встановлюємо Flutter
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: 'stable' # або конкретна версія, наприклад 3.24.2
+          channel: 'stable'
 
       - name: Install dependencies
         run: flutter pub get
