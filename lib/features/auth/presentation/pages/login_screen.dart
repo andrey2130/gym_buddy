@@ -204,11 +204,7 @@ class _LoginScreenState extends State<LoginScreen>
           style: Theme.of(context).textTheme.displayLarge,
         ),
         SizedBox(height: 8.0.h),
-        Text(
-          "login_to_continue".tr(),
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.bodyLarge,
-        ),
+      
       ],
     );
   }
